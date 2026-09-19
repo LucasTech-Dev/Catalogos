@@ -1,0 +1,38 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function profile() { return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data; }
+    function adminFor(storeId) {
+      return signedIn() && profile().tipo == "admin" && profile().status == "ativo" &&
+        (profile().nivel == "global" || (profile().nivel == "loja" && profile().lojaId == storeId));
+    }
+
+    match /usuarios/{uid} {
+      allow create: if signedIn() && request.auth.uid == uid;
+      allow read: if signedIn() && (request.auth.uid == uid || profile().nivel == "global");
+      allow update: if signedIn() && request.auth.uid == uid;
+      allow delete: if adminFor("platform");
+    }
+
+    match /lojas/{lojaId} {
+      allow read: if signedIn();
+      allow create, update, delete: if adminFor(lojaId);
+
+      match /categorias/{id} {
+        allow read: if signedIn();
+        allow create, update, delete: if adminFor(lojaId);
+      }
+      match /produtos/{id} {
+        allow read: if signedIn();
+        allow create, update, delete: if adminFor(lojaId);
+      }
+      match /pedidos/{id} {
+        allow read: if signedIn() && (resource.data.clienteId == request.auth.uid || adminFor(lojaId));
+        allow create: if signedIn() && request.resource.data.clienteId == request.auth.uid && request.resource.data.lojaId == lojaId;
+        allow update, delete: if adminFor(lojaId);
+      }
+    }
+  }
+}
