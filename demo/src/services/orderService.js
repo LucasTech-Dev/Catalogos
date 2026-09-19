@@ -3,7 +3,7 @@ import { db } from "../lib/firebase";
 
 export async function createOrder(lojaId, userId, payload) {
   const ref = await addDoc(collection(db, "lojas", lojaId, "pedidos"), {
-    ...payload, clienteId: userId, lojaId, status: "Criado", criadoEm: serverTimestamp(), atualizadoEm: serverTimestamp()
+    ...payload, clienteId: userId, lojaId, status: "Enviado para WhatsApp", whatsappEnviado: true, whatsappEnviadoEm: serverTimestamp(), criadoEm: serverTimestamp(), atualizadoEm: serverTimestamp()
   });
   return ref.id;
 }
