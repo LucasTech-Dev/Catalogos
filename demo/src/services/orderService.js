@@ -2,8 +2,14 @@ import { addDoc, collection, getDocs, limit, orderBy, query, serverTimestamp, up
 import { db } from "../lib/firebase";
 
 export async function createOrder(lojaId, userId, payload) {
-  const ref = await addDoc(collection(db, "lojas", lojaId, "pedidos"), { ...payload, clienteId: userId, lojaId, status: "Criado", criadoEm: serverTimestamp(), atualizadoEm: serverTimestamp() });
+  const ref = await addDoc(collection(db, "lojas", lojaId, "pedidos"), {
+    ...payload, clienteId: userId, lojaId, status: "Criado", criadoEm: serverTimestamp(), atualizadoEm: serverTimestamp()
+  });
   return ref.id;
+}
+
+export async function markWhatsAppSent(lojaId, orderId) {
+  await updateDoc(doc(db, "lojas", lojaId, "pedidos", orderId), { whatsappEnviado: true, whatsappEnviadoEm: serverTimestamp(), status: "Enviado para WhatsApp", atualizadoEm: serverTimestamp() });
 }
 
 export async function getCustomerOrders(lojaId, userId) {
