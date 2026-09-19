@@ -10,9 +10,17 @@ service cloud.firestore {
     }
 
     match /usuarios/{uid} {
-      allow create: if signedIn() && request.auth.uid == uid;
+      allow create: if signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.tipo == "cliente"
+        && request.resource.data.nivel == "cliente"
+        && request.resource.data.status == "ativo";
       allow read: if signedIn() && (request.auth.uid == uid || profile().nivel == "global");
-      allow update: if signedIn() && request.auth.uid == uid;
+      allow update: if signedIn() && request.auth.uid == uid
+        && request.resource.data.tipo == resource.data.tipo
+        && request.resource.data.nivel == resource.data.nivel
+        && request.resource.data.status == resource.data.status
+        && request.resource.data.lojaId == resource.data.lojaId;
       allow delete: if adminFor("platform");
     }
 
@@ -30,8 +38,11 @@ service cloud.firestore {
       }
       match /pedidos/{id} {
         allow read: if signedIn() && (resource.data.clienteId == request.auth.uid || adminFor(lojaId));
-        allow create: if signedIn() && request.resource.data.clienteId == request.auth.uid && request.resource.data.lojaId == lojaId;
-        allow update, delete: if adminFor(lojaId);
+        allow create: if signedIn()
+          && request.resource.data.clienteId == request.auth.uid
+          && request.resource.data.lojaId == lojaId;
+        allow update: if adminFor(lojaId);
+        allow delete: if adminFor(lojaId);
       }
     }
   }
