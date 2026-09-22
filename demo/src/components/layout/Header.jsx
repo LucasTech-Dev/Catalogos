@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // trava o scroll do body enquanto o menu mobile está aberto
+  // Trava o scroll do body enquanto o menu mobile está aberto
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
 
@@ -12,12 +12,14 @@ function Header() {
     };
   }, [menuOpen]);
 
-  // fecha com ESC (teclado / teclados externos em tablet)
+  // Fecha com ESC
   useEffect(() => {
     if (!menuOpen) return;
 
     function handleKeyDown(event) {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
     }
 
     window.addEventListener("keydown", handleKeyDown);
@@ -32,64 +34,154 @@ function Header() {
   return (
     <header className="site-header">
       <div className="container header-content">
+
+        {/* Logo */}
         <a href="/" className="logo" onClick={closeMenu}>
           <span className="logo-mark" aria-hidden="true">
-            B
+            🍔
           </span>
 
           <span className="logo-text">
-            Bella<span>Food</span>
+            Lanche<span>ria</span>
           </span>
         </a>
 
-        <nav className="desktop-nav" aria-label="Navegação principal">
+        {/* Navegação Desktop */}
+        <nav
+          className="desktop-nav"
+          aria-label="Navegação principal"
+        >
           <a href="/">Início</a>
-          <a href="#cardapio">Cardápio</a>
+          <a href="/cardapio">Cardápio</a>
           <a href="#sobre">Sobre</a>
         </nav>
 
-        <button className="cart-button" type="button" aria-label="Abrir carrinho">
-          <span aria-hidden="true">🛒</span>
-          <span>Carrinho</span>
-          <strong>0</strong>
-        </button>
+        {/* Ações do Header */}
+        <div className="header-actions">
 
-        <button
-          className="mobile-menu"
-          type="button"
-          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-nav"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
+          {/* LOGIN — aparece somente no desktop */}
+          <a
+            href="/login"
+            className="desktop-login-button"
+            aria-label="Entrar na conta"
+          >
+            <span aria-hidden="true">👤</span>
+            <span>Entrar</span>
+          </a>
+
+          <a
+            href="/carrinho"
+            className="desktop-cart-button"
+            aria-label="Abrir carrinho"
+          >
+            <span aria-hidden="true">🛒</span>
+            <span>Carrinho</span>
+            <strong>0</strong>
+          </a>
+
+          {/* MENU MOBILE */}
+          <button
+            className="mobile-menu-toggle"
+            type="button"
+            aria-label={
+              menuOpen ? "Fechar menu" : "Abrir menu"
+            }
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span
+              className={`hamburger-icon ${
+                menuOpen ? "is-open" : ""
+              }`}
+            >
+              {menuOpen ? "✕" : "☰"}
+            </span>
+          </button>
+
+        </div>
       </div>
 
+      {/* Menu Mobile */}
       <nav
         id="mobile-nav"
-        className={`mobile-nav${menuOpen ? " is-open" : ""}`}
+        className={`mobile-nav ${
+          menuOpen ? "is-open" : ""
+        }`}
         aria-label="Navegação mobile"
-        hidden={!menuOpen}
+        aria-hidden={!menuOpen}
       >
         <div className="container mobile-nav-inner">
-          <a href="/" onClick={closeMenu}>
-            Início
-          </a>
-          <a href="#cardapio" onClick={closeMenu}>
-            Cardápio
-          </a>
-          <a href="#sobre" onClick={closeMenu}>
-            Sobre
-          </a>
+
+          {/* Navegação */}
+          <div className="mobile-nav-links">
+
+            <a href="/" onClick={closeMenu}>
+              Início
+            </a>
+
+            <a href="/cardapio" onClick={closeMenu}>
+              Cardápio
+            </a>
+
+            <a href="#sobre" onClick={closeMenu}>
+              Sobre
+            </a>
+
+          </div>
+
+          {/* Ações do usuário */}
+          <div className="mobile-nav-footer">
+
+            <a
+              href="/login"
+              className="mobile-menu-action"
+              onClick={closeMenu}
+            >
+              <span className="mobile-menu-action-icon">
+                👤
+              </span>
+
+              <span>
+                Entrar
+              </span>
+
+              <span className="mobile-menu-arrow">
+                →
+              </span>
+            </a>
+
+            <a
+              href="/carrinho"
+              className="mobile-menu-action"
+              onClick={closeMenu}
+            >
+              <span className="mobile-menu-action-icon">
+                🛒
+              </span>
+
+              <span>
+                Carrinho
+              </span>
+
+              <strong className="mobile-cart-count">
+                0
+              </strong>
+
+              <span className="mobile-menu-arrow">
+                →
+              </span>
+            </a>
+
+          </div>
+
         </div>
       </nav>
 
+      {/* Overlay */}
       {menuOpen && (
-        <button
+        <div
           className="mobile-nav-overlay"
-          type="button"
-          tabIndex={-1}
           aria-hidden="true"
           onClick={closeMenu}
         />
