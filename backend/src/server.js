@@ -4,6 +4,11 @@ require("./config/firebase");
 
 const usuarioRoutes = require("./routes/usuarioRoutes");
 const lojaRoutes = require("./routes/lojaRoutes");
+const categoriaRoutes = require("./routes/categoriaRoutes");
+const produtoRoutes = require("./routes/produtoRoutes");
+const clienteRoutes = require("./routes/clienteRoutes");
+const enderecoRoutes = require("./routes/enderecoRoutes");
+const pedidoRoutes = require("./routes/pedidoRoutes");
 
 const app = express();
 
@@ -17,6 +22,11 @@ app.get("/", (req, res) => {
 
 app.use("/usuarios", usuarioRoutes);
 app.use("/lojas", lojaRoutes);
+app.use("/lojas", categoriaRoutes);
+app.use("/lojas", produtoRoutes);
+app.use("/lojas", clienteRoutes);
+app.use("/lojas", enderecoRoutes);
+app.use("/lojas", pedidoRoutes);
 
 const PORT = process.env.PORT || 3000;
 
