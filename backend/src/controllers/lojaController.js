@@ -15,7 +15,7 @@ async function buscarLoja(req, res) {
       });
     }
 
-    return res.status(200).json(loja);
+    return res.status(200).json(req.user.role === "admin" ? loja : (await require("../services/publicoService").catalogo(lojaId)).loja);
   } catch (error) {
     console.error("Erro ao buscar loja:", error);
 
@@ -40,7 +40,7 @@ async function atualizarPagamentos(req, res) {
       });
     }
 
-    return res.status(200).json(loja);
+    return res.status(200).json(req.user.role === "admin" ? loja : (await require("../services/publicoService").catalogo(lojaId)).loja);
   } catch (error) {
     console.error(
       "Erro ao atualizar pagamentos da loja:",

@@ -78,6 +78,7 @@ function requisitarApp({ metodo, url, token, corpo }) {
       "content-type": "application/json",
     };
 
+    if (metodo === "POST") req.headers["idempotency-key"] = crypto.randomUUID();
     if (token) {
       req.headers.authorization = `Bearer ${token}`;
     }
@@ -147,6 +148,7 @@ async function prepararDados() {
 
   await db.collection("lojas").doc(lojaId).set({
     nome: "Loja Pagamento Emulator",
+    entrega: {habilitada: true,taxa:3},
     status: "ativa",
     pagamentos: {
       pix: true,
@@ -203,7 +205,7 @@ async function prepararDados() {
     .collection("lojas")
     .doc(lojaId)
     .collection("clientes")
-    .doc("cliente-doc-pagamento")
+    .doc("cliente-pagamento-emulator")
     .collection("enderecos")
     .doc("endereco-pagamento")
     .set({
@@ -241,7 +243,7 @@ async function main() {
     url: `/lojas/${dados.lojaId}/pedidos`,
     token: tokenCliente,
     corpo: {
-      clienteId: "cliente-doc-pagamento",
+      clienteId: "cliente-pagamento-emulator",
       enderecoId: "endereco-pagamento",
       tipoEntrega: "entrega",
       taxaEntrega: 3,

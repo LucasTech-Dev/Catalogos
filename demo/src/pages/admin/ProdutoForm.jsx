@@ -1,100 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 
+import {admin} from "../../services/admin";
+import {useAdminRecurso,useAdminLista} from "../../hooks/useAdmin";
+import {AdminState} from "../../components/admin/AdminState";
 function ProdutoForm() {
   const params = new URLSearchParams(window.location.search);
   const produtoId = params.get("id");
-  const editando = Boolean(produtoId);
-
-  const [produto, setProduto] = useState({
-    nome: editando ? "Classic Burger" : "",
-    descricao: editando
-      ? "Pão brioche, hambúrguer artesanal e queijo"
-      : "",
-    categoria: editando ? "Hambúrgueres" : "",
-    preco: editando ? "28.90" : "",
-    ativo: true,
-    imagem: "",
-  });
-
-  const [adicionais, setAdicionais] = useState(
-    editando
-      ? [
-          {
-            id: 1,
-            nome: "Bacon",
-            preco: "5.00",
-            ativo: true,
-          },
-          {
-            id: 2,
-            nome: "Cheddar",
-            preco: "4.00",
-            ativo: true,
-          },
-        ]
-      : []
-  );
-
-  const categorias = [
-    "Hambúrgueres",
-    "Porções",
-    "Bebidas",
-    "Combos",
-  ];
-
-  const atualizarCampo = (campo, valor) => {
-    setProduto((atual) => ({
-      ...atual,
-      [campo]: valor,
-    }));
-  };
-
-  const adicionarAdicional = () => {
-    setAdicionais((atual) => [
-      ...atual,
-      {
-        id: Date.now(),
-        nome: "",
-        preco: "",
-        ativo: true,
-      },
-    ]);
-  };
-
-  const atualizarAdicional = (id, campo, valor) => {
-    setAdicionais((atual) =>
-      atual.map((adicional) =>
-        adicional.id === id
-          ? {
-              ...adicional,
-              [campo]: valor,
-            }
-          : adicional
-      )
-    );
-  };
-
-  const removerAdicional = (id) => {
-    setAdicionais((atual) =>
-      atual.filter((adicional) => adicional.id !== id)
-    );
-  };
-
-  const salvarProduto = (event) => {
-    event.preventDefault();
-
-    console.log("Produto mock:", {
-      ...produto,
-      adicionais,
-    });
-
-    alert(
-      editando
-        ? "Produto atualizado com sucesso (mock)."
-        : "Produto criado com sucesso (mock)."
-    );
-  };
-
+  const [idSalvo,setIdSalvo]=useState(produtoId || '');const editando=Boolean(idSalvo);
+  const [produto,setProduto]=useState({nome:'',descricao:'',categoriaId:'',preco:'',ativo:true,disponivel:true,imagem:''});
+  const [erro,setErro]=useState(''),[salvo,setSalvo]=useState(false),[ocupado,setOcupado]=useState(false);const trava=useRef(false);
+  const carregar=useCallback(()=>produtoId?admin.buscar('produtos',produtoId):Promise.resolve(null),[produtoId]);
+  const recurso=useAdminRecurso(carregar),categoriasRecurso=useAdminLista('categorias',{limite:100,contagem:'0'});const categorias=categoriasRecurso.itens;
+  useEffect(()=>{if(recurso.dados)setProduto({...recurso.dados,preco:String(recurso.dados.preco),disponivel:recurso.dados.disponivel!==false});},[recurso.dados]);
+  const atualizarCampo=(campo,valor)=>{setProduto(a=>({...a,[campo]:valor}));setSalvo(false);};
+  async function salvarProduto(event){
+    event.preventDefault();if(trava.current)return;trava.current=true;setOcupado(true);setErro('');setSalvo(false);
+    try {if(produto.preco==='')throw new Error('Informe o preço.');const dados={nome:produto.nome,descricao:produto.descricao,categoriaId:produto.categoriaId,preco:Number(produto.preco),ativo:produto.ativo,disponivel:produto.disponivel,imagem:produto.imagem};const resultado=await admin.salvar('produtos',idSalvo || null,dados);setIdSalvo(resultado.id);setProduto({...resultado,preco:String(resultado.preco),disponivel:resultado.disponivel!==false});setSalvo(true);}catch(e){setErro(e.message);}finally{trava.current=false;setOcupado(false);}
+  }
   return (
     <main className="admin-product-form-page">
       <div className="admin-container">
@@ -131,6 +53,7 @@ function ProdutoForm() {
 
         </section>
 
+        <AdminState recurso={recurso}/><AdminState recurso={categoriasRecurso}/>{erro && <p role="alert">{erro}</p>}{salvo && <p role="status">Produto salvo. <a href="/admin/produtos">Ver produtos</a></p>}
         <form
           className="admin-product-form"
           onSubmit={salvarProduto}
@@ -205,10 +128,10 @@ function ProdutoForm() {
 
                   <select
                     id="categoria"
-                    value={produto.categoria}
+                    value={produto.categoriaId}
                     onChange={(event) =>
                       atualizarCampo(
-                        "categoria",
+                        "categoriaId",
                         event.target.value
                       )
                     }
@@ -218,15 +141,16 @@ function ProdutoForm() {
                       Selecione uma categoria
                     </option>
 
+                    {produto.categoriaId && !categorias.some(c=>c.id===produto.categoriaId) && <option value={produto.categoriaId}>Categoria atual</option>}
                     {categorias.map((item) => (
                       <option
-                        key={item}
-                        value={item}
+                        key={item.id}
+                        value={item.id} disabled={item.ativo === false && produto.categoriaId !== item.id}
                       >
-                        {item}
+                        {item.nome}
                       </option>
                     ))}
-                  </select>
+                  </select>{categoriasRecurso.temProximo && <button type="button" onClick={categoriasRecurso.proximo}>Mais categorias</button>}{categoriasRecurso.temAnterior && <button type="button" onClick={categoriasRecurso.anterior}>Categorias anteriores</button>}
 
                 </div>
 
@@ -307,144 +231,10 @@ function ProdutoForm() {
                     no catálogo.
                   </p>
 
-                  <button
-                    type="button"
-                    className="admin-secondary-button"
-                  >
-                    Escolher imagem
-                  </button>
-
+                  <label htmlFor="imagem-url">URL da imagem</label><input id="imagem-url" type="url" value={produto.imagem} onChange={e=>atualizarCampo('imagem',e.target.value)} placeholder="https://..."/>
                 </div>
 
               </div>
-
-            </div>
-
-          </section>
-
-          {/* ADICIONAIS */}
-
-          <section className="admin-panel">
-
-            <div className="admin-panel-header">
-
-              <div>
-                <span className="eyebrow">
-                  PERSONALIZAÇÃO
-                </span>
-
-                <h2>Adicionais</h2>
-
-                <p className="admin-panel-description">
-                  Permita que o cliente personalize
-                  este produto.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                className="admin-secondary-button"
-                onClick={adicionarAdicional}
-              >
-                + Adicionar
-              </button>
-
-            </div>
-
-            <div className="admin-addons-list">
-
-              {adicionais.length === 0 ? (
-
-                <div className="admin-addons-empty">
-
-                  <span>＋</span>
-
-                  <p>
-                    Nenhum adicional cadastrado.
-                  </p>
-
-                  <button
-                    type="button"
-                    onClick={adicionarAdicional}
-                  >
-                    Adicionar primeiro adicional
-                  </button>
-
-                </div>
-
-              ) : (
-
-                adicionais.map((adicional) => (
-
-                  <div
-                    className="admin-addon-row"
-                    key={adicional.id}
-                  >
-
-                    <div className="admin-addon-field">
-
-                      <label>
-                        Nome
-                      </label>
-
-                      <input
-                        type="text"
-                        value={adicional.nome}
-                        onChange={(event) =>
-                          atualizarAdicional(
-                            adicional.id,
-                            "nome",
-                            event.target.value
-                          )
-                        }
-                        placeholder="Ex.: Bacon"
-                      />
-
-                    </div>
-
-                    <div className="admin-addon-field">
-
-                      <label>
-                        Preço
-                      </label>
-
-                      <div className="admin-price-input">
-
-                        <span>R$</span>
-
-                        <input
-                          type="number"
-                          step="0.01"
-                          min="0"
-                          value={adicional.preco}
-                          onChange={(event) =>
-                            atualizarAdicional(
-                              adicional.id,
-                              "preco",
-                              event.target.value
-                            )
-                          }
-                        />
-
-                      </div>
-
-                    </div>
-
-                    <button
-                      type="button"
-                      className="admin-addon-remove"
-                      onClick={() =>
-                        removerAdicional(adicional.id)
-                      }
-                    >
-                      Remover
-                    </button>
-
-                  </div>
-
-                ))
-
-              )}
 
             </div>
 
@@ -494,7 +284,7 @@ function ProdutoForm() {
 
               </label>
 
-            </div>
+            <label className="admin-switch-row"><input type="checkbox" checked={produto.disponivel} onChange={e=>atualizarCampo("disponivel",e.target.checked)}/><span className="admin-switch"/><span>Disponível para pedidos</span></label></div>
 
           </section>
 
@@ -510,7 +300,7 @@ function ProdutoForm() {
             </a>
 
             <button
-              type="submit"
+              disabled={ocupado || recurso.carregando || Boolean(recurso.erro)} type="submit"
               className="admin-primary-button"
             >
               {editando

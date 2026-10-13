@@ -1,40 +1,13 @@
 import React from "react";
 
-const pedido = {
-  id: "1024",
-  data: "Hoje, 14:32",
-  status: "Em preparação",
-  tipo: "Entrega",
-  pagamento: "PIX",
-
-  itens: [
-    {
-      nome: "Classic Burger",
-      descricao: "Pão brioche, hambúrguer artesanal e queijo",
-      quantidade: 2,
-      preco: "R$ 28,90",
-    },
-    {
-      nome: "Batata Frita",
-      descricao: "Porção individual",
-      quantidade: 1,
-      preco: "R$ 12,90",
-    },
-  ],
-
-  subtotal: "R$ 70,70",
-  entrega: "R$ 5,00",
-  total: "R$ 75,70",
-
-  endereco: {
-    rua: "Rua Principal, 120",
-    complemento: "Apartamento 302",
-    bairro: "Centro",
-    cidade: "Capão da Canoa - RS",
-  },
-};
-
+import {useRecurso} from '../hooks/useRecurso';
+import {pedidos} from '../services/api';
+import {moeda} from '../lib/compras';
 function PedidoDetalhes() {
+  const id = new URLSearchParams(window.location.search).get('id');
+  const {dados,erro,carregando,atualizar} = useRecurso(`${pedidos}/${encodeURIComponent(id || '')}`);
+  if (!dados) return <main className="order-details-page"><p role="status">{erro || (carregando ? 'Carregando...' : 'Pedido não encontrado.')}</p><a href="/perfil/pedidos">Meus pedidos</a></main>;
+  const pedido = {...dados,subtotal:moeda(dados.subtotal),total:moeda(dados.total),entrega:moeda(dados.taxaEntrega),pagamento:dados.pagamento?.forma,endereco:dados.endereco || {},itens:dados.itens.map(i => ({...i,preco:moeda(i.subtotal)}))};
   return (
     <main className="order-details-page">
       <div className="container order-details-container">
@@ -67,132 +40,7 @@ function PedidoDetalhes() {
           </div>
         </div>
 
-        {/* ACOMPANHAMENTO */}
-        <section className="order-tracking-card">
-
-          <div className="order-section-heading">
-            <div>
-              <span className="eyebrow">
-                ACOMPANHAMENTO
-              </span>
-
-              <h2>
-                Seu pedido está sendo preparado
-              </h2>
-            </div>
-          </div>
-
-          <div className="order-timeline">
-
-            <div className="timeline-item completed">
-              <div className="timeline-icon">
-                ✓
-              </div>
-
-              <div>
-                <strong>
-                  Pedido recebido
-                </strong>
-
-                <span>
-                  Seu pedido foi recebido pela loja.
-                </span>
-              </div>
-            </div>
-
-            <div className="timeline-line active" />
-
-            <div className="timeline-item completed">
-              <div className="timeline-icon">
-                ✓
-              </div>
-
-              <div>
-                <strong>
-                  Pagamento confirmado
-                </strong>
-
-                <span>
-                  O pagamento foi confirmado.
-                </span>
-              </div>
-            </div>
-
-            <div className="timeline-line active" />
-
-            <div className="timeline-item current">
-              <div className="timeline-icon">
-                🍔
-              </div>
-
-              <div>
-                <strong>
-                  Em preparação
-                </strong>
-
-                <span>
-                  A loja está preparando seu pedido.
-                </span>
-              </div>
-            </div>
-
-            <div className="timeline-line" />
-
-            <div className="timeline-item">
-              <div className="timeline-icon">
-                ✓
-              </div>
-
-              <div>
-                <strong>
-                  Pronto
-                </strong>
-
-                <span>
-                  Seu pedido ficará pronto em breve.
-                </span>
-              </div>
-            </div>
-
-            <div className="timeline-line" />
-
-            <div className="timeline-item">
-              <div className="timeline-icon">
-                🚴
-              </div>
-
-              <div>
-                <strong>
-                  Saiu para entrega
-                </strong>
-
-                <span>
-                  O pedido será enviado até você.
-                </span>
-              </div>
-            </div>
-
-            <div className="timeline-line" />
-
-            <div className="timeline-item">
-              <div className="timeline-icon">
-                ✓
-              </div>
-
-              <div>
-                <strong>
-                  Entregue
-                </strong>
-
-                <span>
-                  Pedido finalizado.
-                </span>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
+        <section className="order-tracking-card"><h2>Status: {pedido.status}</h2><p>Pagamento: {dados.pagamento?.status}</p><button onClick={atualizar}>Atualizar pedido</button>{erro && <p role="alert">{erro}</p>}</section>
         {/* PRODUTOS */}
         <section className="order-details-card">
 
@@ -332,7 +180,7 @@ function PedidoDetalhes() {
                 </strong>
 
                 <span>
-                  Pagamento realizado
+                  {dados.pagamento?.status}
                 </span>
               </div>
             </div>

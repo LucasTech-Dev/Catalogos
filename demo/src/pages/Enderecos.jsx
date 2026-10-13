@@ -1,27 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
+import {useRecurso} from "../hooks/useRecurso";
+import {api,publico} from "../services/api";
 
 function Enderecos() {
-  const enderecos = [
-    {
-      id: 1,
-      apelido: "Casa",
-      rua: "Rua Principal, 120",
-      complemento: "Apartamento 302",
-      bairro: "Centro",
-      cidade: "Capão da Canoa - RS",
-      principal: true,
-    },
-    {
-      id: 2,
-      apelido: "Trabalho",
-      rua: "Av. Paraguassu, 850",
-      complemento: "Sala 04",
-      bairro: "Centro",
-      cidade: "Capão da Canoa - RS",
-      principal: false,
-    },
-  ];
-
+  const {dados:enderecos,erro:erroCarga,carregando,atualizar} = useRecurso(publico+'/me/enderecos',[]);
+  const [edicao,setEdicao] = useState(null),[erro,setErro] = useState(''),[ocupado,setOcupado] = useState(false);
+  async function salvar(event) {
+    event.preventDefault();if (ocupado) return;setOcupado(true);setErro('');
+    const dados = Object.fromEntries(new FormData(event.target));
+    try {await api(publico+'/me/enderecos'+(edicao.id ? '/'+encodeURIComponent(edicao.id) : ''),{method:edicao.id ? 'PUT' : 'POST',body:dados});setEdicao(null);await atualizar();} catch(e) {setErro(e.message);} finally {setOcupado(false);}
+  }
+  async function excluir(id) {if (ocupado) return;setOcupado(true);try {await api(publico+'/me/enderecos/'+encodeURIComponent(id),{method:'DELETE'});await atualizar();} catch(e) {setErro(e.message);} finally {setOcupado(false);}}
   return (
     <>
       <main className="addresses-page">
@@ -42,11 +31,14 @@ function Enderecos() {
               </p>
             </div>
 
-            <button className="primary-button">
+            <button className="primary-button" onClick={() => setEdicao({})}>
               + Adicionar endereço
             </button>
           </div>
 
+          {(erro || erroCarga) && <p role="alert">{erro || erroCarga}</p>}{carregando && <p>Carregando...</p>}
+          {edicao && <form className="personal-data-card" onSubmit={salvar} key={edicao.id || 'novo'}><h2>{edicao.id ? 'Editar endereço' : 'Novo endereço'}</h2><div className="personal-data-grid">{['apelido','rua','numero','bairro','cidade','uf','complemento','cep'].map(campo => <div className="form-group" key={campo}><label htmlFor={'end-'+campo}>{campo}</label><input id={'end-'+campo} name={campo} defaultValue={edicao[campo] || ''} required={['rua','numero','bairro','cidade','uf'].includes(campo)} /></div>)}</div><button className="primary-button" disabled={ocupado}>Salvar endereço</button><button type="button" onClick={() => setEdicao(null)}>Cancelar</button></form>}
+          {!carregando && !enderecos.length && <p>Nenhum endereço cadastrado.</p>}
           <section className="addresses-list">
             {enderecos.map((endereco) => (
               <article className="address-card" key={endereco.id}>
@@ -67,23 +59,19 @@ function Enderecos() {
                   </div>
 
                   <div className="address-actions">
-                    <button>Editar</button>
-                    <button>Excluir</button>
+                    <button onClick={() => setEdicao(endereco)}>Editar</button>
+                    <button disabled={ocupado} onClick={() => excluir(endereco.id)}>Excluir</button>
                   </div>
                 </div>
 
                 <div className="address-content">
-                  <p>{endereco.rua}</p>
+                  <p>{endereco.rua}, {endereco.numero}</p>
                   <p>{endereco.complemento}</p>
                   <p>{endereco.bairro}</p>
                   <p>{endereco.cidade}</p>
                 </div>
 
-                {!endereco.principal && (
-                  <button className="address-default-button">
-                    Definir como principal
-                  </button>
-                )}
+
 
               </article>
             ))}

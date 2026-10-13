@@ -1,85 +1,16 @@
 import React, { useState } from "react";
 
+import {rotulosStatus,dataTexto,classeStatus} from "../../services/admin";
+import {useAdminLista} from "../../hooks/useAdmin";
+import {AdminState,AdminPaginacao} from "../../components/admin/AdminState";
+import {moeda} from "../../lib/compras";
 function Pedidos() {
   const [filtro, setFiltro] = useState("Todos");
 
-  const pedidos = [
-    {
-      id: "1024",
-      cliente: "Lucas Sant'Ana",
-      horario: "14:32",
-      tipo: "Entrega",
-      itens: "3 itens",
-      valor: "R$ 75,70",
-      status: "Em preparação",
-      statusClass: "preparing",
-    },
-    {
-      id: "1023",
-      cliente: "Mariana Silva",
-      horario: "14:18",
-      tipo: "Entrega",
-      itens: "2 itens",
-      valor: "R$ 42,50",
-      status: "Recebido",
-      statusClass: "received",
-    },
-    {
-      id: "1022",
-      cliente: "João Pedro",
-      horario: "13:56",
-      tipo: "Retirada",
-      itens: "4 itens",
-      valor: "R$ 68,90",
-      status: "Pronto",
-      statusClass: "ready",
-    },
-    {
-      id: "1021",
-      cliente: "Ana Costa",
-      horario: "13:41",
-      tipo: "Entrega",
-      itens: "2 itens",
-      valor: "R$ 31,90",
-      status: "Entregue",
-      statusClass: "delivered",
-    },
-    {
-      id: "1020",
-      cliente: "Carlos Oliveira",
-      horario: "13:25",
-      tipo: "Entrega",
-      itens: "5 itens",
-      valor: "R$ 92,40",
-      status: "Em preparação",
-      statusClass: "preparing",
-    },
-    {
-      id: "1019",
-      cliente: "Fernanda Souza",
-      horario: "13:04",
-      tipo: "Retirada",
-      itens: "1 item",
-      valor: "R$ 18,90",
-      status: "Entregue",
-      statusClass: "delivered",
-    },
-  ];
-
-  const filtros = [
-    "Todos",
-    "Recebido",
-    "Em preparação",
-    "Pronto",
-    "Saiu para entrega",
-    "Entregue",
-  ];
-
-  const pedidosFiltrados =
-    filtro === "Todos"
-      ? pedidos
-      : pedidos.filter((pedido) => pedido.status === filtro);
-
+  const status=Object.keys(rotulosStatus).find(k=>rotulosStatus[k]===filtro);
+  const recurso=useAdminLista('pedidos',status?{status}:{});
+  const filtros=['Todos',...Object.values(rotulosStatus)];
+  const pedidosFiltrados=recurso.itens.map(p=>({...p,cliente:p.cliente?.nome || 'Cliente',horario:dataTexto(p.criadoEm),tipo:p.tipoEntrega,itens:`${p.itens?.length || 0} itens`,valor:moeda(p.total),status:rotulosStatus[p.status] || p.status,statusClass:classeStatus[p.status] || ''}));
   return (
     <main className="admin-orders-page">
       <div className="admin-container">
@@ -117,6 +48,7 @@ function Pedidos() {
           ))}
         </section>
 
+        <AdminState recurso={recurso}/><AdminPaginacao recurso={recurso}/>
         {/* LISTA */}
         <section className="admin-panel">
 

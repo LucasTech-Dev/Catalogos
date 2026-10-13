@@ -1,93 +1,37 @@
 import React, { useMemo, useState } from "react";
 
+import {admin} from "../../services/admin";
+import {useAdminLista} from "../../hooks/useAdmin";
+import {AdminState,AdminPaginacao} from "../../components/admin/AdminState";
+import {moeda} from "../../lib/compras";
 function Produtos() {
   const [busca, setBusca] = useState("");
   const [categoria, setCategoria] = useState("Todas");
+  const [categoriaNome,setCategoriaNome]=useState("");
 
-  const produtos = [
-    {
-      id: "1",
-      nome: "Classic Burger",
-      descricao: "Pão brioche, hambúrguer artesanal e queijo",
-      categoria: "Hambúrgueres",
-      preco: "R$ 28,90",
-      ativo: true,
-    },
-    {
-      id: "2",
-      nome: "Bacon Burger",
-      descricao: "Hambúrguer artesanal, queijo, bacon e molho especial",
-      categoria: "Hambúrgueres",
-      preco: "R$ 32,90",
-      ativo: true,
-    },
-    {
-      id: "3",
-      nome: "Batata Frita",
-      descricao: "Porção individual de batatas crocantes",
-      categoria: "Porções",
-      preco: "R$ 12,90",
-      ativo: true,
-    },
-    {
-      id: "4",
-      nome: "Batata com Cheddar",
-      descricao: "Batata frita, cheddar cremoso e bacon",
-      categoria: "Porções",
-      preco: "R$ 22,90",
-      ativo: true,
-    },
-    {
-      id: "5",
-      nome: "Coca-Cola Lata",
-      descricao: "Refrigerante Coca-Cola 350ml",
-      categoria: "Bebidas",
-      preco: "R$ 6,00",
-      ativo: true,
-    },
-    {
-      id: "6",
-      nome: "Guaraná Lata",
-      descricao: "Refrigerante Guaraná 350ml",
-      categoria: "Bebidas",
-      preco: "R$ 6,00",
-      ativo: false,
-    },
-    {
-      id: "7",
-      nome: "Combo Classic",
-      descricao: "Classic Burger + batata frita + refrigerante",
-      categoria: "Combos",
-      preco: "R$ 39,90",
-      ativo: true,
-    },
-  ];
-
-  const categorias = [
-    "Todas",
-    "Hambúrgueres",
-    "Porções",
-    "Bebidas",
-    "Combos",
-  ];
-
+  const recurso=useAdminLista('produtos',categoria==='Todas'?{}:{categoriaId:categoria});
+  const categoriasRecurso=useAdminLista('categorias',{limite:100,contagem:'0'});
+  const [erro,setErro]=useState(''),[ocupado,setOcupado]=useState(false);
+  const produtos=recurso.itens.map(p=>({...p,categoria:categoriasRecurso.itens.find(c=>c.id===p.categoriaId)?.nome || (p.categoriaId ? 'Categoria cadastrada' : 'Sem categoria'),preco:moeda(p.preco)}));
+  const categorias=[{id:'Todas',nome:'Todas'},...categoriasRecurso.itens,...(categoria!=='Todas' && !categoriasRecurso.itens.some(c=>c.id===categoria)?[{id:categoria,nome:categoriaNome || 'Categoria selecionada'}]:[])];
+  async function alternar(produto){if(ocupado)return;setOcupado(true);setErro('');try{await admin.salvar('produtos',produto.id,{ativo:!produto.ativo});await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}
   const produtosFiltrados = useMemo(() => {
     return produtos.filter((produto) => {
       const correspondeBusca =
         produto.nome
           .toLowerCase()
           .includes(busca.toLowerCase()) ||
-        produto.descricao
+        (produto.descricao || '')
           .toLowerCase()
           .includes(busca.toLowerCase());
 
       const correspondeCategoria =
         categoria === "Todas" ||
-        produto.categoria === categoria;
+        produto.categoriaId === categoria;
 
       return correspondeBusca && correspondeCategoria;
     });
-  }, [busca, categoria]);
+  }, [busca, categoria, recurso.dados, categoriasRecurso.dados]);
 
   return (
     <main className="admin-products-page">
@@ -126,7 +70,7 @@ function Produtos() {
 
             <input
               type="text"
-              placeholder="Buscar produto..."
+              placeholder="Buscar produto nesta página..."
               value={busca}
               onChange={(event) => setBusca(event.target.value)}
             />
@@ -137,11 +81,11 @@ function Produtos() {
 
             <select
               value={categoria}
-              onChange={(event) => setCategoria(event.target.value)}
+              onChange={(event) => {setCategoria(event.target.value);setCategoriaNome(event.target.selectedOptions[0]?.textContent || "");}}
             >
               {categorias.map((item) => (
-                <option key={item} value={item}>
-                  {item}
+                <option key={item.id} value={item.id}>
+                  {item.nome}
                 </option>
               ))}
             </select>
@@ -150,6 +94,7 @@ function Produtos() {
 
         </section>
 
+        <AdminState recurso={recurso}/><AdminState recurso={categoriasRecurso}/>{erro && <p role="alert">{erro}</p>}<AdminPaginacao recurso={recurso}/>{categoriasRecurso.temProximo && <button onClick={categoriasRecurso.proximo}>Mais categorias</button>}
         {/* RESULTADOS */}
 
         <section className="admin-panel">
@@ -180,7 +125,7 @@ function Produtos() {
                 {/* IMAGEM MOCK */}
 
                 <div className="admin-product-image">
-                  🍔
+                  {produto.imagem ? <img src={produto.imagem} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/> : "🍔"}
                 </div>
 
                 {/* INFORMAÇÕES */}
@@ -193,13 +138,13 @@ function Produtos() {
                       {produto.nome}
                     </h3>
 
-                    {produto.ativo ? (
+                    {produto.ativo && produto.disponivel !== false ? (
                       <span className="admin-product-status active">
-                        Ativo
+                        Disponível
                       </span>
                     ) : (
                       <span className="admin-product-status inactive">
-                        Inativo
+                        Indisponível
                       </span>
                     )}
 
@@ -230,11 +175,11 @@ function Produtos() {
                     className="admin-product-edit"
                   >
                     Editar
-                  </a>
+                  </a><button disabled={ocupado} onClick={async()=>{if(!window.confirm("Desativar este produto? Ele ficará preservado nos pedidos anteriores."))return;setOcupado(true);try{await admin.excluir("produtos",produto.id);await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}}>Remover do catálogo</button>
 
                   <button
                     type="button"
-                    className="admin-product-toggle"
+                    className="admin-product-toggle" disabled={ocupado} onClick={()=>alternar(produto)}
                   >
                     {produto.ativo
                       ? "Desativar"

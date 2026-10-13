@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 
+import {useLoja} from "../../contexts/LojaContext";
+
 function Header() {
+  const {loja,itens} = useLoja();
   const [menuOpen, setMenuOpen] = useState(false);
 
   // Trava o scroll do body enquanto o menu mobile está aberto
@@ -38,11 +41,11 @@ function Header() {
         {/* Logo */}
         <a href="/" className="logo" onClick={closeMenu}>
           <span className="logo-mark" aria-hidden="true">
-            🍔
+            {loja?.logo ? <img src={loja.logo} alt="" style={{width:32,height:32,objectFit:"contain"}} /> : "🍔"}
           </span>
 
           <span className="logo-text">
-            Lanche<span>ria</span>
+            {loja?.nome || "Catálogo"}
           </span>
         </a>
 
@@ -53,7 +56,7 @@ function Header() {
         >
           <a href="/">Início</a>
           <a href="/cardapio">Cardápio</a>
-          <a href="#sobre">Sobre</a>
+          <a href="/#sobre">Sobre</a>
         </nav>
 
         {/* Ações do Header */}
@@ -76,7 +79,7 @@ function Header() {
           >
             <span aria-hidden="true">🛒</span>
             <span>Carrinho</span>
-            <strong>0</strong>
+            <strong>{itens.reduce((s,i) => s+i.quantidade,0)}</strong>
           </a>
 
           {/* MENU MOBILE */}
@@ -124,7 +127,7 @@ function Header() {
               Cardápio
             </a>
 
-            <a href="#sobre" onClick={closeMenu}>
+            <a href="/#sobre" onClick={closeMenu}>
               Sobre
             </a>
 

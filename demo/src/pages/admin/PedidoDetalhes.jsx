@@ -1,68 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
+import {admin,rotulosStatus,dataTexto} from "../../services/admin";
+import {useAdminRecurso} from "../../hooks/useAdmin";
+import {AdminState} from "../../components/admin/AdminState";
+import {moeda} from "../../lib/compras";
 function PedidoDetalhes() {
-  const [status, setStatus] = useState("Em preparação");
-
-  const pedido = {
-    id: "1024",
-    data: "21 de setembro de 2026, 14:32",
-
-    cliente: {
-      nome: "Lucas Sant'Ana",
-      telefone: "(51) 99999-9999",
-      email: "lucas@email.com",
-    },
-
-    tipo: "Entrega",
-
-    pagamento: {
-      metodo: "PIX",
-      status: "Pagamento confirmado",
-    },
-
-    itens: [
-      {
-        nome: "Classic Burger",
-        descricao: "Pão brioche, hambúrguer artesanal e queijo",
-        quantidade: 2,
-        preco: "R$ 28,90",
-      },
-      {
-        nome: "Batata Frita",
-        descricao: "Porção individual",
-        quantidade: 1,
-        preco: "R$ 12,90",
-      },
-    ],
-
-    subtotal: "R$ 70,70",
-    entrega: "R$ 5,00",
-    total: "R$ 75,70",
-
-    endereco: {
-      rua: "Rua Principal, 120",
-      complemento: "Apartamento 302",
-      bairro: "Centro",
-      cidade: "Capão da Canoa - RS",
-    },
-
-    observacao: "Sem cebola no hambúrguer.",
-  };
-
-  const statusOptions = [
-    "Recebido",
-    "Pagamento confirmado",
-    "Em preparação",
-    "Pronto",
-    "Saiu para entrega",
-    "Entregue",
-    "Cancelado",
-  ];
-
+  const id=new URLSearchParams(window.location.search).get('id');
+  const carregar=useCallback(()=>admin.buscar('pedidos',id || ''),[id]);const recurso=useAdminRecurso(carregar);
+  const [status,setStatus]=useState(''),[erro,setErro]=useState(''),[ocupado,setOcupado]=useState(false),[sucesso,setSucesso]=useState(''),[confirmacao,setConfirmacao]=useState('');
+  useEffect(()=>{if(recurso.dados)setStatus(recurso.dados.status);},[recurso.dados]);
+  async function atualizar(tipo,novoStatus){if(ocupado)return;setOcupado(true);setErro('');setSucesso('');try{await admin[tipo](id,novoStatus);await recurso.atualizar();setSucesso(tipo==='pagamento'?'Pagamento atualizado explicitamente.':'Status atualizado.');setConfirmacao('');}catch(e){setErro(e.message);}finally{setOcupado(false);}}
+  if(!recurso.dados)return <main className="admin-order-details-page"><div className="admin-container"><AdminState recurso={recurso}/><a href="/admin/pedidos">Voltar para pedidos</a></div></main>;
+  const dados=recurso.dados,pedido={...dados,data:dataTexto(dados.criadoEm),cliente:dados.cliente || {nome:'Cliente',telefone:'Não informado',email:'Não informado'},tipo:dados.tipoEntrega,pagamento:{...dados.pagamento,metodo:dados.pagamento?.forma},subtotal:moeda(dados.subtotal),entrega:moeda(dados.taxaEntrega),total:moeda(dados.total),endereco:dados.endereco || {rua:dados.tipoEntrega==='retirada'?'Retirada no local':'Endereço não disponível'},itens:dados.itens.map(i=>({...i,preco:moeda(i.subtotal)}))};
+  const statusOptions=[dados.status,...(dados.transicoesStatus || []).filter(s=>s!=='pagamento_confirmado' || dados.pagamento?.status==='confirmado').filter(s=>s!=='pagamento_recusado' || dados.pagamento?.status==='recusado')];
   return (
     <main className="admin-order-details-page">
       <div className="admin-container">
 
+        <AdminState recurso={recurso}/>{erro && <p role="alert">{erro}</p>}{sucesso && <p role="status">{sucesso}</p>}<button onClick={recurso.atualizar}>Atualizar pedido</button>
         {/* TOPO */}
         <div className="admin-details-back">
           <a href="/admin/pedidos">
@@ -97,7 +52,7 @@ function PedidoDetalhes() {
             >
               {statusOptions.map((item) => (
                 <option key={item} value={item}>
-                  {item}
+                  {rotulosStatus[item] || item}
                 </option>
               ))}
             </select>
@@ -295,11 +250,13 @@ function PedidoDetalhes() {
 
                 <div>
                   <span>Status</span>
-                  <strong className="payment-confirmed">
+                  <strong className={pedido.pagamento.status === "confirmado" ? "payment-confirmed" : ""}>
                     {pedido.pagamento.status}
                   </strong>
                 </div>
 
+              {(dados.transicoesPagamento || []).map(novo=><button key={novo} type="button" className="admin-secondary-button" disabled={ocupado} onClick={()=>setConfirmacao(novo)}>{{confirmado:'Confirmar pagamento',recusado:'Recusar pagamento',cancelado:'Cancelar pagamento'}[novo]}</button>)}
+              {confirmacao && <div role="dialog" aria-label="Confirmar alteração financeira"><p>Alterar o pagamento para {confirmacao}? Esta ação financeira não é automática.</p><button disabled={ocupado} onClick={()=>atualizar('pagamento',confirmacao)}>Confirmar alteração financeira</button><button disabled={ocupado} onClick={()=>setConfirmacao('')}>Voltar</button></div>}
               </div>
 
             </section>
@@ -321,7 +278,7 @@ function PedidoDetalhes() {
 
           <button
             type="button"
-            className="admin-primary-button"
+            className="admin-primary-button" disabled={ocupado || status === dados.status} onClick={()=>atualizar("status",status)}
           >
             Salvar status
           </button>

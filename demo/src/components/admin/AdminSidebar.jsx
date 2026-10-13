@@ -50,12 +50,14 @@ function isActive(item, currentPath) {
     return currentPath === item.href;
   }
 
+  const sessao=useAdminSessao();
   return (
     currentPath === item.href ||
     item.aliases?.some((alias) => currentPath === alias)
   );
 }
 
+import {useAdminSessao} from "./AdminGate";
 function AdminSidebar({ currentPath, open, onNavigate }) {
   return (
     <aside
@@ -68,7 +70,7 @@ function AdminSidebar({ currentPath, open, onNavigate }) {
     >
       <div className="admin-sidebar-brand">
         <span>ADMIN</span>
-        <strong>Lancheria Demo</strong>
+        <strong>{sessao?.loja?.nome || "Loja"}</strong>
       </div>
 
       <nav className="admin-sidebar-nav">

@@ -1,13 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
+import {useRecurso} from "../hooks/useRecurso";
+import {api,publico} from "../services/api";
+import {trocarSenha} from "../services/conta";
 
 function DadosPessoais() {
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    // Futuramente os dados serão atualizados no Firebase.
-    console.log("Dados pessoais atualizados");
+  const {dados,erro:erroCarga,carregando,atualizar} = useRecurso(publico + '/me');
+  const [erro,setErro] = useState(''),[ocupado,setOcupado] = useState(false);
+  async function handleSubmit(event) {
+    event.preventDefault();if (ocupado) return;setOcupado(true);setErro('');const valor = id => event.target.querySelector('#'+id).value;
+    try {
+      if (valor('nova-senha')) {if (valor('nova-senha') !== valor('confirmar-nova-senha')) throw new Error('As senhas devem ser iguais.');await trocarSenha(valor('senha-atual'),valor('nova-senha'));}
+      await api(publico+'/me',{method:'PUT',body:{nome:valor('nome'),telefone:valor('telefone')}});setErro('Dados salvos.');atualizar();
+    } catch(e) {setErro(e.message);} finally {setOcupado(false);}
   }
-
+  if (carregando) return <main className="account-data-page"><p>Carregando...</p></main>;
   return (
     <main className="account-data-page">
       <div className="container account-data-container">
@@ -32,6 +38,7 @@ function DadosPessoais() {
           </p>
         </div>
 
+        {(erro || erroCarga) && <p role="status">{erro || erroCarga}</p>}
         {/* FORMULÁRIO */}
         <form
           className="personal-data-card"
@@ -59,7 +66,7 @@ function DadosPessoais() {
                 <input
                   id="nome"
                   type="text"
-                  defaultValue="Lucas Sant'Ana"
+                  defaultValue={dados?.nome || ""}
                   placeholder="Seu nome completo"
                 />
               </div>
@@ -72,7 +79,7 @@ function DadosPessoais() {
                 <input
                   id="telefone"
                   type="tel"
-                  defaultValue="(51) 99999-9999"
+                  defaultValue={dados?.telefone || ""}
                   placeholder="(51) 99999-9999"
                 />
               </div>
@@ -85,7 +92,7 @@ function DadosPessoais() {
                 <input
                   id="email"
                   type="email"
-                  defaultValue="lucas@email.com"
+                  readOnly defaultValue={dados?.email || ""}
                   placeholder="seuemail@email.com"
                 />
 
@@ -162,7 +169,7 @@ function DadosPessoais() {
             </a>
 
             <button
-              type="submit"
+              disabled={ocupado} type="submit"
               className="button button-primary"
             >
               Salvar alterações

@@ -1,45 +1,11 @@
 import React from "react";
 
-const pedidos = [
-  {
-    id: "1024",
-    data: "Hoje, 14:32",
-    tipo: "Entrega",
-    itens: "2 itens",
-    total: "R$ 50,90",
-    status: "Em preparação",
-    statusClass: "preparing",
-  },
-  {
-    id: "1018",
-    data: "18/09/2026, 20:15",
-    tipo: "Entrega",
-    itens: "3 itens",
-    total: "R$ 72,80",
-    status: "Entregue",
-    statusClass: "delivered",
-  },
-  {
-    id: "1007",
-    data: "15/09/2026, 19:42",
-    tipo: "Retirada",
-    itens: "2 itens",
-    total: "R$ 34,90",
-    status: "Entregue",
-    statusClass: "delivered",
-  },
-  {
-    id: "998",
-    data: "11/09/2026, 21:08",
-    tipo: "Entrega",
-    itens: "4 itens",
-    total: "R$ 89,70",
-    status: "Entregue",
-    statusClass: "delivered",
-  },
-];
-
+import {useRecurso} from '../hooks/useRecurso';
+import {pedidos as rotaPedidos} from '../services/api';
+import {moeda} from '../lib/compras';
 function Pedidos() {
+  const {dados,erro,carregando,atualizar} = useRecurso(rotaPedidos,[]);
+  const pedidos = dados.map(p => ({...p,total:moeda(p.total),tipo:p.tipoEntrega,itens:`${p.itens.length} itens`,data:p.criadoEm?._seconds ? new Date(p.criadoEm._seconds*1000).toLocaleString('pt-BR') : ''}));
   return (
     <main className="orders-page">
       <div className="container orders-container">
@@ -64,7 +30,7 @@ function Pedidos() {
         </div>
 
         {/* LISTA DE PEDIDOS */}
-        <section className="orders-list">
+        {carregando && <p>Carregando pedidos...</p>}{erro && <p role="alert">{erro}</p>}<button onClick={atualizar}>Atualizar pedidos</button><section className="orders-list">
 
           {pedidos.map((pedido) => (
             <article

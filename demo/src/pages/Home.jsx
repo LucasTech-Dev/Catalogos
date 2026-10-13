@@ -1,66 +1,23 @@
 import React from "react";
 
-const categorias = [
-  {
-    nome: "Hambúrgueres",
-    icone: "🍔",
-  },
-  {
-    nome: "Porções",
-    icone: "🍟",
-  },
-  {
-    nome: "Bebidas",
-    icone: "🥤",
-  },
-  {
-    nome: "Combos",
-    icone: "🍱",
-  },
-];
-
-const produtos = [
-  {
-    nome: "Classic Burger",
-    descricao: "Pão brioche, hambúrguer artesanal, queijo e molho especial.",
-    preco: "R$ 28,90",
-    imagem:
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    nome: "Bacon Supreme",
-    descricao: "Hambúrguer artesanal, cheddar, bacon crocante e molho da casa.",
-    preco: "R$ 32,90",
-    imagem:
-      "https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    nome: "Chicken Crispy",
-    descricao: "Frango crocante, queijo, alface e molho especial.",
-    preco: "R$ 29,90",
-    imagem:
-      "https://images.unsplash.com/photo-1615297928064-24977384d0f8?auto=format&fit=crop&w=800&q=80",
-  },
-];
-
+import {useLoja, EstadoCatalogo} from "../contexts/LojaContext";
+import {moeda,horariosTexto} from "../lib/compras";
 function Home() {
+  const {loja,categorias,produtos} = useLoja();
   return (
     <main>
       {/* HERO */}
       <section className="hero">
         <div className="container hero-content">
           <div className="hero-text">
-            <span className="eyebrow">LANCHERIA • ARTESANAL</span>
+            <span className="eyebrow">{loja?.nome || "CATÁLOGO"}</span>
 
             <h1>
               O sabor que
               <span> você estava esperando.</span>
             </h1>
 
-            <p>
-              Lanches preparados na hora, ingredientes selecionados e aquele
-              sabor que faz você querer pedir de novo.
-            </p>
+            <p>{loja?.descricao}</p><EstadoCatalogo />
 
             <div className="hero-actions">
               <a href="#cardapio" className="button button-primary">
@@ -72,39 +29,17 @@ function Home() {
               </a>
             </div>
 
-            <div className="hero-info">
-              <div>
-                <strong>★ 4,9</strong>
-                <span>Avaliação</span>
-              </div>
-
-              <div>
-                <strong>30 min</strong>
-                <span>Tempo médio</span>
-              </div>
-
-              <div>
-                <strong>Aberto</strong>
-                <span>Hoje até 23h</span>
-              </div>
-            </div>
+            <div className="hero-info"><div><strong>{loja?.tempoMedio || ""}</strong><span>Tempo estimado</span></div><div><strong>{loja?.telefone || ""}</strong><span>Contato</span></div></div>
           </div>
 
           <div className="hero-image">
             <div className="hero-image-card">
               <img
-                src={produtos[0].imagem}
-                alt={produtos[0].nome}
+                src={produtos[0]?.imagem || loja?.imagem}
+                alt={produtos[0]?.nome || loja?.nome}
               />
             </div>
 
-            <div className="hero-badge">
-              <span>🔥</span>
-              <div>
-                <strong>Mais pedido</strong>
-                <small>Classic Burger</small>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -123,7 +58,7 @@ function Home() {
             {categorias.map((categoria) => (
               <button
                 className="category-card"
-                key={categoria.nome}
+                key={categoria.id} onClick={() => window.location.assign("/cardapio")}
               >
                 <span className="category-icon">{categoria.icone}</span>
                 <span>{categoria.nome}</span>
@@ -139,11 +74,11 @@ function Home() {
         <div className="container">
           <div className="section-heading">
             <div>
-              <span className="eyebrow">OS QUERIDINHOS</span>
-              <h2>Mais pedidos</h2>
+              <span className="eyebrow">NOSSO CARDÁPIO</span>
+              <h2>Produtos</h2>
             </div>
 
-            <a href="#cardapio" className="section-link">
+            <a href="/cardapio" className="section-link">
               Ver cardápio completo →
             </a>
           </div>
@@ -161,44 +96,15 @@ function Home() {
                   <p>{produto.descricao}</p>
 
                   <div className="product-footer">
-                    <strong>{produto.preco}</strong>
+                    <strong>{moeda(produto.preco)}</strong>
 
-                    <button className="add-button" type="button">
+                    <button className="add-button" type="button" onClick={() => window.location.assign(`/produto?id=${encodeURIComponent(produto.id)}`)}>
                       +
                     </button>
                   </div>
                 </div>
               </article>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PROMOÇÃO */}
-      <section className="promo-section">
-        <div className="container">
-          <div className="promo-card">
-            <div>
-              <span className="eyebrow">COMBO DA CASA</span>
-
-              <h2>
-                Seu lanche completo
-                <br />
-                em um só pedido.
-              </h2>
-
-              <p>
-                Escolha seu hambúrguer, acompanhamento e bebida.
-              </p>
-
-              <button className="button button-light" type="button">
-                Ver combos
-              </button>
-            </div>
-
-            <div className="promo-decoration">
-              🍔
-            </div>
           </div>
         </div>
       </section>
@@ -216,25 +122,7 @@ function Home() {
           <div className="about-content">
             <span className="eyebrow">SOBRE A CASA</span>
 
-            <h2>
-              Comida simples,
-              <br />
-              feita com cuidado.
-            </h2>
-
-            <p>
-              Somos uma lancheria focada em preparar comida gostosa, com
-              ingredientes de qualidade e atendimento próximo.
-            </p>
-
-            <p>
-              Nosso objetivo é transformar aquele pedido rápido em uma
-              experiência que você queira repetir.
-            </p>
-
-            <a href="#sobre" className="text-link">
-              Conheça nossa história →
-            </a>
+            <h2>{loja?.nome}</h2><p>{loja?.descricao}</p><p>{typeof loja?.endereco === 'string' ? loja.endereco : Object.values(loja?.endereco || {}).join(', ')}</p><p>WhatsApp: {loja?.whatsapp || 'Não informado'}</p><p>Horários: {horariosTexto(loja?.horarios || loja?.horarioFuncionamento)}</p>
           </div>
         </div>
       </section>

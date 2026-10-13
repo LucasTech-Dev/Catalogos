@@ -1,51 +1,15 @@
 import React, { useMemo, useState } from "react";
 
+import {admin} from "../../services/admin";
+import {useAdminLista} from "../../hooks/useAdmin";
+import {AdminState,AdminPaginacao} from "../../components/admin/AdminState";
 function Clientes() {
   const [busca, setBusca] = useState("");
 
-  const [clientes] = useState([
-    {
-      id: 1,
-      nome: "Lucas Sant'Ana",
-      email: "lucas@email.com",
-      telefone: "(51) 99999-9999",
-      pedidos: 12,
-      totalGasto: "R$ 428,70",
-      ultimoPedido: "Hoje, 14:32",
-      status: "Ativo",
-    },
-    {
-      id: 2,
-      nome: "Mariana Silva",
-      email: "mariana@email.com",
-      telefone: "(51) 98888-8888",
-      pedidos: 8,
-      totalGasto: "R$ 286,40",
-      ultimoPedido: "Ontem, 20:15",
-      status: "Ativo",
-    },
-    {
-      id: 3,
-      nome: "João Pereira",
-      email: "joao@email.com",
-      telefone: "(51) 97777-7777",
-      pedidos: 5,
-      totalGasto: "R$ 174,90",
-      ultimoPedido: "18/09/2026",
-      status: "Ativo",
-    },
-    {
-      id: 4,
-      nome: "Ana Costa",
-      email: "ana@email.com",
-      telefone: "(51) 96666-6666",
-      pedidos: 2,
-      totalGasto: "R$ 79,80",
-      ultimoPedido: "12/09/2026",
-      status: "Inativo",
-    },
-  ]);
-
+  const recurso=useAdminLista('clientes');
+  const clientes=recurso.itens.map(c=>({...c,nome:c.nome || (c.anonimo?'Convidado':'Cliente'),email:c.email || 'Não informado',pedidos:'—',totalGasto:'—',ultimoPedido:'—',status:c.anonimo?'Convidado':'Cliente'}));
+  const [detalhe,setDetalhe]=useState(null),[erro,setErro]=useState('');
+  async function abrir(id){try{setDetalhe(await admin.buscar('clientes',id));}catch(e){setErro(e.message);}}
   const clientesFiltrados = useMemo(() => {
     const termo = busca.toLowerCase().trim();
 
@@ -71,7 +35,7 @@ function Clientes() {
           </div>
         </section>
 
-        <section className="admin-customers-panel">
+        <AdminState recurso={recurso}/>{erro && <p role="alert">{erro}</p>}<AdminPaginacao recurso={recurso}/><p>Dados dos clientes desta loja. Totais históricos não são calculados nesta lista.</p><section className="admin-customers-panel">
           <div className="admin-customers-toolbar">
             <div className="admin-customers-search">
               <span>⌕</span>
@@ -80,7 +44,7 @@ function Clientes() {
                 type="search"
                 value={busca}
                 onChange={(event) => setBusca(event.target.value)}
-                placeholder="Buscar por nome, e-mail ou telefone..."
+                placeholder="Buscar nesta página por nome, e-mail ou telefone..."
               />
             </div>
 
@@ -151,7 +115,7 @@ function Clientes() {
                   </div>
 
                   <div className="admin-customer-actions">
-                    <button type="button">
+                    <button type="button" onClick={()=>abrir(cliente.id)}>
                       Ver cliente
                     </button>
                   </div>
@@ -172,6 +136,7 @@ function Clientes() {
           )}
         </section>
       </div>
+    {detalhe && <div className="admin-modal-overlay"><div className="admin-modal" role="dialog" aria-modal="true" aria-label="Dados do cliente"><h2>{detalhe.nome || "Convidado"}</h2><p>{detalhe.email || "E-mail não informado"}</p><p>{detalhe.telefone}</p><p>{detalhe.anonimo ? "Compra como convidado" : "Cliente"}</p><button onClick={()=>setDetalhe(null)}>Fechar</button></div></div>}
     </main>
   );
 }

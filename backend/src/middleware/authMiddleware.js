@@ -19,14 +19,13 @@ async function authMiddleware(req, res, next) {
       });
     }
 
-    const decodedToken = await getAuth().verifyIdToken(token);
+    const decodedToken = await getAuth().verifyIdToken(token, true);
 
     const usuario = await buscarUsuarioPorId(decodedToken.uid);
 
     if (!usuario) {
-      return res.status(404).json({
-        error: "Usuário autenticado não possui cadastro no sistema.",
-      });
+      req.user = { uid: decodedToken.uid, email: decodedToken.email || null, role: "cliente", ativo: true, publico: true, anonimo: decodedToken.firebase?.sign_in_provider === "anonymous" };
+      return next();
     }
 
     if (!usuario.ativo) {
@@ -35,7 +34,9 @@ async function authMiddleware(req, res, next) {
       });
     }
 
+    if (decodedToken.firebase?.sign_in_provider === "anonymous" && usuario.role !== "cliente") return res.status(403).json({error:"Sessão anônima não possui permissão administrativa."});
     req.user = {
+      anonimo: decodedToken.firebase?.sign_in_provider === "anonymous",
       uid: decodedToken.uid,
       email: decodedToken.email || usuario.email,
       role: usuario.role,

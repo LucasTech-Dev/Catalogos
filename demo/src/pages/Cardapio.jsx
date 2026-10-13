@@ -3,66 +3,10 @@ import React, { useState } from "react";
 import ProductCard from "../components/ui/ProductCard";
 import CategoryFilter from "../components/ui/CategoryFilter";
 
-const produtos = [
-  {
-    id: 1,
-    categoria: "Hambúrgueres",
-    nome: "Classic Burger",
-    descricao: "Pão brioche, hambúrguer artesanal, queijo e molho especial.",
-    preco: "R$ 28,90",
-    imagem:
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 2,
-    categoria: "Hambúrgueres",
-    nome: "Bacon Supreme",
-    descricao: "Hambúrguer artesanal, cheddar, bacon crocante e molho da casa.",
-    preco: "R$ 32,90",
-    imagem:
-      "https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 3,
-    categoria: "Hambúrgueres",
-    nome: "Chicken Crispy",
-    descricao: "Frango crocante, queijo, alface e molho especial.",
-    preco: "R$ 29,90",
-    imagem:
-      "https://images.unsplash.com/photo-1615297928064-24977384d0f8?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 4,
-    categoria: "Porções",
-    nome: "Batata da Casa",
-    descricao: "Batatas crocantes acompanhadas do nosso molho especial.",
-    preco: "R$ 18,90",
-    imagem:
-      "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 5,
-    categoria: "Porções",
-    nome: "Onion Rings",
-    descricao: "Anéis de cebola empanados e crocantes.",
-    preco: "R$ 21,90",
-    imagem:
-      "https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 6,
-    categoria: "Bebidas",
-    nome: "Refrigerante",
-    descricao: "Refrigerante gelado para acompanhar seu pedido.",
-    preco: "R$ 7,00",
-    imagem:
-      "https://images.unsplash.com/photo-1629203849820-fdd70d49c38e?auto=format&fit=crop&w=800&q=80",
-  },
-];
-
-const categorias = ["Todos", "Hambúrgueres", "Porções", "Bebidas"];
-
+import {useLoja, EstadoCatalogo} from "../contexts/LojaContext";
 function Cardapio() {
+  const {produtos,categorias:lista} = useLoja();
+  const categorias = ["Todos", ...lista.map(c => c.nome)];
   const [categoriaAtiva, setCategoriaAtiva] = useState("Todos");
 
   const produtosFiltrados =
@@ -90,6 +34,7 @@ function Cardapio() {
 
       <section className="section menu-section" id="cardapio">
         <div className="container">
+          <EstadoCatalogo />
           <CategoryFilter
             categorias={categorias}
             categoriaAtiva={categoriaAtiva}

@@ -160,7 +160,7 @@ async function prepararDados() {
     .collection("lojas")
     .doc(lojaId)
     .collection("clientes")
-    .doc("cliente-doc-whatsapp")
+    .doc("cliente-whatsapp-emulator")
     .collection("enderecos")
     .doc("endereco-whatsapp")
     .set({
@@ -176,7 +176,7 @@ async function prepararDados() {
     .doc(pedidoId)
     .set({
       lojaId,
-      clienteId: "cliente-doc-whatsapp",
+      clienteId: "cliente-whatsapp-emulator",
       enderecoId: "endereco-whatsapp",
       tipoEntrega: "entrega",
       status: "recebido",

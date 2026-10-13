@@ -212,7 +212,7 @@ async function gerarFinalizacaoWhatsApp(lojaId, pedidoId) {
   let endereco = null;
 
   if (pedido.tipoEntrega === "entrega") {
-    endereco = await buscarEnderecoPorId(
+    endereco = pedido.endereco || await buscarEnderecoPorId(
       lojaId,
       pedido.clienteId,
       pedido.enderecoId

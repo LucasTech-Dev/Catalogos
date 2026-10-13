@@ -9,7 +9,7 @@ async function listarCategorias(req, res) {
 
     const categorias = await listarCategoriasPorLoja(lojaId);
 
-    return res.status(200).json(categorias);
+    return res.status(200).json(req.user.role === "admin" ? categorias : categorias.map(item => require("../services/publicoService").selecionar(item,['id', 'nome', 'descricao', 'icone', 'ordem', 'ativo'])));
   } catch (error) {
     console.error("Erro ao listar categorias:", error);
 
@@ -34,7 +34,7 @@ async function buscarCategoria(req, res) {
       });
     }
 
-    return res.status(200).json(categoria);
+    return res.status(200).json(req.user.role === "admin" ? categoria : require("../services/publicoService").selecionar(categoria,['id', 'nome', 'descricao', 'icone', 'ordem', 'ativo']));
   } catch (error) {
     console.error("Erro ao buscar categoria:", error);
 

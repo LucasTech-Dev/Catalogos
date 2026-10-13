@@ -1,5 +1,6 @@
 import React from "react";
 
+import {moeda} from "../../lib/compras";
 function ProductCard({ produto }) {
   return (
     <article className="product-card">
@@ -11,19 +12,14 @@ function ProductCard({ produto }) {
       </div>
 
       <div className="product-content">
-        <h3>{produto.nome}</h3>
+        <h3><a href={`/produto?id=${encodeURIComponent(produto.id)}`}>{produto.nome}</a></h3>
 
         <p>{produto.descricao}</p>
 
         <div className="product-footer">
-          <strong>{produto.preco}</strong>
+          <strong>{moeda(produto.preco)}</strong>
 
-          <button
-            className="add-button"
-            type="button"
-          >
-            +
-          </button>
+          <a className="add-button" href={`/produto?id=${encodeURIComponent(produto.id)}`}>{produto.ativo === true && produto.disponivel !== false ? "+" : "Indisponível"}</a>
         </div>
       </div>
     </article>

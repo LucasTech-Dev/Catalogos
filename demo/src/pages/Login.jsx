@@ -1,13 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
+import {entrar,recuperar} from "../services/conta";
 
 function Login() {
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    // Login ainda será conectado ao Firebase futuramente.
-    console.log("Login enviado");
+  const [erro,setErro] = useState(''),[ocupado,setOcupado] = useState(false);
+  async function handleSubmit(event) {
+    event.preventDefault(); if (ocupado) return; setOcupado(true);setErro('');
+    try {await entrar(event.target.querySelector('#email').value,event.target.querySelector('#password').value);window.location.assign('/perfil');} catch(e) {setErro(e.message);} finally {setOcupado(false);}
   }
-
   return (
     <main className="login-page">
       <div className="login-container">
@@ -27,6 +26,7 @@ function Login() {
             </p>
           </div>
 
+          {erro && <p role="alert">{erro}</p>}
           <form className="login-form" onSubmit={handleSubmit}>
 
             <div className="form-group">
@@ -48,7 +48,7 @@ function Login() {
                   Senha
                 </label>
 
-                <a href="#recuperar">
+                <a href="#recuperar" onClick={async e => {e.preventDefault();try {await recuperar(document.getElementById("email").value);setErro("Se houver uma conta com esse e-mail, você receberá instruções de recuperação.");} catch(err) {setErro(err.message);}}}>
                   Esqueci minha senha
                 </a>
               </div>
@@ -62,7 +62,7 @@ function Login() {
             </div>
 
             <button
-              type="submit"
+              disabled={ocupado} type="submit"
               className="button button-primary login-submit"
             >
               Entrar

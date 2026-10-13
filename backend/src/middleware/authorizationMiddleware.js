@@ -17,7 +17,7 @@ function authorizationMiddleware(opcoes = {}) {
       });
     }
 
-    if (exigirLoja && !req.user.lojaId) {
+    if (exigirLoja && !req.user.lojaId && !req.user.publico) {
       return res.status(403).json({
         error: "Usuário não está vinculado a uma loja.",
       });

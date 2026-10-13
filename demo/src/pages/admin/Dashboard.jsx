@@ -1,70 +1,17 @@
-import React from "react";
+import React, {useCallback,useState} from "react";
+import {admin,rotulosStatus,dataTexto,classeStatus} from "../../services/admin";
+import {useAdminRecurso} from "../../hooks/useAdmin";
+import {AdminState} from "../../components/admin/AdminState";
+import {moeda} from "../../lib/compras";
 
 import AdminStatCard from "../../components/admin/AdminStatCard";
 
 function Dashboard() {
-  const stats = [
-    {
-      label: "Pedidos hoje",
-      value: "24",
-      description: "Pedidos recebidos hoje",
-      icon: "📦",
-    },
-    {
-      label: "Pendentes",
-      value: "5",
-      description: "Aguardando atendimento",
-      icon: "⏳",
-    },
-    {
-      label: "Em preparação",
-      value: "8",
-      description: "Pedidos em produção",
-      icon: "👨‍🍳",
-    },
-    {
-      label: "Concluídos",
-      value: "11",
-      description: "Pedidos finalizados",
-      icon: "✅",
-    },
-  ];
-
-  const pedidosRecentes = [
-    {
-      id: "1024",
-      cliente: "Lucas Sant'Ana",
-      horario: "14:32",
-      valor: "R$ 75,70",
-      status: "Em preparação",
-      statusClass: "preparing",
-    },
-    {
-      id: "1023",
-      cliente: "Mariana Silva",
-      horario: "14:18",
-      valor: "R$ 42,50",
-      status: "Recebido",
-      statusClass: "received",
-    },
-    {
-      id: "1022",
-      cliente: "João Pedro",
-      horario: "13:56",
-      valor: "R$ 68,90",
-      status: "Pronto",
-      statusClass: "ready",
-    },
-    {
-      id: "1021",
-      cliente: "Ana Costa",
-      horario: "13:41",
-      valor: "R$ 31,90",
-      status: "Entregue",
-      statusClass: "delivered",
-    },
-  ];
-
+  const hoje=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  const [inicio,setInicio]=useState(hoje),[fim,setFim]=useState(hoje),[periodo,setPeriodo]=useState({inicio:hoje,fim:hoje});
+  const carregar=useCallback(()=>admin.dashboard(periodo),[periodo]);const recurso=useAdminRecurso(carregar);const dados=recurso.dados;
+  const stats=[{label:'Pedidos no período',value:dados?.pedidos ?? '—',description:'Pela data de criação',icon:'📦'},...Object.entries(rotulosStatus).map(([status,label])=>({label,value:dados?.porStatus?.[status] ?? '—',description:'Pedidos no período',icon:'📦'})),{label:'Produtos disponíveis',value:dados?.produtos?.disponiveis ?? '—',description:'Catálogo atual',icon:'🍔'},{label:'Produtos indisponíveis',value:dados?.produtos?.indisponiveis ?? '—',description:'Catálogo atual',icon:'🍔'}];
+  const pedidosRecentes=(dados?.recentes || []).map(p=>({...p,cliente:p.cliente?.nome || 'Cliente',horario:dataTexto(p.criadoEm),valor:moeda(p.total),status:rotulosStatus[p.status] || p.status,statusClass:classeStatus[p.status] || ''}));
   return (
     <main className="admin-dashboard">
       <div className="admin-container">
@@ -84,10 +31,11 @@ function Dashboard() {
           </div>
 
           <div className="admin-header-date">
-            Hoje, 21 de setembro
+            {new Date().toLocaleDateString("pt-BR",{timeZone:"America/Sao_Paulo"})}
           </div>
         </section>
 
+        <AdminState recurso={recurso}/><form className="admin-products-controls" onSubmit={e=>{e.preventDefault();setPeriodo({inicio,fim});}}><label>De <input type="date" value={inicio} onChange={e=>setInicio(e.target.value)} required/></label><label>Até <input type="date" value={fim} onChange={e=>setFim(e.target.value)} required/></label><button className="admin-primary-button" disabled={recurso.carregando}>Consultar período</button><button type="button" onClick={recurso.atualizar}>Atualizar</button></form>
         {/* ESTATÍSTICAS */}
         <section className="admin-stats">
 
@@ -123,7 +71,7 @@ function Dashboard() {
               </a>
             </div>
 
-            <div className="admin-orders-list">
+            {!recurso.carregando && !pedidosRecentes.length && <p>Nenhum pedido neste período.</p>}<div className="admin-orders-list">
 
               {pedidosRecentes.map((pedido) => (
                 <article
@@ -133,15 +81,15 @@ function Dashboard() {
 
                   <div className="admin-order-main">
 
-                    <div className="admin-order-id">
-                      #{pedido.id}
+                    <div className="admin-order-id"><a href={`/admin/pedido?id=${encodeURIComponent(pedido.id)}`}>
+                      #{pedido.id}</a>
                     </div>
 
                     <div>
                       <h3>{pedido.cliente}</h3>
 
                       <p>
-                        Hoje às {pedido.horario}
+                        {pedido.horario}
                       </p>
                     </div>
 
@@ -175,37 +123,37 @@ function Dashboard() {
                   RESUMO
                 </span>
 
-                <h2>Hoje</h2>
+                <h2>No período</h2>
               </div>
             </div>
 
             <div className="admin-revenue">
 
-              <span>Faturamento</span>
+              <span>Pagamentos confirmados</span>
 
               <strong>
-                R$ 1.248,50
+                {dados ? moeda(dados.valorPagamentosConfirmados) : "—"}
               </strong>
 
               <small>
-                Valor demonstrativo
+                Pedidos criados no período, excluindo cancelados. Confirmação manual.
               </small>
 
             </div>
 
             <div className="admin-summary-item">
-              <span>Ticket médio</span>
-              <strong>R$ 52,02</strong>
+              <span>Valor dos pedidos</span>
+              <strong>{dados ? moeda(dados.valorPedidos) : "—"}</strong>
             </div>
 
             <div className="admin-summary-item">
               <span>Pedidos recebidos</span>
-              <strong>24</strong>
+              <strong>{dados?.porStatus?.recebido ?? "—"}</strong>
             </div>
 
             <div className="admin-summary-item">
               <span>Pedidos concluídos</span>
-              <strong>11</strong>
+              <strong>{dados?.porStatus?.entregue ?? "—"}</strong>
             </div>
 
           </div>

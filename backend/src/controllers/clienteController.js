@@ -1,3 +1,5 @@
+const {selecionar}=require('../services/publicoService');
+const camposPublicos=['id','nome','email','telefone','anonimo','atualizadoEm'];
 const {
   listarClientesPorLoja,
   buscarClientePorId,
@@ -9,7 +11,7 @@ async function listarClientes(req, res) {
 
     const clientes = await listarClientesPorLoja(lojaId);
 
-    return res.status(200).json(clientes);
+    return res.status(200).json(clientes.map(c=>selecionar(c,camposPublicos)));
   } catch (error) {
     console.error("Erro ao listar clientes:", error);
 
@@ -34,7 +36,7 @@ async function buscarCliente(req, res) {
       });
     }
 
-    return res.status(200).json(cliente);
+    return res.status(200).json(selecionar(cliente,camposPublicos));
   } catch (error) {
     console.error("Erro ao buscar cliente:", error);
 

@@ -1,0 +1,66 @@
+const assert=require('node:assert/strict');
+const crypto=require('node:crypto');
+const {request,identity}=require('./publico-emulator-integration');
+const {getFirestore}=require('firebase-admin/firestore');
+const {getAuth}=require('firebase-admin/auth');
+async function main() {
+  const db=getFirestore(),auth=getAuth(),lojaId='loja-admin-'+crypto.randomUUID(),outra='outra-'+crypto.randomUUID();
+  const loja=db.collection('lojas').doc(lojaId),base='/admin/lojas/'+lojaId,pedidos='/lojas/'+lojaId+'/pedidos';
+  await loja.set({nome:'Loja Admin Emulator',ativo:true,whatsapp:'11999999999',entrega:{habilitada:true,taxa:5},retirada:{habilitada:true},pagamentos:{pix:true,dinheiro:true,cartao_credito:true,cartao_debito:true},segredo:'nao-expor'});
+  await db.collection('lojas').doc(outra).set({nome:'Outra loja'});
+  const senha='Teste-'+crypto.randomUUID()+'1!';
+  async function administrador(lojaId){const email='adm-'+crypto.randomUUID()+'@teste.local';const user=await auth.createUser({email,password:senha});await db.collection('usuarios').doc(user.uid).set({role:'admin',lojaId,ativo:true});const login=await identity('signInWithPassword',{email,password:senha});return {...login,uid:user.uid};}
+  const admin=await administrador(lojaId),adminOutra=await administrador(outra),cliente=await identity('signUp',{email:'cliente-'+crypto.randomUUID()+'@teste.local',password:senha}),anonimo=await identity('signUp',{});
+  const req=(method,path,body,token=admin.idToken)=>request(method,base+path,token,body);
+  assert.equal((await req('GET','/sessao')).body.role,'admin');
+  assert.equal((await req('GET','/sessao',undefined,cliente.idToken)).status,403);
+  assert.equal((await req('GET','/sessao',undefined,anonimo.idToken)).status,403);
+  const operacoes=[['GET','/dashboard'],['GET','/produtos'],['POST','/produtos'],['PATCH','/produtos/id'],['DELETE','/produtos/id'],['GET','/categorias'],['POST','/categorias'],['PATCH','/categorias/id'],['DELETE','/categorias/id'],['GET','/clientes'],['GET','/clientes/id'],['GET','/loja'],['PATCH','/loja']];
+  for(const [method,path] of operacoes)for(const token of [adminOutra.idToken,cliente.idToken,anonimo.idToken])assert.equal((await req(method,path,undefined,token)).status,403,method+path);
+  const cat=await req('POST','/categorias',{nome:'Categoria admin'});assert.equal(cat.status,201);
+  const produto=await req('POST','/produtos',{nome:'Produto admin',preco:15,categoriaId:cat.body.id,ativo:true,disponivel:true});assert.equal(produto.status,201);
+  assert.equal((await req('POST','/produtos',{nome:'Preço inválido',preco:-1,categoriaId:cat.body.id})).status,400);
+  const editado=await req('PATCH','/produtos/'+produto.body.id,{preco:18.5,nome:'Produto editado'});assert.equal(editado.body.preco,18.5);
+  assert.equal((await req('DELETE','/categorias/'+cat.body.id)).status,409);
+  assert.equal((await req('PATCH','/categorias/'+cat.body.id,{ativo:false})).status,409);
+  const outraCategoria=await req('POST','/categorias',{nome:'Categoria vazia'});
+  assert.equal((await req('PATCH','/categorias/'+outraCategoria.body.id,{nome:'Nome editado'})).body.nome,'Nome editado');
+  const primeira=await req('GET','/categorias?limite=1');assert.equal(primeira.body.itens.length,1);assert.ok(primeira.body.proximoCursor);
+  const segunda=await req('GET','/categorias?limite=1&cursor='+primeira.body.proximoCursor);assert.notEqual(segunda.body.itens[0].id,primeira.body.itens[0].id);
+  await req('PATCH','/loja',{nome:'Configuração real local',whatsapp:'11987654321',entrega:{habilitada:true,taxa:8},retirada:{habilitada:true},pagamentos:{pix:true,dinheiro:true,cartao_credito:false,cartao_debito:false},horarios:{segunda:{abertura:'10:00',fechamento:'22:00',fechado:false}}});
+  assert.equal((await req('PATCH','/loja',{whatsapp:'abc'})).status,400);
+  assert.equal((await req('PATCH','/loja',{entrega:{habilitada:true,taxa:-1}})).status,400);
+  const catalogo=await request('GET','/publico/lojas/'+lojaId+'/catalogo');assert.equal(catalogo.body.loja.nome,'Configuração real local');assert.equal(catalogo.body.loja.entrega.taxa,8);assert.equal(catalogo.body.produtos[0].preco,18.5);assert.equal(catalogo.body.loja.segredo,undefined);
+  const corpo={tipoEntrega:'retirada',itens:[{produtoId:produto.body.id,quantidade:2}],cliente:{nome:'Comprador convidado',telefone:'11999999999'},pagamento:{forma:'pix'}};
+  const criado=await request('POST',pedidos,anonimo.idToken,corpo,crypto.randomUUID());assert.equal(criado.status,201);assert.equal(criado.body.total,37);
+  const clienteSalvo=await req('GET','/clientes/'+anonimo.localId);assert.equal(clienteSalvo.body.nome,'Comprador convidado');assert.equal(clienteSalvo.body.anonimo,true);
+  assert.equal((await req('GET','/clientes')).body.itens.length,1);
+  assert.equal((await request('GET',pedidos+'?limite=25',admin.idToken)).body.itens.length,1);
+  assert.equal((await request('PATCH',pedidos+'/'+criado.body.id+'/status',admin.idToken,{status:'em_preparacao'})).status,400);
+  assert.equal((await request('PATCH',pedidos+'/'+criado.body.id+'/status',admin.idToken,{status:'pagamento_confirmado'})).status,400);
+  assert.equal((await request('PATCH',pedidos+'/'+criado.body.id+'/pagamento',cliente.idToken,{status:'confirmado'})).status,403);
+  const antes=await req('GET','/dashboard');assert.equal(antes.status,200);assert.equal(antes.body.pedidos,1);assert.equal(antes.body.valorPedidos,37);assert.equal(antes.body.valorPagamentosConfirmados,0);
+  const finance=await Promise.all([request('PATCH',pedidos+'/'+criado.body.id+'/pagamento',admin.idToken,{status:'confirmado'}),request('PATCH',pedidos+'/'+criado.body.id+'/pagamento',admin.idToken,{status:'confirmado'})]);
+  assert.deepEqual(finance.map(r=>r.status).sort(),[200,400]);
+  for(const status of ['pagamento_confirmado','em_preparacao','pronto','entregue'])assert.equal((await request('PATCH',pedidos+'/'+criado.body.id+'/status',admin.idToken,{status})).status,200);
+  const detalhe=await req('GET','/pedidos/'+criado.body.id);assert.equal(detalhe.body.status,'entregue');assert.equal(detalhe.body.pagamento.status,'confirmado');assert.deepEqual(detalhe.body.transicoesStatus,[]);
+  const resumo=await req('GET','/dashboard');assert.equal(resumo.body.porStatus.entregue,1);assert.equal(resumo.body.valorPagamentosConfirmados,37);
+  const ligado=await req('PATCH','/produtos/'+produto.body.id,{categoriaId:outraCategoria.body.id});assert.equal(ligado.status,200);
+  assert.equal((await req('DELETE','/categorias/'+cat.body.id)).status,204);
+  await req('DELETE','/produtos/'+produto.body.id);
+  assert.equal((await req('PATCH','/categorias/'+outraCategoria.body.id,{ativo:false})).status,200);
+  assert.equal((await req('POST','/produtos',{nome:'Ativo em categoria inativa',preco:10,categoriaId:outraCategoria.body.id})).status,400);
+  assert.equal((await req('DELETE','/categorias/'+outraCategoria.body.id)).status,409);
+  const indisponivel=await request('POST',pedidos,anonimo.idToken,corpo,crypto.randomUUID());assert.equal(indisponivel.status,400);
+  // Corrida entre exclusão de categoria vazia e vínculo de produto não produz órfão.
+  const corrida=await req('POST','/categorias',{nome:'Corrida'});
+  const resultados=await Promise.all([req('DELETE','/categorias/'+corrida.body.id),req('POST','/produtos',{nome:'Concorrente',preco:1,categoriaId:corrida.body.id})]);
+  assert.ok((resultados[0].status===204 && resultados[1].status===400) || (resultados[0].status===409 && resultados[1].status===201),JSON.stringify(resultados.map(r=>r.status)));
+  // Revogação validada pelo Admin SDK, sem falsificar o estado do React.
+  await new Promise(resolve=>setTimeout(resolve,1100));await auth.revokeRefreshTokens(admin.uid);
+  assert.equal((await req('GET','/sessao')).status,401);
+  const direto=await fetch(`http://${process.env.FIRESTORE_EMULATOR_HOST}/v1/projects/${process.env.GCLOUD_PROJECT}/databases/(default)/documents/lojas/${lojaId}`,{headers:{Authorization:`Bearer ${cliente.idToken}`}});assert.equal(direto.status,403);
+  console.log('Etapa 20 Emulator: autorização multi-loja, CRUD, paginação, configurações públicas, convidados, dashboard agregado, status, transações financeiras, integridade concorrente, token revogado e Rules aprovados.');
+  await db.terminate();
+}
+main().catch(error=>{console.error(error);process.exitCode=1;});

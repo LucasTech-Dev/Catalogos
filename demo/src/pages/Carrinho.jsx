@@ -2,82 +2,11 @@ import React, { useState } from "react";
 
 import CartItem from "../components/ui/CartItem";
 
-const carrinhoInicial = [
-  {
-    id: 1,
-    categoria: "Hambúrgueres",
-    nome: "Classic Burger",
-    preco: 28.9,
-    quantidade: 2,
-    imagem:
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
-    adicionaisTotal: 9,
-    adicionais: [
-      {
-        id: 1,
-        nome: "Bacon crocante",
-      },
-      {
-        id: 2,
-        nome: "Queijo extra",
-      },
-    ],
-    observacao: "Sem cebola",
-  },
-  {
-    id: 2,
-    categoria: "Porções",
-    nome: "Batata da Casa",
-    preco: 18.9,
-    quantidade: 1,
-    imagem:
-      "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80",
-    adicionaisTotal: 0,
-    adicionais: [],
-    observacao: "",
-  },
-];
-
-const taxaEntrega = 5;
-
+import {useLoja, EstadoCatalogo} from "../contexts/LojaContext";
 function Carrinho() {
-  const [itens, setItens] =
-    useState(carrinhoInicial);
-
-  const alterarQuantidade = (
-    id,
-    quantidade
-  ) => {
-    setItens((itensAtuais) =>
-      itensAtuais.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              quantidade,
-            }
-          : item
-      )
-    );
-  };
-
-  const removerItem = (id) => {
-    setItens((itensAtuais) =>
-      itensAtuais.filter(
-        (item) => item.id !== id
-      )
-    );
-  };
-
-  const subtotal = itens.reduce(
-    (total, item) =>
-      total +
-      (item.preco + item.adicionaisTotal) *
-        item.quantidade,
-    0
-  );
-
+  const {itens,alterarQuantidade,removerItem,subtotal,loja} = useLoja();
+  const taxaEntrega = loja?.entrega?.habilitada ? Number(loja.entrega.taxa || 0) : 0;
   const total = subtotal + taxaEntrega;
-
   return (
     <main className="cart-page">
       <section className="cart-section">
@@ -98,7 +27,7 @@ function Carrinho() {
             </p>
           </div>
 
-          <div className="cart-layout">
+          <EstadoCatalogo /><p>Valores estimados. O servidor calcula o total definitivo no checkout.</p><div className="cart-layout">
 
             <div className="cart-items">
 
@@ -128,7 +57,7 @@ function Carrinho() {
 
                   <button
                     type="button"
-                    className="continue-shopping-button"
+                    className="continue-shopping-button" onClick={() => window.location.assign("/cardapio")}
                   >
                     Ver cardápio
                   </button>
@@ -188,13 +117,14 @@ function Carrinho() {
                 <button
                   type="button"
                   className="checkout-button"
+                  onClick={() => window.location.assign("/checkout")}
                 >
                   Continuar para checkout
                 </button>
 
                 <button
                   type="button"
-                  className="continue-shopping-button"
+                  className="continue-shopping-button" onClick={() => window.location.assign("/cardapio")}
                 >
                   Continuar comprando
                 </button>

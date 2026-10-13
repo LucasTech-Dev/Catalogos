@@ -1,7 +1,10 @@
 import React from "react";
 import { LogOut, Menu, Settings, Store, X } from "lucide-react";
 
+import {useAdminSessao} from "./AdminGate";
 function AdminHeader({ onMenuClick, sidebarOpen }) {
+  const sessao=useAdminSessao();
+  const loja=sessao?.loja;
   return (
     <header className="admin-topbar">
       <button
@@ -24,13 +27,13 @@ function AdminHeader({ onMenuClick, sidebarOpen }) {
         </span>
 
         <span>
-          <strong>Lancheria Demo</strong>
+          <strong>{loja?.nome || "Loja"}</strong>
           <small>Área administrativa</small>
         </span>
       </a>
 
       <div className="admin-topbar-actions">
-        <span className="admin-user-badge">Admin</span>
+        <span className="admin-user-badge">{sessao?.email || "Admin"}</span>
 
         <a
           href="/admin/configuracoes"
@@ -40,14 +43,14 @@ function AdminHeader({ onMenuClick, sidebarOpen }) {
           <Settings size={18} />
         </a>
 
-        <a
-          href="/login"
+        <button
+          type="button" onClick={() => sessao.sair()}
           className="admin-logout-button"
           aria-label="Sair"
         >
           <LogOut size={18} />
           <span>Sair</span>
-        </a>
+        </button>
       </div>
     </header>
   );

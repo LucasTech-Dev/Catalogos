@@ -1,41 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
+import {admin} from "../../services/admin";
+import {useAdminRecurso} from "../../hooks/useAdmin";
+import {AdminState} from "../../components/admin/AdminState";
+import {useAdminSessao} from "../../components/admin/AdminGate";
+import {horariosTexto} from "../../lib/compras";
+const dias=["segunda","terca","quarta","quinta","sexta","sabado","domingo"];
 function Configuracoes() {
+  const sessao=useAdminSessao();
   const [salvo, setSalvo] = useState(false);
 
-  const [config, setConfig] = useState({
-    nome: "Lancheria Demo",
-    descricao:
-      "Os melhores hambúrgueres artesanais da região.",
-    telefone: "(51) 99999-9999",
-    whatsapp: "(51) 99999-9999",
-    instagram: "@lancheriademo",
-
-    endereco: "Rua Principal, 120",
-    bairro: "Centro",
-    cidade: "Capão da Canoa - RS",
-
-    segunda: true,
-    terca: true,
-    quarta: true,
-    quinta: true,
-    sexta: true,
-    sabado: true,
-    domingo: false,
-
-    abertura: "18:00",
-    fechamento: "23:30",
-
-    retirada: true,
-    entrega: true,
-    taxaEntrega: "5,00",
-    pedidoMinimo: "20,00",
-
-    pix: true,
-    dinheiro: true,
-    cartao: true,
-  });
-
+  const recurso=useAdminRecurso(admin.loja),[erro,setErro]=useState(''),[ocupado,setOcupado]=useState(false);
+  const vazio={nome:'',descricao:'',telefone:'',whatsapp:'',instagram:'',endereco:'',bairro:'',cidade:'',numero:'',uf:'',logo:'',imagem:'',corPrimaria:'#f97316',tempoMedio:'',horarios:{},retirada:true,entrega:false,taxaEntrega:'0',pedidoMinimo:'0',pix:false,dinheiro:false,cartao_credito:false,cartao_debito:false};
+  const [config,setConfig]=useState(vazio);
+  function adaptar(dados) {const endereco=typeof dados.endereco==='string'?{rua:dados.endereco}:dados.endereco || {};return {...vazio,...dados,endereco:endereco.rua || endereco.logradouro || '',numero:endereco.numero || '',uf:endereco.uf || '',bairro:endereco.bairro || '',cidade:endereco.cidade || '',horarios:typeof dados.horarios==='object' && dados.horarios ? Object.fromEntries(Object.entries(dados.horarios).map(([dia,h])=>[dia==='terça'?'terca':dia==='sábado'?'sabado':dia,h])) : {},retirada:dados.retirada?.habilitada!==false,entrega:dados.entrega?.habilitada===true,taxaEntrega:String(dados.entrega?.taxa ?? 0),pedidoMinimo:String(dados.pedidoMinimo ?? 0),pix:dados.pagamentos?.pix===true,dinheiro:dados.pagamentos?.dinheiro===true,cartao_credito:dados.pagamentos?.cartao_credito===true || dados.pagamentos?.cartao===true,cartao_debito:dados.pagamentos?.cartao_debito===true || dados.pagamentos?.cartao===true};}
+  useEffect(()=>{if(recurso.dados)setConfig(adaptar(recurso.dados));},[recurso.dados]);
+  const horario=(dia,campo,valor)=>{setConfig(a=>({...a,horarios:{...a.horarios,[dia]:{...(typeof a.horarios[dia]==='object'?a.horarios[dia]:{fechado:true}),[campo]:valor}}}));setSalvo(false);};
   function alterarCampo(campo, valor) {
     setConfig((atual) => ({
       ...atual,
@@ -45,18 +25,15 @@ function Configuracoes() {
     setSalvo(false);
   }
 
-  function salvarConfiguracoes(event) {
-    event.preventDefault();
-
-    console.log("Configurações da loja:", config);
-
-    setSalvo(true);
-
-    setTimeout(() => {
-      setSalvo(false);
-    }, 3000);
+  async function salvarConfiguracoes(event) {
+    event.preventDefault();if(ocupado)return;setOcupado(true);setErro('');setSalvo(false);
+    try {
+      const numero=v=>{if(String(v).trim()==='')throw new Error('Informe os valores monetários.');return Number(String(v).replace(',','.'));};
+      const dados={nome:config.nome,descricao:config.descricao,telefone:config.telefone,whatsapp:config.whatsapp,instagram:config.instagram,endereco:{...Object.fromEntries(Object.entries(typeof recurso.dados?.endereco === "object" ? recurso.dados.endereco : {}).filter(([k])=>["cep","complemento"].includes(k))),rua:config.endereco,numero:config.numero,bairro:config.bairro,cidade:config.cidade,uf:config.uf},logo:config.logo || '',imagem:config.imagem || '',corPrimaria:config.corPrimaria,tempoMedio:config.tempoMedio || '',entrega:{habilitada:config.entrega,taxa:numero(config.taxaEntrega)},retirada:{habilitada:config.retirada},pedidoMinimo:numero(config.pedidoMinimo),pagamentos:Object.fromEntries(['pix','dinheiro','cartao_credito','cartao_debito'].map(f=>[f,config[f]]))};
+      if(Object.keys(config.horarios).length && Object.values(config.horarios).every(h=>h && typeof h==='object'))dados.horarios=config.horarios;
+      const salvo=await admin.configurar(dados);recurso.setDados(salvo);sessao?.atualizarLoja(salvo);setConfig(adaptar(salvo));setSalvo(true);
+    }catch(e){setErro(e.message);}finally{setOcupado(false);}
   }
-
   return (
     <main className="admin-settings-page">
       <div className="admin-container">
@@ -71,7 +48,7 @@ function Configuracoes() {
           </div>
         </section>
 
-        <form onSubmit={salvarConfiguracoes}>
+        <AdminState recurso={recurso}/>{erro && <p role="alert">{erro}</p>}<form onSubmit={salvarConfiguracoes}>
           {/* IDENTIDADE */}
           <section className="admin-settings-section">
             <div className="admin-settings-section-header">
@@ -242,69 +219,7 @@ function Configuracoes() {
               </div>
             </div>
 
-            <div className="admin-weekdays">
-              {[
-                ["segunda", "Segunda-feira"],
-                ["terca", "Terça-feira"],
-                ["quarta", "Quarta-feira"],
-                ["quinta", "Quinta-feira"],
-                ["sexta", "Sexta-feira"],
-                ["sabado", "Sábado"],
-                ["domingo", "Domingo"],
-              ].map(([campo, nome]) => (
-                <label
-                  className="admin-weekday"
-                  key={campo}
-                >
-                  <input
-                    type="checkbox"
-                    checked={config[campo]}
-                    onChange={(event) =>
-                      alterarCampo(
-                        campo,
-                        event.target.checked
-                      )
-                    }
-                  />
-
-                  <span>{nome}</span>
-                </label>
-              ))}
-            </div>
-
-            <div className="admin-settings-grid admin-settings-hours">
-              <div className="admin-form-group">
-                <label htmlFor="abertura">Abertura</label>
-
-                <input
-                  id="abertura"
-                  type="time"
-                  value={config.abertura}
-                  onChange={(event) =>
-                    alterarCampo(
-                      "abertura",
-                      event.target.value
-                    )
-                  }
-                />
-              </div>
-
-              <div className="admin-form-group">
-                <label htmlFor="fechamento">Fechamento</label>
-
-                <input
-                  id="fechamento"
-                  type="time"
-                  value={config.fechamento}
-                  onChange={(event) =>
-                    alterarCampo(
-                      "fechamento",
-                      event.target.value
-                    )
-                  }
-                />
-              </div>
-            </div>
+            {typeof recurso.dados?.horarios === "string" && <p>Horários atuais: {horariosTexto(recurso.dados.horarios)}</p>}<div className="admin-settings-grid">{dias.map(dia=>{const h=typeof config.horarios[dia]==='object'?config.horarios[dia]:{fechado:true};return <div className="admin-form-group" key={dia}><label><input type="checkbox" checked={h?.fechado===false} onChange={e=>horario(dia,'fechado',!e.target.checked)}/>{dia}</label><label htmlFor={'abertura-'+dia}>Abertura {dia}</label><input id={'abertura-'+dia} type="time" value={h?.abertura || ''} onChange={e=>horario(dia,'abertura',e.target.value)}/><label htmlFor={'fechamento-'+dia}>Fechamento {dia}</label><input id={'fechamento-'+dia} type="time" value={h?.fechamento || ''} onChange={e=>horario(dia,'fechamento',e.target.value)}/></div>;})}</div>
           </section>
 
           {/* ENTREGA */}
@@ -463,28 +378,11 @@ function Configuracoes() {
                 />
               </label>
 
-              <label className="admin-setting-toggle">
-                <div>
-                  <strong>Cartão</strong>
-                  <span>
-                    Aceitar pagamento em cartão.
-                  </span>
-                </div>
-
-                <input
-                  type="checkbox"
-                  checked={config.cartao}
-                  onChange={(event) =>
-                    alterarCampo(
-                      "cartao",
-                      event.target.checked
-                    )
-                  }
-                />
-              </label>
+              {['cartao_credito','cartao_debito'].map(forma=><label className="admin-setting-toggle" key={forma}><div><strong>{forma==='cartao_credito'?'Cartão de crédito':'Cartão de débito'}</strong></div><input type="checkbox" checked={config[forma]} onChange={e=>alterarCampo(forma,e.target.checked)}/></label>)}
             </div>
           </section>
 
+          <section className="admin-settings-section"><h2>Identidade visual e endereço</h2><div className="admin-settings-grid">{[['numero','Número'],['uf','UF'],['logo','URL do logo'],['imagem','URL da imagem'],['corPrimaria','Cor principal'],['tempoMedio','Tempo médio']].map(([campo,nome])=><div className="admin-form-group" key={campo}><label htmlFor={'loja-'+campo}>{nome}</label><input id={'loja-'+campo} value={config[campo] || ''} onChange={e=>alterarCampo(campo,e.target.value)}/></div>)}</div></section>
           {/* AÇÕES */}
           <div className="admin-settings-actions">
             {salvo && (
@@ -494,7 +392,7 @@ function Configuracoes() {
             )}
 
             <button
-              type="submit"
+              disabled={ocupado || recurso.carregando || Boolean(recurso.erro)} type="submit"
               className="admin-primary-button"
             >
               Salvar configurações

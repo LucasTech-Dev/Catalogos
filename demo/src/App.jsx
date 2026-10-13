@@ -1,6 +1,8 @@
 import React from "react";
+import {LojaProvider} from "./contexts/LojaContext";
 
 import Header from "./components/layout/Header";
+import AdminGate from "./components/admin/AdminGate";
 import AdminLayout from "./components/admin/AdminLayout";
 
 import Home from "./pages/Home";
@@ -121,17 +123,17 @@ function App() {
 
   if (isAdminRoute) {
     return (
-      <AdminLayout currentPath={path}>
+      <AdminGate><AdminLayout currentPath={path}>
         {page}
-      </AdminLayout>
+      </AdminLayout></AdminGate>
     );
   }
 
   return (
     <>
-      <Header />
+      <LojaProvider><Header />
 
-      {page}
+      {page}</LojaProvider>
     </>
   );
 }

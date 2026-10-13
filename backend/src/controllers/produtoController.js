@@ -9,7 +9,7 @@ async function listarProdutos(req, res) {
 
     const produtos = await listarProdutosPorLoja(lojaId);
 
-    return res.status(200).json(produtos);
+    return res.status(200).json(req.user.role === "admin" ? produtos : produtos.map(item => require("../services/publicoService").selecionar(item,['id', 'nome', 'descricao', 'preco', 'imagem', 'categoriaId', 'ativo', 'disponivel', 'ingredientes'])));
   } catch (error) {
     console.error("Erro ao listar produtos:", error);
 
@@ -34,7 +34,7 @@ async function buscarProduto(req, res) {
       });
     }
 
-    return res.status(200).json(produto);
+    return res.status(200).json(req.user.role === "admin" ? produto : require("../services/publicoService").selecionar(produto,['id', 'nome', 'descricao', 'preco', 'imagem', 'categoriaId', 'ativo', 'disponivel', 'ingredientes']));
   } catch (error) {
     console.error("Erro ao buscar produto:", error);
 

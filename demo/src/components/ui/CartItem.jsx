@@ -25,7 +25,7 @@ function CartItem({
               {item.categoria}
             </span>
 
-            <h2>{item.nome}</h2>
+            <h2>{item.nome}</h2>{(item.ativo !== true || item.disponivel === false) && <p role="status">Produto indisponível. Remova antes de continuar.</p>}
 
             {item.adicionais.length > 0 && (
               <div className="cart-item-extras">
@@ -78,7 +78,7 @@ function CartItem({
               onClick={() =>
                 onQuantidadeChange(
                   item.id,
-                  item.quantidade + 1
+                  Math.min(99,item.quantidade + 1)
                 )
               }
             >

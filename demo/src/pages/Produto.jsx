@@ -1,42 +1,10 @@
 import React, { useState } from "react";
 
-const produto = {
-  nome: "Classic Burger",
-  categoria: "Hambúrgueres",
-  descricao:
-    "Um hambúrguer artesanal preparado com ingredientes selecionados, pão brioche macio, queijo derretido e nosso molho especial.",
-  preco: 28.9,
-  imagem:
-    "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=80",
-  ingredientes: [
-    "Pão brioche",
-    "Hambúrguer artesanal",
-    "Queijo cheddar",
-    "Molho especial",
-    "Alface",
-    "Tomate",
-  ],
-};
-
-const adicionais = [
-  {
-    id: 1,
-    nome: "Bacon crocante",
-    preco: 5,
-  },
-  {
-    id: 2,
-    nome: "Queijo extra",
-    preco: 4,
-  },
-  {
-    id: 3,
-    nome: "Molho especial",
-    preco: 2,
-  },
-];
-
+import {useLoja, EstadoCatalogo} from "../contexts/LojaContext";
 function Produto() {
+  const {produtos,adicionar} = useLoja();
+  const produto = produtos.find(p => p.id === new URLSearchParams(window.location.search).get("id"));
+  const adicionais = [];
   const [quantidade, setQuantidade] = useState(1);
   const [adicionaisSelecionados, setAdicionaisSelecionados] = useState([]);
   const [observacao, setObservacao] = useState("");
@@ -55,6 +23,7 @@ function Produto() {
     )
     .reduce((total, adicional) => total + adicional.preco, 0);
 
+  if (!produto) return <main className="product-page"><EstadoCatalogo /><p>Produto não encontrado.</p><a href="/cardapio">Ver cardápio</a></main>;
   const total = (produto.preco + totalAdicionais) * quantidade;
 
   return (
@@ -76,11 +45,6 @@ function Produto() {
             </span>
 
             <h1>{produto.nome}</h1>
-
-            <div className="product-rating">
-              <span>★★★★★</span>
-              <small>4,9 • 128 avaliações</small>
-            </div>
 
             <p className="product-detail-description">
               {produto.descricao}
@@ -106,61 +70,6 @@ function Produto() {
 
             <div className="product-divider" />
 
-            <div className="product-info-block">
-              <h2>Adicionais</h2>
-
-              <div className="extras-list">
-                {adicionais.map((adicional) => {
-                  const selecionado =
-                    adicionaisSelecionados.includes(
-                      adicional.id
-                    );
-
-                  return (
-                    <button
-                      key={adicional.id}
-                      type="button"
-                      className={
-                        selecionado
-                          ? "extra-option selected"
-                          : "extra-option"
-                      }
-                      onClick={() =>
-                        alternarAdicional(adicional.id)
-                      }
-                    >
-                      <span>
-                        <strong>{adicional.nome}</strong>
-                        <small>
-                          + R${" "}
-                          {adicional.preco
-                            .toFixed(2)
-                            .replace(".", ",")}
-                        </small>
-                      </span>
-
-                      <span className="extra-check">
-                        {selecionado ? "✓" : "+"}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="product-info-block">
-              <h2>Observações</h2>
-
-              <textarea
-                value={observacao}
-                onChange={(event) =>
-                  setObservacao(event.target.value)
-                }
-                placeholder="Ex.: sem cebola, molho à parte..."
-                rows="4"
-              />
-            </div>
-
             <div className="product-purchase">
 
               <div className="quantity-control">
@@ -180,7 +89,7 @@ function Produto() {
                 <button
                   type="button"
                   onClick={() =>
-                    setQuantidade(quantidade + 1)
+                    setQuantidade(Math.min(99,quantidade + 1))
                   }
                 >
                   +
@@ -190,8 +99,10 @@ function Produto() {
               <button
                 type="button"
                 className="add-to-cart-button"
+                disabled={produto.ativo !== true || produto.disponivel === false}
+                onClick={() => {adicionar(produto, quantidade); window.location.assign("/carrinho");}}
               >
-                <span>Adicionar ao carrinho</span>
+                <span>{produto.ativo === true && produto.disponivel !== false ? "Adicionar ao carrinho" : "Produto indisponível"}</span>
                 <strong>
                   R$ {total.toFixed(2).replace(".", ",")}
                 </strong>

@@ -1,12 +1,16 @@
 import React from "react";
 
+import {useRecurso} from "../hooks/useRecurso";
+import {publico} from "../services/api";
+import {sair} from "../services/conta";
 function Perfil() {
+  const {dados,erro,carregando} = useRecurso(publico + "/me");
   return (
     <main className="profile-page">
       <div className="container profile-container">
 
         {/* CABEÇALHO */}
-        <section className="profile-header">
+        {erro && <p role="alert">{erro}</p>}{carregando && <p>Carregando...</p>}{dados?.anonimo && <p>Você está usando uma sessão de convidado. <a href="/cadastro">Crie uma conta para preservar seu histórico.</a></p>}<section className="profile-header">
 
           <div className="profile-avatar">
             👤
@@ -18,7 +22,7 @@ function Perfil() {
             </span>
 
             <h1>
-              Olá, Lucas 👋
+              Olá, {dados?.nome || "visitante"} 👋
             </h1>
 
             <p>
@@ -109,7 +113,7 @@ function Perfil() {
 
           <button
             type="button"
-            className="profile-logout"
+            className="profile-logout" onClick={async () => {await sair(); window.location.assign("/login");}}
           >
             Sair da conta
           </button>

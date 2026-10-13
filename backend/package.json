@@ -10,7 +10,11 @@
     "firebase:emulator:pagamentos": "node scripts/pagamento-emulator-integration.js",
     "firebase:emulator:whatsapp": "node scripts/whatsapp-emulator-integration.js",
     "dev": "node --watch src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "firebase:emulator:publico": "node scripts/publico-emulator-integration.js",
+    "firebase:emulator:etapa19": "node scripts/etapa19-emulator-suite.js",
+    "firebase:emulator:admin": "node scripts/admin-emulator-integration.js",
+    "firebase:emulator:etapa20": "node scripts/etapa20-emulator-suite.js"
   },
   "keywords": [],
   "author": "",

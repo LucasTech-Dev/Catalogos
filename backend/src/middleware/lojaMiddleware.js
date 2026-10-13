@@ -13,6 +13,8 @@ function verificarLojaDoUsuario(req, res, next) {
     });
   }
 
+  if (req.user.publico && req.user.role === "cliente") return next();
+
   if (!req.user.lojaId) {
     return res.status(403).json({
       error: "Usuário não está vinculado a uma loja.",

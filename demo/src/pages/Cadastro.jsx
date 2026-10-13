@@ -1,13 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
+import {cadastrar} from "../services/conta";
 
 function Cadastro() {
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    // Cadastro será conectado ao Firebase futuramente.
-    console.log("Cadastro enviado");
+  const [erro,setErro] = useState(''),[ocupado,setOcupado] = useState(false);
+  async function handleSubmit(event) {
+    event.preventDefault(); if (ocupado) return;setOcupado(true);setErro('');
+    const valor = id => event.target.querySelector('#' + id).value;
+    try {
+      if (valor('cadastro-senha') !== valor('confirmar-senha')) throw new Error('As senhas devem ser iguais.');
+      await cadastrar({nome:valor('nome'),telefone:valor('telefone'),email:valor('cadastro-email'),senha:valor('cadastro-senha')});window.location.assign('/perfil');
+    } catch(e) {setErro(e.message);} finally {setOcupado(false);}
   }
-
   return (
     <main className="account-page">
       <div className="account-container">
@@ -32,6 +35,7 @@ function Cadastro() {
             </p>
           </div>
 
+          {erro && <p role="alert">{erro}</p>}
           <form
             className="account-form"
             onSubmit={handleSubmit}
@@ -114,7 +118,7 @@ function Cadastro() {
             </label>
 
             <button
-              type="submit"
+              disabled={ocupado} type="submit"
               className="button button-primary account-submit"
             >
               Criar minha conta

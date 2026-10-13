@@ -30,7 +30,7 @@ async function validarItensDoPedido(lojaId, itens) {
 
     if (
       !Number.isInteger(quantidade) ||
-      quantidade <= 0
+      quantidade <= 0 || quantidade > 99
     ) {
       throw new Error(
         "A quantidade de cada item deve ser um número inteiro maior que zero."
@@ -53,7 +53,7 @@ async function validarItensDoPedido(lojaId, itens) {
 
     const produto = produtoSnapshot.data();
 
-    if (produto.ativo !== true) {
+    if (produto.ativo !== true || produto.disponivel === false) {
       throw new Error(
         `Produto "${produtoId}" não está disponível.`
       );
@@ -61,7 +61,7 @@ async function validarItensDoPedido(lojaId, itens) {
 
     if (
       typeof produto.preco !== "number" ||
-      produto.preco < 0
+      !Number.isFinite(produto.preco) || produto.preco < 0
     ) {
       throw new Error(
         `Produto "${produtoId}" possui preço inválido.`

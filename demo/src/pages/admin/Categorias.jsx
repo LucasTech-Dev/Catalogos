@@ -1,37 +1,12 @@
 import React, { useState } from "react";
 
+import {admin} from "../../services/admin";
+import {useAdminLista} from "../../hooks/useAdmin";
+import {AdminState,AdminPaginacao} from "../../components/admin/AdminState";
 function Categorias() {
-  const [categorias, setCategorias] = useState([
-    {
-      id: 1,
-      nome: "Hambúrgueres",
-      descricao: "Hambúrgueres artesanais da casa",
-      produtos: 8,
-      ativa: true,
-    },
-    {
-      id: 2,
-      nome: "Porções",
-      descricao: "Porções e acompanhamentos",
-      produtos: 5,
-      ativa: true,
-    },
-    {
-      id: 3,
-      nome: "Bebidas",
-      descricao: "Refrigerantes, sucos e outras bebidas",
-      produtos: 12,
-      ativa: true,
-    },
-    {
-      id: 4,
-      nome: "Combos",
-      descricao: "Combinações especiais",
-      produtos: 4,
-      ativa: false,
-    },
-  ]);
-
+  const recurso=useAdminLista('categorias');
+  const categorias=recurso.itens.map(c=>({...c,ativa:c.ativo!==false}));
+  const [erro,setErro]=useState(''),[ocupado,setOcupado]=useState(false);
   const [modalAberto, setModalAberto] = useState(false);
   const [categoriaEditando, setCategoriaEditando] = useState(null);
   const [nome, setNome] = useState("");
@@ -58,57 +33,15 @@ function Categorias() {
     setDescricao("");
   }
 
-  function salvarCategoria(event) {
-    event.preventDefault();
-
-    if (!nome.trim()) {
-      alert("Informe o nome da categoria.");
-      return;
-    }
-
-    if (categoriaEditando) {
-      setCategorias((categoriasAtuais) =>
-        categoriasAtuais.map((categoria) =>
-          categoria.id === categoriaEditando.id
-            ? {
-                ...categoria,
-                nome: nome.trim(),
-                descricao: descricao.trim(),
-              }
-            : categoria
-        )
-      );
-    } else {
-      const novaCategoria = {
-        id: Date.now(),
-        nome: nome.trim(),
-        descricao: descricao.trim(),
-        produtos: 0,
-        ativa: true,
-      };
-
-      setCategorias((categoriasAtuais) => [
-        ...categoriasAtuais,
-        novaCategoria,
-      ]);
-    }
-
-    fecharModal();
+  async function salvarCategoria(event) {
+    event.preventDefault();if(ocupado)return;setOcupado(true);setErro('');
+    try{await admin.salvar('categorias',categoriaEditando?.id,{nome:nome.trim(),descricao:descricao.trim()});await recurso.atualizar();fecharModal();}catch(e){setErro(e.message);}finally{setOcupado(false);}
   }
-
-  function alternarStatus(id) {
-    setCategorias((categoriasAtuais) =>
-      categoriasAtuais.map((categoria) =>
-        categoria.id === id
-          ? {
-              ...categoria,
-              ativa: !categoria.ativa,
-            }
-          : categoria
-      )
-    );
+  async function alternarStatus(id) {
+    if(ocupado)return;setOcupado(true);setErro('');
+    try{const categoria=categorias.find(c=>c.id===id);await admin.salvar('categorias',id,{ativo:!categoria.ativa});await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}
   }
-
+  async function excluir(id){if(ocupado || !window.confirm('Excluir categoria? Categorias com produtos vinculados são protegidas.'))return;setOcupado(true);setErro('');try{await admin.excluir('categorias',id);await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}
   return (
     <main className="admin-categories-page">
       <div className="admin-container">
@@ -128,7 +61,7 @@ function Categorias() {
           </button>
         </section>
 
-        <section className="admin-categories-panel">
+        <AdminState recurso={recurso}/>{erro && <p role="alert">{erro}</p>}<AdminPaginacao recurso={recurso}/><section className="admin-categories-panel">
           {categorias.length > 0 ? (
             <div className="admin-categories-list">
               {categorias.map((categoria) => (
@@ -176,10 +109,10 @@ function Categorias() {
 
                     <button
                       type="button"
-                      onClick={() => alternarStatus(categoria.id)}
+                      disabled={ocupado} onClick={() => alternarStatus(categoria.id)}
                     >
                       {categoria.ativa ? "Desativar" : "Ativar"}
-                    </button>
+                    </button><button disabled={ocupado} onClick={()=>excluir(categoria.id)}>Excluir</button>
                   </div>
                 </article>
               ))}
@@ -230,7 +163,7 @@ function Categorias() {
               </button>
             </div>
 
-            <form onSubmit={salvarCategoria}>
+            <form onSubmit={salvarCategoria}>{erro && <p role="alert">{erro}</p>}
               <div className="admin-form-group">
                 <label htmlFor="categoria-nome">
                   Nome da categoria
@@ -271,7 +204,7 @@ function Categorias() {
                 </button>
 
                 <button
-                  type="submit"
+                  disabled={ocupado} type="submit"
                   className="admin-primary-button"
                 >
                   {categoriaEditando
