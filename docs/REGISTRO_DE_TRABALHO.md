@@ -606,3 +606,32 @@ git push origin main
 ```
 
 Resultado: bloqueado por autenticacao local do GitHub (`could not read Username for 'https://github.com'`). Nenhum push foi concluido.
+
+### Atualizacao apos reautenticacao GitHub
+
+O usuario reautenticou o GitHub CLI no terminal com `gh auth login -h github.com -p https -w` e executou `gh auth setup-git`.
+
+Comandos executados pelo usuario:
+
+```bash
+git fetch origin
+git status -sb
+git log --oneline origin/main..HEAD
+git rev-parse origin/main
+git push origin main
+git fetch origin
+git status -sb
+git rev-parse HEAD
+git rev-parse origin/main
+```
+
+Resultado informado e conferido localmente:
+
+- push normal concluido para `origin/main`;
+- intervalo enviado: `9d1e525..b367ffc`;
+- `HEAD`: `b367ffcfdaebd576a28ec63549653afe061a81f2`;
+- `origin/main`: `b367ffcfdaebd576a28ec63549653afe061a81f2`;
+- `git status -sb`: `## main...origin/main`;
+- branch local e remota sincronizadas;
+- nenhum `--force`, `reset --hard`, `clean` ou rebase destrutivo foi utilizado;
+- Etapa 19 permanece nao iniciada.

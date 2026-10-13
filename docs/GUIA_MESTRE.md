@@ -570,3 +570,15 @@ Confirmacao remota:
 - HEAD remoto `main` consultado pelo conector GitHub: `9d1e525c781663cc12321681dfc5a31d259bc0b6`;
 - tentativa de `git push origin main`: bloqueada por autenticacao GitHub local (`could not read Username for 'https://github.com'`);
 - nenhum push foi concluido nesta rodada.
+
+Atualizacao apos reautenticacao GitHub:
+
+- usuario executou `gh auth login -h github.com -p https -w` e `gh auth setup-git` no terminal;
+- `git push origin main` foi concluido com sucesso;
+- intervalo enviado: `9d1e525..b367ffc`;
+- `HEAD` final: `b367ffcfdaebd576a28ec63549653afe061a81f2`;
+- `origin/main` final: `b367ffcfdaebd576a28ec63549653afe061a81f2`;
+- `git status -sb`: `## main...origin/main`;
+- branch local e remota sincronizadas;
+- nenhum force push foi usado;
+- Etapa 19 continua aguardando revisao.
