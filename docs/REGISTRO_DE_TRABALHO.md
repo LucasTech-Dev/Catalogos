@@ -635,3 +635,53 @@ Resultado informado e conferido localmente:
 - branch local e remota sincronizadas;
 - nenhum `--force`, `reset --hard`, `clean` ou rebase destrutivo foi utilizado;
 - Etapa 19 permanece nao iniciada.
+
+
+## Etapa 19 — Integração React + Backend + Firebase — 13/10/2026
+
+Status: implementação validada localmente, aguardando revisão; Etapa 20 não iniciada.
+
+Objetivo: conectar o frontend público aos serviços reais, com compra sem cadastro, carrinho persistente, checkout idempotente e WhatsApp seguro, corrigindo isolamento de pedidos/clientes/endereços.
+
+Auditoria e contratos: `docs/ETAPA_19_AUDITORIA_CONTRATOS.md`.
+Relatório completo, inventário de arquivos/funções, decisões, APIs, testes e pendências: `docs/ETAPA_19_RELATORIO_FINAL.md`.
+
+Autenticação: Firebase Web anônimo/e-mail/senha; cadastro pode vincular convidado mantendo UID. Backend deriva titularidade do ID Token; papel de identidades sem perfil interno é sempre cliente. Administradores continuam limitados à loja. Listagem, consulta e WhatsApp de pedidos de terceiros foram corrigidos; endereços são próprios.
+
+Fluxos: catálogo público com projeção; carrinho por loja contendo IDs/quantidades; checkout congela tentativa por loja/UID com Idempotency-Key; servidor calcula preço/taxa/desconto/total e persiste pagamento pendente e snapshot do endereço; URL WhatsApp vem somente do pedido persistido e é aberta por link HTTPS wa.me explícito.
+
+Validações executadas: backend npm test (4 arquivos aprovados); execução HTTP detalhada (51 testes/subtestes aprovados); frontend npm test (10 testes em 2 arquivos aprovados); build Vite aprovado; suíte Auth/Firestore Emulator (smoke, pagamentos, WhatsApp, fluxo público e Web SDK) aprovada; concorrência de cinco tentativas gerou um pedido; Security Rules negaram acesso direto; git diff --check aprovado. Instalação final npm reportou zero vulnerabilidades após correção das dependências transitivas.
+
+Arquivos de implementação: rotas/serviço público, middleware de titularidade, controllers e serviços de pedidos/catálogo, autenticação/CORS/regras, scripts/testes locais, SDK/serviços/contexto/hooks React, componentes e páginas públicas, configurações/exemplos de ambiente. Inventário completo e função de cada arquivo constam no relatório.
+
+Design: CSS global e componentes/páginas administrativas preservados; removidos dados fictícios sem contrato (avaliações, adicionais e confirmação de pagamento). O índice de build previamente rastreado foi preservado após validar os bundles.
+
+Divergências: documentação inicial sobre mocks era histórica; autorização anterior por loja não garantia titularidade; IDs legados de cliente diferentes do UID não são migrados automaticamente. Entrega agora exige configuração confiável na loja e nenhuma informação administrativa é exposta pelo catálogo público.
+
+Pendências de ambiente: preencher Firebase Web/URL API, habilitar provedores/domínios, conferir configuração real da loja, homologação e publicação de regras mediante ordem futura; migração legada somente com vínculo comprovado. Java temporário. Nenhum teste com escrita real, deploy, push ou avanço administrativo executado.
+
+
+## Etapa 20 — Integração completa do painel administrativo — 13/10/2026
+
+Status: implementada e validada localmente, aguardando revisão. Etapa 19 aprovada pelo usuário com ressalvas; Etapa 21 não iniciada. Branch main, HEAD b8e2a4ba39ae233ad413b434d6ce5cbb42b15308 preservado; alterações não enviadas da Etapa 19 mantidas.
+
+Objetivo: substituir mocks administrativos por APIs reais, preservando design/layout/CSS/navegação e protegendo todas as páginas e operações por Firebase ID Token, role admin e vínculo de loja validados no backend.
+
+Relatório/inventário/função de cada arquivo: `docs/ETAPA_20_RELATORIO_FINAL.md`.
+Auditoria/contratos/códigos/modelos: `docs/ETAPA_20_AUDITORIA_CONTRATOS.md`.
+
+Implementado: AdminGate/login/logout; dashboard count/sum por período e valores financeiros separados; pedidos paginados/status/detalhes e confirmação financeira explícita; produtos CRUD/preço/disponibilidade/desativação; categorias CRUD/ativação/integridade; clientes associados/convidados/detalhes com projeção; configurações reais, horários por dia, URL/cor/contato/pagamentos/entrega/taxa/retirada/pedido mínimo; refetch/carga/erro/vazio/paginação, sem polling agressivo.
+
+Endpoints: namespace protegido /admin/lojas/:lojaId para sessão/dashboard/loja/produtos/categorias/clientes/detalhe enriquecido; GET/PATCH existentes de pedidos reutilizados, sem mudar o contrato público de titularidade. Sem concessão de role ou alteração de usuários internos na interface.
+
+Correções: transações de pagamento/status e integridade categoria/produto; erro real de geração de ID encontrado no Emulator corrigido (.doc() em vez de .doc(undefined)); JSON/erros internos sem stack; respostas atrasadas/logout e falhas de refresh não reabrem painel; revalidação não perde formulário; projeção de clientes também nas rotas legadas. Novos checkouts associam cliente pelo UID validado; sem migração real.
+
+Testes executados: backend npm test (4 arquivos aprovados), HTTP detalhado (61 testes/subtestes aprovados), React npm test (28 testes em 3 arquivos aprovados), build Vite aprovado (1621 módulos), sintaxe e git diff --check aprovados. Suíte Auth/Firestore Emulator da Etapa 19 e nova suíte administrativa aprovadas com exit 0; concorrência, token realmente revogado, pagamentos e isolamento multi-loja validados sem Firebase real.
+
+Arquivos principais: serviço/validação/controller/rotas admin, scripts/testes, cliente HTTP/serviço/hooks/guard administrativos e páginas/componentes existentes; índice de arquivos completo no relatório. Sem dependências novas. Rules da Etapa 19 preservadas byte a byte; índices novos declarados somente localmente.
+
+Critério do dashboard: pedidos criados no período de até 31 dias; valor de pedidos inclui cancelados; pagamentos confirmados excluem pendentes/cancelados e são confirmações manuais, não receita de gateway pela data de pagamento. Sem indicadores fictícios de clientes.
+
+Pendências anteriores preservadas: Firebase Web/provedores/domínios reais, dados reais loja-demo, migração comprovada de IDs, Java permanente, rules não publicadas e homologação manual/dispositivos. Pendência adicional: índices de produção não publicados. Busca textual por página; URL de imagem suportada, sem upload/adicionais sem contrato. Nenhum deploy, push, commit, promoção de admin real ou escrita/migração real executado.
+
+Próxima ação: revisão da Etapa 20. Não iniciar Etapa 21 automaticamente.
