@@ -1,3 +1,4 @@
+const {ErroDominio}=require("../lib/seguranca");
 const { getFirestore } = require("firebase-admin/firestore");
 
 const {
@@ -31,171 +32,78 @@ const {
 
 const db = getFirestore();
 
-async function criarPedido(lojaId, dadosPedido, identidade = {}) {
-  if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
-  }
-
-  if (!dadosPedido || typeof dadosPedido !== "object") {
-    throw new Error("Dados do pedido são obrigatórios.");
-  }
-
-  let chaveRef = null, assinatura = null;
-  if (identidade.chave) {
-    if (!/^[a-zA-Z0-9_-]{16,100}$/.test(identidade.chave)) throw new Error("Chave de idempotência inválida.");
-    const {createHash} = require("node:crypto");
-    const hash = value => createHash("sha256").update(value).digest("hex");
-    const canonico = value => Array.isArray(value) ? value.map(canonico) : value && typeof value === 'object' ? Object.fromEntries(Object.keys(value).sort().map(k => [k,canonico(value[k])])) : value;
-    assinatura = hash(JSON.stringify(canonico(dadosPedido)));
-    chaveRef = db.collection("lojas").doc(lojaId).collection("idempotencia").doc(hash(identidade.uid + ":" + identidade.chave));
-    const anterior = await chaveRef.get();
-    if (anterior.exists) {
-      if (anterior.data().assinatura !== assinatura) throw new Error("Chave já utilizada para outro pedido.");
-      return buscarPedidoPorId(lojaId, anterior.data().pedidoId);
-    }
-  }
-  if (identidade.publico && dadosPedido.tipoEntrega === undefined) dadosPedido = {...dadosPedido,tipoEntrega:'entrega'};
-  if (dadosPedido.observacao !== undefined && (typeof dadosPedido.observacao !== 'string' || dadosPedido.observacao.length > 1000)) throw new Error('Observação inválida.');
-  const loja = await buscarLojaPorId(lojaId);
-  if (!loja || loja.ativo === false) throw new Error("Loja não encontrada ou indisponível.");
-  if (identidade.publico) {
-    if (dadosPedido.desconto) throw new Error("Desconto não autorizado.");
-    if (dadosPedido.tipoEntrega === "retirada" && dadosPedido.taxaEntrega) throw new Error("Pedidos para retirada não podem possuir taxa de entrega.");
-    const entrega = loja.entrega || {};
-    if (dadosPedido.tipoEntrega === "entrega" && entrega.habilitada !== true) throw new Error("Entrega indisponível.");
-    if (dadosPedido.tipoEntrega === "retirada" && loja.retirada?.habilitada === false) throw new Error("Retirada indisponível.");
-    const taxa = entrega.taxa ?? loja.taxaEntrega;
-    if (dadosPedido.tipoEntrega === "entrega" && (!Number.isFinite(taxa) || taxa < 0)) throw new Error("Taxa de entrega não configurada.");
-    dadosPedido = {...dadosPedido, taxaEntrega: dadosPedido.tipoEntrega === "entrega" ? taxa : 0, desconto: 0};
-  }
-
-  const dadosValidados = validarDadosIniciaisPedido(
-    lojaId,
-    dadosPedido
-  );
-
-  const {
-    clienteId = null,
-    enderecoId,
-    itens,
-    taxaEntrega,
-    desconto = 0,
-    observacao = "",
-    tipoEntrega,
-    pagamento,
-    formaPagamento,
-  } = dadosValidados;
-
-
-
-  const dadosEntrega = {
-    enderecoId,
-    taxaEntrega,
-    tipoEntrega,
-  };
-
-  let enderecoPedido = null;
-  if (dadosEntrega.tipoEntrega === "entrega") {
-    if (!clienteId || typeof clienteId !== "string") {
-      throw new Error(
-        "clienteId é obrigatório para pedidos com entrega."
-      );
-    }
-
-    const endereco = await buscarEnderecoPorId(
-      lojaId,
-      clienteId,
-      dadosEntrega.enderecoId
-    );
-
-    enderecoPedido = endereco;
-    if (!endereco) {
-      throw new Error(
-        "Endereço não encontrado para este cliente e loja."
-      );
-    }
-  }
-
-  const itensValidados = await validarItensDoPedido(
-    lojaId,
-    itens
-  );
-
-  const valores = calcularValoresPedido(
-    itensValidados,
-    dadosEntrega.taxaEntrega,
-    desconto
-  );
-
-  if (identidade.publico && valores.subtotal < (loja.pedidoMinimo || 0)) throw new Error("Pedido abaixo do valor mínimo da loja.");
-  const pagamentoValidado = validarPagamentoInicial({
-    dadosPagamento: pagamento || {
-      forma: formaPagamento,
-    },
-    loja,
-    valorCalculado: valores.total,
-  });
-
-  const pedidoRef = db
-    .collection("lojas")
-    .doc(lojaId)
-    .collection("pedidos")
-    .doc();
-
-  const pedido = {
-    lojaId,
-
-    clienteId,
-    cliente: dadosPedido.cliente ? require("./publicoService").validarCliente(dadosPedido.cliente) : null,
-    enderecoId: dadosEntrega.enderecoId,
-    endereco: enderecoPedido,
-
-    itens: itensValidados,
-
-    subtotal: valores.subtotal,
-    taxaEntrega: valores.taxaEntrega,
-    desconto: valores.desconto,
-    total: valores.total,
-    pagamento: pagamentoValidado,
-
-    observacao,
-    tipoEntrega: dadosEntrega.tipoEntrega,
-
-    status: "recebido",
-
-    criadoEm: new Date(),
-    atualizadoEm: new Date(),
-  };
-
-  if (chaveRef) {
-    return db.runTransaction(async tx => {
-      const anterior = await tx.get(chaveRef);
-      if (anterior.exists) {
-        if (anterior.data().assinatura !== assinatura) throw new Error("Chave já utilizada para outro pedido.");
-        const salvo = await tx.get(db.collection("lojas").doc(lojaId).collection("pedidos").doc(anterior.data().pedidoId));
-        return {id: salvo.id, ...salvo.data()};
+function referenciaIdempotencia(lojaId,uid,chave) {
+  const {identificador}=require('../lib/identificadores');identificador(lojaId);identificador(uid);
+  if(!/^[a-zA-Z0-9_-]{16,100}$/.test(chave || ''))throw new ErroDominio('Chave de idempotência inválida.');
+  const hash=require('node:crypto').createHash('sha256').update(uid+':'+chave).digest('hex');
+  return db.collection('lojas').doc(lojaId).collection('idempotencia').doc(hash);
+}
+async function recuperarPedidoPelaChave(lojaId,uid,chave) {
+  const doc=await referenciaIdempotencia(lojaId,uid,chave).get();
+  return doc.exists?buscarPedidoPorId(lojaId,doc.data().pedidoId):null;
+}
+async function criarPedido(lojaId,dadosPedido,identidade={}) {
+  const {identificador}=require('../lib/identificadores');identificador(lojaId);
+  if(!dadosPedido || typeof dadosPedido!=='object' || Array.isArray(dadosPedido))throw new ErroDominio('Dados do pedido são obrigatórios.');
+  const chaveRef=identidade.chave?referenciaIdempotencia(lojaId,identidade.uid,identidade.chave):null;
+  const canonico=value=>Array.isArray(value)?value.map(canonico):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(k=>[k,canonico(value[k])])):value;
+  const assinatura=require('node:crypto').createHash('sha256').update(JSON.stringify(canonico(dadosPedido))).digest('hex');
+  const lojaRef=db.collection('lojas').doc(lojaId),pedidoRef=lojaRef.collection('pedidos').doc();
+  return db.runTransaction(async tx=>{
+    if(chaveRef) {
+      const anterior=await tx.get(chaveRef);
+      if(anterior.exists) {
+        if(anterior.data().assinatura!==assinatura)throw new ErroDominio('Chave já utilizada para outro pedido.');
+        const salvo=await tx.get(lojaRef.collection('pedidos').doc(identificador(anterior.data().pedidoId)));
+        if(!salvo.exists)throw new ErroDominio('Pedido não encontrado.',404);
+        return {...salvo.data(),id:salvo.id};
       }
-      tx.set(pedidoRef, pedido);
-      if (identidade.publico && pedido.cliente) tx.set(db.collection('lojas').doc(lojaId).collection('clientes').doc(identidade.uid),{...pedido.cliente,anonimo:identidade.anonimo === true,...(identidade.email?{email:identidade.email}:{}),atualizadoEm:new Date()},{merge:true});
-      tx.set(chaveRef, {assinatura, pedidoId: pedidoRef.id});
-      return {id: pedidoRef.id, ...pedido};
-    });
-  }
-  await pedidoRef.set(pedido);
-
-  return {
-    id: pedidoRef.id,
-    ...pedido,
-  };
+    }
+    const docLoja=await tx.get(lojaRef),loja=docLoja.exists?docLoja.data():null;
+    if(!loja || loja.ativo===false)throw new ErroDominio('Loja não encontrada ou indisponível.');
+    let dados={...dadosPedido};
+    if(identidade.publico) {
+      dados.clienteId=identificador(identidade.uid);
+      dados.tipoEntrega ??= 'entrega';
+      if(dados.desconto)throw new ErroDominio('Desconto não autorizado.');
+      if(dados.tipoEntrega==='retirada' && dados.taxaEntrega)throw new ErroDominio('Pedidos para retirada não podem possuir taxa de entrega.');
+      const entrega=loja.entrega || {},taxa=entrega.taxa ?? loja.taxaEntrega;
+      if(dados.tipoEntrega==='entrega' && entrega.habilitada!==true)throw new ErroDominio('Entrega indisponível.');
+      if(dados.tipoEntrega==='retirada' && loja.retirada?.habilitada===false)throw new ErroDominio('Retirada indisponível.');
+      if(dados.tipoEntrega==='entrega' && (!Number.isFinite(taxa) || taxa<0))throw new ErroDominio('Taxa de entrega não configurada.');
+      dados={...dados,taxaEntrega:dados.tipoEntrega==='entrega'?taxa:0,desconto:0};
+    }
+    if(dados.observacao!==undefined && (typeof dados.observacao!=='string' || dados.observacao.length>1000))throw new ErroDominio('Observação inválida.');
+    const validados=validarDadosIniciaisPedido(lojaId,dados);
+    const {clienteId=null,enderecoId,tipoEntrega,itens,taxaEntrega,desconto=0,observacao='',pagamento,formaPagamento}=validados;
+    let endereco=null;
+    if(tipoEntrega==='entrega') {
+      if(!clienteId)throw new ErroDominio('clienteId é obrigatório para pedidos com entrega.');
+      const ref=lojaRef.collection('clientes').doc(identificador(clienteId)).collection('enderecos').doc(identificador(enderecoId));
+      const doc=await tx.get(ref);if(!doc.exists)throw new ErroDominio('Endereço não encontrado para este cliente e loja.');
+      endereco={...require('../lib/projecoes').endereco(doc.data()),id:doc.id};
+    }
+    const itensValidados=await validarItensDoPedido(lojaId,itens,tx);
+    const valores=calcularValoresPedido(itensValidados,taxaEntrega,desconto);
+    if(identidade.publico && valores.subtotal<(loja.pedidoMinimo || 0))throw new ErroDominio('Pedido abaixo do valor mínimo da loja.');
+    const financeiro=validarPagamentoInicial({dadosPagamento:pagamento || {forma:formaPagamento},loja,valorCalculado:valores.total});
+    const cliente=dados.cliente?require('./publicoService').validarCliente(dados.cliente):null;
+    const pedido={lojaId,clienteId,enderecoId,endereco,itens:itensValidados,...valores,pagamento:financeiro,observacao,tipoEntrega,status:'recebido',cliente,criadoEm:new Date(),atualizadoEm:new Date()};
+    tx.set(pedidoRef,pedido);
+    if(identidade.publico && cliente)tx.set(lojaRef.collection('clientes').doc(identidade.uid),{...cliente,anonimo:identidade.anonimo===true,...(identidade.email?{email:identidade.email}:{}),atualizadoEm:new Date()},{merge:true});
+    if(chaveRef)tx.set(chaveRef,{assinatura,pedidoId:pedidoRef.id});
+    return {id:pedidoRef.id,...pedido};
+  });
 }
 
 async function buscarPedidoPorId(lojaId, pedidoId) {
+  for(const id of [lojaId,pedidoId])require("../lib/identificadores").identificador(id);
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   if (!pedidoId || typeof pedidoId !== "string") {
-    throw new Error("pedidoId é obrigatório.");
+    throw new ErroDominio("pedidoId é obrigatório.");
   }
 
   const pedidoRef = db
@@ -211,14 +119,14 @@ async function buscarPedidoPorId(lojaId, pedidoId) {
   }
 
   return {
-    id: snapshot.id,
     ...snapshot.data(),
+    id: snapshot.id,
   };
 }
 
 async function listarPedidos(lojaId, clienteId = null) {
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   let pedidosRef = db
@@ -230,29 +138,29 @@ async function listarPedidos(lojaId, clienteId = null) {
   const snapshot = await pedidosRef.get();
 
   return snapshot.docs.map((doc) => ({
-    id: doc.id,
     ...doc.data(),
+    id: doc.id,
   }));
 }
 
 async function atualizarStatusPedido(lojaId,pedidoId,novoStatus) {
-  if (!lojaId || !pedidoId || typeof novoStatus !== 'string') throw new Error('Dados de atualização inválidos.');
+  if (!lojaId || !pedidoId || typeof novoStatus !== 'string') throw new ErroDominio('Dados de atualização inválidos.');
   const ref=db.collection('lojas').doc(lojaId).collection('pedidos').doc(pedidoId);
   return db.runTransaction(async tx=>{
     const doc=await tx.get(ref);if(!doc.exists)return null;const pedido=doc.data();
     validarTransicaoStatus(pedido.status,novoStatus);
-    if (novoStatus==='pagamento_confirmado' && pedido.pagamento?.status!=='confirmado') throw new Error('Confirme explicitamente o pagamento antes de alterar o status operacional.');
-    if (novoStatus==='pagamento_recusado' && pedido.pagamento?.status!=='recusado') throw new Error('Recuse explicitamente o pagamento antes de alterar o status operacional.');
+    if (novoStatus==='pagamento_confirmado' && pedido.pagamento?.status!=='confirmado') throw new ErroDominio('Confirme explicitamente o pagamento antes de alterar o status operacional.');
+    if (novoStatus==='pagamento_recusado' && pedido.pagamento?.status!=='recusado') throw new ErroDominio('Recuse explicitamente o pagamento antes de alterar o status operacional.');
     const dados={status:novoStatus,atualizadoEm:new Date()};tx.update(ref,dados);return {id:doc.id,...pedido,...dados};
   });
 }
 async function atualizarPagamentoPedido(lojaId,pedidoId,novoStatus) {
-  if (!lojaId || !pedidoId || typeof novoStatus !== 'string') throw new Error('Dados de atualização inválidos.');
+  if (!lojaId || !pedidoId || typeof novoStatus !== 'string') throw new ErroDominio('Dados de atualização inválidos.');
   const ref=db.collection('lojas').doc(lojaId).collection('pedidos').doc(pedidoId);
   return db.runTransaction(async tx=>{
     const doc=await tx.get(ref);if(!doc.exists)return null;const pedido=doc.data();
-    if(pedido.status==='cancelado') throw new Error('Não é possível atualizar pagamento de pedido cancelado.');
-    if(!pedido.pagamento) throw new Error('Pedido não possui dados de pagamento.');
+    if(pedido.status==='cancelado') throw new ErroDominio('Não é possível atualizar pagamento de pedido cancelado.');
+    if(!pedido.pagamento) throw new ErroDominio('Pedido não possui dados de pagamento.');
     const status=validarTransicaoPagamento(pedido.pagamento.status,novoStatus);
     const dados={pagamento:{...pedido.pagamento,status,atualizadoEm:new Date()},atualizadoEm:new Date()};
     tx.update(ref,dados);return {id:doc.id,...pedido,...dados};
@@ -261,6 +169,7 @@ async function atualizarPagamentoPedido(lojaId,pedidoId,novoStatus) {
 
 module.exports = {
   criarPedido,
+  recuperarPedidoPelaChave,
   buscarPedidoPorId,
   listarPedidos,
   atualizarStatusPedido,

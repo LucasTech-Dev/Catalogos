@@ -632,3 +632,22 @@ Critério do dashboard: pedidos criados no período de até 31 dias; valor de pe
 Pendências anteriores preservadas: Firebase Web/provedores/domínios reais, dados reais loja-demo, migração comprovada de IDs, Java permanente, rules não publicadas e homologação manual/dispositivos. Pendência adicional: índices de produção não publicados. Busca textual por página; URL de imagem suportada, sem upload/adicionais sem contrato. Nenhum deploy, push, commit, promoção de admin real ou escrita/migração real executado.
 
 Próxima ação: revisão da Etapa 20. Não iniciar Etapa 21 automaticamente.
+
+
+## Etapa 21 — Segurança do Firestore e Controle de Acesso — 13/10/2026
+
+Ordem 08 executada para desenvolvimento local. Revisão 20 aprovada com ressalvas; checkpoint obrigatório realizado ANTES das correções: main, regressões backend/HTTP61/React28/build/suíte20 aprovadas e scan de segredos. Commits locais coesos 2c06313 (implementação integrada 19/20, serviços compartilhados) e 0b1ec3d (documentação). Histórico preservado, sem push. Etapa 21 em diff local para revisão.
+
+Status: concluída localmente, pendente de revisão do usuário e homologação real. Auditoria/matriz/evidências: `docs/ETAPA_21_AUDITORIA_SEGURANCA.md`. Relatório de 18 itens/inventário completo: `docs/ETAPA_21_RELATORIO_FINAL.md`.
+
+Correções: admin ativo estritamente booleano, validação de IDs impedindo caminho privado aninhado, projeções tipadas de catálogo/usuário/cliente/endereço/pedido/admin, somente produtos publicáveis, preço/taxa/configuração/endereço/categoria dentro da transação de criação, logger/respostas internos sanitizados, separação dos emuladores/projeto demo antes dos SDKs, caches privados por sessão/UID e descarte de respostas atrasadas. API HTTP fixa identidade antes/depois de obter token. Listener global limpa dados privados ao logout.
+
+Contrato novo: GET /lojas/:lojaId/pedidos/finalizacao/:chave recupera somente nonce do próprio UID/loja e pedido próprio projetado. localStorage contém apenas UID/chave/ID; payload privado na aba (sessionStorage). Fechar aba preserva chave, permite recuperar pedido confirmado; conflito de corpo/commit tardio não duplica. Campos privados legados não são retornados; não houve saneamento ou migração real.
+
+Rules deny-all preservadas, sem liberar SDK direto. Catálogo público via API. Admin SDK privilegiado auditado separadamente. Índices COLLECTION de soma acrescentados localmente: criadoEm+total e pagamento.status+criadoEm+status+total; não publicados, Emulator não comprova índice de produção. CORS allowlist preservado, env/credenciais fora do versionamento.
+
+Validação final: npm backend test 5 arquivos; HTTP 69 testes/subtestes; React 36 testes/4 arquivos; build 1623 módulos; sintaxe Node 44 arquivos e diff --check aprovados. Suite21 Emulator completa exit0 inclui regressões19/20 e 300 negativas diretas SDK Web (6 atores×10 caminhos×5 operações), mais 37 verificações HTTP. Preço confiável, isolamento entre dois clientes/lojas, token expirado/inválido/desativado, admin inativo textual/booleano, revogação real, idempotência 5x e confirmação financeira concorrente validados. Sem segredos encontrados pelos padrões examinados.
+
+Achados altos no escopo corrigidos, sem pendência crítica/alta identificada; não declara segurança universal de produção. Pendências: Rules/índices reais autorizados, IAM/credenciais, provedores/domínios/admin real, CORS HTTPS, dados legados/loja, homologação navegador/celular, retenção/monitoramento/abuso e Java permanente. Sem novas dependências/CSS, deploy, publicação, escrita/migração Firebase real, promoção de admin real ou push remoto.
+
+Guia externo atualizado na seção 96. Próxima ação: revisão do usuário; Etapa 22 depende de nova autorização e não foi iniciada.

@@ -1,3 +1,4 @@
+const {ErroDominio}=require("../lib/seguranca");
 
 function calcularValoresPedido(
   itensValidados,
@@ -8,7 +9,7 @@ function calcularValoresPedido(
     !Array.isArray(itensValidados) ||
     itensValidados.length === 0
   ) {
-    throw new Error(
+    throw new ErroDominio(
       "Os itens do pedido são obrigatórios."
     );
   }
@@ -18,7 +19,7 @@ function calcularValoresPedido(
     !Number.isFinite(taxaEntrega) ||
     taxaEntrega < 0
   ) {
-    throw new Error("Taxa de entrega inválida.");
+    throw new ErroDominio("Taxa de entrega inválida.");
   }
 
   if (
@@ -26,7 +27,7 @@ function calcularValoresPedido(
     !Number.isFinite(desconto) ||
     desconto < 0
   ) {
-    throw new Error("Desconto inválido.");
+    throw new ErroDominio("Desconto inválido.");
   }
 
   for (const item of itensValidados) {
@@ -36,7 +37,7 @@ function calcularValoresPedido(
       !Number.isFinite(item.subtotal) ||
       item.subtotal < 0
     ) {
-      throw new Error(
+      throw new ErroDominio(
         "Subtotal de item inválido."
       );
     }

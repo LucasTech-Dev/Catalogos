@@ -1,3 +1,4 @@
+const {ErroDominio}=require("../lib/seguranca");
 const TIPOS_ENTREGA_VALIDOS = [
   "entrega",
   "retirada",
@@ -5,7 +6,7 @@ const TIPOS_ENTREGA_VALIDOS = [
 
 function validarTipoEntrega(tipoEntrega) {
   if (!TIPOS_ENTREGA_VALIDOS.includes(tipoEntrega)) {
-    throw new Error(
+    throw new ErroDominio(
       `Tipo de entrega inválido: ${tipoEntrega}.`
     );
   }
@@ -25,7 +26,7 @@ function validarDadosEntrega({
     enderecoId !== undefined &&
     typeof enderecoId !== "string"
   ) {
-    throw new Error(
+    throw new ErroDominio(
       "enderecoId deve ser uma string ou null."
     );
   }
@@ -35,14 +36,14 @@ function validarDadosEntrega({
     !Number.isFinite(taxaEntrega) ||
     taxaEntrega < 0
   ) {
-    throw new Error(
+    throw new ErroDominio(
       "Taxa de entrega inválida."
     );
   }
 
   if (tipoEntrega === "entrega") {
     if (!enderecoId) {
-      throw new Error(
+      throw new ErroDominio(
         "enderecoId é obrigatório para pedidos com entrega."
       );
     }
@@ -50,13 +51,13 @@ function validarDadosEntrega({
 
   if (tipoEntrega === "retirada") {
     if (enderecoId) {
-      throw new Error(
+      throw new ErroDominio(
         "Pedidos para retirada não devem possuir enderecoId."
       );
     }
 
     if (taxaEntrega !== 0) {
-      throw new Error(
+      throw new ErroDominio(
         "Pedidos para retirada não podem possuir taxa de entrega."
       );
     }

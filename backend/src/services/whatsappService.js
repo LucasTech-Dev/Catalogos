@@ -1,3 +1,4 @@
+const {ErroDominio}=require("../lib/seguranca");
 const { buscarEnderecoPorId } = require("./enderecoService");
 const { buscarLojaPorId } = require("./lojaService");
 const { buscarPedidoPorId } = require("./pedidoService");
@@ -12,7 +13,7 @@ function formatarMoeda(valor) {
     typeof valor !== "number" ||
     !Number.isFinite(valor)
   ) {
-    throw new Error("Valor monetário inválido.");
+    throw new ErroDominio("Valor monetário inválido.");
   }
 
   return valor.toLocaleString("pt-BR", {
@@ -23,7 +24,7 @@ function formatarMoeda(valor) {
 
 function normalizarWhatsapp(numero) {
   if (!numero || typeof numero !== "string") {
-    throw new Error(
+    throw new ErroDominio(
       "WhatsApp da loja não está configurado."
     );
   }
@@ -43,7 +44,7 @@ function normalizarWhatsapp(numero) {
     digitos.length > 15 ||
     /^0+$/.test(digitos)
   ) {
-    throw new Error(
+    throw new ErroDominio(
       "WhatsApp da loja possui formato inválido."
     );
   }
@@ -99,15 +100,15 @@ function montarMensagemWhatsApp({
   endereco,
 }) {
   if (!loja || typeof loja !== "object") {
-    throw new Error("Dados da loja são obrigatórios.");
+    throw new ErroDominio("Dados da loja são obrigatórios.");
   }
 
   if (!pedido || typeof pedido !== "object") {
-    throw new Error("Dados do pedido são obrigatórios.");
+    throw new ErroDominio("Dados do pedido são obrigatórios.");
   }
 
   if (!Array.isArray(pedido.itens) || pedido.itens.length === 0) {
-    throw new Error(
+    throw new ErroDominio(
       "Pedido não possui itens para envio ao WhatsApp."
     );
   }
@@ -183,11 +184,11 @@ function montarMensagemWhatsApp({
 
 async function gerarFinalizacaoWhatsApp(lojaId, pedidoId) {
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   if (!pedidoId || typeof pedidoId !== "string") {
-    throw new Error("pedidoId é obrigatório.");
+    throw new ErroDominio("pedidoId é obrigatório.");
   }
 
   const [loja, pedido] = await Promise.all([
@@ -196,7 +197,7 @@ async function gerarFinalizacaoWhatsApp(lojaId, pedidoId) {
   ]);
 
   if (!loja) {
-    throw new Error("Loja não encontrada.");
+    throw new ErroDominio("Loja não encontrada.");
   }
 
   if (!pedido) {
@@ -204,7 +205,7 @@ async function gerarFinalizacaoWhatsApp(lojaId, pedidoId) {
   }
 
   if (STATUS_PEDIDO_INCOMPATIVEIS.includes(pedido.status)) {
-    throw new Error(
+    throw new ErroDominio(
       "Pedido não pode ser finalizado pelo WhatsApp neste status."
     );
   }
@@ -219,7 +220,7 @@ async function gerarFinalizacaoWhatsApp(lojaId, pedidoId) {
     );
 
     if (!endereco) {
-      throw new Error(
+      throw new ErroDominio(
         "Endereço do pedido não encontrado para finalização."
       );
     }

@@ -22,3 +22,10 @@ pnpm-debug.log*
 # Sistema/IDE
 .DS_Store
 .vscode/
+
+# Credenciais locais do Admin SDK
+*service-account*.json
+*serviceAccount*.json
+*-firebase-adminsdk-*.json
+*.pem
+.firebase/

@@ -9,6 +9,8 @@ const {
 } = require("../controllers/produtoController");
 
 const router = express.Router();
+router.param('lojaId',require('../lib/identificadores').parametro);
+router.param('produtoId',require('../lib/identificadores').parametro);
 
 router.get(
   "/:lojaId/produtos",

@@ -1,13 +1,15 @@
-import {sessao,sessaoExistente} from '../lib/firebase';
+import {auth,sessao,sessaoExistente} from '../lib/firebase';
 export const lojaId = import.meta.env.VITE_LOJA_ID || 'loja-demo';
 const base = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
 export const publico = `/publico/lojas/${encodeURIComponent(lojaId)}`;
 export const pedidos = `/lojas/${encodeURIComponent(lojaId)}/pedidos`;
-export async function api(path, {privado = true, method = 'GET', body, chave, signal, administrativo = false} = {}) {
+export async function api(path, {privado = true, method = 'GET', body, chave, signal, administrativo = false, expectedUid} = {}) {
   let user=null;
   try {user=privado ? await (administrativo ? sessaoExistente() : sessao()) : null;}
   catch(e){if(administrativo && e.status===401)window.dispatchEvent(new Event('admin:sessao-invalida'));throw e;}
+  function conferirSessao(){if(user && ((expectedUid && user.uid!==expectedUid) || (auth && auth.currentUser?.uid!==user.uid)))throw Object.assign(new Error('A sessão mudou. Confira seus dados e tente novamente.'),{status:409});}
   async function enviar(force = false) {
+    conferirSessao();
     const headers = {'Content-Type':'application/json'};
     if (user) {
       try {headers.Authorization = `Bearer ${await user.getIdToken(force)}`;}
@@ -17,6 +19,7 @@ export async function api(path, {privado = true, method = 'GET', body, chave, si
         throw Object.assign(new Error('Sessão expirada ou revogada. Entre novamente.'),{status:401});
       }
     }
+    conferirSessao();
     if (chave) headers['Idempotency-Key'] = chave;
     try {return await fetch(base + path, {method, headers, body:body === undefined ? undefined : JSON.stringify(body), signal: signal || AbortSignal.timeout(20000)});}
     catch(e) {if (e.name === 'AbortError') throw e; throw new Error('Não foi possível conectar. Verifique sua conexão e tente novamente.');}

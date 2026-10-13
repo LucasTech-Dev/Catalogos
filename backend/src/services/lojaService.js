@@ -1,3 +1,4 @@
+const {ErroDominio}=require("../lib/seguranca");
 const { getFirestore } = require("firebase-admin/firestore");
 
 const {
@@ -7,8 +8,10 @@ const {
 const db = getFirestore();
 
 async function buscarLojaPorId(lojaId) {
+  require('../lib/identificadores').identificador(lojaId);
+
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   const lojaRef = db.collection("lojas").doc(lojaId);
@@ -19,14 +22,14 @@ async function buscarLojaPorId(lojaId) {
   }
 
   return {
-    id: snapshot.id,
     ...snapshot.data(),
+    id: snapshot.id,
   };
 }
 
 async function atualizarPagamentosDaLoja(lojaId, pagamentos) {
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   const pagamentosValidados =

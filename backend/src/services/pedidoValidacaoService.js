@@ -1,8 +1,9 @@
+const {ErroDominio}=require("../lib/seguranca");
 const { validarDadosEntrega } = require("./pedidoEntregaService");
 
 function validarDadosIniciaisPedido(lojaId, dadosPedido) {
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   if (
@@ -10,7 +11,7 @@ function validarDadosIniciaisPedido(lojaId, dadosPedido) {
     typeof dadosPedido !== "object" ||
     Array.isArray(dadosPedido)
   ) {
-    throw new Error("Dados do pedido são obrigatórios.");
+    throw new ErroDominio("Dados do pedido são obrigatórios.");
   }
 
   const {

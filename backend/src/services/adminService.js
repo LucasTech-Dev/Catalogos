@@ -18,9 +18,11 @@ async function listar(loja,nome,opcoes={}) {
   if (opcoes.cursor) {const cursor=await colecao(loja,nome).doc(v.id(opcoes.cursor)).get();if (!cursor.exists) throw v.erro('Cursor inválido.');query=query.startAfter(cursor);}
   const docs=(await query.limit(limite+1).get()).docs;
   const itens=docs.slice(0,limite).map(doc=>({...doc.data(),id:doc.id}));
-  if (nome==='clientes') for(const item of itens) {const id=item.id;const seguro=selecionar(item,['nome','telefone','email','anonimo','atualizadoEm']);Object.keys(item).forEach(k=>delete item[k]);Object.assign(item,seguro,{id});}
-  if (nome==='categorias' && opcoes.contagem!=='0') await Promise.all(itens.map(async c=>{c.produtos=(await colecao(loja,'produtos').where('categoriaId','==',c.id).count().get()).data().count;}));
-  return {itens,proximoCursor:docs.length>limite ? itens.at(-1).id : null};
+  const p=require('../lib/projecoes');
+  const projetar={clientes:p.cliente,produtos:p.produto,categorias:p.categoria,pedidos:p.pedido}[nome];
+  const seguros=itens.map(projetar);
+  if (nome==='categorias' && opcoes.contagem!=='0') await Promise.all(seguros.map(async c=>{c.produtos=(await colecao(loja,'produtos').where('categoriaId','==',c.id).count().get()).data().count;}));
+  return {itens:seguros,proximoCursor:docs.length>limite ? itens.at(-1).id : null};
 }
 async function salvarProduto(loja,id,dados) {
   const valores=v.produto(dados,Boolean(id));await existeLoja(loja);
@@ -53,7 +55,7 @@ async function excluirCategoria(loja,id) {
   const ref=colecao(loja,'categorias').doc(v.id(id));
   await db.runTransaction(async tx=>{const atual=await tx.get(ref);const produtos=await tx.get(colecao(loja,'produtos').where('categoriaId','==',id).limit(1));if(!atual.exists)throw v.erro('Categoria não encontrada.',404);if(!produtos.empty)throw v.erro('Categoria possui produtos vinculados. Mova-os antes de excluir.',409);tx.delete(ref);});
 }
-async function buscarLoja(loja) {const doc=await lojaRef(loja).get();if(!doc.exists)throw v.erro('Loja não encontrada.',404);return {...selecionar(doc.data(),v.CAMPOS_LOJA),id:doc.id};}
+async function buscarLoja(loja) {const doc=await lojaRef(loja).get();if(!doc.exists)throw v.erro('Loja não encontrada.',404);return require('../lib/projecoes').loja({...doc.data(),id:doc.id});}
 async function salvarLoja(loja,dados) {const valores=v.loja(dados);await existeLoja(loja);await lojaRef(loja).update({...valores,atualizadoEm:new Date()});return buscarLoja(loja);}
 function periodo(opcoes) {
   const hoje=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
@@ -74,13 +76,13 @@ async function dashboard(loja,opcoes={}) {
   // Produtos legados sem campo disponivel são disponíveis quando ativos; consulta adicional evita excluí-los.
   const ativos=await count(colecao(loja,'produtos').where('ativo','==',true));
   const explicitamenteIndisponiveis=await count(colecao(loja,'produtos').where('ativo','==',true).where('disponivel','==',false));
-  return {periodo:{inicio:p.inicio,fim:p.fim,fuso:'America/Sao_Paulo'},pedidos:total,porStatus:Object.fromEntries(porStatus),valorPedidos,valorPagamentosConfirmados:valorConfirmado,produtos:{disponiveis:ativos-explicitamenteIndisponiveis,indisponiveis:totalProdutos-(ativos-explicitamenteIndisponiveis)},recentes:recentes.docs.map(d=>({...d.data(),id:d.id})),criterio:'Pedidos criados no período. Pagamentos confirmados manualmente, excluindo pedidos cancelados; não representa liquidação de gateway.'};
+  return {periodo:{inicio:p.inicio,fim:p.fim,fuso:'America/Sao_Paulo'},pedidos:total,porStatus:Object.fromEntries(porStatus),valorPedidos,valorPagamentosConfirmados:valorConfirmado,produtos:{disponiveis:ativos-explicitamenteIndisponiveis,indisponiveis:totalProdutos-(ativos-explicitamenteIndisponiveis)},recentes:recentes.docs.map(d=>require('../lib/projecoes').pedido({...d.data(),id:d.id})),criterio:'Pedidos criados no período. Pagamentos confirmados manualmente, excluindo pedidos cancelados; não representa liquidação de gateway.'};
 }
 async function detalhePedido(loja,id) {
   const pedido=await buscar(loja,'pedidos',id);
   if (!pedido.endereco && pedido.enderecoId && pedido.clienteId) {
     const doc=await colecao(loja,'clientes').doc(v.id(pedido.clienteId)).collection('enderecos').doc(v.id(pedido.enderecoId)).get();pedido.endereco=doc.exists ? selecionar(doc.data(),['rua','numero','bairro','cidade','uf','complemento','cep']) : null;
   }
-  return {...pedido,transicoesStatus:TRANSICOES_PERMITIDAS[pedido.status] || [],transicoesPagamento:pedido.status==='cancelado'?[]:TRANSICOES_PAGAMENTO[pedido.pagamento?.status] || []};
+  return {...require('../lib/projecoes').pedido(pedido),transicoesStatus:TRANSICOES_PERMITIDAS[pedido.status] || [],transicoesPagamento:pedido.status==='cancelado'?[]:TRANSICOES_PAGAMENTO[pedido.pagamento?.status] || []};
 }
 module.exports={listar,buscar,buscarLoja,salvarLoja,salvarProduto,desativarProduto,salvarCategoria,excluirCategoria,dashboard,detalhePedido,periodo};

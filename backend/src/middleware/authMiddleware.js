@@ -13,7 +13,7 @@ async function authMiddleware(req, res, next) {
 
     const [scheme, token] = authorization.split(" ");
 
-    if (scheme !== "Bearer" || !token) {
+    if (scheme !== "Bearer" || !token || authorization.split(" ").length !== 2) {
       return res.status(401).json({
         error: "Formato do token de autenticação inválido.",
       });
@@ -21,6 +21,7 @@ async function authMiddleware(req, res, next) {
 
     const decodedToken = await getAuth().verifyIdToken(token, true);
 
+    require("../lib/identificadores").identificador(decodedToken.uid);
     const usuario = await buscarUsuarioPorId(decodedToken.uid);
 
     if (!usuario) {
@@ -28,13 +29,14 @@ async function authMiddleware(req, res, next) {
       return next();
     }
 
-    if (!usuario.ativo) {
+    if (usuario.ativo !== true) {
       return res.status(403).json({
         error: "Usuário está desativado.",
       });
     }
 
     if (decodedToken.firebase?.sign_in_provider === "anonymous" && usuario.role !== "cliente") return res.status(403).json({error:"Sessão anônima não possui permissão administrativa."});
+    if (!["cliente","admin"].includes(usuario.role))return res.status(403).json({error:"Usuário não possui permissão para acessar este recurso."});
     req.user = {
       anonimo: decodedToken.firebase?.sign_in_provider === "anonymous",
       uid: decodedToken.uid,
@@ -46,7 +48,7 @@ async function authMiddleware(req, res, next) {
 
     next();
   } catch (error) {
-    console.error("Erro no middleware de autenticação:", error);
+    require("../lib/seguranca").registrarFalha("autenticacao",error);
 
     return res.status(401).json({
       error: "Token de autenticação inválido ou expirado.",

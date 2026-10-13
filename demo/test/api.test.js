@@ -1,8 +1,8 @@
 import {it,expect,vi,beforeEach} from 'vitest';
-const {sessao,sessaoExistente}=vi.hoisted(()=>({sessao:vi.fn(),sessaoExistente:vi.fn()}));
-vi.mock('../src/lib/firebase',()=>({sessao,sessaoExistente}));
+const {auth,sessao,sessaoExistente}=vi.hoisted(()=>({auth:{currentUser:null},sessao:vi.fn(),sessaoExistente:vi.fn()}));
+vi.mock('../src/lib/firebase',()=>({auth,sessao,sessaoExistente}));
 import {api} from '../src/services/api';
-beforeEach(()=>vi.resetAllMocks());
+beforeEach(()=>{vi.resetAllMocks();auth.currentUser=null;});
 it('renova ID Token uma vez após 401 sem mudar chave ou corpo',async()=>{
   const getIdToken=vi.fn().mockResolvedValueOnce('antigo').mockResolvedValueOnce('novo');sessao.mockResolvedValue({getIdToken});
   global.fetch=vi.fn().mockResolvedValueOnce({status:401,ok:false}).mockResolvedValueOnce({status:201,ok:true,json:async()=>({id:'pedido'})});
@@ -29,4 +29,15 @@ it('falha Firebase ao renovar token revogado também retira acesso administrativ
   sessaoExistente.mockResolvedValue({getIdToken:vi.fn().mockResolvedValueOnce('antigo').mockRejectedValueOnce({code:'auth/user-token-expired'})});
   global.fetch=vi.fn().mockResolvedValue({status:401,ok:false});const listener=vi.fn();window.addEventListener('admin:sessao-invalida',listener);
   try{await expect(api('/admin/lojas/loja/sessao',{administrativo:true})).rejects.toMatchObject({status:401,message:'Sessão expirada ou revogada. Entre novamente.'});expect(listener).toHaveBeenCalledOnce();}finally{window.removeEventListener('admin:sessao-invalida',listener);}
+});
+
+it('não envia mutação de checkout para identidade diferente da esperada',async()=>{
+  sessao.mockResolvedValue({uid:'B',getIdToken:vi.fn().mockResolvedValue('token')});global.fetch=vi.fn();
+  await expect(api('/pedidos',{method:'POST',expectedUid:'A',body:{}})).rejects.toMatchObject({status:409});expect(fetch).not.toHaveBeenCalled();
+});
+
+it('não envia dados quando UID muda durante obtenção do token',async()=>{
+  let resolver;auth.currentUser={uid:'A'};sessao.mockResolvedValue({uid:'A',getIdToken:()=>new Promise(r=>{resolver=r;})});global.fetch=vi.fn();
+  const chamada=api('/enderecos',{method:'POST',body:{rua:'Rua privada'}});await vi.waitFor(()=>expect(resolver).toBeTypeOf('function'));auth.currentUser={uid:'B'};resolver('token-antigo');
+  await expect(chamada).rejects.toMatchObject({status:409});expect(fetch).not.toHaveBeenCalled();
 });

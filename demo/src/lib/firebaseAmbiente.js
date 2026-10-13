@@ -1,0 +1,10 @@
+export function validarFirebaseWeb(env) {
+  const project=env.VITE_FIREBASE_PROJECT_ID || '',host=env.VITE_FIREBASE_AUTH_EMULATOR_URL;
+  if(host) {
+    let url;try{url=new URL(host);}catch{throw new Error('URL do emulador inválida.');}
+    if(!['localhost','127.0.0.1'].includes(url.hostname) || url.username || url.password || !['http:','https:'].includes(url.protocol) || !project.startsWith('demo-'))throw new Error('Emulador exige projeto demo e host local.');
+    return url.origin;
+  }
+  if(project.startsWith('demo-'))throw new Error('Projeto demo exige Auth Emulator configurado.');
+  return null;
+}

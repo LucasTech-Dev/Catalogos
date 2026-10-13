@@ -1,14 +1,15 @@
+const {ErroDominio}=require("../lib/seguranca");
 const { getFirestore } = require("firebase-admin/firestore");
 
 const db = getFirestore();
 
 async function listarEnderecosPorCliente(lojaId, clienteId) {
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   if (!clienteId || typeof clienteId !== "string") {
-    throw new Error("clienteId é obrigatório.");
+    throw new ErroDominio("clienteId é obrigatório.");
   }
 
   const enderecosRef = db
@@ -21,8 +22,8 @@ async function listarEnderecosPorCliente(lojaId, clienteId) {
   const snapshot = await enderecosRef.get();
 
   return snapshot.docs.map((doc) => ({
-    id: doc.id,
     ...doc.data(),
+    id: doc.id,
   }));
 }
 
@@ -31,16 +32,17 @@ async function buscarEnderecoPorId(
   clienteId,
   enderecoId
 ) {
+  for(const id of [lojaId,clienteId,enderecoId])require('../lib/identificadores').identificador(id);
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   if (!clienteId || typeof clienteId !== "string") {
-    throw new Error("clienteId é obrigatório.");
+    throw new ErroDominio("clienteId é obrigatório.");
   }
 
   if (!enderecoId || typeof enderecoId !== "string") {
-    throw new Error("enderecoId é obrigatório.");
+    throw new ErroDominio("enderecoId é obrigatório.");
   }
 
   const enderecoRef = db
@@ -58,8 +60,8 @@ async function buscarEnderecoPorId(
   }
 
   return {
-    id: snapshot.id,
     ...snapshot.data(),
+    id: snapshot.id,
   };
 }
 

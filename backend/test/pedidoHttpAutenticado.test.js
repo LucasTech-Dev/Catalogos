@@ -1092,7 +1092,7 @@ test('Etapa 19 — catálogo, convidados e isolamento', async t => {
     const loja = estado.documentos.get('lojas/loja-demo');loja.chavePrivada = 'segredo';
     definirDocumento('lojas/loja-demo/categorias/burgers',{nome:'Burgers',ativo:true,segredo:'interno'});
     const resposta = await get('/publico/lojas/loja-demo/catalogo',null);
-    assert.equal(resposta.status,200);assert.equal(resposta.dados.produtos.length,2);assert.equal(resposta.dados.categorias[0].nome,'Burgers');
+    assert.equal(resposta.status,200);assert.equal(resposta.dados.produtos.length,1);assert.equal(resposta.dados.categorias[0].nome,'Burgers');
     assert.equal(resposta.dados.loja.chavePrivada,undefined);assert.equal(resposta.dados.categorias[0].segredo,undefined);
   });
   await t.test('cliente lista somente pedidos próprios e admin mantém visão da loja', async() => {
@@ -1242,4 +1242,26 @@ test('Etapa 20 — parser JSON retorna erros sem stack ou caminhos internos',asy
   prepararDadosBase();const headers={'content-type':'application/json',authorization:'Bearer token-admin'};
   const invalido=await requisitarApp({metodo:'POST',url:'/admin/lojas/loja-demo/produtos',headers,corpo:'json-primitivo'});assert.equal(invalido.status,400);assert.equal(invalido.dados.error,'JSON inválido.');
   const grande=await requisitarApp({metodo:'POST',url:'/admin/lojas/loja-demo/produtos',headers,corpo:{nome:'x'.repeat(70000)}});assert.equal(grande.status,413);assert.equal(grande.dados.error,'Requisição excede o tamanho permitido.');
+});
+
+test('Etapa 21 — reproduções de segurança',async t=>{
+  const get=(url,token='token-cliente')=>requisitarApp({metodo:'GET',url,headers:{authorization:`Bearer ${token}`}});
+  await t.test('perfil interno inválido não habilita admin',async()=>{prepararDadosBase();estado.documentos.get('usuarios/admin-1').ativo='false';assert.equal((await get('/admin/lojas/loja-demo/sessao','token-admin')).status,403);});
+  await t.test('projeção pública não transmite objetos privados em campos permitidos',async()=>{prepararDadosBase();estado.documentos.get('lojas/loja-demo').nome={token:'sentinela-privada'};estado.documentos.get('lojas/loja-demo/produtos/produto-ativo').ingredientes=[{token:'sentinela-privada'}];const res=await get('/publico/lojas/loja-demo/catalogo');assert.equal(res.status,200);assert.doesNotMatch(JSON.stringify(res.dados),/sentinela-privada/);});
+  await t.test('documento próprio de usuário não expõe campos secretos legados',async()=>{prepararDadosBase();estado.documentos.get('usuarios/cliente-1').senha='sentinela-privada';const res=await get('/usuarios/me');assert.equal(res.status,200);assert.doesNotMatch(JSON.stringify(res.dados),/sentinela-privada/);});
+  await t.test('pedido próprio não expõe campos financeiros privados legados',async()=>{prepararDadosBase();definirPedidoExistente('seguro',{pagamento:{forma:'pix',status:'pendente',valor:45,token:'sentinela-privada'},endereco:{rua:'Rua',senha:'sentinela-privada'}});const res=await get('/lojas/loja-demo/pedidos/seguro');assert.equal(res.status,200);assert.doesNotMatch(JSON.stringify(res.dados),/sentinela-privada/);});
+  await t.test('preço no pedido usa leitura da transação, não leitura anterior',async()=>{prepararDadosBase();const original=firestoreFake.runTransaction;let alterado=false;firestoreFake.runTransaction=async function(fn){if(!alterado){alterado=true;estado.documentos.get('lojas/loja-demo/produtos/produto-ativo').preco=99;}return original.call(this,fn);};try{const res=await requisitarPedido({tipoEntrega:'retirada',itens:[{produtoId:'produto-ativo',quantidade:1}],pagamento:{forma:'pix'}});assert.equal(res.status,201);assert.equal(res.dados.total,99);}finally{firestoreFake.runTransaction=original;}});
+});
+
+test('Etapa 21 — lojaId não pode apontar para documento privado aninhado',async()=>{
+  prepararDadosBase();definirDocumento('lojas/loja-demo/clientes/vitima',{nome:'Sentinela cliente privado',telefone:'11999999999'});
+  const res=await requisitarApp({metodo:'GET',url:'/publico/lojas/loja-demo%2Fclientes%2Fvitima/catalogo',headers:{}});
+  assert.equal(res.status,400);assert.doesNotMatch(JSON.stringify(res.dados),/Sentinela cliente privado/);
+});
+
+test('Etapa 21 — falha interna não expõe segredo pela API ou logs',async()=>{
+  prepararDadosBase();const original=firestoreFake.collection,logger=console.error;let logs='';
+  firestoreFake.collection=()=>{throw new Error('token=sentinela-secreta credencial=sentinela-secreta');};console.error=valor=>{logs+=valor;};
+  try{const r=await requisitarApp({metodo:'GET',url:'/publico/lojas/loja-demo/catalogo',headers:{}});assert.equal(r.status,500);assert.doesNotMatch(JSON.stringify(r.dados)+logs,/sentinela-secreta/);}
+  finally{firestoreFake.collection=original;console.error=logger;}
 });

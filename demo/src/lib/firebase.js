@@ -1,13 +1,14 @@
 import {initializeApp} from 'firebase/app';
-import {getAuth, connectAuthEmulator, signInAnonymously} from 'firebase/auth';
+import {getAuth, connectAuthEmulator, signInAnonymously, onIdTokenChanged} from 'firebase/auth';
+import {limparDadosDeOutraSessao} from './tentativaCheckout';
+import {validarFirebaseWeb} from './firebaseAmbiente';
 const env = import.meta.env;
+const emulatorUrl=validarFirebaseWeb(env);
 export const firebaseConfigurado = Boolean(env.VITE_FIREBASE_API_KEY && env.VITE_FIREBASE_PROJECT_ID);
 export const auth = firebaseConfigurado ? getAuth(initializeApp({apiKey:env.VITE_FIREBASE_API_KEY, authDomain:env.VITE_FIREBASE_AUTH_DOMAIN, projectId:env.VITE_FIREBASE_PROJECT_ID, appId:env.VITE_FIREBASE_APP_ID})) : null;
-if (auth && env.VITE_FIREBASE_AUTH_EMULATOR_URL) {
-  const url = new URL(env.VITE_FIREBASE_AUTH_EMULATOR_URL);
-  if (!['localhost','127.0.0.1'].includes(url.hostname) || !env.VITE_FIREBASE_PROJECT_ID.startsWith('demo-')) throw new Error('Emulador exige projeto demo e host local.');
-  connectAuthEmulator(auth, url.origin, {disableWarnings:true});
-}
+if(auth && emulatorUrl)connectAuthEmulator(auth,emulatorUrl,{disableWarnings:true});
+// Limpeza também ao sair/trocar conta em páginas fora do checkout.
+if(auth)onIdTokenChanged(auth,user=>limparDadosDeOutraSessao(user?.uid || null));
 let entrando;
 export async function sessao() {
   if (!auth) throw new Error('Autenticação não configurada. Entre em contato com a loja.');

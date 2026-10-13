@@ -1,3 +1,4 @@
+const {ErroDominio}=require("../lib/seguranca");
 const { getFirestore } = require("firebase-admin/firestore");
 
 const db = getFirestore();
@@ -6,25 +7,25 @@ const ROLES_VALIDAS = ["cliente", "admin"];
 
 function validarDadosUsuario(dados) {
   if (!dados || typeof dados !== "object") {
-    throw new Error("Dados do usuário são obrigatórios.");
+    throw new ErroDominio("Dados do usuário são obrigatórios.");
   }
 
   if (!dados.nome || typeof dados.nome !== "string") {
-    throw new Error("Nome do usuário é obrigatório.");
+    throw new ErroDominio("Nome do usuário é obrigatório.");
   }
 
   if (!dados.email || typeof dados.email !== "string") {
-    throw new Error("E-mail do usuário é obrigatório.");
+    throw new ErroDominio("E-mail do usuário é obrigatório.");
   }
 
   const email = dados.email.trim().toLowerCase();
 
   if (!email.includes("@")) {
-    throw new Error("E-mail do usuário inválido.");
+    throw new ErroDominio("E-mail do usuário inválido.");
   }
 
   if (dados.role && !ROLES_VALIDAS.includes(dados.role)) {
-    throw new Error("Role de usuário inválida.");
+    throw new ErroDominio("Role de usuário inválida.");
   }
 
   if (
@@ -32,14 +33,14 @@ function validarDadosUsuario(dados) {
     dados.lojaId !== null &&
     typeof dados.lojaId !== "string"
   ) {
-    throw new Error("lojaId deve ser uma string ou null.");
+    throw new ErroDominio("lojaId deve ser uma string ou null.");
   }
 
   if (
     dados.ativo !== undefined &&
     typeof dados.ativo !== "boolean"
   ) {
-    throw new Error("ativo deve ser boolean.");
+    throw new ErroDominio("ativo deve ser boolean.");
   }
 
   return {
@@ -53,7 +54,7 @@ function validarDadosUsuario(dados) {
 
 async function criarUsuario(uid, dados) {
   if (!uid || typeof uid !== "string") {
-    throw new Error("UID do usuário é obrigatório.");
+    throw new ErroDominio("UID do usuário é obrigatório.");
   }
 
   const dadosValidados = validarDadosUsuario(dados);
@@ -75,8 +76,10 @@ async function criarUsuario(uid, dados) {
 }
 
 async function buscarUsuarioPorId(uid) {
+  require('../lib/identificadores').identificador(uid);
+
   if (!uid || typeof uid !== "string") {
-    throw new Error("UID do usuário é obrigatório.");
+    throw new ErroDominio("UID do usuário é obrigatório.");
   }
 
   const usuarioRef = db.collection("usuarios").doc(uid);
@@ -87,8 +90,8 @@ async function buscarUsuarioPorId(uid) {
   }
 
   return {
-    id: snapshot.id,
     ...snapshot.data(),
+    id: snapshot.id,
   };
 }
 

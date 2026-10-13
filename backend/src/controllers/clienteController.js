@@ -11,9 +11,9 @@ async function listarClientes(req, res) {
 
     const clientes = await listarClientesPorLoja(lojaId);
 
-    return res.status(200).json(clientes.map(c=>selecionar(c,camposPublicos)));
+    return res.status(200).json(clientes.map(c=>require("../lib/projecoes").cliente(c)));
   } catch (error) {
-    console.error("Erro ao listar clientes:", error);
+    require("../lib/seguranca").registrarFalha("clienteController",error);
 
     return res.status(500).json({
       error: "Erro interno ao listar clientes.",
@@ -36,9 +36,9 @@ async function buscarCliente(req, res) {
       });
     }
 
-    return res.status(200).json(selecionar(cliente,camposPublicos));
+    return res.status(200).json(require("../lib/projecoes").cliente(cliente));
   } catch (error) {
-    console.error("Erro ao buscar cliente:", error);
+    require("../lib/seguranca").registrarFalha("clienteController",error);
 
     return res.status(500).json({
       error: "Erro interno ao buscar cliente.",

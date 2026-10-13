@@ -11,6 +11,8 @@ const {
 const proprioCliente = require("../middleware/ownershipMiddleware");
 const authorization = require("../middleware/authorizationMiddleware");
 const router = express.Router();
+router.param('clienteId',require('../lib/identificadores').parametro);
+router.param('lojaId',require('../lib/identificadores').parametro);
 
 router.get(
   "/:lojaId/clientes",

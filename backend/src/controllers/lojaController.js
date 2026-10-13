@@ -15,9 +15,9 @@ async function buscarLoja(req, res) {
       });
     }
 
-    return res.status(200).json(req.user.role === "admin" ? loja : (await require("../services/publicoService").catalogo(lojaId)).loja);
+    return res.status(200).json(require("../lib/projecoes").loja(loja));
   } catch (error) {
-    console.error("Erro ao buscar loja:", error);
+    require("../lib/seguranca").registrarFalha("lojaController",error);
 
     return res.status(500).json({
       error: "Erro interno ao buscar loja.",
@@ -40,16 +40,11 @@ async function atualizarPagamentos(req, res) {
       });
     }
 
-    return res.status(200).json(req.user.role === "admin" ? loja : (await require("../services/publicoService").catalogo(lojaId)).loja);
+    return res.status(200).json(require("../lib/projecoes").loja(loja));
   } catch (error) {
-    console.error(
-      "Erro ao atualizar pagamentos da loja:",
-      error
-    );
+    require("../lib/seguranca").registrarFalha("lojaController",error);
 
-    return res.status(400).json({
-      error: error.message,
-    });
+    return require("../lib/seguranca").responderErro(res,error);
   }
 }
 

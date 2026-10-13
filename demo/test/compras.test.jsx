@@ -3,7 +3,7 @@ import {describe,it,expect,vi,beforeEach,afterEach} from 'vitest';
 import {render,screen,fireEvent,waitFor,cleanup} from '@testing-library/react';
 const mocks=vi.hoisted(()=>({api:vi.fn(),sessao:vi.fn(),entrar:vi.fn(),cadastrar:vi.fn()}));
 vi.mock('../src/services/api',()=>({api:mocks.api,lojaId:'loja-demo',publico:'/publico/lojas/loja-demo',pedidos:'/lojas/loja-demo/pedidos'}));
-vi.mock('../src/lib/firebase',()=>({sessao:mocks.sessao}));
+vi.mock('../src/lib/firebase',()=>({auth:null,sessao:mocks.sessao}));
 vi.mock('../src/services/conta',()=>({entrar:mocks.entrar,cadastrar:mocks.cadastrar,recuperar:vi.fn()}));
 import {LojaProvider,useLoja} from '../src/contexts/LojaContext';
 import Checkout from '../src/pages/Checkout';
@@ -50,4 +50,10 @@ describe('checkout persistido',()=>{
 describe('formulários de conta',()=>{
   it('apresenta erro de login sem simular sucesso',async()=>{mocks.entrar.mockRejectedValue(new Error('E-mail ou senha inválidos.'));render(<Login/>);fireEvent.change(screen.getByLabelText('E-mail'),{target:{value:'teste@local.com'}});fireEvent.change(screen.getByLabelText('Senha'),{target:{value:'senha'}});fireEvent.submit(screen.getByRole('button',{name:'Entrar'}).closest('form'));expect((await screen.findByRole('alert')).textContent).toBe('E-mail ou senha inválidos.');expect(mocks.entrar).toHaveBeenCalledWith('teste@local.com','senha');});
   it('não cadastra com senhas diferentes',async()=>{render(<Cadastro/>);fireEvent.change(screen.getByLabelText('Senha'),{target:{value:'senha123'}});fireEvent.change(screen.getByLabelText('Confirmar senha'),{target:{value:'outra123'}});fireEvent.submit(screen.getByRole('button',{name:'Criar minha conta'}).closest('form'));await screen.findByRole('alert');expect(mocks.cadastrar).not.toHaveBeenCalled();});
+});
+it('retoma marcador de outra aba sem reenviar pedido nem persistir dados pessoais',async()=>{
+  localStorage.setItem('catalogos:checkout:loja-demo:uid-real',JSON.stringify({uid:'uid-real',chave:'nonce-persistido',pedidoId:'pedido-real'}));
+  mocks.api.mockImplementation(async(path,o)=>{if(path.endsWith('/catalogo'))return catalogo;if(path.endsWith('/me'))return {};if(path.endsWith('/enderecos'))return [];if(path.includes('/finalizacao/'))return pedido;return {url:'https://wa.me/5511999999999?text=real'};});
+  render(<LojaProvider><Checkout/></LojaProvider>);await screen.findByText(/Carrinho vazio/).catch(()=>{});fireEvent.click(screen.getByText('Registrar pedido e preparar WhatsApp'));await screen.findByRole('link',{name:'Abrir WhatsApp'});
+  expect(mocks.api.mock.calls.filter(([,o])=>o?.method==='POST')).toHaveLength(0);expect(JSON.parse(localStorage.getItem('catalogos:checkout:loja-demo:uid-real'))).toEqual({uid:'uid-real',chave:'nonce-persistido',pedidoId:'pedido-real'});
 });

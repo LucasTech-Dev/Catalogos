@@ -12,9 +12,9 @@ async function buscarUsuarioAtual(req, res) {
       });
     }
 
-    return res.status(200).json(usuario);
+    return res.status(200).json({...require("../lib/projecoes").usuario(usuario),id:req.user.uid,email:req.user.email});
   } catch (error) {
-    console.error("Erro ao buscar usuário atual:", error);
+    require("../lib/seguranca").registrarFalha("usuarioController",error);
 
     return res.status(500).json({
       error: "Erro interno ao buscar usuário.",

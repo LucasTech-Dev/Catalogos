@@ -1,3 +1,4 @@
+const {ErroDominio}=require("../lib/seguranca");
 const { getFirestore } = require("firebase-admin/firestore");
 
 const {
@@ -6,47 +7,48 @@ const {
 
 const db = getFirestore();
 
-async function validarItensDoPedido(lojaId, itens) {
+async function validarItensDoPedido(lojaId, itens, tx = null) {
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   if (!Array.isArray(itens) || itens.length === 0) {
-    throw new Error("O pedido deve possuir pelo menos um item.");
+    throw new ErroDominio("O pedido deve possuir pelo menos um item.");
   }
 
   const itensValidados = [];
 
   for (const item of itens) {
     if (!item || typeof item !== "object") {
-      throw new Error("Item do pedido inválido.");
+      throw new ErroDominio("Item do pedido inválido.");
     }
 
     const { produtoId, quantidade } = item;
 
     if (!produtoId || typeof produtoId !== "string") {
-      throw new Error("produtoId é obrigatório em cada item.");
+      throw new ErroDominio("produtoId é obrigatório em cada item.");
     }
 
     if (
       !Number.isInteger(quantidade) ||
       quantidade <= 0 || quantidade > 99
     ) {
-      throw new Error(
+      throw new ErroDominio(
         "A quantidade de cada item deve ser um número inteiro maior que zero."
       );
     }
 
+    require("../lib/identificadores").identificador(produtoId);
     const produtoRef = db
       .collection("lojas")
       .doc(lojaId)
       .collection("produtos")
       .doc(produtoId);
 
-    const produtoSnapshot = await produtoRef.get();
+    const produtoSnapshot = await (tx ? tx.get(produtoRef) : produtoRef.get());
 
     if (!produtoSnapshot.exists) {
-      throw new Error(
+      throw new ErroDominio(
         `Produto "${produtoId}" não encontrado.`
       );
     }
@@ -54,7 +56,7 @@ async function validarItensDoPedido(lojaId, itens) {
     const produto = produtoSnapshot.data();
 
     if (produto.ativo !== true || produto.disponivel === false) {
-      throw new Error(
+      throw new ErroDominio(
         `Produto "${produtoId}" não está disponível.`
       );
     }
@@ -63,11 +65,17 @@ async function validarItensDoPedido(lojaId, itens) {
       typeof produto.preco !== "number" ||
       !Number.isFinite(produto.preco) || produto.preco < 0
     ) {
-      throw new Error(
+      throw new ErroDominio(
         `Produto "${produtoId}" possui preço inválido.`
       );
     }
 
+    if(produto.categoriaId) {
+      require('../lib/identificadores').identificador(produto.categoriaId);
+      const ref=db.collection('lojas').doc(lojaId).collection('categorias').doc(produto.categoriaId);
+      const categoria=await (tx?tx.get(ref):ref.get());
+      if(!categoria.exists || categoria.data().ativo===false)throw new ErroDominio('Categoria do produto não está disponível.');
+    }
     itensValidados.push({
       produtoId,
       nome: produto.nome,

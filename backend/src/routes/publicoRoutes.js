@@ -1,8 +1,10 @@
 const router = require('express').Router();
+router.param('enderecoId',require('../lib/identificadores').parametro);
+router.param('lojaId',require('../lib/identificadores').parametro);
 const auth = require('../middleware/authMiddleware');
 const loja = require('../middleware/lojaMiddleware');
 const {catalogo, selecionar, validarCliente, validarEndereco, clienteRef} = require('../services/publicoService');
-const executar = fn => async (req,res) => {try {await fn(req,res);} catch(e) {res.status(400).json({error:e.message});}};
+const executar = fn => async (req,res) => {try {await fn(req,res);} catch(e) {require('../lib/seguranca').registrarFalha('perfil-publico',e);require('../lib/seguranca').responderErro(res,e);}};
 router.get('/:lojaId/catalogo', executar(async(req,res) => {
   const dados = await catalogo(req.params.lojaId);
   res.status(dados ? 200 : 404).json(dados || {error:'Loja não encontrada.'});
@@ -11,7 +13,7 @@ router.use('/:lojaId/me', auth, loja);
 router.get('/:lojaId/me', executar(async(req,res) => {
   const doc = await clienteRef(req.params.lojaId, req.user.uid).get();
   const perfil = doc.exists ? doc.data() : await require('../services/usuarioService').buscarUsuarioPorId(req.user.uid);
-  res.json({...selecionar(perfil || {}, ['nome','telefone']), uid:req.user.uid, email:req.user.email || '', anonimo:req.user.anonimo === true});
+  res.json({...require('../lib/projecoes').textos(perfil || {},['nome','telefone']), uid:req.user.uid, email:req.user.email || '', anonimo:req.user.anonimo === true});
 }));
 router.put('/:lojaId/me', executar(async(req,res) => {
   const dados = validarCliente(req.body);
@@ -20,7 +22,7 @@ router.put('/:lojaId/me', executar(async(req,res) => {
 }));
 router.get('/:lojaId/me/enderecos', executar(async(req,res) => {
   const docs = await clienteRef(req.params.lojaId, req.user.uid).collection('enderecos').get();
-  res.json(docs.docs.map(doc => ({...selecionar(doc.data(),['apelido','rua','numero','bairro','cidade','uf','complemento','cep']), id:doc.id})));
+  res.json(docs.docs.map(doc => ({...require('../lib/projecoes').endereco(doc.data()), id:doc.id})));
 }));
 router.post('/:lojaId/me/enderecos', executar(async(req,res) => {
   const dados = validarEndereco(req.body);

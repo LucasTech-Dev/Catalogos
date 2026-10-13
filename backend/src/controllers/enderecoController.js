@@ -12,9 +12,9 @@ async function listarEnderecos(req, res) {
       clienteId
     );
 
-    return res.status(200).json(enderecos);
+    return res.status(200).json(enderecos.map(require("../lib/projecoes").endereco));
   } catch (error) {
-    console.error("Erro ao listar endereços:", error);
+    require("../lib/seguranca").registrarFalha("enderecoController",error);
 
     return res.status(500).json({
       error: "Erro interno ao listar endereços.",
@@ -38,9 +38,9 @@ async function buscarEndereco(req, res) {
       });
     }
 
-    return res.status(200).json(endereco);
+    return res.status(200).json(require("../lib/projecoes").endereco(endereco));
   } catch (error) {
-    console.error("Erro ao buscar endereço:", error);
+    require("../lib/seguranca").registrarFalha("enderecoController",error);
 
     return res.status(500).json({
       error: "Erro interno ao buscar endereço.",

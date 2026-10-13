@@ -1,3 +1,4 @@
+const {ErroDominio}=require("../lib/seguranca");
 const TRANSICOES_PERMITIDAS = {
   recebido: [
     "pagamento_confirmado",
@@ -36,7 +37,7 @@ const STATUS_VALIDOS = Object.keys(TRANSICOES_PERMITIDAS);
 
 function validarStatus(status) {
   if (!STATUS_VALIDOS.includes(status)) {
-    throw new Error(`Status de pedido inválido: ${status}.`);
+    throw new ErroDominio(`Status de pedido inválido: ${status}.`);
   }
 
   return true;
@@ -47,7 +48,7 @@ function validarTransicaoStatus(statusAtual, novoStatus) {
   validarStatus(novoStatus);
 
   if (statusAtual === novoStatus) {
-    throw new Error(
+    throw new ErroDominio(
       "O pedido já está nesse status."
     );
   }
@@ -56,7 +57,7 @@ function validarTransicaoStatus(statusAtual, novoStatus) {
     TRANSICOES_PERMITIDAS[statusAtual];
 
   if (!transicoesPermitidas.includes(novoStatus)) {
-    throw new Error(
+    throw new ErroDominio(
       `Não é permitido alterar o pedido de "${statusAtual}" para "${novoStatus}".`
     );
   }

@@ -2,13 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 
 import {useLoja, EstadoCatalogo} from '../contexts/LojaContext';
 import {api,publico,pedidos,lojaId} from '../services/api';
-import {sessao} from '../lib/firebase';
+import {auth,sessao} from '../lib/firebase';
+import {onIdTokenChanged} from 'firebase/auth';
+import {carregarTentativa,salvarTentativa,removerTentativa,limparDadosDeOutraSessao} from '../lib/tentativaCheckout';
 import {moeda,urlWhatsapp} from '../lib/compras';
 function Checkout() {
   const {loja,itens,subtotal,limpar} = useLoja();
   const [cidade,setCidade] = useState(''), [uf,setUf] = useState('');
   const [erro,setErro] = useState(''), [ocupado,setOcupado] = useState(false), [pedido,setPedido] = useState(null), [url,setUrl] = useState('');
-  const trava = useRef(false), tentativaKey = useRef("");
+  const trava = useRef(false), tentativaKey = useRef(""), versaoSessao=useRef(0);
   const [enderecosSalvos,setEnderecosSalvos] = useState([]), [enderecoSalvo,setEnderecoSalvo] = useState("");
 
   const [tipoEntrega, setTipoEntrega] =
@@ -34,52 +36,64 @@ function Checkout() {
     if (!loja.entrega?.habilitada) setTipoEntrega('retirada');
     setFormaPagamento(atual => loja.pagamentos?.[atual] ? atual : Object.keys(loja.pagamentos || {}).find(f => loja.pagamentos[f]) || '');
   },[loja]);
-  useEffect(() => {
-    let ativo = true;
-    Promise.all([api(publico+'/me'),api(publico+'/me/enderecos')]).then(([perfil,lista]) => {
-      if (!ativo) return;
-      setNome(atual => atual || perfil.nome || '');setTelefone(atual => atual || perfil.telefone || '');
-      setEnderecosSalvos(Array.isArray(lista) ? lista : []);
-    }).catch(() => {});
-    return () => {ativo = false;};
+  useEffect(()=>{
+    let ativo=true,uidAnterior;
+    function trocar(user){
+      const uid=user?.uid || null;if(uid===uidAnterior)return;uidAnterior=uid;const v=++versaoSessao.current;
+      limparDadosDeOutraSessao(uid);setNome('');setTelefone('');setEndereco('');setNumero('');setBairro('');setCidade('');setUf('');setObservacao('');setEnderecosSalvos([]);setEnderecoSalvo('');setPedido(null);setUrl('');setErro('');
+      Promise.all([api(publico+'/me'),api(publico+'/me/enderecos')]).then(([perfil,lista])=>{
+        if(!ativo || v!==versaoSessao.current)return;
+        setNome(atual=>atual || perfil.nome || '');setTelefone(atual=>atual || perfil.telefone || '');setEnderecosSalvos(Array.isArray(lista)?lista:[]);
+      }).catch(()=>{});
+    }
+    const cancelar=auth?onIdTokenChanged(auth,trocar):null;if(!auth)trocar(null);
+    return()=>{ativo=false;versaoSessao.current++;cancelar?.();};
   },[]);
   const finalizarPedido = async () => {
     if (trava.current) return;
     trava.current = true; setOcupado(true); setErro('');
-    let key;
+    let key,uid;let v=versaoSessao.current;
     try {
       const user = await sessao();
+      uid=user.uid;v=versaoSessao.current;
+      const consultar=async(path,options={})=>{const resultado=await api(path,{...options,expectedUid:uid});if(v!==versaoSessao.current || (auth && auth.currentUser?.uid!==uid))throw Object.assign(new Error('A sessão mudou.'),{status:409});return resultado;};
       key = `catalogos:checkout:${lojaId}:${user.uid}`;
       tentativaKey.current = key;
-      let tentativa = JSON.parse(localStorage.getItem(key) || 'null');
+      let tentativa=carregarTentativa(key,user.uid);
+      if(tentativa && !tentativa.dados && !tentativa.pedido) {
+        try{tentativa.pedido=await consultar(`${pedidos}/finalizacao/${encodeURIComponent(tentativa.chave)}`);salvarTentativa(key,tentativa);}
+        catch(e){if(e.status!==404)throw e;}
+      }
       if (tentativa && tentativa.uid !== user.uid) throw new Error('Há uma finalização de outra sessão. Entre na conta original para retomá-la.');
-      if (!tentativa) {
+      if (!tentativa?.dados && !tentativa?.pedido) {
         if (!itens.length || itens.some(i => i.ativo !== true || i.disponivel === false)) throw new Error('Revise o carrinho: há produtos indisponíveis ou nenhum item.');
         if (!nome.trim() || !telefone.trim()) throw new Error('Informe nome e telefone.');
         if (!formas.includes(formaPagamento)) throw new Error('Escolha uma forma de pagamento aceita pela loja.');
         if (tipoEntrega === 'entrega' && (!endereco.trim() || !numero.trim() || !bairro.trim() || !cidade.trim() || !uf.trim())) throw new Error('Preencha o endereço completo.');
-        tentativa = {uid:user.uid,chave:crypto.randomUUID(),dados:{itens:itens.map(i => ({produtoId:i.id,quantidade:i.quantidade})),tipoEntrega,pagamento:{forma:formaPagamento},cliente:{nome,telefone},observacao},endereco:tipoEntrega === 'entrega' ? {rua:endereco,numero,bairro,cidade,uf} : null};
+        tentativa = {uid:user.uid,chave:tentativa?.chave || crypto.randomUUID(),dados:{itens:itens.map(i => ({produtoId:i.id,quantidade:i.quantidade})),tipoEntrega,pagamento:{forma:formaPagamento},cliente:{nome,telefone},observacao},endereco:tipoEntrega === 'entrega' ? {rua:endereco,numero,bairro,cidade,uf} : null};
         if (tipoEntrega === "entrega" && enderecoSalvo) {tentativa.dados.enderecoId = enderecoSalvo; tentativa.endereco = null;}
-        localStorage.setItem(key,JSON.stringify(tentativa));
+        salvarTentativa(key,tentativa);
       }
       if (!tentativa.pedido) {
         if (tentativa.endereco && !tentativa.dados.enderecoId) {
-          const salvo = await api(publico + '/me/enderecos', {method:'POST',body:tentativa.endereco});
+          const salvo = await consultar(publico + '/me/enderecos', {method:'POST',body:tentativa.endereco});
           tentativa.dados.enderecoId = salvo.id;
-          localStorage.setItem(key,JSON.stringify(tentativa));
+          salvarTentativa(key,tentativa);
         }
-        tentativa.pedido = await api(pedidos, {method:'POST',body:tentativa.dados,chave:tentativa.chave});
-        localStorage.setItem(key,JSON.stringify(tentativa));
+        tentativa.pedido = await consultar(pedidos, {method:'POST',body:tentativa.dados,chave:tentativa.chave});
+        salvarTentativa(key,tentativa);
       }
+      if(v!==versaoSessao.current || (auth && auth.currentUser?.uid!==user.uid))return;
       setPedido(tentativa.pedido); limpar();
-      const finalizacao = await api(`${pedidos}/${encodeURIComponent(tentativa.pedido.id)}/whatsapp`);
-      setUrl(urlWhatsapp(finalizacao.url));
+      const finalizacao = await consultar(`${pedidos}/${encodeURIComponent(tentativa.pedido.id)}/whatsapp`);
+      if(v===versaoSessao.current && (!auth || auth.currentUser?.uid===user.uid))setUrl(urlWhatsapp(finalizacao.url));
     } catch(e) {
+      if(v!==versaoSessao.current)return;
       if (e.status === 400 && !e.message.includes('Chave já utilizada')) {
-        const tentativa = JSON.parse(localStorage.getItem(key) || 'null');
-        if (tentativa && !tentativa.pedido) localStorage.removeItem(key);
+        const tentativa=key?carregarTentativa(key,uid):null;
+        if (tentativa && !tentativa.pedido) removerTentativa(key);
       }
-      setErro(e.message);
+      if(v===versaoSessao.current)setErro(e.message);
     } finally {trava.current = false; setOcupado(false);}
   };
 
@@ -357,7 +371,7 @@ function Checkout() {
             <aside className="checkout-summary">
               {erro && <p role="alert">{erro} Em falhas de conexão, repita a finalização para retomar a mesma tentativa.</p>}
               {pedido && <p role="status">Pedido #{pedido.id} registrado. Total definitivo: {moeda(pedido.total)}. Pagamento: {pedido.pagamento.status}.</p>}
-              {url && <><a className="whatsapp-checkout-button" href={url} target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a><p>Envie a mensagem e aguarde a confirmação da loja. Se o WhatsApp estiver indisponível, seu pedido continua registrado.</p><button onClick={() => {localStorage.removeItem(tentativaKey.current);window.location.assign('/cardapio');}}>Iniciar novo pedido</button></>}
+              {url && <><a className="whatsapp-checkout-button" href={url} target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a><p>Envie a mensagem e aguarde a confirmação da loja. Se o WhatsApp estiver indisponível, seu pedido continua registrado.</p><button onClick={() => {removerTentativa(tentativaKey.current);window.location.assign('/cardapio');}}>Iniciar novo pedido</button></>}
 
 
               <div className="checkout-summary-header">

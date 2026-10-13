@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import {useRecurso} from "../hooks/useRecurso";
 import {api,publico} from "../services/api";
 
 function Enderecos() {
   const {dados:enderecos,erro:erroCarga,carregando,atualizar} = useRecurso(publico+'/me/enderecos',[]);
   const [edicao,setEdicao] = useState(null),[erro,setErro] = useState(''),[ocupado,setOcupado] = useState(false);
+  useEffect(()=>{if(carregando){setEdicao(null);setErro('');}},[carregando]);
   async function salvar(event) {
     event.preventDefault();if (ocupado) return;setOcupado(true);setErro('');
     const dados = Object.fromEntries(new FormData(event.target));

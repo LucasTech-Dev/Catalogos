@@ -11,6 +11,7 @@ const enderecoRoutes = require("./routes/enderecoRoutes");
 const pedidoRoutes = require("./routes/pedidoRoutes");
 
 const app = express();
+app.param("lojaId",require("./lib/identificadores").parametro);
 
 const origens = (process.env.CORS_ORIGINS || 'http://localhost:5173,http://127.0.0.1:5173').split(',').map(o => o.trim());
 app.use((req,res,next) => {

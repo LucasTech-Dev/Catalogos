@@ -1,11 +1,12 @@
-function erro(mensagem, status = 400) {return Object.assign(new Error(mensagem), {status});}
+const {ErroDominio}=require('../lib/seguranca');
+function erro(mensagem,status=400) {return new ErroDominio(mensagem,status);}
 function objeto(dados) {if (!dados || typeof dados !== 'object' || Array.isArray(dados)) throw erro('Dados inválidos.');}
 function campos(dados,permitidos) {objeto(dados);if (Object.keys(dados).some(k => !permitidos.includes(k))) throw erro('Campo não permitido nesta operação.');}
 function texto(valor,nome,max = 200,obrigatorio = false) {if (typeof valor !== 'string' || valor.trim().length > max || (obrigatorio && !valor.trim())) throw erro(`${nome} inválido.`);return valor.trim();}
 function numero(valor,nome) {if (typeof valor !== 'number' || !Number.isFinite(valor) || valor < 0 || valor > 1000000) throw erro(`${nome} inválido.`);return Math.round((valor + Number.EPSILON)*100)/100;}
 function booleano(valor,nome) {if (typeof valor !== 'boolean') throw erro(`${nome} deve ser booleano.`);return valor;}
 function url(valor,nome) {if (valor === '') return '';const v=texto(valor,nome,2048);try {const u=new URL(v);if (!['https:','http:'].includes(u.protocol) || u.username || u.password) throw Error();return u.href;} catch {throw erro(`${nome} deve ser uma URL HTTP ou HTTPS válida.`);}}
-function id(valor) {if (typeof valor !== 'string' || !valor || valor.length > 128 || valor.includes('/') || valor === '.' || valor === '..') throw erro('Identificador inválido.');return valor;}
+function id(valor) {return require('../lib/identificadores').identificador(valor);}
 const CAMPOS_PRODUTO = ['nome','descricao','preco','categoriaId','ativo','disponivel','imagem','ingredientes'];
 function produto(dados,parcial = false) {
   campos(dados,CAMPOS_PRODUTO);const d={};

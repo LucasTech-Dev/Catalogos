@@ -30,13 +30,11 @@ async function criarNovoPedido(req, res) {
       { uid: req.user.uid, chave: req.get("Idempotency-Key"), publico: req.user.role !== "admin", anonimo:req.user.anonimo === true,email:req.user.email || null }
     );
 
-    return res.status(201).json(pedido);
+    return res.status(201).json(require("../lib/projecoes").pedido(pedido));
   } catch (error) {
-    console.error("Erro ao criar pedido:", error);
+    require("../lib/seguranca").registrarFalha("pedidoController",error);
 
-    return res.status(error.code ? 500 : 400).json({
-      error: error.code ? "Não foi possível concluir a operação." : error.message,
-    });
+    return require("../lib/seguranca").responderErro(res,error);
   }
 }
 
@@ -56,9 +54,9 @@ async function buscarPedido(req, res) {
     }
 
     if (req.user.role !== "admin" && pedido.clienteId !== req.user.uid) return res.status(404).json({error: "Pedido não encontrado."});
-    return res.status(200).json(pedido);
+    return res.status(200).json(require("../lib/projecoes").pedido(pedido));
   } catch (error) {
-    console.error("Erro ao buscar pedido:", error);
+    require("../lib/seguranca").registrarFalha("pedidoController",error);
 
     return res.status(500).json({
       error: "Erro interno ao buscar pedido.",
@@ -72,13 +70,13 @@ async function listarPedidosDaLoja(req, res) {
 
     if (req.user.role === "admin" && req.query.limite) {
       try {return res.json(await require('../services/adminService').listar(lojaId,'pedidos',req.query));}
-      catch(e) {return res.status(e.status || 500).json({error:e.status ? e.message : 'Não foi possível consultar pedidos.'});}
+      catch(e) {require('../lib/seguranca').registrarFalha('listagem-pedidos',e);return require('../lib/seguranca').responderErro(res,e);}
     }
     const pedidos = await listarPedidos(lojaId, req.user.role === "admin" ? null : req.user.uid);
 
-    return res.status(200).json(pedidos);
+    return res.status(200).json(pedidos.map(require("../lib/projecoes").pedido));
   } catch (error) {
-    console.error("Erro ao listar pedidos:", error);
+    require("../lib/seguranca").registrarFalha("pedidoController",error);
 
     return res.status(500).json({
       error: "Erro interno ao listar pedidos.",
@@ -110,16 +108,11 @@ async function atualizarStatusDoPedido(req, res) {
     }
 
     if (req.user.role !== "admin" && pedido.clienteId !== req.user.uid) return res.status(404).json({error: "Pedido não encontrado."});
-    return res.status(200).json(pedido);
+    return res.status(200).json(require("../lib/projecoes").pedido(pedido));
   } catch (error) {
-    console.error(
-      "Erro ao atualizar status do pedido:",
-      error
-    );
+    require("../lib/seguranca").registrarFalha("pedidoController",error);
 
-    return res.status(error.code ? 500 : 400).json({
-      error: error.code ? "Não foi possível concluir a operação." : error.message,
-    });
+    return require("../lib/seguranca").responderErro(res,error);
   }
 }
 
@@ -147,16 +140,11 @@ async function atualizarPagamentoDoPedido(req, res) {
     }
 
     if (req.user.role !== "admin" && pedido.clienteId !== req.user.uid) return res.status(404).json({error: "Pedido não encontrado."});
-    return res.status(200).json(pedido);
+    return res.status(200).json(require("../lib/projecoes").pedido(pedido));
   } catch (error) {
-    console.error(
-      "Erro ao atualizar pagamento do pedido:",
-      error
-    );
+    require("../lib/seguranca").registrarFalha("pedidoController",error);
 
-    return res.status(error.code ? 500 : 400).json({
-      error: error.code ? "Não foi possível concluir a operação." : error.message,
-    });
+    return require("../lib/seguranca").responderErro(res,error);
   }
 }
 
@@ -178,14 +166,9 @@ async function gerarWhatsappDoPedido(req, res) {
 
     return res.status(200).json(finalizacao);
   } catch (error) {
-    console.error(
-      "Erro ao gerar WhatsApp do pedido:",
-      error
-    );
+    require("../lib/seguranca").registrarFalha("pedidoController",error);
 
-    return res.status(error.code ? 500 : 400).json({
-      error: error.code ? "Não foi possível concluir a operação." : error.message,
-    });
+    return require("../lib/seguranca").responderErro(res,error);
   }
 }
 

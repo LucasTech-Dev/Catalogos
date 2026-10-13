@@ -1,10 +1,11 @@
+const {ErroDominio}=require("../lib/seguranca");
 const { getFirestore } = require("firebase-admin/firestore");
 
 const db = getFirestore();
 
 async function listarClientesPorLoja(lojaId) {
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   const clientesRef = db
@@ -15,18 +16,21 @@ async function listarClientesPorLoja(lojaId) {
   const snapshot = await clientesRef.get();
 
   return snapshot.docs.map((doc) => ({
-    id: doc.id,
     ...doc.data(),
+    id: doc.id,
   }));
 }
 
 async function buscarClientePorId(lojaId, clienteId) {
+  require('../lib/identificadores').identificador(lojaId);
+  require('../lib/identificadores').identificador(clienteId);
+
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   if (!clienteId || typeof clienteId !== "string") {
-    throw new Error("clienteId é obrigatório.");
+    throw new ErroDominio("clienteId é obrigatório.");
   }
 
   const clienteRef = db
@@ -42,8 +46,8 @@ async function buscarClientePorId(lojaId, clienteId) {
   }
 
   return {
-    id: snapshot.id,
     ...snapshot.data(),
+    id: snapshot.id,
   };
 }
 

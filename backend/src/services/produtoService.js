@@ -1,10 +1,11 @@
+const {ErroDominio}=require("../lib/seguranca");
 const { getFirestore } = require("firebase-admin/firestore");
 
 const db = getFirestore();
 
 async function listarProdutosPorLoja(lojaId) {
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   const produtosRef = db
@@ -15,18 +16,21 @@ async function listarProdutosPorLoja(lojaId) {
   const snapshot = await produtosRef.get();
 
   return snapshot.docs.map((doc) => ({
-    id: doc.id,
     ...doc.data(),
+    id: doc.id,
   }));
 }
 
 async function buscarProdutoPorId(lojaId, produtoId) {
+  require('../lib/identificadores').identificador(lojaId);
+  require('../lib/identificadores').identificador(produtoId);
+
   if (!lojaId || typeof lojaId !== "string") {
-    throw new Error("lojaId é obrigatório.");
+    throw new ErroDominio("lojaId é obrigatório.");
   }
 
   if (!produtoId || typeof produtoId !== "string") {
-    throw new Error("produtoId é obrigatório.");
+    throw new ErroDominio("produtoId é obrigatório.");
   }
 
   const produtoRef = db
@@ -42,8 +46,8 @@ async function buscarProdutoPorId(lojaId, produtoId) {
   }
 
   return {
-    id: snapshot.id,
     ...snapshot.data(),
+    id: snapshot.id,
   };
 }
 

@@ -1,3 +1,4 @@
+const {ErroDominio}=require("../lib/seguranca");
 const FORMAS_PAGAMENTO = [
   "pix",
   "dinheiro",
@@ -33,19 +34,19 @@ const CAMPOS_SENSIVEIS = [
 
 function normalizarFormaPagamento(forma) {
   if (typeof forma !== "string") {
-    throw new Error("Forma de pagamento é obrigatória.");
+    throw new ErroDominio("Forma de pagamento é obrigatória.");
   }
 
   const formaNormalizada = forma.trim().toLowerCase();
 
   if (formaNormalizada === "cartao") {
-    throw new Error(
+    throw new ErroDominio(
       "Informe cartao_credito ou cartao_debito."
     );
   }
 
   if (!FORMAS_PAGAMENTO.includes(formaNormalizada)) {
-    throw new Error(
+    throw new ErroDominio(
       `Forma de pagamento inválida: ${forma}.`
     );
   }
@@ -55,13 +56,13 @@ function normalizarFormaPagamento(forma) {
 
 function normalizarStatusPagamento(status) {
   if (typeof status !== "string") {
-    throw new Error("Status de pagamento é obrigatório.");
+    throw new ErroDominio("Status de pagamento é obrigatório.");
   }
 
   const statusNormalizado = status.trim().toLowerCase();
 
   if (!STATUS_PAGAMENTO.includes(statusNormalizado)) {
-    throw new Error(
+    throw new ErroDominio(
       `Status de pagamento inválido: ${status}.`
     );
   }
@@ -123,7 +124,7 @@ function formaHabilitadaNaLoja(forma, pagamentosLoja) {
 
 function validarConfiguracaoPagamentos(dados) {
   if (!dados || typeof dados !== "object" || Array.isArray(dados)) {
-    throw new Error(
+    throw new ErroDominio(
       "Configuração de pagamentos é obrigatória."
     );
   }
@@ -135,7 +136,7 @@ function validarConfiguracaoPagamentos(dados) {
       dados[forma] !== undefined &&
       typeof dados[forma] !== "boolean"
     ) {
-      throw new Error(
+      throw new ErroDominio(
         `Configuração de pagamento inválida para ${forma}.`
       );
     }
@@ -154,7 +155,7 @@ function validarPagamentoInicial({
   const campoSensivel = detectarDadosSensiveis(dadosPagamento);
 
   if (campoSensivel) {
-    throw new Error(
+    throw new ErroDominio(
       `Dados sensíveis de pagamento não devem ser enviados: ${campoSensivel}.`
     );
   }
@@ -164,7 +165,7 @@ function validarPagamentoInicial({
     typeof dadosPagamento !== "object" ||
     Array.isArray(dadosPagamento)
   ) {
-    throw new Error("Dados de pagamento são obrigatórios.");
+    throw new ErroDominio("Dados de pagamento são obrigatórios.");
   }
 
   const forma = normalizarFormaPagamento(dadosPagamento.forma);
@@ -173,7 +174,7 @@ function validarPagamentoInicial({
     dadosPagamento.status !== undefined &&
     dadosPagamento.status !== "pendente"
   ) {
-    throw new Error(
+    throw new ErroDominio(
       "O cliente não pode confirmar ou alterar o status do pagamento."
     );
   }
@@ -183,13 +184,13 @@ function validarPagamentoInicial({
     Number(dadosPagamento.valor.toFixed?.(2) ?? dadosPagamento.valor) !==
       Number(valorCalculado.toFixed(2))
   ) {
-    throw new Error(
+    throw new ErroDominio(
       "Valor de pagamento divergente do total calculado pelo servidor."
     );
   }
 
   if (!formaHabilitadaNaLoja(forma, loja?.pagamentos)) {
-    throw new Error(
+    throw new ErroDominio(
       `Forma de pagamento "${forma}" não está habilitada para esta loja.`
     );
   }
@@ -206,13 +207,13 @@ function validarTransicaoPagamento(statusAtual, novoStatus) {
   const proximo = normalizarStatusPagamento(novoStatus);
 
   if (atual === proximo) {
-    throw new Error(
+    throw new ErroDominio(
       "O pagamento já está nesse status."
     );
   }
 
   if (!TRANSICOES_PAGAMENTO[atual].includes(proximo)) {
-    throw new Error(
+    throw new ErroDominio(
       `Não é permitido alterar o pagamento de "${atual}" para "${proximo}".`
     );
   }
