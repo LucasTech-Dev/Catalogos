@@ -13,6 +13,9 @@ demo/dist/
 
 # Logs
 npm-debug.log*
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 
