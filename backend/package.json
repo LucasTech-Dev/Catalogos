@@ -5,6 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "node --test",
+    "firebase:audit:readonly": "node scripts/firebase-readonly-audit.js",
+    "firebase:emulator:smoke": "node scripts/firebase-emulator-smoke.js",
+    "firebase:emulator:pagamentos": "node scripts/pagamento-emulator-integration.js",
+    "firebase:emulator:whatsapp": "node scripts/whatsapp-emulator-integration.js",
     "dev": "node --watch src/server.js",
     "start": "node src/server.js"
   },

@@ -2,12 +2,32 @@ const { getFirestore } = require("firebase-admin/firestore");
 
 const {
   validarItensDoPedido,
-  calcularValoresPedido,
 } = require("./pedidoItemService");
+
+const {
+  calcularValoresPedido,
+} = require("./pedidoCalculoService");
 
 const {
   validarTransicaoStatus,
 } = require("./pedidoStatusService");
+
+const {
+  validarDadosIniciaisPedido,
+} = require("./pedidoValidacaoService");
+
+const {
+  buscarEnderecoPorId,
+} = require("./enderecoService");
+
+const {
+  buscarLojaPorId,
+} = require("./lojaService");
+
+const {
+  validarPagamentoInicial,
+  validarTransicaoPagamento,
+} = require("./pagamentoService");
 
 const db = getFirestore();
 
@@ -20,15 +40,54 @@ async function criarPedido(lojaId, dadosPedido) {
     throw new Error("Dados do pedido são obrigatórios.");
   }
 
+  const dadosValidados = validarDadosIniciaisPedido(
+    lojaId,
+    dadosPedido
+  );
+
   const {
     clienteId = null,
-    enderecoId = null,
+    enderecoId,
     itens,
-    taxaEntrega = 0,
+    taxaEntrega,
     desconto = 0,
     observacao = "",
-    tipoEntrega = "entrega",
-  } = dadosPedido;
+    tipoEntrega,
+    pagamento,
+    formaPagamento,
+  } = dadosValidados;
+
+  const loja = await buscarLojaPorId(lojaId);
+
+  if (!loja) {
+    throw new Error("Loja não encontrada.");
+  }
+
+  const dadosEntrega = {
+    enderecoId,
+    taxaEntrega,
+    tipoEntrega,
+  };
+
+  if (dadosEntrega.tipoEntrega === "entrega") {
+    if (!clienteId || typeof clienteId !== "string") {
+      throw new Error(
+        "clienteId é obrigatório para pedidos com entrega."
+      );
+    }
+
+    const endereco = await buscarEnderecoPorId(
+      lojaId,
+      clienteId,
+      dadosEntrega.enderecoId
+    );
+
+    if (!endereco) {
+      throw new Error(
+        "Endereço não encontrado para este cliente e loja."
+      );
+    }
+  }
 
   const itensValidados = await validarItensDoPedido(
     lojaId,
@@ -37,9 +96,17 @@ async function criarPedido(lojaId, dadosPedido) {
 
   const valores = calcularValoresPedido(
     itensValidados,
-    taxaEntrega,
+    dadosEntrega.taxaEntrega,
     desconto
   );
+
+  const pagamentoValidado = validarPagamentoInicial({
+    dadosPagamento: pagamento || {
+      forma: formaPagamento,
+    },
+    loja,
+    valorCalculado: valores.total,
+  });
 
   const pedidoRef = db
     .collection("lojas")
@@ -51,7 +118,7 @@ async function criarPedido(lojaId, dadosPedido) {
     lojaId,
 
     clienteId,
-    enderecoId,
+    enderecoId: dadosEntrega.enderecoId,
 
     itens: itensValidados,
 
@@ -59,9 +126,10 @@ async function criarPedido(lojaId, dadosPedido) {
     taxaEntrega: valores.taxaEntrega,
     desconto: valores.desconto,
     total: valores.total,
+    pagamento: pagamentoValidado,
 
     observacao,
-    tipoEntrega,
+    tipoEntrega: dadosEntrega.tipoEntrega,
 
     status: "recebido",
 
@@ -172,9 +240,69 @@ async function atualizarStatusPedido(
   };
 }
 
+async function atualizarPagamentoPedido(
+  lojaId,
+  pedidoId,
+  novoStatus
+) {
+  if (!lojaId || typeof lojaId !== "string") {
+    throw new Error("lojaId é obrigatório.");
+  }
+
+  if (!pedidoId || typeof pedidoId !== "string") {
+    throw new Error("pedidoId é obrigatório.");
+  }
+
+  const pedidoRef = db
+    .collection("lojas")
+    .doc(lojaId)
+    .collection("pedidos")
+    .doc(pedidoId);
+
+  const snapshot = await pedidoRef.get();
+
+  if (!snapshot.exists) {
+    return null;
+  }
+
+  const pedidoAtual = snapshot.data();
+
+  if (pedidoAtual.status === "cancelado") {
+    throw new Error(
+      "Não é possível atualizar pagamento de pedido cancelado."
+    );
+  }
+
+  if (!pedidoAtual.pagamento) {
+    throw new Error("Pedido não possui dados de pagamento.");
+  }
+
+  const statusPagamento = validarTransicaoPagamento(
+    pedidoAtual.pagamento.status,
+    novoStatus
+  );
+
+  await pedidoRef.update({
+    pagamento: {
+      ...pedidoAtual.pagamento,
+      status: statusPagamento,
+      atualizadoEm: new Date(),
+    },
+    atualizadoEm: new Date(),
+  });
+
+  const pedidoAtualizado = await pedidoRef.get();
+
+  return {
+    id: pedidoAtualizado.id,
+    ...pedidoAtualizado.data(),
+  };
+}
+
 module.exports = {
   criarPedido,
   buscarPedidoPorId,
   listarPedidos,
   atualizarStatusPedido,
+  atualizarPagamentoPedido,
 };

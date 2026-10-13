@@ -1,5 +1,9 @@
 const { getFirestore } = require("firebase-admin/firestore");
 
+const {
+  calcularValoresPedido,
+} = require("./pedidoCalculoService");
+
 const db = getFirestore();
 
 async function validarItensDoPedido(lojaId, itens) {
@@ -76,37 +80,6 @@ async function validarItensDoPedido(lojaId, itens) {
   }
 
   return itensValidados;
-}
-
-function calcularValoresPedido(itensValidados, taxaEntrega = 0, desconto = 0) {
-  if (!Array.isArray(itensValidados) || itensValidados.length === 0) {
-    throw new Error("Os itens do pedido são obrigatórios.");
-  }
-
-  if (typeof taxaEntrega !== "number" || taxaEntrega < 0) {
-    throw new Error("Taxa de entrega inválida.");
-  }
-
-  if (typeof desconto !== "number" || desconto < 0) {
-    throw new Error("Desconto inválido.");
-  }
-
-  const subtotal = itensValidados.reduce(
-    (total, item) => total + item.subtotal,
-    0
-  );
-
-  const total = Math.max(
-    0,
-    subtotal + taxaEntrega - desconto
-  );
-
-  return {
-    subtotal: Number(subtotal.toFixed(2)),
-    taxaEntrega: Number(taxaEntrega.toFixed(2)),
-    desconto: Number(desconto.toFixed(2)),
-    total: Number(total.toFixed(2)),
-  };
 }
 
 module.exports = {

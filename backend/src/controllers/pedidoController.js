@@ -3,7 +3,12 @@ const {
   buscarPedidoPorId,
   listarPedidos,
   atualizarStatusPedido,
+  atualizarPagamentoPedido,
 } = require("../services/pedidoService");
+
+const {
+  gerarFinalizacaoWhatsApp,
+} = require("../services/whatsappService");
 
 async function criarNovoPedido(req, res) {
   try {
@@ -101,9 +106,75 @@ async function atualizarStatusDoPedido(req, res) {
   }
 }
 
+async function atualizarPagamentoDoPedido(req, res) {
+  try {
+    const { lojaId, pedidoId } = req.params;
+    const { status } = req.body;
+
+    if (!status || typeof status !== "string") {
+      return res.status(400).json({
+        error: "Status de pagamento é obrigatório.",
+      });
+    }
+
+    const pedido = await atualizarPagamentoPedido(
+      lojaId,
+      pedidoId,
+      status
+    );
+
+    if (!pedido) {
+      return res.status(404).json({
+        error: "Pedido não encontrado.",
+      });
+    }
+
+    return res.status(200).json(pedido);
+  } catch (error) {
+    console.error(
+      "Erro ao atualizar pagamento do pedido:",
+      error
+    );
+
+    return res.status(400).json({
+      error: error.message,
+    });
+  }
+}
+
+async function gerarWhatsappDoPedido(req, res) {
+  try {
+    const { lojaId, pedidoId } = req.params;
+
+    const finalizacao = await gerarFinalizacaoWhatsApp(
+      lojaId,
+      pedidoId
+    );
+
+    if (!finalizacao) {
+      return res.status(404).json({
+        error: "Pedido não encontrado.",
+      });
+    }
+
+    return res.status(200).json(finalizacao);
+  } catch (error) {
+    console.error(
+      "Erro ao gerar WhatsApp do pedido:",
+      error
+    );
+
+    return res.status(400).json({
+      error: error.message,
+    });
+  }
+}
+
 module.exports = {
   criarNovoPedido,
   buscarPedido,
   listarPedidosDaLoja,
   atualizarStatusDoPedido,
+  atualizarPagamentoDoPedido,
+  gerarWhatsappDoPedido,
 };
