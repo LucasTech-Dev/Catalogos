@@ -1,3 +1,4 @@
+const {ErroHttp}=require('../lib/seguranca');
 function authorizationMiddleware(opcoes = {}) {
   const {
     roles = [],
@@ -6,21 +7,15 @@ function authorizationMiddleware(opcoes = {}) {
 
   return (req, res, next) => {
     if (!req.user) {
-      return res.status(401).json({
-        error: "Usuário não autenticado.",
-      });
+      throw new ErroHttp("Usuário não autenticado.",401,'autenticacao');
     }
 
     if (roles.length > 0 && !roles.includes(req.user.role)) {
-      return res.status(403).json({
-        error: "Usuário não possui permissão para acessar este recurso.",
-      });
+      throw new ErroHttp("Usuário não possui permissão para acessar este recurso.",403,'autorizacao');
     }
 
     if (exigirLoja && !req.user.lojaId && !req.user.publico) {
-      return res.status(403).json({
-        error: "Usuário não está vinculado a uma loja.",
-      });
+      throw new ErroHttp("Usuário não está vinculado a uma loja.",403,'autorizacao');
     }
 
     next();

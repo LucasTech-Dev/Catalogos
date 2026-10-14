@@ -1,3 +1,4 @@
+const {ErroHttp}=require('../lib/seguranca');
 const validarEntrada = require('../middleware/validacaoMiddleware');
 const router = require('express').Router();
 router.param('enderecoId',require('../lib/identificadores').parametro);
@@ -5,10 +6,11 @@ router.param('lojaId',require('../lib/identificadores').parametro);
 const auth = require('../middleware/authMiddleware');
 const loja = require('../middleware/lojaMiddleware');
 const {catalogo, selecionar, validarCliente, validarEndereco, clienteRef} = require('../services/publicoService');
-const executar = fn => async (req,res) => {try {await fn(req,res);} catch(e) {require('../lib/seguranca').registrarFalha('perfil-publico',e);require('../lib/seguranca').responderErro(res,e);}};
+const executar = fn => fn;
 router.get('/:lojaId/catalogo', validarEntrada, executar(async(req,res) => {
   const dados = await catalogo(req.params.lojaId);
-  res.status(dados ? 200 : 404).json(dados || {error:'Loja não encontrada.'});
+  if(!dados)throw new ErroHttp('Loja não encontrada.',404,'nao_encontrado');
+  res.json(dados);
 }));
 router.use('/:lojaId/me', auth, loja);
 router.get('/:lojaId/me', validarEntrada, executar(async(req,res) => {
@@ -33,7 +35,7 @@ router.post('/:lojaId/me/enderecos', validarEntrada, executar(async(req,res) => 
 router.put('/:lojaId/me/enderecos/:enderecoId', validarEntrada, executar(async(req,res) => {
   const dados = validarEndereco(req.body);
   const ref = clienteRef(req.params.lojaId, req.user.uid).collection('enderecos').doc(req.params.enderecoId);
-  if (!(await ref.get()).exists) return res.status(404).json({error:'Endereço não encontrado.'});
+  if (!(await ref.get()).exists) throw new ErroHttp('Endereço não encontrado.',404,'nao_encontrado');
   await ref.set(dados); res.json({...dados,id:ref.id});
 }));
 router.delete('/:lojaId/me/enderecos/:enderecoId', validarEntrada, executar(async(req,res) => {

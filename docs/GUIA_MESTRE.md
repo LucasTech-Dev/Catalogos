@@ -670,3 +670,24 @@ Resultados: npm backend test 6 arquivos aprovados; HTTP detalhado 253/253; schem
 Documentação oficial preservada por acréscimo; guia externo atualizado na seção 97 com relatório completo e auditoria. Etapa 22 permanece em alterações locais para revisão, além do checkpoint21 já commitado. Nenhuma publicação, deploy, migração, escrita real, promoção de role ou push.
 
 Pendências anteriores mantidas: publicação Rules/índices mediante ordem futura, IAM/credenciais, provedores/domínios/admin/CORS reais, controle de abuso, dados legados incompatíveis, retenção/auditoria financeira, homologação navegador/celular e Java permanente. Limites comerciais precisam de homologação por estabelecimento. A aprovação local não libera produção. Recomendação: revisar a Etapa 22; iniciar Etapa 23 apenas após nova autorização.
+
+
+## Etapa 23 — Tratamento global de erros e consolidação de ressalvas — 13/10/2026
+
+Ordem 10 autorizada após aprovação 22 com ressalvas. Status: concluída localmente, disponível para revisão. Etapa 24 não iniciada.
+
+Primeira ação: criado docs/RESSALVAS_E_PENDENCIAS_PRODUCAO.md com 17 identificadores, datas, arquivos, descrição, prioridade, impacto, evidência/hipótese, etapa prevista, status, teste e resultado. Registro permanente obrigatório em toda etapa futura. R-015, R-016 e R-017 resolvidas no escopo local 23; demais 14 pendentes, sem remoção ou aprovação comercial implícita.
+
+Checkpoint obrigatório 22 ANTES de alterar código: main, HEAD inicial c2a0cbf, diff 22/documentação revisados, 36 arquivos 22 e novo registro examinados por padrões privados, baseline 6 arquivos, HTTP 253, React 38, build e suíte 22 completa incluindo 19/20/21 aprovados. Commit exclusivo 22 `9122f01` — `feat(backend): conclui validacao global de entradas etapa 22`, 36 arquivos. Registro de ressalvas excluído deste commit para manter escopo 23. Histórico anterior preservado; sem push.
+
+Auditoria de erro/contratos/evidências: docs/ETAPA_23_AUDITORIA_ERROS.md. Relatório obrigatório de 20 itens e inventário individual: docs/ETAPA_23_RELATORIO_FINAL.md. Registro permanente: docs/RESSALVAS_E_PENDENCIAS_PRODUCAO.md.
+
+Correções: reprodução confirmou Firestore code 14 durante autenticação respondendo 401; agora 503. Credenciais conhecidas da verificação de token permanecem 401; permissão/loja/inatividade internas 403; falhas temporárias SDK/Firestore 503; falhas inesperadas/configuração do Admin 500. Controllers, guardas, validação, parsing, rotas inexistentes e handlers async encaminham ao handler global Express 5. ErroHttp/ErroDominio e classificador reutilizáveis, mensagens públicas seguras, sem reimplementar validações 22. Rotas desconhecidas 404 JSON, input inválido 400, payload 413, codificação/formato 415. Conflito de mesma chave/outro corpo agora 409; demais regras comerciais preservadas.429 é suportado/testado, sem alegar rate limiting implementado.
+
+Envelope {error: mensagem} mantido. X-Request-ID gerado pelo servidor, exposto por CORS e capturado em erros do cliente, sem confiar no header recebido. Logs 500/503 mínimos: evento/categoria/status/código conhecido/requestId, sem token/UID/body/PII/stack/path. Resposta já iniciada é fechada sem divulgar exceção pelo handler padrão.
+
+React API: timeout 20 s cobre sessão, token, fetch e JSON; cancelamento explícito permanece AbortError; resposta de sucesso inválida rejeita com diagnóstico cliente 502; trocaUID em token/resposta/body é descartada antes de invalidar a sessão nova. Falhas 500/503/rede não provocam logout. Retry automático após 401 só em leitura ou POST de pedido protegido por nonce; demais mutações exigem ação manual. Carrinho, body e chave da tentativa preservados em 503/409/timeout/falha de protocolo, sem alteração visual.
+
+Resultados finais: backend npm test 7 arquivos, HTTP 285/285, erros globais 3/3, React 65/65 em 4 arquivos, build Vite 1.623 módulos, sintaxe 30 JS backend/scripts/testes e diff--check aprovados. Suite 23 integra 19/20/21/22 e 22 cenários HTTP reais novos; regressão 21 mantém 300 negativas SDK Web e 37 verificaçõesHTTP; 22 mantém 104 verificações. Testes novos simulam abort antes de commit sem persistência e perda de resposta após commit recuperando um pedido/nonce; financeiro/WhatsApp não alteram estado por falha e isolamento permanece.
+
+Documentos atualizados por acréscimo, guia externo seção 98 com auditoria, relatório e registro permanente. Pendências de produção/legados/retenção/expiração/IAM/Rules/índices/performance/navegação/licença/Java/homologação permanecem explicitamente registradas. TTL idempotente adiado: requer janela e retenção conjunta para não permitir duplicação após expirar nonce. Nenhuma escrita real, migração, publicação, deploy, push ou Etapa 24. Etapa 23 permanece em diff local para revisão. Próxima ação: revisão do usuário, que poderá autorizar 24.

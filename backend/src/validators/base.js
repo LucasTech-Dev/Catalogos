@@ -1,6 +1,6 @@
 const {ErroDominio} = require('../lib/seguranca');
 const LIMITES = Object.freeze({jsonBytes:65536,profundidade:8,nos:5000,itensPedido:50,quantidadeItem:99,quantidadePedido:500,monetario:1000000});
-const erro = mensagem => new ErroDominio(mensagem);
+const erro = mensagem => new ErroDominio(mensagem,400,'validacao');
 function objeto(valor) {
   if (!valor || typeof valor !== 'object' || Array.isArray(valor) || ![Object.prototype,null].includes(Object.getPrototypeOf(valor))) throw erro('Dados inválidos.');
   return valor;

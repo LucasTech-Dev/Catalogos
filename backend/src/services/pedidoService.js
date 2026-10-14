@@ -54,7 +54,7 @@ async function criarPedido(lojaId,dadosPedido,identidade={}) {
     if(chaveRef) {
       const anterior=await tx.get(chaveRef);
       if(anterior.exists) {
-        if(anterior.data().assinatura!==assinatura)throw new ErroDominio('Chave já utilizada para outro pedido.');
+        if(anterior.data().assinatura!==assinatura)throw new ErroDominio('Chave já utilizada para outro pedido.',409);
         const salvo=await tx.get(lojaRef.collection('pedidos').doc(identificador(anterior.data().pedidoId)));
         if(!salvo.exists)throw new ErroDominio('Pedido não encontrado.',404);
         return {...salvo.data(),id:salvo.id};

@@ -7,7 +7,7 @@ const TIPOS_ENTREGA_VALIDOS = [
 function validarTipoEntrega(tipoEntrega) {
   if (!TIPOS_ENTREGA_VALIDOS.includes(tipoEntrega)) {
     throw new ErroDominio(
-      `Tipo de entrega inválido: ${tipoEntrega}.`
+      "Tipo de entrega inválido."
     );
   }
 

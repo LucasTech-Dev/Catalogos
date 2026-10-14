@@ -1,3 +1,4 @@
+const {ErroHttp}=require('../lib/seguranca');
 const validarEntrada = require('../middleware/validacaoMiddleware');
 const express = require("express");
 
@@ -19,11 +20,9 @@ router.param('lojaId',require('../lib/identificadores').parametro);
 router.param('pedidoId',require('../lib/identificadores').parametro);
 
 router.get('/:lojaId/pedidos/finalizacao/:chave',authMiddleware,authorizationMiddleware({roles:['cliente','admin'],exigirLoja:true}),verificarLojaDoUsuario,validarEntrada,async(req,res)=>{
-  try {
     const pedido=await require('../services/pedidoService').recuperarPedidoPelaChave(req.params.lojaId,req.user.uid,req.params.chave);
-    if(!pedido || (req.user.role!=='admin' && pedido.clienteId!==req.user.uid))return res.status(404).json({error:'Pedido não encontrado.'});
+    if(!pedido || (req.user.role!=='admin' && pedido.clienteId!==req.user.uid))throw new ErroHttp('Pedido não encontrado.',404,'nao_encontrado');
     return res.json(require('../lib/projecoes').pedido(pedido));
-  }catch(e){require('../lib/seguranca').registrarFalha('recuperacao-pedido',e);return require('../lib/seguranca').responderErro(res,e);}
 });
 
 router.post(

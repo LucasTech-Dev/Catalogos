@@ -47,7 +47,7 @@ function normalizarFormaPagamento(forma) {
 
   if (!FORMAS_PAGAMENTO.includes(formaNormalizada)) {
     throw new ErroDominio(
-      `Forma de pagamento inválida: ${forma}.`
+      "Forma de pagamento inválida."
     );
   }
 
@@ -63,7 +63,7 @@ function normalizarStatusPagamento(status) {
 
   if (!STATUS_PAGAMENTO.includes(statusNormalizado)) {
     throw new ErroDominio(
-      `Status de pagamento inválido: ${status}.`
+      "Status de pagamento inválido."
     );
   }
 
@@ -161,7 +161,7 @@ function validarPagamentoInicial({
 
   if (campoSensivel) {
     throw new ErroDominio(
-      `Dados sensíveis de pagamento não devem ser enviados: ${campoSensivel}.`
+      "Dados sensíveis de pagamento não devem ser enviados."
     );
   }
 

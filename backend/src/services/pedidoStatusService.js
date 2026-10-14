@@ -37,7 +37,7 @@ const STATUS_VALIDOS = Object.keys(TRANSICOES_PERMITIDAS);
 
 function validarStatus(status) {
   if (!STATUS_VALIDOS.includes(status)) {
-    throw new ErroDominio(`Status de pedido inválido: ${status}.`);
+    throw new ErroDominio("Status de pedido inválido.");
   }
 
   return true;

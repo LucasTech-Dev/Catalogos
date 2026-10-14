@@ -67,7 +67,7 @@ async function main() {
   assert.equal(patch.body.entrega.habilitada,true);assert.equal(patch.body.pagamentos.pix,true);assert.equal(patch.body.pagamentos.cartao_credito,false);assert.equal(patch.body.endereco.rua,'São José');assert.equal(patch.body.horarios.segunda.fechamento,'18:00');assert.equal(patch.body.horarios.terca.fechado,true);
   const chave=crypto.randomUUID(),concorrentes=await Promise.all(Array.from({length:5},()=>checar('POST',orders,cliente.idToken,corpo,201,chave)));
   const pedido=concorrentes[0].body;assert.equal(pedido.total,47.98);assert.equal(new Set(concorrentes.map(r=>r.body.id)).size,1);assert.equal((await ref.collection('pedidos').get()).size,1);assert.equal((await ref.collection('idempotencia').get()).size,1);
-  await checar('POST',orders,cliente.idToken,{...corpo,observacao:'Outro corpo'},400,chave);
+  await checar('POST',orders,cliente.idToken,{...corpo,observacao:'Outro corpo'},409,chave);
   await checar('GET',orders+'/finalizacao/'+chave,cliente.idToken,undefined,200);
   await checar('GET',orders+'/finalizacao/'+chave,outro.idToken,undefined,404);
   await checar('PATCH',orders+'/'+pedido.id+'/pagamento',cliente.idToken,{status:'confirmado'},403);

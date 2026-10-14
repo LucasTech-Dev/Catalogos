@@ -50,7 +50,7 @@ async function validarItensDoPedido(lojaId, itens, tx = null) {
 
     if (!produtoSnapshot.exists) {
       throw new ErroDominio(
-        `Produto "${produtoId}" não encontrado.`
+        "Produto não encontrado."
       );
     }
 
@@ -58,7 +58,7 @@ async function validarItensDoPedido(lojaId, itens, tx = null) {
 
     if (produto.ativo !== true || produto.disponivel === false) {
       throw new ErroDominio(
-        `Produto "${produtoId}" não está disponível.`
+        "Produto não está disponível."
       );
     }
 
@@ -67,7 +67,7 @@ async function validarItensDoPedido(lojaId, itens, tx = null) {
       !Number.isFinite(produto.preco) || produto.preco < 0
     ) {
       throw new ErroDominio(
-        `Produto "${produtoId}" possui preço inválido.`
+        "Produto possui preço inválido."
       );
     }
 

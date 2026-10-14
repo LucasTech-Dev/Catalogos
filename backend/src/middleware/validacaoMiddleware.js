@@ -1,3 +1,4 @@
+const {ErroHttp}=require('../lib/seguranca');
 const base=require('../validators/base');
 const contratos=require('../validators/contratos');
 const admin=require('../validators/administracao');
@@ -34,12 +35,11 @@ function validacao(req,res,next) {
     // req.query tem getter no Express 5; não atribuir nem converter valores globalmente.
     next();
   }catch(error) {
-    if(error instanceof URIError)return res.status(400).json({error:'Identificador inválido.'});
-    return require('../lib/seguranca').responderErro(res,error);
+    return next(error);
   }
 }
 function estrutura(req,res,next) {
-  try {base.estrutura(req.body);next();}catch(error){require('../lib/seguranca').responderErro(res,error);}
+  try {base.estrutura(req.body);next();}catch(error){next(error);}
 }
 module.exports=validacao;
 module.exports.estrutura=estrutura;

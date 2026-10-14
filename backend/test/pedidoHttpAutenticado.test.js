@@ -141,10 +141,11 @@ Module._load = function carregarMock(request, parent, isMain) {
     return {
       getAuth: () => ({
         verifyIdToken: async (token) => {
+          if(estado.falhaAuth)throw estado.falhaAuth;
           const decoded = tokens[token];
 
           if (!decoded) {
-            throw new Error("Token inválido.");
+            throw Object.assign(new Error("Token inválido."),{code:"auth/argument-error"});
           }
 
           return decoded;
@@ -290,6 +291,7 @@ function requisitarApp({ metodo, url, corpo, corpoRaw, headers = {} }) {
 
       resolve({
         status: res.statusCode,
+        requestId:res.getHeader('X-Request-ID'),
         dados: corpoResposta ? JSON.parse(corpoResposta) : null,
       });
     });
@@ -1132,7 +1134,7 @@ test('Etapa 19 — catálogo, convidados e isolamento', async t => {
     const primeira = await post(corpo);assert.equal(primeira.status,201);
     estado.documentos.get('lojas/loja-demo/produtos/produto-ativo').ativo = false;
     const segunda = await post(corpo);assert.equal(segunda.status,201);assert.equal(segunda.dados.id,primeira.dados.id);assert.equal(estado.pedidosCriados.length,1);
-    assert.equal((await post({...corpo,observacao:'mudou'})).status,400);
+    assert.equal((await post({...corpo,observacao:'mudou'})).status,409);
   });
   await t.test('convidado sem chave e com quantidade excessiva é rejeitado', async() => {
     prepararDadosBase();const corpo = {tipoEntrega:'retirada',itens:[{produtoId:'produto-ativo',quantidade:100}],pagamento:{forma:'pix'}};
@@ -1233,7 +1235,7 @@ test('Etapa 20 — erros internos não são expostos',async()=>{
   prepararDadosBase();
   const original=ColecaoFake.prototype.get;
   ColecaoFake.prototype.get=async function(){if(this.segmentos.at(-1)==='produtos')throw Object.assign(new Error('credencial-interna-secreta'),{code:14});return original.call(this);};
-  try {const resposta=await requisitarApp({metodo:'GET',url:'/admin/lojas/loja-demo/produtos',headers:{authorization:'Bearer token-admin'}});assert.equal(resposta.status,500);assert.doesNotMatch(resposta.dados.error,/secreta|credencial/);} finally {ColecaoFake.prototype.get=original;}
+  try {const resposta=await requisitarApp({metodo:'GET',url:'/admin/lojas/loja-demo/produtos',headers:{authorization:'Bearer token-admin'}});assert.equal(resposta.status,503);assert.doesNotMatch(resposta.dados.error,/secreta|credencial/);} finally {ColecaoFake.prototype.get=original;}
 
 });
 
@@ -1396,4 +1398,46 @@ test('Etapa 22 — codificações HTTP inválidas são erros de entrada seguros'
     const r=await requisitarApp({metodo:'POST',url:'/admin/lojas/loja-demo/produtos',corpoRaw:'{}',headers:{...headers22(),...headers}});
     assert.equal(r.status,expected);assert.doesNotMatch(JSON.stringify(r.dados),/Error|stack|backend/);inalterado22(antes);
   }
+});
+
+test('Etapa 23 — classificação de falhas Auth sem reduzir a verificação',async t=>{
+  for(const [code,status] of [['auth/invalid-id-token',401],['auth/argument-error',401],['auth/id-token-expired',401],['auth/id-token-revoked',401],['auth/user-disabled',401],['auth/user-not-found',401],['auth/network-request-failed',503],['auth/internal-error',500],['auth/insufficient-permission',500],['auth/invalid-credential',500],['desconhecido',500]])await t.test(code,async()=>{
+    base22();estado.falhaAuth=Object.assign(new Error('sentinela token=privado'),{code});
+    try{const r=await enviar22('GET','/usuarios/me',undefined,'token-cliente');assert.equal(r.status,status);assert.doesNotMatch(JSON.stringify(r.dados),/sentinela|privado|backend/);}
+    finally{delete estado.falhaAuth;}
+  });
+  await t.test('mesma sessão funciona após indisponibilidade do Firestore durante Auth',async()=>{
+    base22();const original=firestoreFake.collection;
+    firestoreFake.collection=()=>{throw Object.assign(new Error('sentinela interna'),{code:14});};
+    try{assert.equal((await enviar22('GET','/usuarios/me',undefined,'token-cliente')).status,503);}finally{firestoreFake.collection=original;}
+    assert.equal((await enviar22('GET','/usuarios/me',undefined,'token-cliente')).status,200);
+  });
+});
+test('Etapa 23 — controllers legados preservam erros de domínio e Firestore',async t=>{
+  for(const path of ['/lojas/loja-demo','/lojas/loja-demo/produtos','/lojas/loja-demo/categorias','/lojas/loja-demo/clientes','/lojas/loja-demo/clientes/cliente-1/enderecos','/lojas/loja-demo/pedidos','/admin/lojas/loja-demo/produtos','/publico/lojas/loja-demo/catalogo'])await t.test(path,async()=>{
+    for(const [error,status] of [[new (require('../src/lib/seguranca').ErroDominio)('Regra inválida.'),400],[Object.assign(new Error('sentinela interna'),{code:14}),503],[new Error('senha=sentinela'),500]]) {
+      base22();const original=firestoreFake.collection;firestoreFake.collection=function(nome){if(nome==='lojas')throw error;return original.call(this,nome);};
+      try{const r=await enviar22('GET',path);assert.equal(r.status,status);assert.doesNotMatch(JSON.stringify(r.dados),/sentinela|senha|stack/);}finally{firestoreFake.collection=original;}
+    }
+  });
+});
+test('Etapa 23 — falhas de transação não deixam pedido, nonce ou pagamento parciais',async t=>{
+  for(const code of [4,7,9,10,13,14,'ECONNRESET'])await t.test(String(code),async()=>{
+    base22();const antes=structuredClone([...estado.documentos]);const original=firestoreFake.runTransaction;
+    firestoreFake.runTransaction=async()=>{throw Object.assign(new Error('cliente privado sentinela'),{code});};
+    try {
+      const expected=[7,13].includes(code)?500:503;
+      const r=await enviar22('POST','/lojas/loja-demo/pedidos',{tipoEntrega:'retirada',itens:[{produtoId:'produto-ativo',quantidade:1}],pagamento:{forma:'pix'}},'token-cliente');
+      assert.equal(r.status,expected);inalterado22(antes);
+      const pagamento=await enviar22('PATCH','/lojas/loja-demo/pedidos/pedido-22/pagamento',{status:'confirmado'});assert.equal(pagamento.status,expected);inalterado22(antes);
+    }finally{firestoreFake.runTransaction=original;}
+  });
+});
+test('Etapa 23 — 404 JSON e correlação não refletem rota ou headers privados',async()=>{
+  base22();const r=await requisitarApp({metodo:'GET',url:'/inexistente/sentinela?token=privado',headers:{'x-request-id':'segredo-controlado'}});
+  assert.equal(r.status,404);assert.deepEqual(r.dados,{error:'Rota não encontrada.'});assert.match(r.requestId,/^[\da-f-]{36}$/i);assert.notEqual(r.requestId,'segredo-controlado');
+  const segundo=await enviar22('GET','/');assert.notEqual(segundo.requestId,r.requestId);
+});
+test('Etapa 23 — formato não JSON não vira 500',async()=>{
+  base22();const r=await requisitarApp({metodo:'POST',url:'/admin/lojas/loja-demo/produtos',corpoRaw:'sentinela privada',headers:{authorization:'Bearer token-admin','content-type':'text/plain'}});assert.equal(r.status,415);assert.doesNotMatch(JSON.stringify(r.dados),/sentinela/);
 });

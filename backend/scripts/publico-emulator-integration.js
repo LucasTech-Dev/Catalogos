@@ -70,7 +70,7 @@ async function main() {
   assert.equal((await request('GET',`/lojas/outra-loja/pedidos`,adminLogin.idToken)).status,403);
   await loja.collection('produtos').doc('produto').update({ativo:false});
   assert.equal((await request('POST',rota,anon.idToken,corpo,chave)).body.id,pedido.id);
-  assert.equal((await request('POST',rota,anon.idToken,{...corpo,observacao:'novo'},chave)).status,400);
+  assert.equal((await request('POST',rota,anon.idToken,{...corpo,observacao:'novo'},chave)).status,409);
   assert.equal((await request('POST',rota,anon.idToken,corpo,crypto.randomUUID())).status,400);
   const direto=await fetch(`http://${process.env.FIRESTORE_EMULATOR_HOST}/v1/projects/${process.env.GCLOUD_PROJECT}/databases/(default)/documents/lojas/${lojaId}`,{headers:{Authorization:`Bearer ${anon.idToken}`}});
   assert.equal(direto.status,403,'Security Rules precisam bloquear acesso direto.');

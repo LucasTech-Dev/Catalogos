@@ -1,47 +1,30 @@
+const {ErroHttp}=require('../lib/seguranca');
 const {
   listarCategoriasPorLoja,
   buscarCategoriaPorId,
 } = require("../services/categoriaService");
 
 async function listarCategorias(req, res) {
-  try {
-    const { lojaId } = req.params;
+  const { lojaId } = req.params;
 
-    const categorias = await listarCategoriasPorLoja(lojaId);
+  const categorias = await listarCategoriasPorLoja(lojaId);
 
-    return res.status(200).json((req.user.role==="admin"?categorias:categorias.filter(c=>c.ativo!==false)).map(require("../lib/projecoes").categoria));
-  } catch (error) {
-    require("../lib/seguranca").registrarFalha("categoriaController",error);
-
-    return res.status(500).json({
-      error: "Erro interno ao listar categorias.",
-    });
-  }
+  return res.status(200).json((req.user.role==="admin"?categorias:categorias.filter(c=>c.ativo!==false)).map(require("../lib/projecoes").categoria));
 }
 
 async function buscarCategoria(req, res) {
-  try {
-    const { lojaId, categoriaId } = req.params;
+  const { lojaId, categoriaId } = req.params;
 
-    const categoria = await buscarCategoriaPorId(
-      lojaId,
-      categoriaId
-    );
+  const categoria = await buscarCategoriaPorId(
+    lojaId,
+    categoriaId
+  );
 
-    if (!categoria || (req.user.role!=="admin" && categoria.ativo===false)) {
-      return res.status(404).json({
-        error: "Categoria não encontrada.",
-      });
-    }
-
-    return res.status(200).json(require("../lib/projecoes").categoria(categoria));
-  } catch (error) {
-    require("../lib/seguranca").registrarFalha("categoriaController",error);
-
-    return res.status(500).json({
-      error: "Erro interno ao buscar categoria.",
-    });
+  if (!categoria || (req.user.role!=="admin" && categoria.ativo===false)) {
+    throw new ErroHttp("Categoria não encontrada.",404,'nao_encontrado');
   }
+
+  return res.status(200).json(require("../lib/projecoes").categoria(categoria));
 }
 
 module.exports = {

@@ -57,3 +57,13 @@ it('retoma marcador de outra aba sem reenviar pedido nem persistir dados pessoai
   render(<LojaProvider><Checkout/></LojaProvider>);await screen.findByText(/Carrinho vazio/).catch(()=>{});fireEvent.click(screen.getByText('Registrar pedido e preparar WhatsApp'));await screen.findByRole('link',{name:'Abrir WhatsApp'});
   expect(mocks.api.mock.calls.filter(([,o])=>o?.method==='POST')).toHaveLength(0);expect(JSON.parse(localStorage.getItem('catalogos:checkout:loja-demo:uid-real'))).toEqual({uid:'uid-real',chave:'nonce-persistido',pedidoId:'pedido-real'});
 });
+
+it.each([503,409])('Etapa 23: checkout HTTP %s preserva carrinho e nonce para repetição manual',async status=>{
+  let tentativas=0;mocks.api.mockImplementation(async(path,options)=>{if(path.endsWith('/catalogo'))return catalogo;if(path.endsWith('/me'))return {};if(path.endsWith('/enderecos'))return options?.method==='POST'?{id:'end-real'}:[];if(options?.chave){if(++tentativas===1)throw Object.assign(new Error('Falha temporária ou conflito.'),{status});return pedido;}return {url:'https://wa.me/5511999999999?text=real'};});
+  carrinho();render(<LojaProvider><Checkout/></LojaProvider>);await preencher();fireEvent.click(screen.getByText('Registrar pedido e preparar WhatsApp'));await screen.findByRole('alert');
+  expect(JSON.parse(localStorage.getItem('catalogos:carrinho:loja-demo'))).toHaveLength(1);
+  expect(JSON.parse(localStorage.getItem('catalogos:checkout:loja-demo:uid-real')).chave).toBeTruthy();
+  expect(mocks.api.mock.calls.filter(([,o])=>o?.chave)).toHaveLength(1);
+  fireEvent.click(screen.getByText('Registrar pedido e preparar WhatsApp'));await screen.findByRole('link',{name:'Abrir WhatsApp'});
+  const calls=mocks.api.mock.calls.filter(([,o])=>o?.chave);expect(calls).toHaveLength(2);expect(calls[1][1].chave).toBe(calls[0][1].chave);expect(calls[1][1].body).toEqual(calls[0][1].body);
+});

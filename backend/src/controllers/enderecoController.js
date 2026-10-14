@@ -1,51 +1,34 @@
+const {ErroHttp}=require('../lib/seguranca');
 const {
   listarEnderecosPorCliente,
   buscarEnderecoPorId,
 } = require("../services/enderecoService");
 
 async function listarEnderecos(req, res) {
-  try {
-    const { lojaId, clienteId } = req.params;
+  const { lojaId, clienteId } = req.params;
 
-    const enderecos = await listarEnderecosPorCliente(
-      lojaId,
-      clienteId
-    );
+  const enderecos = await listarEnderecosPorCliente(
+    lojaId,
+    clienteId
+  );
 
-    return res.status(200).json(enderecos.map(require("../lib/projecoes").endereco));
-  } catch (error) {
-    require("../lib/seguranca").registrarFalha("enderecoController",error);
-
-    return res.status(500).json({
-      error: "Erro interno ao listar endereços.",
-    });
-  }
+  return res.status(200).json(enderecos.map(require("../lib/projecoes").endereco));
 }
 
 async function buscarEndereco(req, res) {
-  try {
-    const { lojaId, clienteId, enderecoId } = req.params;
+  const { lojaId, clienteId, enderecoId } = req.params;
 
-    const endereco = await buscarEnderecoPorId(
-      lojaId,
-      clienteId,
-      enderecoId
-    );
+  const endereco = await buscarEnderecoPorId(
+    lojaId,
+    clienteId,
+    enderecoId
+  );
 
-    if (!endereco) {
-      return res.status(404).json({
-        error: "Endereço não encontrado.",
-      });
-    }
-
-    return res.status(200).json(require("../lib/projecoes").endereco(endereco));
-  } catch (error) {
-    require("../lib/seguranca").registrarFalha("enderecoController",error);
-
-    return res.status(500).json({
-      error: "Erro interno ao buscar endereço.",
-    });
+  if (!endereco) {
+    throw new ErroHttp("Endereço não encontrado.",404,'nao_encontrado');
   }
+
+  return res.status(200).json(require("../lib/projecoes").endereco(endereco));
 }
 
 module.exports = {
