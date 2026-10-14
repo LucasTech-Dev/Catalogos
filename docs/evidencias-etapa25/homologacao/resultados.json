@@ -1,0 +1,252 @@
+{
+  "data": "2026-10-14T02:06:30.365Z",
+  "ambiente": {
+    "node": "v24.19.0",
+    "chrome": "/usr/bin/google-chrome",
+    "cpu": "Intel(R) Celeron(R) N4020 CPU @ 1.10GHz",
+    "cpus": 2,
+    "memoriaHost": 7599931392
+  },
+  "passosBrowser": [
+    "catálogo desktop público e sigilo",
+    "filtro de categoria",
+    "URL direta e detalhes do produto",
+    "carrinho persiste entre páginas, reload e histórico",
+    "outra loja não carrega carrinho A",
+    "checkout de entrega anônimo cria somente um pedido por clique duplo",
+    "mobile e navegação direta/reload",
+    "anônimo impedido de acessar painel",
+    "login administrativo e páginas internas",
+    "criação de categoria no painel reflete no catálogo",
+    "cadastro de produto no painel reflete preço público",
+    "logout administrativo oculta painel e mostra formulário de login"
+  ],
+  "excecoesBrowser": [],
+  "consoleErrors": [],
+  "verificacoesHTTP": 200,
+  "medicoes": [
+    {
+      "nome": "catalogo-browser-desktop",
+      "tempoAteProdutoMs": 2380.35,
+      "navigation": {
+        "name": "http://127.0.0.1:5273/cardapio",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 1722.6000000014901,
+        "navigationId": 3410,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 4,
+        "domainLookupStart": 4,
+        "domainLookupEnd": 4,
+        "connectStart": 4,
+        "secureConnectionStart": 0,
+        "connectEnd": 4,
+        "requestStart": 790.3000000044703,
+        "responseStart": 817,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 817,
+        "responseEnd": 818.1000000014901,
+        "transferSize": 760,
+        "encodedBodySize": 460,
+        "decodedBodySize": 460,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 867.3000000044703,
+        "domContentLoadedEventStart": 1717.8999999985099,
+        "domContentLoadedEventEnd": 1718.1000000014901,
+        "domComplete": 1722.5,
+        "loadEventStart": 1722.6000000014901,
+        "loadEventEnd": 1722.6000000014901,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {}
+      }
+    },
+    {
+      "volume": 100,
+      "nome": "catalogo",
+      "amostras": 20,
+      "medianaMs": 129.14,
+      "p95Ms": 172.9,
+      "bytesResposta": 11326,
+      "operacoesSDK": {
+        "documentos": 1,
+        "queries": 2,
+        "agregacoes": 0,
+        "documentosRetornados": 106
+      },
+      "memoria": {
+        "rss": 210825216,
+        "heapTotal": 126255104,
+        "heapUsed": 81623680,
+        "external": 9758085,
+        "arrayBuffers": 5711716
+      }
+    },
+    {
+      "volume": 100,
+      "nome": "produtos",
+      "amostras": 20,
+      "medianaMs": 66.14,
+      "p95Ms": 85.02,
+      "bytesResposta": 2890,
+      "operacoesSDK": {
+        "documentos": 2,
+        "queries": 1,
+        "agregacoes": 0,
+        "documentosRetornados": 28
+      },
+      "memoria": {
+        "rss": 213577728,
+        "heapTotal": 128352256,
+        "heapUsed": 81023424,
+        "external": 10201132,
+        "arrayBuffers": 6152722
+      }
+    },
+    {
+      "volume": 100,
+      "nome": "pedidos",
+      "amostras": 20,
+      "medianaMs": 70.27,
+      "p95Ms": 105.98,
+      "bytesResposta": 6091,
+      "operacoesSDK": {
+        "documentos": 2,
+        "queries": 1,
+        "agregacoes": 0,
+        "documentosRetornados": 28
+      },
+      "memoria": {
+        "rss": 233107456,
+        "heapTotal": 199393280,
+        "heapUsed": 84315304,
+        "external": 11277048,
+        "arrayBuffers": 7226637
+      }
+    },
+    {
+      "volume": 100,
+      "nome": "dashboard",
+      "amostras": 20,
+      "medianaMs": 210.05,
+      "p95Ms": 300.05,
+      "bytesResposta": 1722,
+      "operacoesSDK": {
+        "documentos": 2,
+        "queries": 1,
+        "agregacoes": 14,
+        "documentosRetornados": 7
+      },
+      "memoria": {
+        "rss": 266792960,
+        "heapTotal": 203587584,
+        "heapUsed": 97768784,
+        "external": 11478156,
+        "arrayBuffers": 7416406
+      }
+    },
+    {
+      "volume": 1000,
+      "nome": "catalogo",
+      "amostras": 20,
+      "medianaMs": 254.1,
+      "p95Ms": 454.36,
+      "bytesResposta": 106726,
+      "operacoesSDK": {
+        "documentos": 1,
+        "queries": 2,
+        "agregacoes": 0,
+        "documentosRetornados": 1006
+      },
+      "memoria": {
+        "rss": 337833984,
+        "heapTotal": 211189760,
+        "heapUsed": 67154248,
+        "external": 10358270,
+        "arrayBuffers": 2938995
+      }
+    },
+    {
+      "volume": 1000,
+      "nome": "produtos",
+      "amostras": 20,
+      "medianaMs": 117.35,
+      "p95Ms": 165.11,
+      "bytesResposta": 2890,
+      "operacoesSDK": {
+        "documentos": 2,
+        "queries": 1,
+        "agregacoes": 0,
+        "documentosRetornados": 28
+      },
+      "memoria": {
+        "rss": 337833984,
+        "heapTotal": 211189760,
+        "heapUsed": 87270776,
+        "external": 7785698,
+        "arrayBuffers": 3682130
+      }
+    },
+    {
+      "volume": 1000,
+      "nome": "pedidos",
+      "amostras": 20,
+      "medianaMs": 103.31,
+      "p95Ms": 124.72,
+      "bytesResposta": 6091,
+      "operacoesSDK": {
+        "documentos": 2,
+        "queries": 1,
+        "agregacoes": 0,
+        "documentosRetornados": 28
+      },
+      "memoria": {
+        "rss": 337833984,
+        "heapTotal": 211189760,
+        "heapUsed": 109640600,
+        "external": 9049824,
+        "arrayBuffers": 4944255
+      }
+    },
+    {
+      "volume": 1000,
+      "nome": "dashboard",
+      "amostras": 20,
+      "medianaMs": 292.11,
+      "p95Ms": 405.08,
+      "bytesResposta": 1726,
+      "operacoesSDK": {
+        "documentos": 2,
+        "queries": 1,
+        "agregacoes": 14,
+        "documentosRetornados": 7
+      },
+      "memoria": {
+        "rss": 337965056,
+        "heapTotal": 211189760,
+        "heapUsed": 120967848,
+        "external": 8807080,
+        "arrayBuffers": 4690172
+      }
+    }
+  ],
+  "limites": "Benchmark serial em Emulator, sem estimar capacidade concorrente nem cobrança real; memória inclui harness/SDK no processo do backend."
+}

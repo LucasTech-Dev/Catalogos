@@ -82,7 +82,7 @@ Criado em 13/10/2026 (America/Sao_Paulo), Ordem 10. Registro permanente: toda et
 - Gravidade/prioridade: Alta; prioridade de homologação, não vulnerabilidade presumida.
 - Impacto: Ausência de mecanismo comercial homologado.
 - Etapa prevista: 25.
-- Status: pendente.
+- Status: em análise (Etapa 25; proteção local preparada, homologação de abuso pendente).
 - Teste de comprovação: homologação/medição autorizada na etapa prevista.
 - Resultado da correção: não resolvida no registro inicial; atualização obrigatória com evidência.
 
@@ -284,3 +284,47 @@ Histórico inicial preservado. R-001–R-009, R-011 e R-014 continuam pendentes 
 - Status: resolvida (escopo local da Etapa 24).
 - Teste de comprovação: Teste de logout falhou antes e passou após; Chrome confirmou painel fechado e formulário de login.
 - Resultado da correção: Botão/link Sair chama o encerramento da sessão compartilhada, mantendo callback de navegação. Não implica homologação comercial.
+
+
+## Atualização Etapa 25 — 13–14/10/2026
+
+Ordem12: preparação local, sem implantação. Todos os22identificadores anteriores preservados. Planejamento não resolve pendências externas. R-007 passa a em análise pela implementação/testes locais de429; nenhuma das14ressalvas anteriores abertas foi encerrada. Com R-023 nova:23itens,15abertos (11pendentes/4em análise),8resolvidos localmente23/24. Nenhum homologado comercialmente.
+
+| ID | Preparado localmente / nova evidência25 | Dependência e situação atual |
+| --- | --- | --- |
+| R-001 | Validação Web/build externo/projeto esperado e exemplos fictícios | Configuração Firebase real e homologação pendentes |
+| R-002 | Estratégia Anonymous/EmailPassword, domínios/recuperação/vínculoUID | Console/provedores/domínios e contas reais dependem de ordem externa |
+| R-003 | Checklist comerciais/mínimo/taxa/WhatsApp/opcionais | Dados reais dependem do proprietário/restaurante e homologação |
+| R-004 | Manifesto de identidade comprovada, backup/dry-run/precondições/rollback | Aprovação e verificação de vínculos; nenhuma migração real ou inferência por email |
+| R-005 | Deny-all preservada,7índices preparados e queries/rules no Emulator | Publicação/estado READY/QueryExplain pendentes; Emulator não valida índices compostos |
+| R-006 | ADC gerenciada, Docker sem env/não root, IAM mínimo proposto | IAM/identidade do serviço e papéis devem ser configurados e testados externamente |
+| R-007 | Limiter por processo/IPpeer/UID verificado,429/Retry-After/testes; recuperação GET e um pedido | Em análise; auth direto/proxy/edge/distribuição/NAT/cotas comerciais ainda pendentes |
+| R-008 | Inventário PII, retenção/exclusão/exportação e backups propostos | Decisão proprietário e validação jurídica; nenhuma exclusão ou texto legal publicado |
+| R-009 | Política sem TTL, janela7dias para discussão e tombstone/envelope futuro | Não aprovada/implementada janela; retenção conjunta/contrato expiração ainda pendentes |
+| R-010 | Chrome novamente12fluxos, preservadas evidências24 | Dispositivos físicos/outros navegadores/ambiente real pendentes |
+| R-011 | Node24/.nvmrc, CI propõe Java21; Emulator local usa Java temporário | Instalação permanente do desenvolvedor e primeira execução CI ainda pendentes |
+| R-012 | Modelo de custos1/10/50/100/150lojas, preços de referência/fontes/formulas/CSV | Região/plano/custos completos/capacidade real/índices a homologar |
+| R-013 | Mapa explícito de host A/B e rejeição desconhecido; URL/reload/back Chrome; Hosting SPA/cache testados | Cloudflare/produção/domínios/proxy e dispositivos pendentes, permanece em análise |
+| R-014 | Sem alteração automática de licença/metadados | Decisão do proprietário na26, ainda pendente |
+| R-015 | Backend325 e regressões23: credencial401/infra503/autorização403 | Resolvida localmente23, não produção |
+| R-016 | Handlers/requestId/erros sigilosos e contratos preservados | Resolvida localmente23, não produção |
+| R-017 | React79 incluindo429/timeout/retry/sessão; nonce preservado | Resolvida localmente23, não produção |
+| R-018 | Race de catálogo revalidado React/Chrome | Resolvida localmente24; resultado preservado |
+| R-019 | Cache seguro/separação loja revalidado | Resolvida localmente24; resultado preservado |
+| R-020 | Override mantido, audit final0 e instalação npmci/Docker | Resolvida localmente24 quanto a alertas conhecidos; revisões contínuas necessárias |
+| R-021 | Painel/login/páginas novamente passados no Chrome | Resolvida localmente24; resultado preservado |
+| R-022 | SidebarSair e logout novamente passados | Resolvida localmente24; resultado preservado |
+
+R-001–006 eR-008–014 continuam abertos; R-007 também aberto em análise. Docs25 arquitetura/configuração/custos/segurança/checklist detalham responsáveis e evidências faltantes. FasesB–H não executadas.
+
+## R-023 — Proteção distribuída e identidade de rede na implantação
+
+- Data de identificação/registro:13/10/2026, Etapa25.
+- Arquivos envolvidos: backend/src/middleware/operacao.js; docs/ETAPA_25_SEGURANCA_OPERACIONAL.md; infraestrutura de borda futura.
+- Descrição/evidência: limiter local usa memória/peer TCP, não estado distribuído. Instâncias reiniciam limites e proxies podem concentrar tráfego; cabeçalho não verificado não é identidade segura. Limitação comprovada pela implementação/testes, impacto comercial ainda depende da topologia.
+- Gravidade/prioridade: Alta para revisão antes da implantação; não exploração demonstrada nem bloqueador da preparação local.
+- Impacto: evasão entre instâncias ou bloqueios de clientes legítimos/NAT se configuração externa não for revisada; ingress direto pode contornar proteção de borda.
+- Etapa prevista: implantação autorizada/homologação.
+- Status: pendente (decisão do proprietário, configuração externa e homologação).
+- Teste de comprovação: unidade ignora X-Forwarded-For forjado, limite porUID/grupo/trailingSlash e memória limitada; Emulator21POST+1GET mantém um pedido e429. Falta teste real multi-instância/proxy normalizado/bypass/NAT/rajadas.
+- Resultado da preparação: proposta de gateway/proxy confiável e ingresso restrito, quota distribuída/loja e telemetria com thresholds calibrados; Redis/LB/WAF somente após orçamento/aprovação. Não resolvida por documentação.

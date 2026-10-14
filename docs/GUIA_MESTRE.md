@@ -704,3 +704,22 @@ Correções demonstradas e regressivas: catálogo descarta resposta antiga; cach
 Benchmark20amostras/3aquecimentos,100/1.000produtos/pedidos fictícios, catálogo/produtos/pedidos/dashboard; JSON com mediana/p95/bytes/memória/SDK. Catálogo retorna106→1.006documentos; paginados28; dashboard14agregações. Sem estimativa de fatura/capacidade concorrente. Chrome desktop/mobile emulado, URL/reload/back, admin/checkout/WhatsApp URL sem abrir; zero erros JS/console. Inspeção de screenshots não equivale a testes em celulares reais. Roteiro manual pendente.
 
 Inventário individual de cada arquivo/função no item15do relatório. Rules/índices/CSS/configuração real preservados, dist fora do diff. Segredos/ignorados/sintaxe/diff conferidos. Guia externo seção99por acréscimo com prefixo verificado. Nenhum Firebase real, migração, deploy, publicação, envio WhatsApp, push ou Etapa25. Próxima ação depende da revisão/autorização do usuário; não iniciar25.
+
+
+## Etapa 25 — Preparação da infraestrutura de produção — 14/10/2026
+
+Iniciada em13/10/2026, conclusão/documentação final em14/10/2026 (America/Sao_Paulo).
+
+Ordem12 executada, concluída localmente para revisão; Etapa24 aprovada com ressalvas. Checkpoint24 antes de mudar código:949f992,25arquivos, main e histórico77c8bb7/9122f01 preservado. Baseline321backend/76React/build revalidado. Sem push. Preparação25 permanece em diff local.
+
+Relatório obrigatório25itens:docs/ETAPA_25_RELATORIO_FINAL.md. Criados também arquitetura, configuração de ambientes, análise de custos, segurança operacional e checklist de implantação25. Inventário individual de arquivos/funções no relatório; evidências em docs/evidencias-etapa25.
+
+Proposta sujeita a aprovação: frontend compartilhadoPages (alternativaFirebaseHosting), APIsharedCloudRun/ADCgerenciada, Firebase separado homolog/prod. Mapa explícito domínio→loja no mesmo bundle, backend autoriza cada operação. Exemplos fictícios por ambiente, guardas externas de projeto/HTTPS/Nodeproduction/semEmulator/semJSONprivado, build externo validado. Container não root por digest, semenv, npmci, PORT/SIGTERM testados semredeexterna. CIread-only por SHA, envdemo, testes/build/audit/Emulator semdeploy/secrets; workflow ainda não rodou remotamente.
+
+Abuso: limiter por processo/IPpeer/UID verificado, janela60s/memóriabounded/429RetryAfter, com recuperaçãoGET. Não é proteção distribuída nem cobre Authdireto; R-023 nova registra proxy/NAT/ingress/bypass/instâncias/cotas. Nenhuma14pendência anterior encerrada. Total23:15abertos(11pendentes/4em análise),8resolvidoslocais. R-007 em análise pela evidência local, R-001–022 preservados.
+
+Testes:backend325/325 em9arquivos, inclui285HTTP/3globais; React79/79 em7arquivos; infra3/3; build1.624módulos, dois builds externos fictícios e rejeição semconfig; npmciReact e produçãoDocker/audit0 ambos. Suite25 passou19–24,300negaçõesSDK e12Chrome/200HTTP24; teste novo21POST/1GET mantém20chamadas aceitas (1criação/19replays),um pedido,21ª429 e recuperação200. HostingEmulatorSPAraiz/cardápio/admin/cache aprovado; path public corrigido após404 local. Evidências24 preservadas; não homologação física/real.
+
+Sete índices preparados (seis preservados, ativo/disponivel novo), deny-allRules preservada. Emulatornão valida composto: publicação/READY/QueryExplain externospendentes. Custos modelados1/10/50/100/150lojas com preços oficiais referênciaUSD/us-central1/Tier1 e fórmulas/CSVde componentespendentes. Subtotal parcial não é orçamento total/mensalidade. PagesFree100domínios:150 exige plano/limite/alternativa aprovada.
+
+Preparados planosConsoleAuth/IAM/legados com identidadecomprovada/dry-run/backup/precondições/rollback, retenção/PII/LGPD/nonce semTTL, backup/restauração isolada porprefixoLoja/RPO-RTOcandidatos, observabilidade e alertas. FasesA–H com responsáveis/critérios; somenteA local executada. Guia externo seção100 por acréscimo/prefixoverificado. Nenhum recurso pago, cobrança, Firebase/IAM/Auth/DNSreal, deploy/publicação, migração/exclusão/backupreal, mensagemWhatsApp ouEtapa26. Próxima ação: revisão do usuário e autorização separada para26/implantação.

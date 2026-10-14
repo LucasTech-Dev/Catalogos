@@ -1,0 +1,29 @@
+{
+  "inicio": "13/10/2026",
+  "conclusao": "14/10/2026",
+  "checkpoint24": "949f992",
+  "node": "v24.19.0",
+  "java": "21.0.12.1 temporário",
+  "chrome": "155.0.8059.39",
+  "firebaseCLI": "15.32.0",
+  "backendTests": 325,
+  "reactTests": 79,
+  "infraTests": 3,
+  "ressalvas": {
+    "total": 23,
+    "abertas": 15,
+    "resolvidasLocalmente": 8
+  },
+  "naoExecutado": [
+    "deploy",
+    "push",
+    "Firebase real",
+    "IAM real",
+    "DNS real",
+    "backup real",
+    "restore real",
+    "dispositivos físicos",
+    "CI remoto",
+    "Etapa26"
+  ]
+}

@@ -1,0 +1,107 @@
+[
+  {
+    "arquivo": "docs/GUIA_MESTRE.md",
+    "bytes": 43103,
+    "sha256": "6697764386315ec07157c28025838ff94f54c9cbfc4873ccfc05fc47ee6335ee"
+  },
+  {
+    "arquivo": "docs/REGISTRO_DE_TRABALHO.md",
+    "bytes": 43969,
+    "sha256": "6eef1842d695aaee8209b6441fedd900348b177eb1311543599ddee66f2d694f"
+  },
+  {
+    "arquivo": "docs/RESSALVAS_E_PENDENCIAS_PRODUCAO.md",
+    "bytes": 25289,
+    "sha256": "56897b4f9864873b2d5b22ef486cfe2e05c61fa3680b57eece1ba349957ffa19"
+  },
+  {
+    "arquivo": "docs/ETAPA_19_AUDITORIA_CONTRATOS.md",
+    "bytes": 7680,
+    "sha256": "532e76486b33f657d44ca98db01921f6aa1cb93941b54bca148543302889a4a1"
+  },
+  {
+    "arquivo": "docs/ETAPA_19_RELATORIO_FINAL.md",
+    "bytes": 14221,
+    "sha256": "7c38398bfd3651684db8f791665f2b9d9a13210a0ebabde1825ef8dc20b897dd"
+  },
+  {
+    "arquivo": "docs/ETAPA_20_AUDITORIA_CONTRATOS.md",
+    "bytes": 9124,
+    "sha256": "af96dd44a402c2ce0d5e6903535e5fbc659192fd923311d47be66458c7ed5a6a"
+  },
+  {
+    "arquivo": "docs/ETAPA_20_RELATORIO_FINAL.md",
+    "bytes": 17180,
+    "sha256": "12bd15e3faa8c0beb0a21faf4322b5fdfd07f91fdbeac89df80e6def9ba2f1c5"
+  },
+  {
+    "arquivo": "docs/ETAPA_21_AUDITORIA_SEGURANCA.md",
+    "bytes": 13697,
+    "sha256": "cb93f8f72f968e0228c3648c04439442f23bf042ef90d65e7eabddc43e149c91"
+  },
+  {
+    "arquivo": "docs/ETAPA_21_RELATORIO_FINAL.md",
+    "bytes": 14756,
+    "sha256": "a32f440cffd050ceb5543a43a946ab0efd1bdae2704f2b56af31d14a61e95265"
+  },
+  {
+    "arquivo": "docs/ETAPA_22_AUDITORIA_VALIDACOES.md",
+    "bytes": 26096,
+    "sha256": "2cb26d7c85bf91eb9841626695bb4def88243b745237dd45453a3817ab64be93"
+  },
+  {
+    "arquivo": "docs/ETAPA_22_RELATORIO_FINAL.md",
+    "bytes": 16772,
+    "sha256": "d5d14a424472fe74fdd9ddad5cd32ab2ba2458a227cfe5f6216aafacecb2aa94"
+  },
+  {
+    "arquivo": "docs/ETAPA_23_AUDITORIA_ERROS.md",
+    "bytes": 13553,
+    "sha256": "126e8493171b603ea3e83580fef588af76102007c8e3ca01f6174d3cd919eede"
+  },
+  {
+    "arquivo": "docs/ETAPA_23_RELATORIO_FINAL.md",
+    "bytes": 14973,
+    "sha256": "6803d5fceefef4780ca3cd5b524a62d7121fd910d99f145681ec82067de69e84"
+  },
+  {
+    "arquivo": "docs/ETAPA_24_PLANO_DE_TESTES.md",
+    "bytes": 5436,
+    "sha256": "c6b98b91f89ec4cf53df95a0b770f04491a4eb55a68ccb7855ca5af305b26bff"
+  },
+  {
+    "arquivo": "docs/ETAPA_24_RELATORIO_FINAL.md",
+    "bytes": 16277,
+    "sha256": "1ff19b5dd17dc13a53be7ea50501a6593c9ec5df9a2cbb850f0d0b774e38c8bc"
+  },
+  {
+    "arquivo": "docs/ETAPA_24_ROTEIRO_HOMOLOGACAO_MANUAL.md",
+    "bytes": 4485,
+    "sha256": "ef2df1983d047ed9551551fcd306feec58bc7037ad0bc317c3f6c2e4f339df56"
+  },
+  {
+    "arquivo": "docs/ETAPA_25_ANALISE_CUSTOS.md",
+    "bytes": 6704,
+    "sha256": "43786b18f6df7397ab0e92fe856ad216d91599c7c7815781591fac2961ec703d"
+  },
+  {
+    "arquivo": "docs/ETAPA_25_ARQUITETURA_PRODUCAO.md",
+    "bytes": 6994,
+    "sha256": "c35d73a90a36b3cb1e136e3b1eac2cc91c145c2576655dda0f20c94290265ed2"
+  },
+  {
+    "arquivo": "docs/ETAPA_25_CHECKLIST_IMPLANTACAO.md",
+    "bytes": 7063,
+    "sha256": "635017e55d772b04061b559ccce49987fa4c6189e6469c04508144335f49949d"
+  },
+  {
+    "arquivo": "docs/ETAPA_25_CONFIGURACAO_AMBIENTES.md",
+    "bytes": 8495,
+    "sha256": "0e333f3bb73e9f42dff6688a4b01e82e850f1bfff9585cff424b38415f0a7cf5"
+  },
+  {
+    "arquivo": "docs/ETAPA_25_SEGURANCA_OPERACIONAL.md",
+    "bytes": 12346,
+    "sha256": "7d106574da7f622d1181cab4731fbb136c317d958c6d234b66bbb774845f35d6"
+  }
+]

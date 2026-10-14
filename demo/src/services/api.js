@@ -1,6 +1,8 @@
 import {auth,sessao,sessaoExistente} from '../lib/firebase';
-export const lojaId = import.meta.env.VITE_LOJA_ID || 'loja-demo';
-const base = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
+import {configuracaoAplicacao} from '../lib/ambienteAplicacao';
+const configuracao=configuracaoAplicacao(import.meta.env,window.location.hostname);
+export const lojaId = configuracao.lojaId;
+const base = configuracao.base;
 export const publico = `/publico/lojas/${encodeURIComponent(lojaId)}`;
 export const pedidos = `/lojas/${encodeURIComponent(lojaId)}/pedidos`;
 const credenciaisInvalidas = new Set(['auth/user-token-expired','auth/invalid-user-token','auth/user-disabled','auth/user-not-found']);

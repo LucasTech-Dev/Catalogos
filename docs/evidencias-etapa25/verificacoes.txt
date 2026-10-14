@@ -1,0 +1,191 @@
+Etapa25 — resumos literais de validação local,13/10/2026. Números heterogêneos/inclusões não são somados.
+
+Backend final — /tmp/etapa25-ci-env-backend.log
+✔ deve aceitar pedido para retirada sem endereço ou taxa (8.431235ms)
+✔ deve rejeitar entrega sem endereço (7.055549ms)
+✔ deve rejeitar retirada com taxa (0.510486ms)
+✔ deve rejeitar lojaId ausente (0.369768ms)
+✔ deve rejeitar dados do pedido ausentes (0.308736ms)
+✔ dinheiro rejeita números não finitos, frações de centavo e formatos ambíguos (14.422529ms)
+✔ estrutura rejeita ciclos, profundidade, expansão e chaves de prototype (26.05174ms)
+✔ identificadores e Unicode mantêm texto válido e negam caminhos/controles (5.411232ms)
+✔ schemas de serviços rejeitam NaN/Infinity antes de qualquer acesso persistente (20.542879ms)
+✔ valor financeiro calculado também deve ser finito e preciso em chamadas diretas (5.884705ms)
+ℹ tests 325
+ℹ suites 0
+ℹ pass 325
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11242.761708
+
+React final — /tmp/etapa25-ci-env-react.log
+
+> catalogos-demo@1.0.0 test
+> vitest run
+
+
+ RUN  v5.0.4 /home/lucas/Projetos/Catalogos/Catalogo-Demo/Catalogo-demo/demo
+
+
+ Test Files  7 passed (7)
+      Tests  79 passed (79)
+   Start at  23:22:43
+   Duration  31.61s (environment 49%, tests 40%, import 10%, transform 1%)
+
+Environment  jsdom was created 7 times · 14.03s total, 49% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+
+Infra3 — /tmp/etapa25-infra-test.log
+✔ scan detecta token sintético sem imprimir valor e limpa fixture (449.744145ms)
+✔ custo aplica franquia uma vez por projeto/dia, não por restaurante (3.329989ms)
+✔ hosting SPA, cache do documento e assets, isolamento do contexto Docker (8.242329ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 597.46859
+
+Build local — /tmp/etapa25-build-final.log
+
+> catalogos-demo@1.0.0 build
+> vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 1624 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.50 kB │ gzip:   0.30 kB
+dist/assets/index-P91MndJF.css   85.77 kB │ gzip:  15.10 kB
+dist/assets/index-j6oDswAC.js   434.98 kB │ gzip: 108.11 kB
+✓ built in 22.18s
+
+Build homolog fictício — /tmp/etapa25-build-homologacao.log
+
+> catalogos-demo@1.0.0 build:externo
+> node scripts/build-externo.mjs
+
+Configuração pública externa validada; nenhum valor foi impresso.
+vite v6.4.3 building for homologacao...
+transforming...
+✓ 1624 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.50 kB │ gzip:   0.31 kB
+dist/assets/index-P91MndJF.css   85.77 kB │ gzip:  15.10 kB
+dist/assets/index-BVZ_GTLS.js   435.23 kB │ gzip: 108.20 kB
+✓ built in 11.15s
+
+Build prod fictício — /tmp/etapa25-build-production.log
+
+> catalogos-demo@1.0.0 build:externo
+> node scripts/build-externo.mjs
+
+Configuração pública externa validada; nenhum valor foi impresso.
+vite v6.4.3 building for production...
+transforming...
+✓ 1624 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.50 kB │ gzip:   0.31 kB
+dist/assets/index-P91MndJF.css   85.77 kB │ gzip:  15.10 kB
+dist/assets/index-DUDS2TVx.js   435.21 kB │ gzip: 108.20 kB
+✓ built in 10.37s
+
+Instalação React — /tmp/etapa25-ci-react.log
+
+added 219 packages, and audited 220 packages in 60s
+
+26 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+Emulator integrado — /tmp/etapa25-emulator.log
+Etapa 19: catálogo, cadastro/login, convidado, endereço, concorrência, quatro pagamentos, retirada/entrega, WhatsApp, isolamento, admin e Security Rules aprovados.
+Firebase Web SDK: convidado, conversão em conta mantendo UID, login, troca de senha e renovação de token aprovados.
+Etapa 20 Emulator: autorização multi-loja, CRUD, paginação, configurações públicas, convidados, dashboard agregado, status, transações financeiras, integridade concorrente, token revogado e Rules aprovados.
+Etapa 21: 300 negativas reais do SDK Web (6 atores × 10 caminhos × 5 operações); 37 verificações HTTP; Admin bypass, projeções, sessão expirada/desativada, BOLA, escopo, idempotência e preços aprovados.
+Etapa 22 Emulator: 104 verificações HTTP; 43 contratos; rejeições sem persistência, PATCH parcial, centavos, anônimo, autorização, isolamento e idempotência concorrente aprovados.
+Etapa 23 Emulator: 22 verificações HTTP reais; Auth/Firestore temporários vs credenciais, recuperação após falha, abort antes de commit, resposta perdida após commit, nonce, financeiro, WhatsApp e logs seguros aprovados.
+Navegador: catálogo desktop público e sigilo
+Navegador: filtro de categoria
+Navegador: URL direta e detalhes do produto
+Navegador: carrinho persiste entre páginas, reload e histórico
+Navegador: outra loja não carrega carrinho A
+Navegador: checkout de entrega anônimo cria somente um pedido por clique duplo
+Navegador: mobile e navegação direta/reload
+Navegador: anônimo impedido de acessar painel
+Navegador: login administrativo e páginas internas
+Navegador: criação de categoria no painel reflete no catálogo
+Navegador: cadastro de produto no painel reflete preço público
+Navegador: logout administrativo oculta painel e mostra formulário de login
+Etapa24: 12 fluxos navegador; 200 verificações HTTP; benchmark concluído.
+Etapa25: 21 tentativas checkout, 20 replays/um pedido, 429 real com Retry-After e recuperação GET aprovados.
+✔  Script exited successfully (code 0)
+Nota25: 20 chamadas aceitas significam1criação+19replays; texto corrigido no script e execução final acima, não20replays novos.
+
+Checkout limites final — /tmp/etapa25-limites-final.log
+Etapa25: 21 tentativas checkout, 20 aceitas (1 criação/19 replays)/um pedido, 429 real com Retry-After e recuperação GET aprovados.
+✔  Script exited successfully (code 0)
+
+Web test explícito — /tmp/etapa25-web-test-explicito.log
+Navegador: catálogo desktop público e sigilo
+Navegador: filtro de categoria
+Navegador: URL direta e detalhes do produto
+Navegador: carrinho persiste entre páginas, reload e histórico
+Navegador: outra loja não carrega carrinho A
+Navegador: checkout de entrega anônimo cria somente um pedido por clique duplo
+Navegador: mobile e navegação direta/reload
+Navegador: anônimo impedido de acessar painel
+Navegador: login administrativo e páginas internas
+Navegador: criação de categoria no painel reflete no catálogo
+Navegador: cadastro de produto no painel reflete preço público
+Navegador: logout administrativo oculta painel e mostra formulário de login
+Etapa24: 12 fluxos navegador; 200 verificações HTTP; benchmark concluído.
+✔  Script exited successfully (code 0)
+
+Hosting final — /tmp/etapa25-hosting-final.log
+Hosting Emulator: raiz/cardápio/admin diretos200, HTML SPA, nosniff, HTML revalidado e asset immutable aprovados.
+✔  Script exited successfully (code 0)
+
+Container — /tmp/etapa25-docker-runtime-final.log
+Container final: health200 e SIGTERM drenado exit0; não root e sem .env/rede externa.
+
+Conclusão documental14/10/2026; execuções acima13/10/2026 local.
+
+Guardas finais (incluídas nos325)
+✔ ambientes externos falham fechados antes de inicializar Firebase (2.999962ms)
+✔ limites reais 429, Retry-After, janela, identidade e tentativas não usam nonce (2.428621ms)
+✔ limites têm memória limitada, health/OPTIONS livres e modo local preservado (8.24148ms)
+✔ observabilidade nunca inclui URL, identidade, body, tokens ou PII (1.079946ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 60.261381
+
+Infra final
+✔ scan detecta token sintético sem imprimir valor e limpa fixture (120.666579ms)
+✔ custo aplica franquia uma vez por projeto/dia, não por restaurante (1.018673ms)
+✔ hosting SPA, cache do documento e assets, isolamento do contexto Docker (2.643879ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 154.030469
+
+Guia externo seção100: {"secao": 100, "prefixoPreservado": true, "bytesAnteriores": 379647, "bytesAcrescentados": 87641, "sha256Prefixo": "f16535f1d1a60456ea3441f6dd06f3c181f7fea8e2016167f96509cf0f592694"}

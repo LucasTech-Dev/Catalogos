@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "firebase:emulator:auth": "node scripts/auth-emulator-integration.js"
+    "firebase:emulator:auth": "node scripts/auth-emulator-integration.js",
+    "build:externo": "node scripts/build-externo.mjs"
   },
   "dependencies": {
     "firebase": "^13.0.0",
@@ -26,5 +27,8 @@
   "overrides": {
     "@grpc/grpc-js": "^1.13.6",
     "source-map-js": "^1.2.2"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

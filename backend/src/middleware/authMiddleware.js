@@ -23,6 +23,7 @@ async function authMiddleware(req, res, next) {
 
   try {require('../lib/identificadores').identificador(decodedToken.uid);}
   catch {throw new ErroHttp('Token de autenticação inválido ou expirado.',401,'autenticacao');}
+  require('./operacao').limites.identidade(req,res,decodedToken.uid);
   const usuario = await buscarUsuarioPorId(decodedToken.uid);
 
   if (!usuario) {

@@ -14,7 +14,7 @@ const firestore=require('firebase-admin/firestore'),db=firestore.getFirestore();
 const {getAuth}=require('firebase-admin/auth');
 const {identity}=require('./publico-emulator-integration');
 const {chrome,pause}=require('../../demo/scripts/lib/chrome.cjs');
-const root=path.resolve(__dirname,'../..'),evidencias=path.join(root,'docs/evidencias-etapa24');
+const root=path.resolve(__dirname,'../..'),evidencias=process.env.ETAPA24_EVIDENCIAS?path.resolve(process.env.ETAPA24_EVIDENCIAS):path.join(root,'docs/evidencias-etapa24');
 let checks=0;const passos=[],medicoes=[];const processos=[];
 async function main(){
   const lojaA='etapa24-a',lojaB='etapa24-b',auth=getAuth();
@@ -33,7 +33,7 @@ async function main(){
   const api='http://127.0.0.1:'+server.address().port;
   async function request(method,url,token,body,status,chave){const r=await fetch(api+url,{method,headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{}),...(chave?{'Idempotency-Key':chave}:{})},body:body===undefined?undefined:JSON.stringify(body)});const d=r.status===204?null:await r.json();if(status){assert.equal(r.status,status,method+' '+url+' '+JSON.stringify(d));checks++;}return {status:r.status,data:d};}
   for(const [loja,port] of [[lojaA,5273],[lojaB,5274]]){
-    const env={...process.env,VITE_LOJA_ID:loja,VITE_API_URL:api,VITE_FIREBASE_PROJECT_ID:process.env.GCLOUD_PROJECT,VITE_FIREBASE_API_KEY:'fake-api-key',VITE_FIREBASE_AUTH_DOMAIN:'localhost',VITE_FIREBASE_APP_ID:'fake-app',VITE_FIREBASE_AUTH_EMULATOR_URL:'http://'+process.env.FIREBASE_AUTH_EMULATOR_HOST};
+    const env={...process.env,VITE_APP_ENV:'test',VITE_LOJAS_POR_HOST:'',VITE_LOJA_ID:loja,VITE_API_URL:api,VITE_FIREBASE_PROJECT_ID:process.env.GCLOUD_PROJECT,VITE_FIREBASE_API_KEY:'fake-api-key',VITE_FIREBASE_AUTH_DOMAIN:'localhost',VITE_FIREBASE_APP_ID:'fake-app',VITE_FIREBASE_AUTH_EMULATOR_URL:'http://'+process.env.FIREBASE_AUTH_EMULATOR_HOST};
     const p=spawn(process.execPath,[path.join(root,'demo/node_modules/vite/bin/vite.js'),'--host','127.0.0.1','--port',String(port),'--strictPort'],{cwd:path.join(root,'demo'),env,stdio:'ignore'});processos.push(p);
     let ok=false;for(let i=0;i<100;i++){try{if((await fetch('http://127.0.0.1:'+port)).ok){ok=true;break;}}catch{}await pause(100);}assert.ok(ok,'Vite não iniciou.');
   }
