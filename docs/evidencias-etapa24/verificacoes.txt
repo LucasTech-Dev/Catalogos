@@ -1,0 +1,121 @@
+Etapa24 — resumos literais das execuções locais aprovadas. Data local13/10/2026.
+Não somar arquivos, subtestes e verificações heterogêneas.
+
+Backend — /tmp/etapa24-backend.log
+✔ deve rejeitar desconto negativo (0.288092ms)
+✔ deve aceitar pedido para entrega com endereço (2.254363ms)
+✔ deve aceitar pedido para retirada sem endereço ou taxa (0.492122ms)
+✔ deve rejeitar entrega sem endereço (0.992964ms)
+✔ deve rejeitar retirada com taxa (0.406296ms)
+✔ deve rejeitar lojaId ausente (1.444649ms)
+✔ deve rejeitar dados do pedido ausentes (0.749041ms)
+✔ dinheiro rejeita números não finitos, frações de centavo e formatos ambíguos (3.356866ms)
+✔ estrutura rejeita ciclos, profundidade, expansão e chaves de prototype (7.759472ms)
+✔ identificadores e Unicode mantêm texto válido e negam caminhos/controles (0.974732ms)
+✔ schemas de serviços rejeitam NaN/Infinity antes de qualquer acesso persistente (3.624093ms)
+✔ valor financeiro calculado também deve ser finito e preciso em chamadas diretas (1.629948ms)
+ℹ tests 321
+ℹ suites 0
+ℹ pass 321
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3086.89143
+
+HTTP detalhado — /tmp/etapa24-http.log
+{"evento":"http","categoria":"interno","status":500,"codigo":13,"requestId":"b9c7266f-9c70-4bba-ade3-dee9b5ea2d62"}
+{"evento":"http","categoria":"interno","status":500,"codigo":13,"requestId":"d346536a-1e6c-440b-b856-e5b9eb4d1ae4"}
+  ✔ 13 (2.913988ms)
+{"evento":"http","categoria":"servico_externo","status":503,"codigo":14,"requestId":"94c1ec00-c71f-4780-a1d7-27368f6730e1"}
+{"evento":"http","categoria":"servico_externo","status":503,"codigo":14,"requestId":"487100da-1419-4638-bcb7-38318c168b5e"}
+  ✔ 14 (2.148388ms)
+{"evento":"http","categoria":"servico_externo","status":503,"codigo":"ECONNRESET","requestId":"3d1ddb08-5efb-450b-8109-3dd78c510ded"}
+{"evento":"http","categoria":"servico_externo","status":503,"codigo":"ECONNRESET","requestId":"fc141090-e351-4ef5-b8c4-263663b7c055"}
+  ✔ ECONNRESET (2.981894ms)
+✔ Etapa 23 — falhas de transação não deixam pedido, nonce ou pagamento parciais (27.900769ms)
+✔ Etapa 23 — 404 JSON e correlação não refletem rota ou headers privados (1.302165ms)
+✔ Etapa 23 — formato não JSON não vira 500 (0.759632ms)
+ℹ tests 285
+ℹ suites 0
+ℹ pass 285
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1397.753791
+
+Globais — /tmp/etapa24-globais.log
+✔ Express 5 encaminha exceções sync/async ao handler global sem segredo (30.523024ms)
+✔ status arbitrário/expor em erro externo não autoriza divulgar sua mensagem (0.917177ms)
+✔ resposta já iniciada fecha sem delegar exceção sensível ao logger padrão (0.559425ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 269.334607
+
+React — /tmp/etapa24-react.log
+
+> catalogos-demo@1.0.0 test
+> vitest run
+
+
+ RUN  v5.0.4 /home/lucas/Projetos/Catalogos/Catalogo-Demo/Catalogo-demo/demo
+
+
+ Test Files  6 passed (6)
+      Tests  76 passed (76)
+   Start at  22:30:21
+   Duration  31.87s (environment 47%, tests 43%, import 9%, transform 1%, worker 1%)
+
+Environment  jsdom was created 6 times · 13.54s total, 47% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+
+Build — /tmp/etapa24-build.log
+
+> catalogos-demo@1.0.0 build
+> vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 1623 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.50 kB │ gzip:   0.31 kB
+dist/assets/index-P91MndJF.css   85.77 kB │ gzip:  15.10 kB
+dist/assets/index-BDuCZN3g.js   432.34 kB │ gzip: 107.48 kB
+✓ built in 11.69s
+
+Emulator integrado final — /tmp/etapa24-emulator-final.log
+{"tipo":"emulatorSmoke","projectId":"demo-catalogos-emulator","auth":{"clienteLoginOk":true},"firestore":{"lojaPrincipalExiste":true,"outraLojaExiste":true},"usuariosCriados":3}
+{"tipo":"pagamentoIntegration","projectId":"demo-catalogos-emulator","pedidoCriado":true,"pagamentoPendenteInicial":true,"adminOutraLojaBloqueado":true,"pagamentoConfirmadoPorAdmin":true}
+{"tipo":"whatsappIntegration","projectId":"demo-catalogos-emulator","urlGerada":true,"outraLojaBloqueada":true,"semConfirmacaoAutomatica":true}
+Etapa 19: catálogo, cadastro/login, convidado, endereço, concorrência, quatro pagamentos, retirada/entrega, WhatsApp, isolamento, admin e Security Rules aprovados.
+Firebase Web SDK: convidado, conversão em conta mantendo UID, login, troca de senha e renovação de token aprovados.
+Etapa 20 Emulator: autorização multi-loja, CRUD, paginação, configurações públicas, convidados, dashboard agregado, status, transações financeiras, integridade concorrente, token revogado e Rules aprovados.
+Etapa 21: 300 negativas reais do SDK Web (6 atores × 10 caminhos × 5 operações); 37 verificações HTTP; Admin bypass, projeções, sessão expirada/desativada, BOLA, escopo, idempotência e preços aprovados.
+Etapa 22 Emulator: 104 verificações HTTP; 43 contratos; rejeições sem persistência, PATCH parcial, centavos, anônimo, autorização, isolamento e idempotência concorrente aprovados.
+Etapa 23 Emulator: 22 verificações HTTP reais; Auth/Firestore temporários vs credenciais, recuperação após falha, abort antes de commit, resposta perdida após commit, nonce, financeiro, WhatsApp e logs seguros aprovados.
+Navegador: catálogo desktop público e sigilo
+Navegador: filtro de categoria
+Navegador: URL direta e detalhes do produto
+Navegador: carrinho persiste entre páginas, reload e histórico
+Navegador: outra loja não carrega carrinho A
+Navegador: checkout de entrega anônimo cria somente um pedido por clique duplo
+Navegador: mobile e navegação direta/reload
+Navegador: anônimo impedido de acessar painel
+Navegador: login administrativo e páginas internas
+Navegador: criação de categoria no painel reflete no catálogo
+Navegador: cadastro de produto no painel reflete preço público
+Navegador: logout administrativo oculta painel e mostra formulário de login
+Etapa24: 12 fluxos navegador; 200 verificações HTTP; benchmark concluído.
+✔  Script exited successfully (code 0)
+
+Integridade final: 24 itens no relatório; 22 identificadores preservados no ledger; scan textual sem achados; fixture SVG temporária removida; git diff --check aprovado.
+Guia externo: seção99,333236 bytes anteriores preservados; SHA256 do prefixo0968078de9da2f726a6fbae7a6c8cbfdb3663b35629281007cff59b24972d442;46411 bytes acrescentados.

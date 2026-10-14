@@ -50,7 +50,6 @@ function isActive(item, currentPath) {
     return currentPath === item.href;
   }
 
-  const sessao=useAdminSessao();
   return (
     currentPath === item.href ||
     item.aliases?.some((alias) => currentPath === alias)
@@ -59,6 +58,7 @@ function isActive(item, currentPath) {
 
 import {useAdminSessao} from "./AdminGate";
 function AdminSidebar({ currentPath, open, onNavigate }) {
+  const sessao=useAdminSessao();
   return (
     <aside
       className={
@@ -100,7 +100,7 @@ function AdminSidebar({ currentPath, open, onNavigate }) {
       <a
         href="/login"
         className="admin-sidebar-exit"
-        onClick={onNavigate}
+        onClick={event => {event.preventDefault();onNavigate?.();sessao?.sair();}}
       >
         <LogOut size={18} />
         <span>Sair</span>

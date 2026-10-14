@@ -1,16 +1,19 @@
-import React, {createContext, useContext, useState, useEffect, useCallback} from 'react';
+import React, {createContext, useContext, useState, useEffect, useCallback, useRef} from 'react';
 import {api, publico, lojaId} from '../services/api';
-import {alterarCarrinho} from '../lib/compras';
+import {alterarCarrinho,carregarCarrinho} from '../lib/compras';
 const Context = createContext(null);
 export function LojaProvider({children}) {
   const [dados, setDados] = useState(null), [erro,setErro] = useState(''), [carregando,setCarregando] = useState(true);
   const key = `catalogos:carrinho:${lojaId}`;
-  const [carrinho,setCarrinho] = useState(() => {try {const itens = JSON.parse(localStorage.getItem(key) || '[]');return Array.isArray(itens) ? itens.filter(i => typeof i.id === 'string' && Number.isInteger(i.quantidade) && i.quantidade > 0 && i.quantidade <= 99) : [];} catch {return [];}});
+  const [carrinho,setCarrinho] = useState(() => {try{return carregarCarrinho(localStorage.getItem(key));}catch{return [];}});
+  const versao=useRef(0);
   const atualizar = useCallback(async() => {
-    setCarregando(true); setErro('');
-    try {setDados(await api(publico + '/catalogo', {privado:false}));} catch(e) {setErro(e.message);} finally {setCarregando(false);}
+    const atual=++versao.current;setCarregando(true);setErro('');
+    try {const resultado=await api(publico + '/catalogo',{privado:false});if(atual===versao.current)setDados(resultado);}
+    catch(e){if(atual===versao.current)setErro(e.message);}
+    finally{if(atual===versao.current)setCarregando(false);}
   }, []);
-  useEffect(() => {atualizar(); const foco = () => atualizar(); window.addEventListener('focus',foco); return () => window.removeEventListener('focus',foco);},[atualizar]);
+  useEffect(() => {atualizar(); const foco = () => atualizar(); window.addEventListener('focus',foco); return () => {versao.current++;window.removeEventListener('focus',foco);};},[atualizar]);
   useEffect(() => {
     if (/^#[0-9a-f]{6}$/i.test(dados?.loja?.corPrimaria || "")) document.documentElement.style.setProperty("--primary",dados.loja.corPrimaria);
     return () => document.documentElement.style.removeProperty("--primary");

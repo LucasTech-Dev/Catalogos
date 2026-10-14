@@ -744,3 +744,16 @@ React API: timeout 20 s cobre sessão, token, fetch e JSON; cancelamento explíc
 Resultados finais: backend npm test 7 arquivos, HTTP 285/285, erros globais 3/3, React 65/65 em 4 arquivos, build Vite 1.623 módulos, sintaxe 30 JS backend/scripts/testes e diff--check aprovados. Suite 23 integra 19/20/21/22 e 22 cenários HTTP reais novos; regressão 21 mantém 300 negativas SDK Web e 37 verificaçõesHTTP; 22 mantém 104 verificações. Testes novos simulam abort antes de commit sem persistência e perda de resposta após commit recuperando um pedido/nonce; financeiro/WhatsApp não alteram estado por falha e isolamento permanece.
 
 Documentos atualizados por acréscimo, guia externo seção 98 com auditoria, relatório e registro permanente. Pendências de produção/legados/retenção/expiração/IAM/Rules/índices/performance/navegação/licença/Java/homologação permanecem explicitamente registradas. TTL idempotente adiado: requer janela e retenção conjunta para não permitir duplicação após expirar nonce. Nenhuma escrita real, migração, publicação, deploy, push ou Etapa 24. Etapa 23 permanece em diff local para revisão. Próxima ação: revisão do usuário, que poderá autorizar 24.
+
+
+## Etapa 24 — Testes completos, regressão e homologação local — 13/10/2026
+
+Ordem11 executada, concluída localmente com ressalvas para revisão. Checkpoint23 criado antes de alterar código: `77c8bb7`,39 arquivos, main, anterior9122f01 preservado, sem push. Baseline23 reproduzido. Relatório completo obrigatório24itens: docs/ETAPA_24_RELATORIO_FINAL.md; plano/roteiro manual e evidências em docs/evidencias-etapa24.
+
+Final: backend321/321 em8arquivos aprovados; matriz HTTP285/285; erros globais3/3; React76/76 em6arquivos; build1.623módulos. Suite24 integrada passou19–23 e nova homologação:300negações SDK,37HTTP21,104HTTP22,22HTTP23;12fluxos Chrome e200checks HTTP24 (184benchmark+16funcionais). Audit zero nas duas árvores. Todos os números distinguem natureza e inclusões sem dupla contagem.
+
+Correções demonstradas e regressivas: catálogo descarta resposta antiga; cache do carrinho sanitiza null/duplicatas; override restrito uuid11.1.1 em gaxios6.7.1 com multipart testado; sidebar renderiza sem ReferenceError e Sair encerra sessão. Novos R-018–022 resolvidos localmente. Os17anteriores permanecem:14abertos (11pendentes e R-010/012/013 em análise),3resolvidos locais23. Total22,14abertos,8resolvidos locais.
+
+Benchmark20amostras/3aquecimentos,100/1.000produtos/pedidos fictícios, catálogo/produtos/pedidos/dashboard; JSON com mediana/p95/bytes/memória/SDK. Catálogo retorna106→1.006documentos; paginados28; dashboard14agregações. Sem estimativa de fatura/capacidade concorrente. Chrome desktop/mobile emulado, URL/reload/back, admin/checkout/WhatsApp URL sem abrir; zero erros JS/console. Inspeção de screenshots não equivale a testes em celulares reais. Roteiro manual pendente.
+
+Inventário individual de cada arquivo/função no item15do relatório. Rules/índices/CSS/configuração real preservados, dist fora do diff. Segredos/ignorados/sintaxe/diff conferidos. Guia externo seção99por acréscimo com prefixo verificado. Nenhum Firebase real, migração, deploy, publicação, envio WhatsApp, push ou Etapa25. Próxima ação depende da revisão/autorização do usuário; não iniciar25.

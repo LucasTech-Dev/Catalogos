@@ -118,7 +118,7 @@ Criado em 13/10/2026 (America/Sao_Paulo), Ordem 10. Registro permanente: toda et
 - Gravidade/prioridade: Alta; prioridade de homologação, não vulnerabilidade presumida.
 - Impacto: Homologação manual pendente.
 - Etapa prevista: 24/25.
-- Status: pendente.
+- Status: em análise (Etapa 24; aprovação de produção pendente).
 - Teste de comprovação: homologação/medição autorizada na etapa prevista.
 - Resultado da correção: não resolvida no registro inicial; atualização obrigatória com evidência.
 
@@ -142,7 +142,7 @@ Criado em 13/10/2026 (America/Sao_Paulo), Ordem 10. Registro permanente: toda et
 - Gravidade/prioridade: Média; prioridade de homologação, não vulnerabilidade presumida.
 - Impacto: Hipótese de custo crescente; medir antes de classificar defeito.
 - Etapa prevista: 24/25.
-- Status: pendente.
+- Status: em análise (Etapa 24; aprovação de produção pendente).
 - Teste de comprovação: homologação/medição autorizada na etapa prevista.
 - Resultado da correção: não resolvida no registro inicial; atualização obrigatória com evidência.
 
@@ -154,7 +154,7 @@ Criado em 13/10/2026 (America/Sao_Paulo), Ordem 10. Registro permanente: toda et
 - Gravidade/prioridade: Média; prioridade de homologação, não vulnerabilidade presumida.
 - Impacto: window.location.pathname observado; comportamento ainda a avaliar.
 - Etapa prevista: 24.
-- Status: pendente.
+- Status: em análise (Etapa 24; aprovação de produção pendente).
 - Teste de comprovação: homologação/medição autorizada na etapa prevista.
 - Resultado da correção: não resolvida no registro inicial; atualização obrigatória com evidência.
 
@@ -214,3 +214,73 @@ A abertura das 17 ressalvas precedeu o checkpoint 22. Em 13/10/2026, R-015–R-0
 R-009: código atual grava assinatura/pedidoId, sem TTL/data de expiração. Não remover nonces nesta etapa: perder a associação de uma tentativa ainda recuperável pode produzir outro pedido. Antes da produção, definir janela comercial de recuperação, retenção conjunta de pedidos/nonces, dados mínimos e resposta para chave expirada; testar retries após a janela e perda de resposta antes de autorizar TTL/migração. Sem implantação ou expiração real automática nesta ordem.
 
 R-012 e R-013 permanecem hipóteses de impacto a validar: custo crescente e uso de window.location.pathname são observações de estrutura, sem defeito de desempenho/navegação comprovado nesta etapa. R-014 permanece decisão documental de distribuição/licença, sem alteração automática.
+
+
+## Atualização Etapa 24 — 13/10/2026
+
+Histórico inicial preservado. R-001–R-009, R-011 e R-014 continuam pendentes (11). R-010, R-012 e R-013 continuam abertas, agora em análise (3). R-015–R-017 permanecem resolvidas apenas localmente; regressões 23 reproduzidas. Os cinco achados abaixo foram comprovados e corrigidos localmente. Total: 22 itens, 14 abertos, 8 resolvidos localmente. Nenhum item homologado comercialmente.
+
+- R-010: Chrome headless real, desktop 1440×900/mobile emulado 390×844; screenshots e 12 fluxos automatizados. Não foram realizados testes manuais em celulares, Firefox ou Safari. Roteiro 24 preparado.
+- R-012: benchmark serial com dados fictícios no Emulator, três aquecimentos/20 amostras, volumes 100/1.000, quatro endpoints. Métricas em evidencias-etapa24/resultados.json e relatório 24; chamadas SDK/resultados não equivalem à fatura. Produção, índices, custos e capacidade concorrente ainda pendentes.
+- R-013: URL direta, reload, navegação entre páginas e histórico/back passaram no Chrome/Vite. Não houve defeito comprovado do uso de pathname que justificasse reescrever roteamento. Fallback de servidor de produção/outros navegadores pendentes. Falhas comprovadas de sidebar registradas em R-021/R-022.
+- R-015–R-017: testes globais, matriz HTTP e React mais suíte 23 foram reexecutados; continuam resolvidos no mesmo escopo local, sem alegação de homologação real.
+
+## R-018 — Resposta antiga sobrescreve catálogo recente
+
+- Data de identificação/registro: 13/10/2026, Etapa 24.
+- Arquivos envolvidos: demo/src/contexts/LojaContext.jsx; demo/test/catalogo.test.jsx.
+- Descrição/evidência: Reprodução React: resposta antiga de preço 20 substituía atualização de preço 33.
+- Gravidade/prioridade: Média.
+- Impacto: Catálogo podia exibir informação antiga após refresh concorrente.
+- Etapa prevista: 24.
+- Status: resolvida (escopo local da Etapa 24).
+- Teste de comprovação: Teste dirigido falhou antes e passou após correção.
+- Resultado da correção: Versionar requisições e descartar respostas obsoletas, inclusive após unmount. Não implica homologação comercial.
+
+## R-019 — Carrinho corrompido ou duplicado no cache
+
+- Data de identificação/registro: 13/10/2026, Etapa 24.
+- Arquivos envolvidos: demo/src/lib/compras.js; demo/src/contexts/LojaContext.jsx; demo/test/catalogo.test.jsx.
+- Descrição/evidência: Uma entrada null descartava também itens válidos; IDs duplicados eram aceitos.
+- Gravidade/prioridade: Média.
+- Impacto: Perda local de carrinho válido e representação duplicada.
+- Etapa prevista: 24.
+- Status: resolvida (escopo local da Etapa 24).
+- Teste de comprovação: Teste dirigido cache null/duplicado falhou antes; máximo, remoção e separação por loja passaram.
+- Resultado da correção: Sanitização por entrada, IDs/quantidades válidos, deduplicação e apenas id/quantidade persistidos. Não implica homologação comercial.
+
+## R-020 — Aviso npm transitive uuid/gaxios
+
+- Data de identificação/registro: 13/10/2026, Etapa 24.
+- Arquivos envolvidos: backend/package.json; backend/package-lock.json; backend/test/dependenciasCompatibilidade.test.js.
+- Descrição/evidência: npm audit apontou duas ocorrências moderadas (uuid e gaxios), GHSA-w5hq-g745-h8pq. Gaxios utiliza v4; não foi demonstrada exploração na aplicação.
+- Gravidade/prioridade: Média.
+- Impacto: Dependência transitiva com alerta conhecido; manter acompanhamento.
+- Etapa prevista: 24.
+- Status: resolvida (escopo local da Etapa 24).
+- Teste de comprovação: Audit final zero nas duas árvores; multipart gaxios/v4 testado sem rede e Firebase Emulator passou.
+- Resultado da correção: Override restrito a gaxios6.7.1 usando uuid11.1.1, sem atualizar frameworks maiores. Não implica homologação comercial.
+
+## R-021 — Sidebar administrativa impede renderização
+
+- Data de identificação/registro: 13/10/2026, Etapa 24.
+- Arquivos envolvidos: demo/src/components/admin/AdminSidebar.jsx; demo/test/sidebar.test.jsx.
+- Descrição/evidência: Chrome após login apresentou painel vazio; React reproduziu ReferenceError sessao is not defined. Hook estava no helper isActive.
+- Gravidade/prioridade: Alta.
+- Impacto: Administrador não conseguia usar painel.
+- Etapa prevista: 24.
+- Status: resolvida (escopo local da Etapa 24).
+- Teste de comprovação: Teste de renderização falhou antes e passou após; Chrome login e páginas administrativas passaram.
+- Resultado da correção: Mover useAdminSessao para o componente, helper de rota puro; preservar visual. Não implica homologação comercial.
+
+## R-022 — Sair da sidebar mantém sessão autenticada
+
+- Data de identificação/registro: 13/10/2026, Etapa 24.
+- Arquivos envolvidos: demo/src/components/admin/AdminSidebar.jsx; demo/test/sidebar.test.jsx.
+- Descrição/evidência: Teste reproduziu zero chamadas a sessao.sair; link somente navegava a /login.
+- Gravidade/prioridade: Alta.
+- Impacto: Sessão administrativa continuava disponível após intenção explícita de sair.
+- Etapa prevista: 24.
+- Status: resolvida (escopo local da Etapa 24).
+- Teste de comprovação: Teste de logout falhou antes e passou após; Chrome confirmou painel fechado e formulário de login.
+- Resultado da correção: Botão/link Sair chama o encerramento da sessão compartilhada, mantendo callback de navegação. Não implica homologação comercial.
