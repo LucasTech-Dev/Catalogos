@@ -1,3 +1,4 @@
+const validarEntrada = require('../middleware/validacaoMiddleware');
 const express = require("express");
 
 const authMiddleware = require("../middleware/authMiddleware");
@@ -16,6 +17,7 @@ router.get(
   "/:lojaId",
   authMiddleware,
   verificarLojaDoUsuario,
+  validarEntrada,
   buscarLoja
 );
 
@@ -27,6 +29,7 @@ router.patch(
     exigirLoja: true,
   }),
   verificarLojaDoUsuario,
+  validarEntrada,
   atualizarPagamentos
 );
 

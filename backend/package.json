@@ -15,7 +15,8 @@
     "firebase:emulator:etapa19": "node scripts/etapa19-emulator-suite.js",
     "firebase:emulator:admin": "node scripts/admin-emulator-integration.js",
     "firebase:emulator:etapa20": "node scripts/etapa20-emulator-suite.js",
-    "firebase:emulator:etapa21": "node scripts/etapa21-emulator-suite.js"
+    "firebase:emulator:etapa21": "node scripts/etapa21-emulator-suite.js",
+    "firebase:emulator:etapa22": "node scripts/etapa22-emulator-suite.js"
   },
   "keywords": [],
   "author": "",

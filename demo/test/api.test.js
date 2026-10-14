@@ -41,3 +41,19 @@ it('não envia dados quando UID muda durante obtenção do token',async()=>{
   const chamada=api('/enderecos',{method:'POST',body:{rua:'Rua privada'}});await vi.waitFor(()=>expect(resolver).toBeTypeOf('function'));auth.currentUser={uid:'B'};resolver('token-antigo');
   await expect(chamada).rejects.toMatchObject({status:409});expect(fetch).not.toHaveBeenCalled();
 });
+
+it('Etapa 22: erro de validação mantém mensagem e não repete mutação nem invalida sessão',async()=>{
+  const getIdToken=vi.fn().mockResolvedValue('token');sessaoExistente.mockResolvedValue({getIdToken});
+  global.fetch=vi.fn().mockResolvedValue({status:400,ok:false,json:async()=>({error:'Preço deve possuir no máximo duas casas decimais.'})});
+  const listener=vi.fn();window.addEventListener('admin:sessao-invalida',listener);
+  try {
+    await expect(api('/admin/lojas/loja/produtos',{administrativo:true,method:'POST',body:{nome:'Açaí',preco:1.001,categoriaId:'cat'}})).rejects.toMatchObject({status:400,message:'Preço deve possuir no máximo duas casas decimais.'});
+    expect(fetch).toHaveBeenCalledOnce();expect(listener).not.toHaveBeenCalled();expect(getIdToken.mock.calls).toEqual([[false]]);
+  } finally {window.removeEventListener('admin:sessao-invalida',listener);}
+});
+it('Etapa 22: checkout envia apenas contrato público e conserva Unicode e chave',async()=>{
+  sessao.mockResolvedValue({getIdToken:vi.fn().mockResolvedValue('token')});global.fetch=vi.fn().mockResolvedValue({status:201,ok:true,json:async()=>({id:'pedido'})});
+  const body={itens:[{produtoId:'produto',quantidade:2}],tipoEntrega:'retirada',cliente:{nome:'João D’Ávila 🍕',telefone:'11999999999'},pagamento:{forma:'pix'},observacao:'Sem cebola\nObrigado'};
+  await api('/lojas/loja/pedidos',{method:'POST',body,chave:'etapa22-chave-0001'});
+  expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual(body);expect(fetch.mock.calls[0][1].headers['Idempotency-Key']).toBe('etapa22-chave-0001');
+});

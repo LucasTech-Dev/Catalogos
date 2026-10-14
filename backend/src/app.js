@@ -24,9 +24,10 @@ app.use((req,res,next) => {
   next();
 });
 app.use(express.json({limit: '64kb'}));
+app.use(require('./middleware/validacaoMiddleware').estrutura);
 app.use('/publico/lojas', require('./routes/publicoRoutes'));
 
-app.get("/", (req, res) => {
+app.get("/", require("./middleware/validacaoMiddleware"), (req, res) => {
   return res.status(200).json({
     message: "API do Catálogo funcionando.",
   });
@@ -43,8 +44,10 @@ app.use("/lojas", pedidoRoutes);
 
 app.use((error,req,res,next)=>{
   if(res.headersSent)return next(error);
-  const status=error.type==='entity.parse.failed'?400:error.type==='entity.too.large'?413:500;
-  return res.status(status).json({error:status===400?'JSON inválido.':status===413?'Requisição excede o tamanho permitido.':'Não foi possível concluir a requisição.'});
+  const tipos={'entity.parse.failed':400,'entity.too.large':413,'charset.unsupported':415,'encoding.unsupported':415,'request.aborted':400,'request.size.invalid':400};
+  const status=error instanceof URIError || ['Z_DATA_ERROR','Z_BUF_ERROR'].includes(error.code)?400:tipos[error.type] || 500;
+  const mensagens={400:'JSON inválido.',413:'Requisição excede o tamanho permitido.',415:'Codificação da requisição não suportada.'};
+  return res.status(status).json({error:mensagens[status] || 'Não foi possível concluir a requisição.'});
 });
 
 module.exports = app;

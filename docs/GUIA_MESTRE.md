@@ -651,3 +651,22 @@ Validação final: npm backend test 5 arquivos; HTTP 69 testes/subtestes; React 
 Achados altos no escopo corrigidos, sem pendência crítica/alta identificada; não declara segurança universal de produção. Pendências: Rules/índices reais autorizados, IAM/credenciais, provedores/domínios/admin real, CORS HTTPS, dados legados/loja, homologação navegador/celular, retenção/monitoramento/abuso e Java permanente. Sem novas dependências/CSS, deploy, publicação, escrita/migração Firebase real, promoção de admin real ou push remoto.
 
 Guia externo atualizado na seção 96. Próxima ação: revisão do usuário; Etapa 22 depende de nova autorização e não foi iniciada.
+
+
+## Etapa 22 — Validação global de entradas — 13/10/2026
+
+Ordem 09 autorizada após aprovação com ressalvas da Etapa 21. Status: concluída localmente, disponível para revisão; Etapa 23 não iniciada.
+
+Checkpoint obrigatório ANTES de modificar código: branch main, diff 21 e documentação revisados, scan de 64 arquivos sem padrões privados encontrados, backend/HTTP69/React36/build/suíte integrada21 aprovados. Commit local exclusivo `c2a0cbf` — `security(backend): conclui auditoria e protecoes da etapa 21`. Commits anteriores preservados; sem push. Esta entrada sucede o registro histórico da Etapa 21 em diff local.
+
+Auditoria completa, matriz das 43 rotas, corpos/params/queries/erros e limites: `docs/ETAPA_22_AUDITORIA_VALIDACOES.md`. Relatório de 18 itens e inventário de cada arquivo: `docs/ETAPA_22_RELATORIO_FINAL.md`.
+
+Implementado: seis módulos de schemas em backend/src/validators e middleware reutilizável, presente em todas as rotas, com teste de correspondência entre inventário e routers reais. Validação de corpo/path/query, tipos, obrigatórios/opcionais, campos desconhecidos e aninhados, Unicode, IDs/chaves, controles, CEP/UF/telefone, arrays/quantidades e centavos. Guarda global: 64 KiB JSON, profundidade 8 e 5.000 nós. Pedido: 1–50 produtos distintos, 1–99 por item e até 500 unidades. Monetários recebidos: 0–1.000.000, sem arredondar frações de centavo. Período/dashboard até 31 dias e paginação 1–100. Parsing inválido/compactação/codificação: 400/413/415 genéricos; demais erros existentes preservados, sem antecipar Etapa 23.
+
+PATCH de configuração mescla entrega/retirada/pagamentos/endereço/horários e dias omitidos em transação, validando o resultado antes de gravar. Flag cartao legada convertida ao editar formas para permitir desativação explícita. Desconhecidos agora 400; dicas conhecidas clienteId/precoUnitario/total permanecem validadas e não controlam identidade/cálculo público. Consulta de pedidos de cliente não aceita filtros admin; admin informa limite para cursor/status. Contratos válidos do React preservados, sem mudança de design ou novas dependências.
+
+Resultados: npm backend test 6 arquivos aprovados; HTTP detalhado 253/253; schemas diretos 5/5; React 38/38 em 4 arquivos; build Vite 1.623 módulos aprovado. Suite22 completa inclui regressões19/20/21, 300 negativas SDK Web e 101 verificações novas da 22; integração específica final ampliada a 104 verificações, incluindo transporte HTTP real de JSON inválido/grande, charset e gzip. Rejeições comparadas a snapshots sem persistência; idempotência 5x resulta em um pedido/nonce, total confiável 47,98; isolamento, autorização e financeiro preservados. Sintaxe de 30 JS backend/scripts/testes e diff --check aprovados; revisão de padrões privados sem achados.
+
+Documentação oficial preservada por acréscimo; guia externo atualizado na seção 97 com relatório completo e auditoria. Etapa 22 permanece em alterações locais para revisão, além do checkpoint21 já commitado. Nenhuma publicação, deploy, migração, escrita real, promoção de role ou push.
+
+Pendências anteriores mantidas: publicação Rules/índices mediante ordem futura, IAM/credenciais, provedores/domínios/admin/CORS reais, controle de abuso, dados legados incompatíveis, retenção/auditoria financeira, homologação navegador/celular e Java permanente. Limites comerciais precisam de homologação por estabelecimento. A aprovação local não libera produção. Recomendação: revisar a Etapa 22; iniciar Etapa 23 apenas após nova autorização.

@@ -16,6 +16,7 @@ async function validarItensDoPedido(lojaId, itens, tx = null) {
     throw new ErroDominio("O pedido deve possuir pelo menos um item.");
   }
 
+  require('../validators/pedidos').itens(itens);
   const itensValidados = [];
 
   for (const item of itens) {
@@ -70,6 +71,7 @@ async function validarItensDoPedido(lojaId, itens, tx = null) {
       );
     }
 
+    require('../validators/base').dinheiro(produto.preco,'Preço do produto');
     if(produto.categoriaId) {
       require('../lib/identificadores').identificador(produto.categoriaId);
       const ref=db.collection('lojas').doc(lojaId).collection('categorias').doc(produto.categoriaId);

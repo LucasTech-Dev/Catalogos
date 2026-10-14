@@ -1,3 +1,4 @@
+const validarEntrada = require('../middleware/validacaoMiddleware');
 const express = require("express");
 
 const authMiddleware = require("../middleware/authMiddleware");
@@ -19,6 +20,7 @@ router.get(
   authMiddleware,
   verificarLojaDoUsuario,
   authorization({roles: ["admin"]}),
+  validarEntrada,
   listarClientes
 );
 
@@ -27,6 +29,7 @@ router.get(
   authMiddleware,
   verificarLojaDoUsuario,
   proprioCliente,
+  validarEntrada,
   buscarCliente
 );
 

@@ -28,6 +28,7 @@ async function buscarLojaPorId(lojaId) {
 }
 
 async function atualizarPagamentosDaLoja(lojaId, pagamentos) {
+  require("../lib/identificadores").identificador(lojaId);
   if (!lojaId || typeof lojaId !== "string") {
     throw new ErroDominio("lojaId é obrigatório.");
   }

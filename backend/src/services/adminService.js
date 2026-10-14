@@ -9,6 +9,7 @@ const colecao=(loja,nome)=>lojaRef(loja).collection(nome);
 async function existeLoja(loja) {if (!(await lojaRef(loja).get()).exists) throw v.erro('Loja não encontrada.',404);}
 async function buscar(loja,nome,id) {const doc=await colecao(loja,nome).doc(v.id(id)).get();if (!doc.exists) throw v.erro('Registro não encontrado.',404);return {...doc.data(),id:doc.id};}
 async function listar(loja,nome,opcoes={}) {
+  require('../validators/consultas').consulta(opcoes,['limite','cursor',...(nome==='pedidos'?['status']:nome==='produtos'?['categoriaId']:nome==='categorias'?['contagem']:[])]);
   await existeLoja(loja);
   const limite=Number(opcoes.limite || 25);if (!Number.isInteger(limite) || limite<1 || limite>100) throw v.erro('Limite deve estar entre 1 e 100.');
   let query=colecao(loja,nome);
@@ -56,7 +57,33 @@ async function excluirCategoria(loja,id) {
   await db.runTransaction(async tx=>{const atual=await tx.get(ref);const produtos=await tx.get(colecao(loja,'produtos').where('categoriaId','==',id).limit(1));if(!atual.exists)throw v.erro('Categoria não encontrada.',404);if(!produtos.empty)throw v.erro('Categoria possui produtos vinculados. Mova-os antes de excluir.',409);tx.delete(ref);});
 }
 async function buscarLoja(loja) {const doc=await lojaRef(loja).get();if(!doc.exists)throw v.erro('Loja não encontrada.',404);return require('../lib/projecoes').loja({...doc.data(),id:doc.id});}
-async function salvarLoja(loja,dados) {const valores=v.loja(dados);await existeLoja(loja);await lojaRef(loja).update({...valores,atualizadoEm:new Date()});return buscarLoja(loja);}
+async function salvarLoja(loja,dados) {
+  const valores=v.loja(dados),ref=lojaRef(loja);
+  await db.runTransaction(async tx=>{
+    const doc=await tx.get(ref);if(!doc.exists)throw v.erro('Loja não encontrada.',404);
+    const atual=doc.data(),novo={...atual,...valores};
+    for(const campo of ['entrega','retirada','pagamentos','endereco','horarios']) {
+      if(valores[campo] && typeof valores[campo]==='object') {
+        novo[campo]={...(typeof atual[campo]==='object'?atual[campo]:{}),...valores[campo]};
+        if(campo==='horarios')for(const dia of Object.keys(valores.horarios))novo.horarios[dia]={...(typeof atual.horarios?.[dia]==='object'?atual.horarios[dia]:{}),...valores.horarios[dia]};
+      }
+    }
+    if(valores.pagamentos && atual.pagamentos?.cartao===true) {
+      for(const forma of ['cartao_credito','cartao_debito'])novo.pagamentos[forma]=valores.pagamentos[forma] ?? true;
+      delete novo.pagamentos.cartao;
+    }
+    if(valores.horarios)for(const dia of Object.keys(valores.horarios)) {
+      const h=novo.horarios[dia];
+      if(h.fechado!==true && (!h.abertura || !h.fechamento || h.abertura===h.fechamento))throw v.erro('Informe abertura e fechamento diferentes.');
+    }
+    if(novo.entrega?.habilitada===true)require('../validators/base').dinheiro(novo.entrega.taxa ?? novo.taxaEntrega,'Taxa de entrega');
+    if(novo.entrega?.habilitada===false && novo.retirada?.habilitada===false)throw v.erro('Habilite entrega ou retirada.');
+    if(valores.pagamentos && !require('./pagamentoService').FORMAS_PAGAMENTO.some(forma=>require('./pagamentoService').formaHabilitadaNaLoja(forma,novo.pagamentos)))throw v.erro('Habilite ao menos uma forma de pagamento.');
+    const atualizar={...valores,atualizadoEm:new Date()};
+    for(const campo of ['entrega','retirada','pagamentos','endereco','horarios'])if(valores[campo] && typeof valores[campo]==='object')atualizar[campo]=novo[campo];
+    tx.update(ref,atualizar);
+  });return buscarLoja(loja);
+}
 function periodo(opcoes) {
   const hoje=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
   const inicio=opcoes.inicio || hoje,fim=opcoes.fim || inicio;

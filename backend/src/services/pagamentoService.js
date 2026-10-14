@@ -129,6 +129,7 @@ function validarConfiguracaoPagamentos(dados) {
     );
   }
 
+  require('../validators/base').campos(dados,FORMAS_PAGAMENTO);
   const configuracao = {};
 
   for (const forma of FORMAS_PAGAMENTO) {
@@ -144,6 +145,7 @@ function validarConfiguracaoPagamentos(dados) {
     configuracao[forma] = dados[forma] === true;
   }
 
+  if(!Object.values(configuracao).some(Boolean))throw new ErroDominio("Habilite ao menos uma forma de pagamento.");
   return configuracao;
 }
 
@@ -152,6 +154,9 @@ function validarPagamentoInicial({
   loja,
   valorCalculado,
 }) {
+  const validacao=require('../validators/base');
+  validacao.dinheiro(valorCalculado,'Valor calculado',validacao.LIMITES.monetario*(validacao.LIMITES.quantidadePedido+1));
+  validacao.estrutura(dadosPagamento);
   const campoSensivel = detectarDadosSensiveis(dadosPagamento);
 
   if (campoSensivel) {
@@ -168,6 +173,7 @@ function validarPagamentoInicial({
     throw new ErroDominio("Dados de pagamento são obrigatórios.");
   }
 
+  require('../validators/pedidos').pagamento(dadosPagamento);
   const forma = normalizarFormaPagamento(dadosPagamento.forma);
 
   if (
@@ -222,6 +228,8 @@ function validarTransicaoPagamento(statusAtual, novoStatus) {
 }
 
 module.exports = {
+  detectarDadosSensiveis,
+  formaHabilitadaNaLoja,
   FORMAS_PAGAMENTO,
   STATUS_PAGAMENTO,
   TRANSICOES_PAGAMENTO,

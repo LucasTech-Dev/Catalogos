@@ -254,9 +254,9 @@ function prepararDadosBase() {
   });
 }
 
-function requisitarApp({ metodo, url, corpo, headers = {} }) {
+function requisitarApp({ metodo, url, corpo, corpoRaw, headers = {} }) {
   return new Promise((resolve) => {
-    const body = corpo ? JSON.stringify(corpo) : "";
+    const body = corpoRaw !== undefined ? corpoRaw : corpo !== undefined ? JSON.stringify(corpo) : "";
     const req = new Readable({
       read() {
         this.push(body);
@@ -1115,7 +1115,7 @@ test('Etapa 19 — catálogo, convidados e isolamento', async t => {
     assert.equal((await get('/publico/lojas/loja-demo/me/enderecos',null)).status,401);
   });
   await t.test('convidado usa UID validado, pagamento pendente e nunca é admin', async() => {
-    prepararDadosBase();const resposta = await post({tipoEntrega:'retirada',clienteId:'cliente-1',role:'admin',itens:[{produtoId:'produto-ativo',quantidade:1,preco:0}],pagamento:{forma:'pix'}});
+    prepararDadosBase();assert.equal((await post({tipoEntrega:'retirada',role:'admin',itens:[{produtoId:'produto-ativo',quantidade:1}],pagamento:{forma:'pix'}})).status,400);assert.equal(estado.pedidosCriados.length,0);const resposta = await post({tipoEntrega:'retirada',clienteId:'cliente-1',itens:[{produtoId:'produto-ativo',quantidade:1}],pagamento:{forma:'pix'}});
     assert.equal(resposta.status,201);assert.equal(resposta.dados.clienteId,'convidado-1');assert.equal(resposta.dados.total,20);assert.equal(resposta.dados.pagamento.status,'pendente');
     assert.equal((await get('/lojas/loja-demo/pedidos/'+resposta.dados.id,'token-cliente')).status,404);
     assert.equal((await get('/lojas/loja-demo/pedidos/'+resposta.dados.id+'/whatsapp','token-convidado')).status,200);
@@ -1264,4 +1264,136 @@ test('Etapa 21 — falha interna não expõe segredo pela API ou logs',async()=>
   firestoreFake.collection=()=>{throw new Error('token=sentinela-secreta credencial=sentinela-secreta');};console.error=valor=>{logs+=valor;};
   try{const r=await requisitarApp({metodo:'GET',url:'/publico/lojas/loja-demo/catalogo',headers:{}});assert.equal(r.status,500);assert.doesNotMatch(JSON.stringify(r.dados)+logs,/sentinela-secreta/);}
   finally{firestoreFake.collection=original;console.error=logger;}
+});
+
+const contratos22=require('../src/validators/contratos');
+const caminho22=contrato=>contrato.caminho.replace(/:([A-Za-z]+)/g,(_,nome)=>({lojaId:'loja-demo',clienteId:'cliente-1',produtoId:'produto-ativo',categoriaId:'categoria-22',enderecoId:'endereco-1',pedidoId:'pedido-22',id:'recurso-22',chave:'etapa22-chave-0001'}[nome]));
+const headers22=token=>({'content-type':'application/json',authorization:`Bearer ${token || 'token-admin'}`,'idempotency-key':'etapa22-chave-0001'});
+const enviar22=(metodo,url,corpo,token='token-admin')=>requisitarApp({metodo,url,corpo,headers:headers22(token)});
+function base22() {
+  prepararDadosBase();definirDocumento('lojas/loja-demo/clientes/cliente-1',{nome:'Cliente Teste',telefone:'11999999999'});definirDocumento('lojas/loja-demo/categorias/categoria-22',{nome:'Categoria',ativo:true});
+  estado.documentos.get('lojas/loja-demo/produtos/produto-ativo').categoriaId='categoria-22';
+  definirPedidoExistente('pedido-22');
+}
+function inalterado22(antes) {assert.deepEqual([...estado.documentos],antes,'Dados inválidos não podem modificar documentos.');assert.equal(estado.pedidosCriados.length,0);}
+
+test('Etapa 22 — todas as rotas rejeitam queries desconhecidas antes de operações',async t=>{
+  for(const contrato of contratos22)await t.test(contrato.metodo+' '+contrato.caminho,async()=>{
+    base22();const antes=structuredClone([...estado.documentos]);
+    const r=await enviar22(contrato.metodo,caminho22(contrato)+'?inesperado=segredo',{interno:true});
+    assert.equal(r.status,400);assert.equal(typeof r.dados.error,'string');assert.doesNotMatch(JSON.stringify(r.dados),/segredo|stack/);inalterado22(antes);
+  });
+});
+
+test('Etapa 22 — toda mutação com schema rejeita corpos sem contrato',async t=>{
+  for(const contrato of contratos22.filter(c=>c.corpo))await t.test(contrato.metodo+' '+contrato.caminho,async()=>{
+    for(const corpo of [{},{interno:true},[],null,'texto',42]) {
+      base22();const antes=structuredClone([...estado.documentos]);
+      const r=await enviar22(contrato.metodo,caminho22(contrato),corpo);assert.equal(r.status,400,JSON.stringify(corpo));inalterado22(antes);
+    }
+  });
+});
+
+test('Etapa 22 — pedidos invalidam todo o payload antes de persistir',async t=>{
+  const pedido={tipoEntrega:'retirada',itens:[{produtoId:'produto-ativo',quantidade:1}],cliente:{nome:'João D’Ávila 🍕',telefone:'+55 (11) 99999-9999'},pagamento:{forma:'pix'}};
+  const casos=[
+    ['array vazio',{itens:[]}],['array excessivo',{itens:Array.from({length:51},(_,i)=>({produtoId:'produto-'+i,quantidade:1}))}],
+    ['produto repetido',{itens:[pedido.itens[0],pedido.itens[0]]}],['quantidade fracionária',{itens:[{produtoId:'produto-ativo',quantidade:1.5}]}],
+    ['quantidade textual',{itens:[{produtoId:'produto-ativo',quantidade:'1'}]}],['quantidade negativa',{itens:[{produtoId:'produto-ativo',quantidade:-1}]}],
+    ['item desconhecido',{itens:[{produtoId:'produto-ativo',quantidade:1,total:0}]}],['item null',{itens:[null]}],
+    ['excesso unidades',{itens:Array.from({length:6},(_,i)=>({produtoId:'produto-'+i,quantidade:99}))}],
+    ['ID com barra',{itens:[{produtoId:'produto/privado',quantidade:1}]}],['observação grande',{observacao:'x'.repeat(1001)}],
+    ['controle Unicode',{observacao:'x\u0000'}],['surrogate isolado',{observacao:'\ud800'}],['cliente administrativo',{cliente:{...pedido.cliente,role:'admin'}}],
+    ['cliente tipo inválido',{cliente:[]}],['senha aninhada',{pagamento:{forma:'pix',complemento:{senha:'sentinela'}}}],
+    ['confirmação',{pagamento:{forma:'pix',status:'confirmado'}}],['valor null',{pagamento:{forma:'pix',valor:null}}],
+    ['pagamento extra',{pagamento:{forma:'pix',gateway:'sentinela'}}],['desconto indevido',{desconto:1}],['taxa indevida',{taxaEntrega:1}],
+    ['monetário fracionado',{total:1.001}],['forma contraditória',{formaPagamento:'dinheiro'}],['campo interno',{criadoEm:'2026-10-13'}],
+    ['número não finito JSON',{total:Infinity}],['objeto profundo',{extra:{a:{a:{a:{a:{a:{a:{a:{a:{a:1}}}}}}}}}}],
+  ];
+  for(const [nome,alteracoes] of casos)await t.test(nome,async()=>{
+    base22();const antes=structuredClone([...estado.documentos]);const r=await enviar22('POST','/lojas/loja-demo/pedidos',{...pedido,...alteracoes},'token-cliente');
+    assert.equal(r.status,400);inalterado22(antes);
+  });
+  await t.test('Unicode legítimo, observação multilinha e pedido anônimo válidos',async()=>{
+    base22();const r=await enviar22('POST','/lojas/loja-demo/pedidos',{...pedido,observacao:'Sem cebola\nObrigado 🍕'},'token-convidado');
+    assert.equal(r.status,201);assert.equal(r.dados.total,20);assert.equal(r.dados.clienteId,'convidado-1');
+  });
+  await t.test('item posterior inexistente não causa escrita parcial',async()=>{
+    base22();const antes=structuredClone([...estado.documentos]);const r=await enviar22('POST','/lojas/loja-demo/pedidos',{...pedido,itens:[pedido.itens[0],{produtoId:'ausente',quantidade:1}]},'token-cliente');assert.equal(r.status,400);inalterado22(antes);
+  });
+});
+
+test('Etapa 22 — perfil e endereço brasileiros',async t=>{
+  const endereco={rua:'Rua São José',numero:'s/n',bairro:'Centro',cidade:'São Paulo',uf:'sp',cep:'01001-000',complemento:'Fundos'};
+  for(const [nome,corpo] of [['UF inexistente',{...endereco,uf:'XX'}],['CEP inválido',{...endereco,cep:'123'}],['endereço vazio',{...endereco,rua:' '}],['identidade injetada',{...endereco,clienteId:'alheio'}],['complemento null',{...endereco,complemento:null}]])await t.test(nome,async()=>{
+    base22();const antes=structuredClone([...estado.documentos]);assert.equal((await enviar22('POST','/publico/lojas/loja-demo/me/enderecos',corpo,'token-cliente')).status,400);inalterado22(antes);
+  });
+  await t.test('salva endereço legítimo e normaliza UF',async()=>{base22();const r=await enviar22('POST','/publico/lojas/loja-demo/me/enderecos',endereco,'token-convidado');assert.equal(r.status,201);assert.equal(r.dados.uf,'SP');});
+  for(const telefone of ['00000000000','telefone qualquer','123',null])await t.test('telefone inválido '+telefone,async()=>{base22();const antes=structuredClone([...estado.documentos]);assert.equal((await enviar22('PUT','/publico/lojas/loja-demo/me',{nome:'José',telefone},'token-cliente')).status,400);inalterado22(antes);});
+});
+
+test('Etapa 22 — contratos administrativos, precisão e PATCH parcial',async t=>{
+  for(const preco of [-1,0.001,1000000.01,'12.50',null])await t.test('preço inválido '+preco,async()=>{
+    base22();const antes=structuredClone([...estado.documentos]);assert.equal((await enviar22('POST','/admin/lojas/loja-demo/produtos',{nome:'Produto',preco,categoriaId:'categoria-22'})).status,400);inalterado22(antes);
+  });
+  await t.test('centavos não são arredondados inesperadamente',async()=>{base22();const r=await enviar22('POST','/admin/lojas/loja-demo/produtos',{nome:'Açaí 🍇',preco:19.99,categoriaId:'categoria-22',ingredientes:['Açaí','Leite']} );assert.equal(r.status,201);assert.equal(r.dados.preco,19.99);});
+  const invalidos=[{ativo:'false'},{imagem:'javascript:alert(1)'},{imagem:'https://senha:token@example.com/a'},{ingredientes:Array(51).fill('x')},{categoriaId:'ausente'},{nome:'x'.repeat(201)}];
+  for(const dados of invalidos)await t.test('produto parcial inválido '+Object.keys(dados)[0],async()=>{base22();const antes=structuredClone([...estado.documentos]);assert.equal((await enviar22('PATCH','/admin/lojas/loja-demo/produtos/produto-ativo',dados)).status,400);inalterado22(antes);});
+  for(const dados of [{nome:' '},{ordem:-1},{ordem:1.5},{ordem:10001},{ativo:null},{icone:'x'.repeat(51)}])await t.test('categoria inválida '+JSON.stringify(dados),async()=>{base22();const antes=structuredClone([...estado.documentos]);assert.equal((await enviar22('POST','/admin/lojas/loja-demo/categorias',{nome:'Categoria',...dados})).status,400);inalterado22(antes);});
+  await t.test('PATCH mantém taxa, pagamentos, endereço e dias omitidos',async()=>{
+    base22();const loja=estado.documentos.get('lojas/loja-demo');loja.entrega={habilitada:true,taxa:5};loja.horarios={segunda:{fechado:false,abertura:'08:00',fechamento:'18:00'},terca:{fechado:true}};loja.endereco={rua:'Rua São José',cidade:'São Paulo',cep:'01001-000'};
+    const r=await enviar22('PATCH','/admin/lojas/loja-demo/loja',{entrega:{habilitada:false},pagamentos:{pix:false},endereco:{numero:'s/n'},horarios:{segunda:{abertura:'09:00'}}});
+    assert.equal(r.status,200);assert.equal(r.dados.entrega.taxa,5);assert.equal(r.dados.pagamentos.dinheiro,true);assert.equal(r.dados.endereco.rua,'Rua São José');assert.equal(r.dados.horarios.segunda.fechamento,'18:00');assert.equal(r.dados.horarios.terca.fechado,true);
+  });
+  for(const dados of [{entrega:{habilitada:false},retirada:{habilitada:false}},{pagamentos:{pix:false,dinheiro:false,cartao_credito:false,cartao_debito:false}},{horarios:{segunda:{fechado:false,abertura:'10:00',fechamento:'10:00'}}},{horarios:{segunda:{fechado:false,abertura:'25:00',fechamento:'18:00'}}},{entrega:{taxa:0.001}},{pagamentos:{token:'sentinela'}},{endereco:{uf:'XX'}},{corPrimaria:['#abcdef']}])await t.test('configuração inconsistente '+JSON.stringify(dados),async()=>{base22();const antes=structuredClone([...estado.documentos]);assert.equal((await enviar22('PATCH','/admin/lojas/loja-demo/loja',dados)).status,400);inalterado22(antes);});
+});
+
+test('Etapa 22 — queries, parsing, IDs e autorização',async t=>{
+  for(const query of ['limite=1&limite=2','limite=1.5','limite=1e2','limite=','limite=101','cursor=x%2Fy','contagem=2','categoriaId[]=x'])await t.test(query,async()=>{base22();const path=query.startsWith('contagem')?'categorias':'produtos';assert.equal((await enviar22('GET','/admin/lojas/loja-demo/'+path+'?'+query)).status,400);});
+  for(const query of ['inicio=2026-02-30','inicio=2026-10-13&fim=2026-10-12','inicio=2026-01-01&fim=2026-02-01','inicio=2026-01-01&inicio=2026-01-02'])await t.test(query,async()=>{base22();assert.equal((await enviar22('GET','/admin/lojas/loja-demo/dashboard?'+query)).status,400);});
+  for(const id of ['x%2Fy','x%5Cy','%00','%20','x'.repeat(129),'%ED%A0%80'])await t.test('id '+id,async()=>{base22();assert.equal((await enviar22('GET','/publico/lojas/'+id+'/catalogo')).status,400);});
+  for(const chave of ['curta','x'.repeat(101),'../admin'])await t.test('chave inválida '+chave,async()=>{base22();assert.equal((await requisitarApp({metodo:'POST',url:'/lojas/loja-demo/pedidos',corpo:{tipoEntrega:'retirada',itens:[{produtoId:'produto-ativo',quantidade:1}],pagamento:{forma:'pix'}},headers:{...headers22('token-cliente'),'idempotency-key':chave}})).status,400);});
+  await t.test('JSON realmente inválido e excedente',async()=>{base22();for(const [raw,status] of [['{"nome":',400],['{"nome":"'+'x'.repeat(70000)+'"}',413]]){const r=await requisitarApp({metodo:'POST',url:'/admin/lojas/loja-demo/produtos',corpoRaw:raw,headers:headers22()});assert.equal(r.status,status);assert.doesNotMatch(JSON.stringify(r.dados),/SyntaxError|stack|backend/);}});
+  await t.test('prototype e profundidade controlados sem persistência',async()=>{base22();const antes=structuredClone([...estado.documentos]);const r=await requisitarApp({metodo:'PUT',url:'/publico/lojas/loja-demo/me',corpoRaw:'{"nome":"Cliente","telefone":"11999999999","__proto__":{"role":"admin"}}',headers:headers22('token-cliente')});assert.equal(r.status,400);inalterado22(antes);assert.equal({}.role,undefined);});
+  await t.test('validação não substitui autorização',async()=>{base22();for(const token of ['token-cliente','token-convidado','token-admin-outra-loja']){const r=await enviar22('PATCH','/admin/lojas/loja-demo/loja',{interno:true},token);assert.equal(r.status,403,token);}assert.equal((await requisitarApp({metodo:'POST',url:'/lojas/loja-demo/pedidos',corpo:{interno:true},headers:{'content-type':'application/json'}})).status,401);});
+  await t.test('filtros não são silenciosamente ignorados',async()=>{base22();assert.equal((await enviar22('GET','/lojas/loja-demo/pedidos?limite=25',undefined,'token-cliente')).status,400);assert.equal((await enviar22('GET','/lojas/loja-demo/pedidos?status=recebido')).status,400);});
+});
+
+test('Etapa 22 — leitura válida de todos os contratos GET',async t=>{
+  for(const contrato of contratos22.filter(c=>c.metodo==='GET'))await t.test(contrato.caminho,async()=>{
+    base22();
+    definirDocumento('lojas/loja-demo/produtos/recurso-22',{nome:'Produto',preco:20,categoriaId:'categoria-22',ativo:true});
+    definirDocumento('lojas/loja-demo/categorias/recurso-22',{nome:'Categoria',ativo:true});
+    definirDocumento('lojas/loja-demo/clientes/recurso-22',{nome:'Cliente'});
+    definirPedidoExistente('recurso-22');
+    const criacao=await enviar22('POST','/lojas/loja-demo/pedidos',{tipoEntrega:'retirada',itens:[{produtoId:'produto-ativo',quantidade:1}],pagamento:{forma:'pix'}});assert.equal(criacao.status,201);
+    const r=await enviar22('GET',caminho22(contrato));assert.equal(r.status,200,JSON.stringify(r.dados));
+  });
+});
+test('Etapa 22 — PATCH de pagamentos legados permite desabilitar cartões explicitamente',async()=>{
+  base22();estado.documentos.get('lojas/loja-demo').pagamentos={pix:true,cartao:true};
+  const r=await enviar22('PATCH','/admin/lojas/loja-demo/loja',{pagamentos:{cartao_credito:false,cartao_debito:false}});
+  assert.equal(r.status,200);assert.equal(r.dados.pagamentos.pix,true);assert.equal(r.dados.pagamentos.cartao_credito,false);assert.equal(r.dados.pagamentos.cartao_debito,false);
+});
+
+test('Etapa 22 — inventário coincide com rotas reais e todas têm middleware',()=>{
+  const validar=require('../src/middleware/validacaoMiddleware');
+  const reais=[];
+  const conjuntos=[['',app.router],['/usuarios',require('../src/routes/usuarioRoutes')],['/publico/lojas',require('../src/routes/publicoRoutes')],['/admin/lojas/:lojaId',require('../src/routes/adminRoutes')],...['loja','produto','categoria','cliente','endereco','pedido'].map(nome=>['/lojas',require('../src/routes/'+nome+'Routes')])];
+  for(const [prefixo,router] of conjuntos)for(const layer of router.stack)if(layer.route) {
+    assert.ok(layer.route.stack.some(handler=>handler.handle===validar),prefixo+layer.route.path+' sem middleware');
+    for(const metodo of Object.keys(layer.route.methods))reais.push(metodo.toUpperCase()+' '+prefixo+layer.route.path);
+  }
+  assert.deepEqual(reais.sort(),contratos22.map(c=>c.metodo+' '+c.caminho).sort());
+});
+test('Etapa 22 — HEAD implícito mantém contrato de leitura',async()=>{
+  base22();const r=await enviar22('HEAD','/publico/lojas/loja-demo/catalogo');assert.equal(r.status,200);
+});
+
+test('Etapa 22 — codificações HTTP inválidas são erros de entrada seguros',async()=>{
+  base22();const antes=structuredClone([...estado.documentos]);
+  for(const [headers,expected] of [[{'content-type':'application/json; charset=ascii'},415],[{'content-encoding':'nao-suportado'},415],[{'content-encoding':'gzip'},400]]) {
+    const r=await requisitarApp({metodo:'POST',url:'/admin/lojas/loja-demo/produtos',corpoRaw:'{}',headers:{...headers22(),...headers}});
+    assert.equal(r.status,expected);assert.doesNotMatch(JSON.stringify(r.dados),/Error|stack|backend/);inalterado22(antes);
+  }
 });

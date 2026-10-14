@@ -30,6 +30,8 @@ function calcularValoresPedido(
     throw new ErroDominio("Desconto inválido.");
   }
 
+  require('../validators/base').dinheiro(taxaEntrega,'Taxa de entrega');
+  require('../validators/base').dinheiro(desconto,'Desconto');
   for (const item of itensValidados) {
     if (
       !item ||

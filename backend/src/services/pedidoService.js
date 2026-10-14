@@ -34,7 +34,7 @@ const db = getFirestore();
 
 function referenciaIdempotencia(lojaId,uid,chave) {
   const {identificador}=require('../lib/identificadores');identificador(lojaId);identificador(uid);
-  if(!/^[a-zA-Z0-9_-]{16,100}$/.test(chave || ''))throw new ErroDominio('Chave de idempotência inválida.');
+  require('../validators/base').chave(chave);
   const hash=require('node:crypto').createHash('sha256').update(uid+':'+chave).digest('hex');
   return db.collection('lojas').doc(lojaId).collection('idempotencia').doc(hash);
 }
@@ -45,6 +45,7 @@ async function recuperarPedidoPelaChave(lojaId,uid,chave) {
 async function criarPedido(lojaId,dadosPedido,identidade={}) {
   const {identificador}=require('../lib/identificadores');identificador(lojaId);
   if(!dadosPedido || typeof dadosPedido!=='object' || Array.isArray(dadosPedido))throw new ErroDominio('Dados do pedido são obrigatórios.');
+  require('../validators/pedidos').pedido(dadosPedido,{publico:identidade.publico});
   const chaveRef=identidade.chave?referenciaIdempotencia(lojaId,identidade.uid,identidade.chave):null;
   const canonico=value=>Array.isArray(value)?value.map(canonico):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(k=>[k,canonico(value[k])])):value;
   const assinatura=require('node:crypto').createHash('sha256').update(JSON.stringify(canonico(dadosPedido))).digest('hex');
@@ -85,6 +86,7 @@ async function criarPedido(lojaId,dadosPedido,identidade={}) {
     }
     const itensValidados=await validarItensDoPedido(lojaId,itens,tx);
     const valores=calcularValoresPedido(itensValidados,taxaEntrega,desconto);
+    if(desconto>valores.subtotal+taxaEntrega)throw new ErroDominio('Desconto excede o valor do pedido.');
     if(identidade.publico && valores.subtotal<(loja.pedidoMinimo || 0))throw new ErroDominio('Pedido abaixo do valor mínimo da loja.');
     const financeiro=validarPagamentoInicial({dadosPagamento:pagamento || {forma:formaPagamento},loja,valorCalculado:valores.total});
     const cliente=dados.cliente?require('./publicoService').validarCliente(dados.cliente):null;
@@ -144,6 +146,7 @@ async function listarPedidos(lojaId, clienteId = null) {
 }
 
 async function atualizarStatusPedido(lojaId,pedidoId,novoStatus) {
+  for(const id of [lojaId,pedidoId])require('../lib/identificadores').identificador(id);
   if (!lojaId || !pedidoId || typeof novoStatus !== 'string') throw new ErroDominio('Dados de atualização inválidos.');
   const ref=db.collection('lojas').doc(lojaId).collection('pedidos').doc(pedidoId);
   return db.runTransaction(async tx=>{
@@ -155,6 +158,7 @@ async function atualizarStatusPedido(lojaId,pedidoId,novoStatus) {
   });
 }
 async function atualizarPagamentoPedido(lojaId,pedidoId,novoStatus) {
+  for(const id of [lojaId,pedidoId])require('../lib/identificadores').identificador(id);
   if (!lojaId || !pedidoId || typeof novoStatus !== 'string') throw new ErroDominio('Dados de atualização inválidos.');
   const ref=db.collection('lojas').doc(lojaId).collection('pedidos').doc(pedidoId);
   return db.runTransaction(async tx=>{

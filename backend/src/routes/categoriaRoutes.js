@@ -1,3 +1,4 @@
+const validarEntrada = require('../middleware/validacaoMiddleware');
 const express = require("express");
 
 const authMiddleware = require("../middleware/authMiddleware");
@@ -16,6 +17,7 @@ router.get(
   "/:lojaId/categorias",
   authMiddleware,
   verificarLojaDoUsuario,
+  validarEntrada,
   listarCategorias
 );
 
@@ -23,6 +25,7 @@ router.get(
   "/:lojaId/categorias/:categoriaId",
   authMiddleware,
   verificarLojaDoUsuario,
+  validarEntrada,
   buscarCategoria
 );
 
