@@ -1,7 +1,7 @@
 const PORT = require('./config/ambiente').portaServidor(process.env.PORT);
 const app = require("./app");
 
-const server=app.listen(PORT, () => {
+const server=app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
 process.once('SIGTERM',()=>{
