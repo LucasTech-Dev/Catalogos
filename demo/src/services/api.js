@@ -1,3 +1,4 @@
+import {modoDemo} from '../lib/runtimeDemo';
 import {auth,sessao,sessaoExistente} from '../lib/firebase';
 import {configuracaoAplicacao} from '../lib/ambienteAplicacao';
 const configuracao=configuracaoAplicacao(import.meta.env,window.location.hostname);
@@ -14,6 +15,7 @@ const mensagens = {
 const falha = (message,status,code,requestId) => Object.assign(new Error(message),{status,code,...(requestId?{requestId}:{})});
 
 export async function api(path,{privado=true,method='GET',body,chave,signal,administrativo=false,expectedUid,timeoutMs=20000}={}) {
+  if(modoDemo(import.meta.env) && (path!=='/publico/lojas/loja-demo/catalogo' || method!=='GET' || privado || administrativo || body!==undefined))throw falha('Recurso indisponível nesta demonstração.',403,'DEMO_READONLY');
   const controller=new AbortController();
   const cancelada=()=>controller.abort();
   if(signal?.aborted)cancelada();else signal?.addEventListener('abort',cancelada,{once:true});

@@ -13,3 +13,17 @@ it('um bundle seleciona lojas somente pelo mapa explícito de hostname',()=>{
 it('desenvolvimento mantém defaults e testes Web exigem projeto demo',()=>{
  expect(configuracaoAplicacao({})).toEqual({lojaId:'loja-demo',base:'http://localhost:3000'});expect(()=>configuracaoAplicacao({VITE_APP_ENV:'test',VITE_FIREBASE_PROJECT_ID:'real'})).toThrow();
 });
+it('homologação Web recusa projeto existente, divergência e falta de permissão explícita',()=>{
+ const env={...externo,VITE_APP_ENV:'homologacao',VITE_FIREBASE_PROJECT_ID:'catalogos-homolog-2026',VITE_FIREBASE_EXPECTED_PROJECT_ID:'catalogos-homolog-2026',VITE_FIREBASE_HOMOLOG_PROJECT_ID:'catalogos-homolog-2026'};
+ expect(configuracaoAplicacao(env).lojaId).toBe('a');
+ for(const patch of [{VITE_FIREBASE_HOMOLOG_PROJECT_ID:''},{VITE_FIREBASE_HOMOLOG_PROJECT_ID:'outro'}, {VITE_FIREBASE_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_EXPECTED_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_HOMOLOG_PROJECT_ID:'bancorestaurante'}])expect(()=>configuracaoAplicacao({...env,...patch})).toThrow();
+});
+it('bancorestaurante exige autorização Web exata somente em demonstração',()=>{
+ const demo={...externo,VITE_APP_ENV:'homologacao',VITE_FIREBASE_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_EXPECTED_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_HOMOLOG_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_EXISTING_DEMO_PROJECT_ID:'bancorestaurante',VITE_LOJAS_POR_HOST:'{"catalogo-demo-cz1.pages.dev":"loja-demo"}'};
+ expect(configuracaoAplicacao(demo,'catalogo-demo-cz1.pages.dev').lojaId).toBe('loja-demo');
+ for(const patch of [{VITE_FIREBASE_EXISTING_DEMO_PROJECT_ID:''},{VITE_FIREBASE_EXISTING_DEMO_PROJECT_ID:'outro'},
+ {VITE_APP_ENV:'production'},{VITE_APP_ENV:'development'},{VITE_FIREBASE_PROJECT_ID:''},{VITE_FIREBASE_EXPECTED_PROJECT_ID:'outro'},
+ {VITE_FIREBASE_HOMOLOG_PROJECT_ID:'outro'},{VITE_FIREBASE_AUTH_EMULATOR_URL:'http://localhost:9099'}])expect(()=>configuracaoAplicacao({...demo,...patch},'catalogo-demo-cz1.pages.dev')).toThrow();
+ expect(()=>configuracaoAplicacao(demo,'outro.example.com')).toThrow();
+ expect(()=>configuracaoAplicacao({...externo,VITE_FIREBASE_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_EXPECTED_PROJECT_ID:'bancorestaurante'})).toThrow();
+});

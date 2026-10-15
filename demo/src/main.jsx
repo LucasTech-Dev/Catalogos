@@ -1,10 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
+import {modoDemo} from './lib/runtimeDemo';
+
 import "./styles.css";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+async function iniciar() {
+  const {default:App}=await (modoDemo(import.meta.env)?import('./pages/DemoPublica.jsx'):import('./App.jsx'));
+  ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}
+iniciar().catch(()=>{document.getElementById('root').textContent='Aplicação indisponível. Confira a configuração da demonstração.';});
