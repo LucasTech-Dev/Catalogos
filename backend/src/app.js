@@ -1,3 +1,8 @@
+const ambienteRuntime = require('./config/ambiente').validarAmbiente();
+if (ambienteRuntime.demo) {
+  require('./config/firebase');
+  module.exports = require('./demo/app').criarAppDemo(ambienteRuntime.demo, () => require('firebase-admin/firestore').getFirestore(), process.env);
+} else {
 const express = require("express");
 
 require("./config/firebase");
@@ -57,3 +62,5 @@ app.use(erros.rotaInexistente);
 app.use(erros.tratarErro);
 
 module.exports = app;
+
+}

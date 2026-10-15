@@ -133,7 +133,7 @@ Module._load = function carregarMock(request, parent, isMain) {
     return {
       initializeApp: () => ({}),
       applicationDefault: () => ({}),
-      getApps: () => [{}],
+      getApps: () => [{options:{projectId:process.env.GCLOUD_PROJECT || 'bancorestaurante'}}],
     };
   }
 
@@ -1440,4 +1440,14 @@ test('Etapa 23 — 404 JSON e correlação não refletem rota ou headers privado
 });
 test('Etapa 23 — formato não JSON não vira 500',async()=>{
   base22();const r=await requisitarApp({metodo:'POST',url:'/admin/lojas/loja-demo/produtos',corpoRaw:'sentinela privada',headers:{authorization:'Bearer token-admin','content-type':'text/plain'}});assert.equal(r.status,415);assert.doesNotMatch(JSON.stringify(r.dados),/sentinela/);
+});
+
+test('Ordem 03: administrador da loja B não lê nem altera administração da loja A', async()=>{
+  base22();
+  const antes=structuredClone([...estado.documentos]);
+  for(const [metodo,path,corpo] of [['GET','sessao'],['GET','produtos'],['GET','clientes'],['GET','pedidos'],['PATCH','loja',{nome:'Tentativa indevida'}]]) {
+    const r=await requisitarApp({metodo,url:'/admin/lojas/loja-demo/'+path,corpo,headers:{authorization:'Bearer token-admin-outra-loja','content-type':'application/json'}});
+    assert.equal(r.status,403);
+  }
+  assert.deepEqual([...estado.documentos],antes);
 });

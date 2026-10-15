@@ -1,0 +1,6 @@
+{
+  "title": "Catalogos Demo Document Reader",
+  "description": "Proposta a validar: leitura pontual de documentos pelo runtime de demonstracao. Sem listagem, escrita, Firebase Authentication ou administracao IAM.",
+  "stage": "GA",
+  "includedPermissions": ["datastore.entities.get"]
+}

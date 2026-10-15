@@ -29,3 +29,27 @@ pnpm-debug.log*
 *-firebase-adminsdk-*.json
 *.pem
 .firebase/
+
+# Documentos privados de credenciais (não abrange manuais públicos)
+[Ee]mail*senhas*.txt
+*[Ss]enhas*teste*.txt
+credentials.json
+credentials-*.json
+application_default_credentials.json
+adc.json
+adc-*.json
+.aws/
+.config/gcloud/
+private_key*.json
+*.key
+
+# Backups privados e pacotes da documentação externa
+lojaDemoRestaurante/
+lojaDemoRestaurante_BACKUPS/
+lojaDemoRestaurante_BACKUPS*.zip
+backups-privados/
+private-backups/
+
+# Secret exclusivo Render: nunca incluir em Git ou imagem
+**/firebase-homologacao.json
+**/secrets/**

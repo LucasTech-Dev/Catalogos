@@ -1,5 +1,12 @@
-const PORT = require('./config/ambiente').portaServidor(process.env.PORT);
-const app = require("./app");
+let app, PORT;
+try {
+  PORT = require('./config/ambiente').portaServidor(process.env.PORT);
+  app = require("./app");
+}
+catch {
+  console.error(JSON.stringify({evento:"inicializacao",status:500,codigo:"configuracao_invalida"}));
+  process.exit(1);
+}
 
 const server=app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor rodando na porta ${PORT}`);

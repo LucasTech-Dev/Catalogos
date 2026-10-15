@@ -4,3 +4,23 @@
 !src/
 !src/**
 !Dockerfile
+
+# Defesa adicional caso a lista de inclusão seja ampliada no futuro
+**/.env
+**/.env.*
+**/*service-account*.json
+**/*serviceAccount*.json
+**/*-firebase-adminsdk-*.json
+**/application_default_credentials.json
+**/credentials*.json
+**/adc*.json
+**/private_key*.json
+**/*.pem
+**/*.key
+**/*[Ss]enhas*.txt
+**/lojaDemoRestaurante*/**
+**/lojaDemoRestaurante*.zip
+
+# Secret exclusivo Render: nunca incluir em Git ou imagem
+**/firebase-homologacao.json
+**/secrets/**
