@@ -1,0 +1,142 @@
+
+> catalogos-api-fixtures@1.0.0 test
+> node --test test/*.test.js
+
+✔ configuração exige CORS explícito e recusa identidade externa (5.333992ms)
+{"evento":"http_acesso","requestId":"8b48cb5e-fae0-4e0a-9282-6d95a230f0e5","status":200,"duracaoMs":9}
+{"evento":"http_acesso","requestId":"96c56c16-c862-44f2-ab6d-ef21b2ea90ac","status":200,"duracaoMs":2}
+{"evento":"http_acesso","requestId":"e43f4e4d-1d4b-4388-bb71-73090075033b","status":200,"duracaoMs":2}
+{"evento":"http_acesso","requestId":"a8b28bea-254f-4ba1-8a36-3cb531d7b70a","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"69c65a2d-be8d-46f5-85ba-c22b82d338e0","status":403,"duracaoMs":4}
+{"evento":"http_acesso","requestId":"ee24041b-b271-4812-ba26-d64ef70053ad","status":204,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"e10c61e6-237c-463e-9c5d-cb1406ab2e13","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"439bb71a-3f31-4ee7-bc79-69ca03cd61cb","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"07f23341-b2c8-4dc0-8ec5-8d345ee055b4","status":404,"duracaoMs":5}
+{"evento":"http_acesso","requestId":"26e58756-f892-490e-bc90-dde65f3e8455","status":404,"duracaoMs":2}
+{"evento":"http_acesso","requestId":"7fd5ef95-e356-41ad-b1c9-0561f3c6f1de","status":404,"duracaoMs":3}
+{"evento":"http_acesso","requestId":"096eac88-c580-431a-9b37-ed98a148e8cc","status":404,"duracaoMs":4}
+{"evento":"http_acesso","requestId":"ff6439de-7aa6-4b9c-b319-dd2804664e22","status":404,"duracaoMs":2}
+{"evento":"http_acesso","requestId":"afde954c-6cfc-4f62-8eed-285fcfdbfe7d","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"e28f2f4f-605e-41a1-a16f-58cded11c286","status":404,"duracaoMs":4}
+{"evento":"http_acesso","requestId":"4daac102-e230-45ad-a7bd-320fd0f43a2a","status":404,"duracaoMs":3}
+{"evento":"http_acesso","requestId":"900d8ade-5374-4159-a64d-c70a1a7e76c9","status":404,"duracaoMs":4}
+{"evento":"http_acesso","requestId":"05f8faf4-46b4-4a31-b21d-665c2dcb911b","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"8bdc82ce-55f2-4230-9c6d-d2e2fd00b2bb","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"a1cf02fa-3cbb-4cce-a5fd-d281288914ff","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"c2893790-9075-474a-9885-758401a18691","status":404,"duracaoMs":7}
+{"evento":"http_acesso","requestId":"891bd2fb-b833-475e-8b95-2a485b70d968","status":404,"duracaoMs":2}
+{"evento":"http_acesso","requestId":"de5a4c11-3fbf-4ecd-a1b6-622bf8763e1e","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"559add35-9352-48ff-9729-ba856c4a8ab0","status":404,"duracaoMs":3}
+{"evento":"http_acesso","requestId":"3f2179e9-27e7-4a01-ac1e-8313530451e7","status":404,"duracaoMs":6}
+{"evento":"http_acesso","requestId":"7ba802a6-38bc-4450-b996-6e28b962b59b","status":404,"duracaoMs":5}
+{"evento":"http_acesso","requestId":"ba711283-29c1-40aa-be5f-0850a8f6df69","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"b85ebbac-c622-492c-8615-1131a8f809eb","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"37d286c5-ce6e-4ae7-a2d2-ae7ec854103e","status":404,"duracaoMs":2}
+{"evento":"http_acesso","requestId":"e35024f2-6cc2-4d81-aeb8-eb7d72f08726","status":404,"duracaoMs":3}
+{"evento":"http_acesso","requestId":"9910d611-cbc9-48f4-a2e3-5f3388ececd2","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"27813ecc-57e1-4176-a71b-8f6e7667f898","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"c4625e52-fb41-44d0-9d66-0f538ee32234","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"4b3efde1-3ec9-4620-bc95-cb7d516fab4e","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"936edf4a-e625-4a33-bad7-26445b049293","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"51d60e75-1b7a-4fa9-8321-6fc881ebc735","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"9ef46af1-52d9-4f3c-aba8-20917872514e","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"442cee55-7f3f-40dc-88aa-525a7613090f","status":404,"duracaoMs":2}
+{"evento":"http_acesso","requestId":"446fd33e-9d19-4a53-a970-4c41f5eb60e7","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"176211b1-a801-4c7a-b7d4-f42a6e93358b","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"948fc0a1-9724-424d-bc62-f55f5f44aa13","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"0f3346af-e2a4-4add-b661-f90d9cead9c9","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"771819e6-d814-4818-8c98-6755d074fc22","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"af350ceb-eac5-4332-912c-7010fc5f9d9f","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"1994a3ea-514a-4ebf-ba5d-87909be4c605","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"cfe8966b-6d18-428b-b808-851b2bc5bf13","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"6f4076ad-4e1e-422e-bd0e-42e068e6a51f","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"2e31c779-d475-4776-83f8-2efbe37e22c0","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"a259d1fa-b527-4111-81a2-0c963c7d2dc5","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"26575472-9059-43c0-be7a-511fc8c4e444","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"4e75267a-be23-411b-8c0f-c62ee0fbdec9","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"11971dd1-a0dc-4405-ade3-e76a0501c820","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"25e0e2ea-878c-49fd-b417-79f646684de1","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"6f65d3ae-cf64-4fd2-a784-89d49c1cfe50","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"e160ba80-0b74-4ba1-a4f0-57c4f5cbe107","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"6a3f7f37-1602-40f1-ac3d-ff3a2cf9539c","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"7ba3654c-1375-4f37-b88e-63840f5c01dc","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"902b4942-64a6-4810-ac0e-43364df17ad3","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"82fbfeba-acc4-4f71-b2ea-5dca07c0f628","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"031d97a4-6c93-4098-a79a-1326726b1299","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"3e31f989-eca0-4c5d-8d60-a84bb834e648","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"a13e183e-5cec-4693-94c1-3edfdfb71ad3","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"fac72fd0-ffa7-40ef-a06c-9d70f0adc257","status":404,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"147a91dc-7a0e-437d-81fe-8e64705d3307","status":404,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"618eb91b-fd8d-4d47-8c21-cee5217a95e8","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"e17e2353-a95e-4d12-870d-0b841d0ff474","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"a827b87b-b25a-4be3-92eb-fb1015fc5b30","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"27529bff-3b4b-4a7d-9fbb-58b5f0957053","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"f0364237-948a-4291-84a5-bfbb19a89b68","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"bd0b0b43-4912-4fc5-b763-9fb7eba3834f","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"6d8eb0b5-fefb-41e3-9b5c-f5fb65892f2c","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"40839ff8-dc9e-4fef-9bf7-aac16c5282b3","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"25677f44-c849-470a-a8d7-70f4eda2b61d","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"a32c62c6-3e6e-4da6-bf85-b5bc21ff1dc1","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"a29d82f2-fe50-4f0b-89d5-83e8cfb3282f","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"4fc905a8-581d-4e8d-b2e4-14424d1124a8","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"60dfd9a2-24e8-4f9e-954e-b921fb53d6ee","status":200,"duracaoMs":2}
+{"evento":"http_acesso","requestId":"d6bb7553-7564-4ecc-8bef-1f2d369ec7c7","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"075aa135-b475-478c-b349-c4262d7b2920","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"0489c548-aa03-47b9-9fee-ea5bce4a828b","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"144dd3f5-4b14-4c40-9d8b-e4f749784ab7","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"3154abec-e47e-49a5-8d8e-e0a32c23a975","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"281ef521-001a-4699-95da-a558a13dc5af","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"0112df15-3305-4d94-a2be-fa793599fe1c","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"f9dadfc6-a17e-4983-ba72-c350162579af","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"860538f1-a148-4d90-b034-fe5ec8423e82","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"db2e1bcd-2a6c-4da8-beb3-3d214c0c4710","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"3027359d-dc90-4692-b284-4d9d682745cf","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"230149da-428a-47e1-bc45-6236264bbd67","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"3b27a79c-9894-4966-bf5c-48205f1bf31b","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"d11338ac-de34-41eb-b797-6461c7c94c24","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"52ca6ce0-1760-412b-bdf1-a0dc7a6a6044","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"f5c13013-07cc-4931-a5b2-01eaa100efb0","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"6769da6c-4450-4c13-8617-3c782686cff3","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"558df183-ba53-4110-89a7-2346ffe08045","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"86cb9ce1-c93f-41cc-a028-69850728a610","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"4df9f521-233c-476a-84df-8af995c93df5","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"9f3524e8-1856-428d-95ce-7063f867d5c8","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"0b404c0d-f092-4187-99f6-4e63b710410b","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"7405657a-9c8f-4eea-8ef6-d463da8d460b","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"528ddd7c-7bf2-4dd5-a083-f80ae9eefea7","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"df105b36-5118-4d2d-95e3-032fb1da15dc","status":200,"duracaoMs":2}
+{"evento":"http_acesso","requestId":"41ca72a9-af92-425e-bbac-71867a500ba6","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"7e4ea3ec-f526-4fea-a308-5f95ac1b30ea","status":200,"duracaoMs":2}
+{"evento":"http_acesso","requestId":"0c192329-041a-48f0-a236-53e4c987507f","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"c67dfb31-44de-4d1b-b8a0-6ac783c11f97","status":200,"duracaoMs":2}
+{"evento":"http_acesso","requestId":"1e648e94-04c3-4714-99ac-44c5e6f60df1","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"aeab1932-9373-43f9-8c57-9aad30163de6","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"4aa80b7c-825d-4c5e-9b40-003acb07fa53","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"53731c85-5ff6-4271-b94c-1cf3d7988415","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"9b58354a-471c-4eca-8ab3-5aee25dfab41","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"e8bde924-23c7-43f2-a542-ec221226fa58","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"33b01ea0-9832-4030-a6c2-9fdcc26484d5","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"2b4d1559-c75b-4afc-ae45-7f2431e3d1c6","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"320377fa-f19b-4ecc-88b9-097a1522c116","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"964a920d-4244-4335-8b6d-ef0dc177fd5d","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"b996715f-66fe-4b44-ba89-57338f6387f4","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"97f5f988-8eb3-44cc-ba82-afda45337ae9","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"7561c622-7a81-4ce8-bace-9e293f65d2c4","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"cce0f5a1-0046-4ee7-a4a8-03bb8ef05619","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"634c2159-6dd5-43c8-b1e9-0213024aeed3","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"24fb88a5-b5b7-4cb1-8ba9-ac3fcb4f140d","status":200,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"b8294323-7ccb-46b3-b4d7-2ca4e8b0a66e","status":429,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"36c9fc7b-c224-4c22-ac4c-206acd2f85ed","status":429,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"a95c90ce-a51b-47eb-b906-e6a9edb99617","status":429,"duracaoMs":0}
+{"evento":"http_acesso","requestId":"621f98d3-e482-44f9-86fb-2da88bfda5b3","status":200,"duracaoMs":1}
+{"evento":"http_acesso","requestId":"e1fe5a21-0b2d-4bb8-9965-a10536497199","status":200,"duracaoMs":0}
+✔ contrato HTTP real: catálogo, CORS, rotas privadas, métodos, limite e imutabilidade (1027.163244ms)
+✔ npm start com ambiente mínimo de produção e SIGTERM (662.908956ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2257.072973

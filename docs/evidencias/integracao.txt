@@ -1,0 +1,2 @@
+Harness demo/scripts/fixtures-integracao.cjs da versão preservada, substituindo apenas o require do app por backend/src/app.js.criarApp() do artefato mínimo.
+Build Vite development-fixtures + Chrome local: catálogo HTTP, detalhe, carrinho/quantidades/remoção, admin bloqueado, CORS e viewport mobile aprovados. Requests da UI exclusivamente GET do catálogo; nenhum recurso Firebase observado. Screenshot local /tmp/catalogos-fixtures-mobile.png.

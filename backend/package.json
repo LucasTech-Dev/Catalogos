@@ -1,40 +1,17 @@
 {
-  "name": "backend",
+  "name": "catalogos-api-fixtures",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "node --test",
-    "firebase:audit:readonly": "node scripts/firebase-readonly-audit.js",
-    "firebase:emulator:smoke": "node scripts/firebase-emulator-smoke.js",
-    "firebase:emulator:pagamentos": "node scripts/pagamento-emulator-integration.js",
-    "firebase:emulator:whatsapp": "node scripts/whatsapp-emulator-integration.js",
-    "dev": "node --watch src/server.js",
-    "start": "node src/server.js",
-    "firebase:emulator:publico": "node scripts/publico-emulator-integration.js",
-    "firebase:emulator:etapa19": "node scripts/etapa19-emulator-suite.js",
-    "firebase:emulator:admin": "node scripts/admin-emulator-integration.js",
-    "firebase:emulator:etapa20": "node scripts/etapa20-emulator-suite.js",
-    "firebase:emulator:etapa21": "node scripts/etapa21-emulator-suite.js",
-    "firebase:emulator:etapa22": "node scripts/etapa22-emulator-suite.js",
-    "firebase:emulator:etapa23": "node scripts/etapa23-emulator-suite.js",
-    "firebase:emulator:etapa24": "node scripts/etapa24-emulator-suite.js",
-    "firebase:emulator:etapa25": "node scripts/etapa25-emulator-suite.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "private": true,
+  "description": "Cat\u00e1logo p\u00fablico fict\u00edcio somente leitura",
   "type": "commonjs",
-  "dependencies": {
-    "express": "^5.2.1",
-    "firebase-admin": "^14.5.0"
-  },
-  "overrides": {
-    "gaxios@6.7.1": {
-      "uuid": "11.1.1"
-    }
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.js"
   },
   "engines": {
     "node": "24.x"
+  },
+  "dependencies": {
+    "express": "5.2.1"
   }
 }

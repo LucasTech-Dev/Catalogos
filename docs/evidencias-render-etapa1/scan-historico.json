@@ -1,7 +1,0 @@
-{
-  "escopo": "arquivos rastreados/novos não ignorados e blobs exclusivos de origin/main..HEAD",
-  "arquivos_trabalho": 357,
-  "blobs_historico_pendente": 345,
-  "achados": [],
-  "limites": "Scanner textual por padrões; não certifica ausência universal de segredos/PII. Sem acesso a credenciais locais ignoradas."
-}

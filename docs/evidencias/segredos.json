@@ -1,0 +1,6 @@
+{
+  "snapshot_files": 19,
+  "pending_history_blobs": 503,
+  "findings": [],
+  "limits": "Text patterns only; ignored local files excluded. Historical complete code is preserved as required, not in the deployment snapshot."
+}

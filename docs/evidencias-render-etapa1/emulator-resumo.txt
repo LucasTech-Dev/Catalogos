@@ -1,1 +1,0 @@
-Integração demo-readonly-emulator.js: exit 0. Projeto fictício demo-catalogos-emulator, Auth/Firestore locais. Health, catálogo projetado, 41 contratos bloqueados, outra loja negada, zero mutações pelo app e fixtures intactas. Escritas de fixtures somente no Emulator. Não demonstra IAM real, Secret File no Render ou Rules atualmente publicadas. Logs brutos CLI não distribuídos.

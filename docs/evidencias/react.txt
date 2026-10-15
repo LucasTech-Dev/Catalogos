@@ -1,0 +1,1 @@
+React preservado em 7ee32b4: 9 arquivos de teste, 101 testes aprovados. vitest run --run.
