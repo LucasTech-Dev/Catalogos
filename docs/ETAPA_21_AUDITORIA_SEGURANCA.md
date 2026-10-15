@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # Etapa 21 — Auditoria de segurança do Firestore e dos acessos
 
 Data: 13/10/2026. Ordem de Desenvolvimento 08. Escopo: implementação e validação local; produção não homologada. Referência: `main`, checkpoint `0b1ec3d`.

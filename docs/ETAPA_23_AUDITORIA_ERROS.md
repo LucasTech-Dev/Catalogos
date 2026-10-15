@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # ETAPA 23 — AUDITORIA DE ERROS
 
 Data: 13/10/2026, America/Sao_Paulo. Ordem 10. Escopo: backend Express 5, integração React e emuladores locais. Não inclui implantação, dados reais, migração, licenciamento, troca de roteador ou Etapa 24.

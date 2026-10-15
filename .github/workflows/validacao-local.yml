@@ -42,6 +42,7 @@ jobs:
           distribution: temurin
           java-version: '21'
       - run: node infra/scripts/verificar-segredos.cjs
+      - run: node infra/scripts/validar-documentacao.cjs
       - run: node --test infra/test/configuracoes.test.cjs
       - run: npm ci --ignore-scripts
         working-directory: backend

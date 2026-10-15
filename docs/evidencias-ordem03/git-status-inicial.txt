@@ -1,0 +1,50 @@
+ M .github/workflows/validacao-local.yml
+ M .gitignore
+ M backend/.dockerignore
+ M docs/ETAPA_19_AUDITORIA_CONTRATOS.md
+ M docs/ETAPA_19_RELATORIO_FINAL.md
+ M docs/ETAPA_20_AUDITORIA_CONTRATOS.md
+ M docs/ETAPA_20_RELATORIO_FINAL.md
+ M docs/ETAPA_21_AUDITORIA_SEGURANCA.md
+ M docs/ETAPA_21_RELATORIO_FINAL.md
+ M docs/ETAPA_22_AUDITORIA_VALIDACOES.md
+ M docs/ETAPA_22_RELATORIO_FINAL.md
+ M docs/ETAPA_23_AUDITORIA_ERROS.md
+ M docs/ETAPA_23_RELATORIO_FINAL.md
+ M docs/ETAPA_24_PLANO_DE_TESTES.md
+ M docs/ETAPA_24_RELATORIO_FINAL.md
+ M docs/ETAPA_24_ROTEIRO_HOMOLOGACAO_MANUAL.md
+ M docs/ETAPA_25_ANALISE_CUSTOS.md
+ M docs/ETAPA_25_ARQUITETURA_PRODUCAO.md
+ M docs/ETAPA_25_CHECKLIST_IMPLANTACAO.md
+ M docs/ETAPA_25_CONFIGURACAO_AMBIENTES.md
+ M docs/ETAPA_25_RELATORIO_FINAL.md
+ M docs/ETAPA_25_SEGURANCA_OPERACIONAL.md
+ M docs/GUIA_MESTRE.md
+ M docs/IMPLANTACAO_CLOUD_RUN_HOMOLOGACAO.md
+ M docs/REGISTRO_DE_TRABALHO.md
+ M docs/RESSALVAS_E_PENDENCIAS_PRODUCAO.md
+ M infra/ambientes/development.backend.env.example
+ M infra/ambientes/development.web.env.example
+ M infra/ambientes/test.backend.env.example
+ M infra/ambientes/test.web.env.example
+?? README.md
+?? docs/ARQUITETURA_DEFINITIVA.md
+?? docs/DECISOES_PENDENTES.md
+?? docs/ETAPA_26_AUDITORIA_FINAL.md
+?? docs/ETAPA_26_DIVERGENCIAS_DOCUMENTAIS.md
+?? docs/ETAPA_26_INVENTARIO_DOCUMENTACAO_EXTERNA.md
+?? docs/ETAPA_26_RELATORIO_FINAL.md
+?? docs/IMPLANTACAO_RENDER_HOMOLOGACAO.md
+?? docs/MANUAL_ADMINISTRADOR.md
+?? docs/MANUAL_DESENVOLVIMENTO.md
+?? docs/MANUAL_IMPLANTACAO.md
+?? docs/MANUAL_MANUTENCAO.md
+?? docs/MANUAL_PERSONALIZACAO_CLIENTE.md
+?? docs/MODELO_FIRESTORE.md
+?? docs/PLANO_DE_HOMOLOGACAO_COMERCIAL.md
+?? docs/REFERENCIA_API.md
+?? docs/evidencias-etapa26/
+?? docs/evidencias-ordem03/
+?? docs/evidencias-render/
+?? infra/scripts/validar-documentacao.cjs

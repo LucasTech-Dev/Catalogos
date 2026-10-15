@@ -1,0 +1,29 @@
+{
+  "ordem": 6,
+  "data_local": "2026-10-15",
+  "head": "19b554d",
+  "modo": "public-readonly-demo",
+  "rotas": [
+    "GET/HEAD /",
+    "GET/HEAD /publico/lojas/loja-demo/catalogo",
+    "OPTIONS restrito aos mesmos caminhos"
+  ],
+  "catalogo_real_aprovado": false,
+  "testes": {
+    "backend": 342,
+    "react": 92,
+    "infra": 7,
+    "react_demo_pos_ajuste_visual": 11,
+    "build_normal": "aprovado",
+    "build_demo": "aprovado",
+    "emulator_demo_e_19_23": "exit 0"
+  },
+  "firebase_real_modificado": false,
+  "iam_chaves_render_cloudflare_alterados": false,
+  "commit_push_deploy": false,
+  "ressalvas": {
+    "total": 25,
+    "abertas": 16,
+    "resolvidas_localmente": 9
+  }
+}

@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # ETAPA 24 — Roteiro de homologação manual
 
 Preparado em 13/10/2026. **Não realizado em dispositivos físicos nesta ordem.** Chrome automatizado/Emulator são evidências distintas. Executar antes do lançamento e registrar navegador/versão/aparelho/data/responsável/resultado/screenshot de cada item. Usar dados fictícios e ambiente de homologação; implantação e escritas reais exigem ordem própria.

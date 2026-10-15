@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # ETAPA 22 — RELATÓRIO FINAL
 
 Data: 13/10/2026, America/Sao_Paulo. Projeto Catálogos; Ordem de Desenvolvimento 09. Branch main, trabalho exclusivamente local. [Auditoria completa de validações](ETAPA_22_AUDITORIA_VALIDACOES.md).

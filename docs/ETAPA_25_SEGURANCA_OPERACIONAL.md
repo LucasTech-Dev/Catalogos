@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # Etapa 25 — Segurança operacional, privacidade e recuperação
 
 13/10/2026. Propostas técnicas; sem alteração IAM/Auth/dados reais, serviço pago ou texto legal publicado. A aprovação local não autoriza execução externa.
@@ -52,7 +54,7 @@ Proposta técnica: pedidos e financeiro retidos pelo prazo comercial/legal a con
 
 No código atual nonce não tem expiry. Política segura inicial: não TTL e manter associação pelo mesmo período em que pedido pode ser recuperado. Propor janela de recuperação comercial de 7 dias para discussão, sem implementar pois cliente atual não envia data autenticada da tentativa. Dentro da janela: mesma chave/mesmo corpo retorna pedido existente; outro corpo 409; resposta perdida usa nonce→pedido; falha antes de commit permite retomada. Depois da janela proposta: recuperar referência existente ou recusar chave antiga explicitamente (410/409, contrato ainda a desenhar), jamais convertê-la automaticamente em novo pedido. Novo pedido exige nova ação/chave consciente.
 
-Antes de expirar: token/envelope da tentativa emitido pelo servidor com tempo autenticado ou tombstone recuperável; transição testada na fronteira/relógio/retries offline, retenção conjunta do vínculo e snapshots, plano de exclusão do titular. Apagar nonce e permitir mesma chave como nova é inseguro; assinatura contém dados que também exigem minimização. Tentativas abandonadas sem persistência podem ser limpas no cliente sem apagar associações de pedidos gravados. R-009 não resolvido apenas pela proposta; nenhum TTL/delete/migração real 25.
+Antes de expirar: token/envelope da tentativa emitido pelo servidor com tempo autenticado ou tombstone recuperável; transição testada na fronteira/relógio/retries offline, retenção conjunta do vínculo e snapshots, plano de exclusão do titular. Apagar nonce e permitir mesma chave como nova é inseguro; assinatura é SHA-256 do corpo canônico, sem armazenar o JSON bruto; o vínculo com pedido/UID continua exigindo proteção. Tentativas abandonadas sem persistência podem ser limpas no cliente sem apagar associações de pedidos gravados. R-009 não resolvido apenas pela proposta; nenhum TTL/delete/migração real 25.
 
 ## Backup, restauração e migração
 
@@ -65,3 +67,8 @@ Ensaio futuro: duas lojas A/B; deletar/alterar somente dados fictícios A em amb
 ## Incidentes/rollback operacional
 
 Bloquear rota/loja afetada na borda autorizada; preservar evidência mínima e backup, revogar credencial comprometida por operador, reverter tráfego para revisão conhecida sem apagar pedidos recebidos. Compatibilidade de schema/transações deve ser verificada antes de rollback. Comunicações de incidente e obrigações legais exigem plano aprovado; agente não envia mensagens a terceiros. Rastrear cada ação por ticket/aprovação sem tokens/PII.
+
+
+## Errata documental — Etapa 26,14/10/2026
+
+A auditoria de pedidoService.js confirmou assinatura SHA-256, não corpo/PII em texto claro. A redação corrente foi corrigida; o texto anterior permanece no checkpoint792b069 e na seção100histórica do guia externo. Nenhuma alteração funcional.

@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # Etapa 25 — Configuração de ambientes
 
 13/10/2026. Preparação local. Todos os oito exemplos em infra/ambientes são fictícios; substituir apenas em processo autorizado. Não copiar chaves reais para código, documentação, chat, build React ou imagem.

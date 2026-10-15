@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # ETAPA 19 — RELATÓRIO FINAL
 
 Data: 13/10/2026. Repositório LucasTech-Dev/Catalogos, branch main, referência inicial b8e2a4ba39ae233ad413b434d6ce5cbb42b15308.

@@ -1,0 +1,42 @@
+[
+  {
+    "arquivo": "ESCOPO_LOGICO_E_FLUXO_DE_DADOS_ATUALIZADO.txt",
+    "sha256_antes": "97369738de51fe1e753c449d13f13eec30e99f64ec9e28faa6a192633eb8b713",
+    "sha256_depois": "f52d3ceeafb536aae197efae3c8508a9b8d824a248dfd9c4f8ad026f5d829ff7"
+  },
+  {
+    "arquivo": "GUIA_CONSOLIDADO_EtapasDeProducao_06-10-2026_ATUALIZADO.txt",
+    "sha256_antes": "000383ca542bc39766acbeb546d6d9a540e4f7480a51a51fbed1fd94cb3d28bd",
+    "sha256_depois": "79fbe742620839fdef67f0d1f31b984058f63674805c8366054e32227a0083c3"
+  },
+  {
+    "arquivo": "DOCUMENTO_CONSOLIDADO_EscopoGeral_ProjetoCatalogoLoja.txt",
+    "sha256_antes": "962b57cf7fad497730f6908158390ec96bea3355e8270f154898bb949ee39732",
+    "sha256_depois": "2c1ed7e85b264a56e01faab289420a73c5fc3a3b503036b9ae6c93bdd17bb4fd"
+  },
+  {
+    "arquivo": "ESCOPO DO CLIENTE.txt",
+    "sha256_antes": "e2290285d40d27123fa5a97075b3728f075618cc68640483af7bbc5b6390c06a",
+    "sha256_depois": "499d743f5d685923d878856b37e89a169066e3ad3125290c29956bb0c8266939"
+  },
+  {
+    "arquivo": "EtapasDeProducao_BaseFixo.txt",
+    "sha256_antes": "b9698c9b6edd40139b252fc29f6035e3942477e2a560b850586e12e73b3ef5a9",
+    "sha256_depois": "52c4069999f373b5657bfbddd82abf57809d724009f76e17ffafd3ffe9e28f5d"
+  },
+  {
+    "arquivo": "INDICE_DOCUMENTACAO_ATUAL.md",
+    "sha256_antes": "1c532163cf615c9974985bc0bc1c2f6aca1710cadc679a707a39aa56586cd19d",
+    "sha256_depois": "2396ba8e32a1348ba55c9727bf08bb9d0e7abff54a4c421425d0c9b40752c9c7"
+  },
+  {
+    "arquivo": "MANUAL_PERSONALIZACAO_ATUAL.md",
+    "sha256_antes": "af3267cfdb1360b08e120cf7121c0a9f70448b5e1f534a24d8f9800e218c1009",
+    "sha256_depois": "028a8b41448e306003b684d7713a6d5bb366ba7e79fdc0d4e527ebd552abaf1c"
+  },
+  {
+    "arquivo": "CHECKLIST_COMERCIAL_PILOTO.md",
+    "sha256_antes": "a0a2f158fab6fe6267f139e9b953bac88a38fcc27be6c06e48980a9e9fd3dba9",
+    "sha256_depois": "6b4cea8e13e561db4b111c89c6c37af6186cb0eb264ee1d89b5fa18696541f1f"
+  }
+]

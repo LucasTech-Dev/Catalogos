@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # ETAPA 22 — AUDITORIA DE VALIDAÇÕES
 
 Data: 13/10/2026, America/Sao_Paulo. Ordem de Desenvolvimento 09. Escopo: API Express local, contratos React e dados fictícios nos emuladores Auth/Firestore. Etapa 23 não iniciada.

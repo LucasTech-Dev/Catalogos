@@ -1,0 +1,39 @@
+{
+  "etapa": "Render 1 - branch de deploy",
+  "data": "2026-10-15",
+  "branch": "deploy/render-demo-readonly",
+  "main_preservada": "19b554d",
+  "remote_main_consultada": "b8e2a4ba39ae233ad413b434d6ce5cbb42b15308",
+  "branch_remota_encontrada": false,
+  "testes": {
+    "backend": 342,
+    "react": 92,
+    "infra": 7,
+    "build_normal": "exit 0",
+    "build_demo": "exit 0",
+    "emulator_demo": "exit 0"
+  },
+  "npm_audit": {
+    "backend": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "react": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    }
+  },
+  "catalogo_aprovado": false,
+  "rules_deny_all": "publicação manual informada pelo proprietário, não reverificada nesta etapa",
+  "push": false,
+  "deploy": false,
+  "iam_ou_credencial_alterados": false
+}

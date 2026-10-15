@@ -1,0 +1,7 @@
+Projeto demo-catalogos-emulator. Auth/Firestore locais. Exit 0. Logs brutos não incluídos.
+Etapa 19: catálogo, cadastro/login, convidado, endereço, concorrência, quatro pagamentos, retirada/entrega, WhatsApp, isolamento, admin e Security Rules aprovados.
+Firebase Web SDK: convidado, conversão em conta mantendo UID, login, troca de senha e renovação de token aprovados.
+Etapa 20 Emulator: autorização multi-loja, CRUD, paginação, configurações públicas, convidados, dashboard agregado, status, transações financeiras, integridade concorrente, token revogado e Rules aprovados.
+Etapa 21: 300 negativas reais do SDK Web (6 atores × 10 caminhos × 5 operações); 37 verificações HTTP; Admin bypass, projeções, sessão expirada/desativada, BOLA, escopo, idempotência e preços aprovados.
+Etapa 22 Emulator: 104 verificações HTTP; 43 contratos; rejeições sem persistência, PATCH parcial, centavos, anônimo, autorização, isolamento e idempotência concorrente aprovados.
+Etapa 23 Emulator: 22 verificações HTTP reais; Auth/Firestore temporários vs credenciais, recuperação após falha, abort antes de commit, resposta perdida após commit, nonce, financeiro, WhatsApp e logs seguros aprovados.

@@ -1,0 +1,15 @@
+✔ scan detecta token sintético sem imprimir valor e limpa fixture (174.858943ms)
+✔ custo aplica franquia uma vez por projeto/dia, não por restaurante (43.705237ms)
+✔ hosting SPA, cache do documento e assets, isolamento do contexto Docker (24.198582ms)
+✔ Render: exemplo usa modo restrito, projeto dedicado, sem segredo nem porta fixa (212.291226ms)
+✔ Render existente: exemplo exige autorização explícita sem credencial ou Emulator (45.97001ms)
+✔ primeira publicação Render exige demo explícita e catálogo não aprovado (6.83534ms)
+✔ proposta IAM da demo não pede escrita, listagem ou administração/Auth (0.587858ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1429.670414

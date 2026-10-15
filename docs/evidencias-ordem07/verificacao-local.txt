@@ -1,0 +1,12 @@
+Ordem 07 — 15/10/2026
+Escopo: auditoria real de leitura; somente documentação/evidências locais alteradas nesta ordem.
+node infra/scripts/validar-documentacao.cjs: exit 0; 15 arquivos atuais, 45 links relativos, 43 contratos, exemplos sem colisão.
+git diff --check: exit 0.
+Validação JSON dos quatro artefatos sanitizados: aprovada.
+Relatório: 20 itens presentes, links locais existentes.
+Scanner limitado aos novos artefatos: sem padrões de private_key, refresh_token, cabeçalho de chave privada ou token ya29.
+Limitação: scanner textual não certifica ausência universal de segredos ou PII; não foram armazenados documentos completos.
+Exemplo Render: APPROVED=0, PRODUCT_IDS=[], CATEGORY_IDS=[] confirmados.
+Documentos externos: dois registros Ordem07 acrescentados, preservando histórico.
+Não reexecutados testes de runtime/build/Emulator, pois não houve alteração de código nesta ordem.
+Sem commit, push, deploy, credencial nova, mudança de IAM/Rules/índices ou escrita no Firebase.

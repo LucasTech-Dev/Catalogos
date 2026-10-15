@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # Etapa 20 — Auditoria inicial — 13/10/2026
 
 Branch main; HEAD b8e2a4ba39ae233ad413b434d6ce5cbb42b15308. Alterações da Etapa 19 presentes e preservadas, incluindo arquivos não rastreados. Nenhum commit/push solicitado. Snapshot local de fontes em /tmp/catalogos-etapa20-inicial/fontes.tar, somente para referência desta rodada.

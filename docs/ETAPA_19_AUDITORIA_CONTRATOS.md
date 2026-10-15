@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # Etapa 19 — Auditoria e contratos finais
 
 Data: 13/10/2026. Referência inicial: main, b8e2a4ba39ae233ad413b434d6ce5cbb42b15308. Árvore do repositório interno limpa na auditoria. O diretório pai possui outro Git e não é o repositório de implementação.

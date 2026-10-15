@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # ETAPA 24 — Plano de testes
 
 Data: 13/10/2026, America/Sao_Paulo. Ordem 11. Escopo local; não executar Etapa 25, deploy, push, migração, escrita Firebase real ou envio WhatsApp.

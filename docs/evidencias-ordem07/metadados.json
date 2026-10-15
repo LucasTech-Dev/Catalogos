@@ -1,0 +1,182 @@
+{
+  "projeto": "bancorestaurante",
+  "serviceAccountEsperada": "catalogos-api-demo-readonly@bancorestaurante.iam.gserviceaccount.com",
+  "escritas": 0,
+  "ativoLoja": {
+    "existe": true,
+    "campoPresente": false,
+    "tipo": "undefined",
+    "estritamenteTrue": false,
+    "estritamenteFalse": false
+  },
+  "tentativaAnterior": {
+    "etapa": "indices",
+    "status": 400,
+    "codigo": 400,
+    "tipoErro": "GaxiosError",
+    "linhaLocal": "catalogos07-metadados.cjs:10"
+  },
+  "formatoRespostaIndices": {
+    "respostas": [
+      {
+        "tipo": "object",
+        "chaves": [],
+        "indexCount": 0
+      },
+      {
+        "tipo": "object",
+        "chaves": [],
+        "indexCount": 0
+      }
+    ],
+    "primeiro": null
+  },
+  "indices": {
+    "quantidade": 0,
+    "listagemCompleta": true,
+    "existentes": [],
+    "locais": [
+      {
+        "collectionGroup": "pedidos",
+        "fields": [
+          {
+            "fieldPath": "status",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "criadoEm",
+            "order": "ASCENDING"
+          }
+        ],
+        "existe": false,
+        "ready": false
+      },
+      {
+        "collectionGroup": "pedidos",
+        "fields": [
+          {
+            "fieldPath": "status",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "criadoEm",
+            "order": "DESCENDING"
+          }
+        ],
+        "existe": false,
+        "ready": false
+      },
+      {
+        "collectionGroup": "pedidos",
+        "fields": [
+          {
+            "fieldPath": "pagamento.status",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "criadoEm",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "status",
+            "order": "ASCENDING"
+          }
+        ],
+        "existe": false,
+        "ready": false
+      },
+      {
+        "collectionGroup": "produtos",
+        "fields": [
+          {
+            "fieldPath": "categoriaId",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "ativo",
+            "order": "ASCENDING"
+          }
+        ],
+        "existe": false,
+        "ready": false
+      },
+      {
+        "collectionGroup": "pedidos",
+        "fields": [
+          {
+            "fieldPath": "criadoEm",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "total",
+            "order": "ASCENDING"
+          }
+        ],
+        "existe": false,
+        "ready": false
+      },
+      {
+        "collectionGroup": "pedidos",
+        "fields": [
+          {
+            "fieldPath": "pagamento.status",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "criadoEm",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "status",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "total",
+            "order": "ASCENDING"
+          }
+        ],
+        "existe": false,
+        "ready": false
+      },
+      {
+        "collectionGroup": "produtos",
+        "fields": [
+          {
+            "fieldPath": "ativo",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "disponivel",
+            "order": "ASCENDING"
+          }
+        ],
+        "existe": false,
+        "ready": false
+      }
+    ],
+    "exemptionsDeCampoUnico": "não consultadas"
+  },
+  "identidadeRender": {
+    "existe": false,
+    "status": 404
+  },
+  "iam": {
+    "escopo": "policy direta do projeto, sem org/pasta/grupos",
+    "concessoesAoAlvo": [],
+    "herancaEPermissoesEfetivas": "não comprovadas"
+  },
+  "rules": {
+    "releaseEncontrada": true,
+    "arquivos": [
+      {
+        "sha256": "ea471f6e68be6199d75122c6a01a28bf8805b8d5aa052872bced317478d920fa",
+        "igualAoLocalNormalizado": false,
+        "possuiAllowTrue": true,
+        "possuiAllowReadWriteFalse": false,
+        "comprimento": 2820
+      }
+    ],
+    "observacao": "Fonte avaliada em memória, não armazenada nem impressa; flags textuais não são prova semântica geral."
+  },
+  "concluido": true
+}

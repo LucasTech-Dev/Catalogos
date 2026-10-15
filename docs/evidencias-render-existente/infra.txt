@@ -1,0 +1,13 @@
+✔ scan detecta token sintético sem imprimir valor e limpa fixture (514.671001ms)
+✔ custo aplica franquia uma vez por projeto/dia, não por restaurante (1.044465ms)
+✔ hosting SPA, cache do documento e assets, isolamento do contexto Docker (10.856385ms)
+✔ Render: exemplo usa modo restrito, projeto dedicado, sem segredo nem porta fixa (72.269208ms)
+✔ Render existente: exemplo exige autorização explícita sem credencial ou Emulator (9.071926ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1555.337679

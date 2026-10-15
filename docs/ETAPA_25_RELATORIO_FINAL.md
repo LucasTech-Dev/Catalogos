@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # ETAPA 25 — RELATÓRIO FINAL
 
 Conclusão: 14/10/2026, America/Sao_Paulo. Início, testes e consulta de tarifas: 13/10/2026. Ordem de Desenvolvimento 12. Preparação local; não autoriza produção.
@@ -56,7 +58,7 @@ Sem TTL. Manter vínculo nonce→pedido enquanto recuperação estiver disponív
 
 ## 14. LGPD e privacidade
 
-Mapeados UID/email/nome/telefone/endereço/snapshots/notas/financeiro informativo/nonces/browser/WhatsApp/logs/backups, finalidade/acesso/exportação/exclusão. Proposta técnica distingue validação jurídica de base legal, papéis plataforma/restaurante, subprocessadores/regiões e termos/política. Nenhuma conclusão definitiva ou texto legal publicado. R-008 aberto; idempotência pode também conter PII na assinatura.
+Mapeados UID/email/nome/telefone/endereço/snapshots/notas/financeiro informativo/nonces/browser/WhatsApp/logs/backups, finalidade/acesso/exportação/exclusão. Proposta técnica distingue validação jurídica de base legal, papéis plataforma/restaurante, subprocessadores/regiões e termos/política. Nenhuma conclusão definitiva ou texto legal publicado. R-008 aberto; a assinatura de idempotência é SHA-256 do corpo canônico; pedidoId e vínculo indireto com o titular continuam protegidos.
 
 ## 15. Monitoramento
 
@@ -183,3 +185,8 @@ Falha compartilhada pode afetar várias lojas; quotas locais não garantemcusto 
 ## 25. Recomendação para Etapa 26
 
 Submeter os seisdocumentos, checklist, custos e guia atualizado à revisão. Etapa 26 somente após autorização explícita; preparação concluída não permite deploy. Não houvepush, deploy, publicaçãoRules/índices, cobrança, recurso pago, IAM/DNS/Authreal, escrita/exclusão/migração/backupreal, mensagemWhatsApp ouavanço 26 nestaordem.
+
+
+## Errata documental — Etapa 26,14/10/2026
+
+A auditoria de pedidoService.js confirmou assinatura SHA-256, não corpo/PII em texto claro. A redação corrente foi corrigida; o texto anterior permanece no checkpoint792b069 e na seção100histórica do guia externo. Nenhuma alteração funcional.

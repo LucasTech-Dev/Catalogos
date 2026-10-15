@@ -1,0 +1,23 @@
+{
+  "ordem": 5,
+  "data_local": "2026-10-15",
+  "tipo": "auditoria estática local",
+  "head": "19b554d",
+  "rotas": 43,
+  "leituras": 28,
+  "escritas": 15,
+  "achados": [
+    "A05-01: catálogo não restrito a loja-demo",
+    "A05-02: listagens sem limite/filtros dependentes de paginação",
+    "A05-03: modo global somente leitura ausente"
+  ],
+  "consultas_externas": false,
+  "alteracoes_codigo": false,
+  "testes_integracao_reexecutados": false,
+  "commit_push_deploy": false,
+  "ressalvas": {
+    "total": 25,
+    "abertas": 16,
+    "resolvidas_localmente": 9
+  }
+}

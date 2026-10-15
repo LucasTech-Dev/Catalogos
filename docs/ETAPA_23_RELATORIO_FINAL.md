@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # ETAPA 23 — RELATÓRIO FINAL
 
 Data: 13/10/2026 (America/Sao_Paulo). Projeto Catálogos, Ordem 10. Branch main. [Auditoria detalhada](ETAPA_23_AUDITORIA_ERROS.md); [registro permanente](RESSALVAS_E_PENDENCIAS_PRODUCAO.md).

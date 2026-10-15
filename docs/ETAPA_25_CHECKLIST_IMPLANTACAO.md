@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # Etapa 25 — Checklist de implantação autorizada e rollback
 
 13/10/2026. **Somente fase A local executada nesta ordem.** FasesB–H são roteiro e não autorização para ações externas. Marcar responsável, data, ambiente, versão e evidência por item. Sem credenciais reais neste documento.

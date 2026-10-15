@@ -1,0 +1,16 @@
+
+> catalogos-demo@1.0.0 test
+> vitest run
+
+
+ RUN  v5.0.4 /home/lucas/Projetos/Catalogos/Catalogo-Demo/Catalogo-demo/demo
+
+
+ Test Files  8 passed (8)
+      Tests  92 passed (92)
+   Start at  10:05:19
+   Duration  33.89s (environment 54%, tests 35%, import 9%, transform 1%, worker 1%)
+
+Environment  jsdom was created 8 times · 16.91s total, 54% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments

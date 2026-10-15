@@ -1,0 +1,110 @@
+ M .github/workflows/validacao-local.yml
+ M .gitignore
+ M backend/.dockerignore
+ M backend/.env.example
+ M backend/src/config/ambiente.js
+ M backend/src/config/firebase.js
+ M backend/src/server.js
+ M backend/test/pedidoHttpAutenticado.test.js
+ M demo/src/lib/ambienteAplicacao.js
+ M demo/test/ambientes.test.js
+ M docs/ETAPA_19_AUDITORIA_CONTRATOS.md
+ M docs/ETAPA_19_RELATORIO_FINAL.md
+ M docs/ETAPA_20_AUDITORIA_CONTRATOS.md
+ M docs/ETAPA_20_RELATORIO_FINAL.md
+ M docs/ETAPA_21_AUDITORIA_SEGURANCA.md
+ M docs/ETAPA_21_RELATORIO_FINAL.md
+ M docs/ETAPA_22_AUDITORIA_VALIDACOES.md
+ M docs/ETAPA_22_RELATORIO_FINAL.md
+ M docs/ETAPA_23_AUDITORIA_ERROS.md
+ M docs/ETAPA_23_RELATORIO_FINAL.md
+ M docs/ETAPA_24_PLANO_DE_TESTES.md
+ M docs/ETAPA_24_RELATORIO_FINAL.md
+ M docs/ETAPA_24_ROTEIRO_HOMOLOGACAO_MANUAL.md
+ M docs/ETAPA_25_ANALISE_CUSTOS.md
+ M docs/ETAPA_25_ARQUITETURA_PRODUCAO.md
+ M docs/ETAPA_25_CHECKLIST_IMPLANTACAO.md
+ M docs/ETAPA_25_CONFIGURACAO_AMBIENTES.md
+ M docs/ETAPA_25_RELATORIO_FINAL.md
+ M docs/ETAPA_25_SEGURANCA_OPERACIONAL.md
+ M docs/GUIA_MESTRE.md
+ M docs/IMPLANTACAO_CLOUD_RUN_HOMOLOGACAO.md
+ M docs/REGISTRO_DE_TRABALHO.md
+ M docs/RESSALVAS_E_PENDENCIAS_PRODUCAO.md
+ M infra/ambientes/development.backend.env.example
+ M infra/ambientes/development.web.env.example
+ M infra/ambientes/homologacao.backend.env.example
+ M infra/ambientes/homologacao.web.env.example
+ M infra/ambientes/test.backend.env.example
+ M infra/ambientes/test.web.env.example
+ M infra/cloud-run/homologacao.env.yaml.example
+ M infra/test/configuracoes.test.cjs
+?? README.md
+?? backend/fixtures/homologacao.json
+?? backend/scripts/homologacao-dry-run.js
+?? backend/src/config/credencialHomologacao.js
+?? backend/test/credencialHomologacao.test.js
+?? docs/ARQUITETURA_DEFINITIVA.md
+?? docs/DECISOES_PENDENTES.md
+?? docs/ETAPA_26_AUDITORIA_FINAL.md
+?? docs/ETAPA_26_DIVERGENCIAS_DOCUMENTAIS.md
+?? docs/ETAPA_26_INVENTARIO_DOCUMENTACAO_EXTERNA.md
+?? docs/ETAPA_26_RELATORIO_FINAL.md
+?? docs/FIREBASE_HOMOLOGACAO_RENDER.md
+?? docs/IMPLANTACAO_RENDER_HOMOLOGACAO.md
+?? docs/MANUAL_ADMINISTRADOR.md
+?? docs/MANUAL_DESENVOLVIMENTO.md
+?? docs/MANUAL_IMPLANTACAO.md
+?? docs/MANUAL_MANUTENCAO.md
+?? docs/MANUAL_PERSONALIZACAO_CLIENTE.md
+?? docs/MODELO_FIRESTORE.md
+?? docs/ORDEM_04_CRIACAO_PROJETO_FIREBASE.md
+?? docs/PLANO_DE_HOMOLOGACAO_COMERCIAL.md
+?? docs/PREPARACAO_RENDER_BANCORESTAURANTE.md
+?? docs/REFERENCIA_API.md
+?? docs/evidencias-etapa26/arquivos-alterados.md
+?? docs/evidencias-etapa26/auditoria-dependencias.json
+?? docs/evidencias-etapa26/recibo-guia.json
+?? docs/evidencias-etapa26/resumo.json
+?? docs/evidencias-etapa26/snapshot-comparacao.json
+?? docs/evidencias-etapa26/verificacoes.txt
+?? docs/evidencias-ordem03/after-backend.txt
+?? docs/evidencias-ordem03/after-build.txt
+?? docs/evidencias-ordem03/after-infra.txt
+?? docs/evidencias-ordem03/after-react.txt
+?? docs/evidencias-ordem03/before-backend.txt
+?? docs/evidencias-ordem03/before-build.txt
+?? docs/evidencias-ordem03/before-infra.txt
+?? docs/evidencias-ordem03/before-react.txt
+?? docs/evidencias-ordem03/commits-pendentes.txt
+?? docs/evidencias-ordem03/documentos-externos.json
+?? docs/evidencias-ordem03/emulator-resumo.txt
+?? docs/evidencias-ordem03/git-status-final.txt
+?? docs/evidencias-ordem03/git-status-inicial.txt
+?? docs/evidencias-ordem03/resumo.json
+?? docs/evidencias-ordem03/segredos.txt
+?? docs/evidencias-ordem05/git-status-inicial.txt
+?? docs/evidencias-render-existente/backend.txt
+?? docs/evidencias-render-existente/build.txt
+?? docs/evidencias-render-existente/documentos-externos.json
+?? docs/evidencias-render-existente/emulator-resumo.txt
+?? docs/evidencias-render-existente/git-status-final.txt
+?? docs/evidencias-render-existente/git-status-preparo.txt
+?? docs/evidencias-render-existente/infra.txt
+?? docs/evidencias-render-existente/react.txt
+?? docs/evidencias-render-existente/resumo.json
+?? docs/evidencias-render-existente/segredos.txt
+?? docs/evidencias-render/arquivos-modificados-iniciais.txt
+?? docs/evidencias-render/arquivos-novos-iniciais.txt
+?? docs/evidencias-render/backend.log
+?? docs/evidencias-render/build.log
+?? docs/evidencias-render/commits-pendentes.txt
+?? docs/evidencias-render/frontend.log
+?? docs/evidencias-render/git-status-final.txt
+?? docs/evidencias-render/git-status-inicial.txt
+?? docs/evidencias-render/http-smoke.cjs
+?? docs/evidencias-render/http.log
+?? infra/render/bancorestaurante.backend.env.example
+?? infra/render/bancorestaurante.web.env.example
+?? infra/render/homologacao.backend.env.example
+?? infra/scripts/validar-documentacao.cjs

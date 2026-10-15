@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # Etapa 25 — Arquitetura de produção proposta
 
 Data: 13/10/2026, America/Sao_Paulo. Preparação local, Ordem 12; decisões comerciais ainda sujeitas à aprovação. Sem implantação nem Etapa 26.

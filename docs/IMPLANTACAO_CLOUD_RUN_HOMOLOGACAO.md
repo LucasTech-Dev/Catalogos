@@ -1,5 +1,7 @@
 # Cloud Run — Ordem de Implantação 01
 
+> Histórico: substituído para a primeira homologação pela decisão Render de 15/10/2026. Ver IMPLANTACAO_RENDER_HOMOLOGACAO.md. Não executar este roteiro como decisão atual.
+
 14/10/2026, America/Sao_Paulo. **Preparação local concluída; implantação NÃO executada.** Nenhum recurso externo criado, API habilitada, faturamento associado, IAM modificado, imagem enviada ou serviço exposto. Produção comercial permanece NO-GO. Esta ordem não encerra ressalvas de implantação por documentação.
 
 ## Estado inicial e evidências de ambiente

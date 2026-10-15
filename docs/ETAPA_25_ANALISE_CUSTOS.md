@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # Etapa 25 — Custos: modelo reproduzível, não orçamento contratado
 
 Data 13/10/2026. USD, sem conversão/impostos; região final pendente. Fontes oficiais consultadas nessa data. Modelo: node infra/scripts/custos.cjs docs/evidencias-etapa25/custos.json. Nunca consulta Firebase real. Não inferir preço de mensalidade de um subtotal parcial.

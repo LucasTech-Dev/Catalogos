@@ -1,3 +1,5 @@
+> Registro histórico da etapa indicada no título. A referência corrente é [README](../README.md) e a documentação da Etapa26. Datas, testes e decisões abaixo pertencem ao seu momento; não comprovam implantação comercial.
+
 # ETAPA 21 — RELATÓRIO FINAL
 
 Data: 13/10/2026. Projeto Catálogos, Ordem de Desenvolvimento 08. Implementação local na branch main. Auditoria detalhada, matriz e evidências: [ETAPA_21_AUDITORIA_SEGURANCA.md](ETAPA_21_AUDITORIA_SEGURANCA.md).
