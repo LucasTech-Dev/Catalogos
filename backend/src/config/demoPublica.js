@@ -1,7 +1,12 @@
 const MODO='public-readonly-demo';
+const MODO_FIXTURES='public-fixture-demo';
 function configurarDemo(env) {
   const modo=env.CATALOGOS_RUNTIME_MODE;
-  if(modo && !['full',MODO].includes(modo))throw new Error('Modo de execução inválido.');
+  if(modo && !['full',MODO,MODO_FIXTURES].includes(modo))throw new Error('Modo de execução inválido.');
+  if(modo===MODO_FIXTURES){
+    if(env.CATALOGOS_DEMO_LOJA_ID!=='loja-demo' || Object.keys(env).some(k=>(k.startsWith('FIREBASE_') || k.startsWith('FIRESTORE_') || k==='GCLOUD_PROJECT' || k==='GOOGLE_CLOUD_PROJECT' || k==='GOOGLE_APPLICATION_CREDENTIALS' || k.startsWith('CATALOGOS_DEMO_') && k!=='CATALOGOS_DEMO_LOJA_ID') && env[k]))throw new Error('Fixtures exigem loja-demo e configuração sem Firebase ou listas de publicação.');
+    return Object.freeze({fonte:'fixtures',lojaId:'loja-demo'});
+  }
   if(modo!==MODO){
     if(Object.keys(env).some(k=>k.startsWith('CATALOGOS_DEMO_')))throw new Error('Configuração parcial de demonstração recusada.');
     return null;
@@ -18,4 +23,4 @@ function configurarDemo(env) {
   if(aprovado && (!produtos.length || !categorias.length))throw new Error('Publicação aprovada exige listas de registros revisados.');
   return Object.freeze({lojaId:'loja-demo',aprovado,produtos,categorias});
 }
-module.exports={MODO,configurarDemo};
+module.exports={MODO,MODO_FIXTURES,configurarDemo};

@@ -1,0 +1,23 @@
+{
+  "data": "2026-10-15",
+  "modo": "public-fixture-demo",
+  "branch": "deploy/render-demo-readonly",
+  "firebase_inicializado": false,
+  "secret_file_exigido": false,
+  "categorias_ficticias": 3,
+  "produtos_ficticios": 6,
+  "testes": {
+    "backend": 344,
+    "react": 101,
+    "infra": 8,
+    "react_api_chrome_local": "exit 0",
+    "build_homologacao": "exit 0",
+    "npm_start_config_homologacao": "health 200, catálogo 200, admin/outra loja 404, SIGTERM exit 0"
+  },
+  "cloudflare_policy": "não acessível pelas conexões atuais; confirmação do proprietário solicitada antes do push",
+  "github_push": "pendente dessa confirmação e scanner final",
+  "render": "proprietário prefere criação pelo painel; serviço não criado",
+  "url_publica_api": null,
+  "cloudflare_producao_alterado": false,
+  "firestore_auth_iam_chaves_alterados": false
+}

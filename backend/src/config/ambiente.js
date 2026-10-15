@@ -1,6 +1,13 @@
 function validarAmbiente(env=process.env) {
   const demo=require('./demoPublica').configurarDemo(env);
   const modo=env.APP_ENV || 'development';
+  if(demo?.fonte==='fixtures'){
+    if(!['development','homologacao'].includes(modo) || modo==='homologacao' && env.NODE_ENV!=='production' || modo==='development' && env.NODE_ENV==='production')throw new Error('Ambiente de fixtures inválido.');
+    const origens=(env.CORS_ORIGINS || '').split(',');
+    if(origens.some(o=>{try{const u=new URL(o.trim());return u.origin!==o.trim() || Boolean(u.username || u.password) || !(u.protocol==='https:' || modo==='development' && u.protocol==='http:' && ['localhost','127.0.0.1'].includes(u.hostname));}catch{return true;}}))throw new Error('Fixtures exigem origens explícitas e seguras.');
+    if(env.RATE_LIMIT_MODE!=='enforce' || env.HTTP_LOG_ENABLED!=='1')throw new Error('Fixtures exigem limites e logs habilitados.');
+    return {demo,emulador:false};
+  }
   if(env.RATE_LIMIT_MODE && !['off','enforce'].includes(env.RATE_LIMIT_MODE))throw new Error('RATE_LIMIT_MODE inválido.');
   if(!['development','test','homologacao','production'].includes(modo))throw new Error('APP_ENV inválido.');
   const credentialMode=env.FIREBASE_CREDENTIAL_MODE || 'managed';

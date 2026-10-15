@@ -1,8 +1,16 @@
-import {modoDemo} from './runtimeDemo.js';
+import {modoDemo,modoFixtures} from './runtimeDemo.js';
 const idValido=id=>typeof id==='string' && Boolean(id.trim()) && id.length<=128 && id.isWellFormed() && !/[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) && !['.','..'].includes(id);
 export function configuracaoAplicacao(env,hostname='localhost') {
   const demo=modoDemo(env);
   const modo=env.VITE_APP_ENV || 'development';
+  if(modoFixtures(env)){
+    const url=new URL(env.VITE_API_URL);
+    if(url.username || url.password || url.search || url.hash || url.pathname!=='/' || !(url.protocol==='https:' || modo==='development' && url.protocol==='http:' && ['localhost','127.0.0.1'].includes(url.hostname)))throw new Error('API de fixtures exige origem HTTPS ou localhost de desenvolvimento.');
+    let loja=env.VITE_LOJA_ID;
+    if(env.VITE_LOJAS_POR_HOST){const mapa=JSON.parse(env.VITE_LOJAS_POR_HOST);if(!mapa || Array.isArray(mapa) || typeof mapa!=='object' || Object.values(mapa).some(id=>id!=='loja-demo'))throw new Error('Mapa de fixtures inválido.');loja=mapa[hostname.toLowerCase()];}
+    if(loja!=='loja-demo')throw new Error('Fixtures Web permitem somente loja-demo.');
+    return {lojaId:loja,base:url.origin};
+  }
   if(!['development','test','homologacao','production'].includes(modo))throw new Error('Ambiente Web inválido.');
   const externo=['homologacao','production'].includes(modo);
   const projetoDemoExistente=env.VITE_FIREBASE_EXISTING_DEMO_PROJECT_ID;

@@ -1,5 +1,7 @@
 const ambienteRuntime = require('./config/ambiente').validarAmbiente();
-if (ambienteRuntime.demo) {
+if (ambienteRuntime.demo?.fonte==='fixtures') {
+  module.exports = require('./demo/fixtures').criarAppFixtures(ambienteRuntime.demo, process.env);
+} else if (ambienteRuntime.demo) {
   require('./config/firebase');
   module.exports = require('./demo/app').criarAppDemo(ambienteRuntime.demo, () => require('firebase-admin/firestore').getFirestore(), process.env);
 } else {

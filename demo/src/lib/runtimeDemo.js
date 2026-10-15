@@ -1,5 +1,10 @@
+export const modoFixtures=env=>env.VITE_CATALOGOS_RUNTIME_MODE==='public-fixture-demo';
 export function modoDemo(env) {
   const modo=env.VITE_CATALOGOS_RUNTIME_MODE;
+  if(modoFixtures(env)) {
+    if(!['development','homologacao'].includes(env.VITE_APP_ENV) || env.VITE_CATALOGOS_DEMO_LOJA_ID!=='loja-demo' || Object.keys(env).some(k=>k.startsWith('VITE_FIREBASE_') && env[k]))throw new Error('Fixtures Web exigem ambiente, loja e ausência de Firebase explícitos.');
+    return true;
+  }
   if(modo && !['full','public-readonly-demo'].includes(modo))throw new Error('Modo de execução Web inválido.');
   if(modo!=='public-readonly-demo'){
     if(Object.keys(env).some(k=>k.startsWith('VITE_CATALOGOS_DEMO_')))throw new Error('Configuração parcial de demonstração Web recusada.');

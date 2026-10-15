@@ -4,7 +4,7 @@ const {criarLimites,observar}=require('../middleware/operacao');
 const {catalogoDemo}=require('./catalogo');
 const CATALOGO='/publico/lojas/loja-demo/catalogo';
 const negar=(req,res)=>res.status(404).json({error:'Recurso indisponível nesta demonstração.'});
-function criarAppDemo(config,obterDb,env=process.env) {
+function criarAppDemo(config,obterDb,env=process.env,lerDocumento) {
   const app=express();app.disable('x-powered-by');
   app.use(erros.correlacao,observar);
   app.use((req,res,next)=>{res.set('Cache-Control','no-store');res.set('X-Content-Type-Options','nosniff');next();});
@@ -31,9 +31,9 @@ function criarAppDemo(config,obterDb,env=process.env) {
   async function lerCatalogo() {
     if(!config.aprovado)throw new erros.ErroHttp('Catálogo indisponível nesta demonstração.',503);
     if(cache && Date.now()<expira)return cache;
-    if(!pendente)pendente=catalogoDemo(config,async path=>{
+    if(!pendente)pendente=catalogoDemo(config,lerDocumento || (async path=>{
       const doc=await obterDb().doc(path).get();return doc.exists?doc.data():null;
-    }).then(v=>{cache=v;expira=Date.now()+30000;return v;}).finally(()=>{pendente=null;});
+    })).then(v=>{cache=v;expira=Date.now()+30000;return v;}).finally(()=>{pendente=null;});
     return pendente;
   }
   app.get(CATALOGO,async(req,res)=>res.json(await lerCatalogo()));

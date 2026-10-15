@@ -1,0 +1,16 @@
+✔ scan detecta token sintético sem imprimir valor e limpa fixture (120.796181ms)
+✔ custo aplica franquia uma vez por projeto/dia, não por restaurante (2.479381ms)
+✔ hosting SPA, cache do documento e assets, isolamento do contexto Docker (2.522124ms)
+✔ Render: exemplo usa modo restrito, projeto dedicado, sem segredo nem porta fixa (21.326091ms)
+✔ Render existente: exemplo exige autorização explícita sem credencial ou Emulator (1.785379ms)
+✔ primeira publicação Render exige demo explícita e catálogo não aprovado (1.322752ms)
+✔ proposta IAM da demo não pede escrita, listagem ou administração/Auth (0.569926ms)
+✔ Render fixtures inicia sem projeto Firebase, secret ou credencial e inclui somente fixture pública no Docker (0.966267ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 315.951784

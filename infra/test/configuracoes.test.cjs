@@ -44,3 +44,10 @@ test('proposta IAM da demo não pede escrita, listagem ou administração/Auth',
  assert.deepEqual(role.includedPermissions,['datastore.entities.get']);
  const codigo=fs.readFileSync('backend/src/demo/app.js','utf8');assert.ok(!codigo.includes('getAuth'));assert.ok(codigo.includes('.doc(path).get()'));
 });
+test('Render fixtures inicia sem projeto Firebase, secret ou credencial e inclui somente fixture pública no Docker',()=>{
+ const text=fs.readFileSync('infra/render/fixtures.backend.env.example','utf8');
+ const env=Object.fromEntries(text.split('\n').filter(l=>l&&!l.startsWith('#')).map(l=>{const i=l.indexOf('=');return [l.slice(0,i),l.slice(i+1)];}));
+ const a=require('../../backend/src/config/ambiente').validarAmbiente(env);assert.equal(a.demo.fonte,'fixtures');assert.equal(a.projectId,undefined);assert.equal(a.credentialMode,undefined);assert.equal(env.PORT,undefined);
+ assert.ok(!Object.keys(env).some(k=>k.startsWith('FIREBASE_') || k.startsWith('FIRESTORE_') || k.startsWith('GOOGLE_')));
+ const ignore=fs.readFileSync('backend/.dockerignore','utf8');assert.ok(ignore.includes('!fixtures/catalogo-publico.json'));assert.ok(!ignore.includes('!fixtures/**'));assert.ok(!ignore.includes('!fixtures/homologacao.json'));
+});

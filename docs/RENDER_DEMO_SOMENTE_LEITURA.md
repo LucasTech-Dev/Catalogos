@@ -1,5 +1,7 @@
 # CATÁLOGOS — MODO PÚBLICO SOMENTE LEITURA
 
+> Decisão mais recente: primeira publicação usará fixtures sem Firebase, com carrinho demonstrativo. Consulte o [guia prático vigente](PUBLICAR_DEMO_FIXTURES.md); configuração Firebase abaixo permanece como histórico/opção futura.
+
 > Etapa 1 de publicação: o proprietário informou ter publicado Rules deny-all manualmente. Estado remoto não reverificado nesta rodada; consulte a [branch e roteiro atuais](RENDER_ETAPA1_BRANCH_DEPLOY.md). Catálogo permanece bloqueado.
 
 > Atualização Ordem 07: auditoria real encontrou Rules publicadas inseguras e incompatibilidade no ativo da loja. Publicação bloqueada. Consulte [validação real](VALIDACAO_DADOS_PUBLICOS_RENDER.md); a descrição da Ordem 06 abaixo é histórica.

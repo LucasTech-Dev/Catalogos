@@ -1,5 +1,7 @@
 # CATÁLOGOS — RENDER: ETAPA 1, BRANCH DE DEPLOY
 
+> Decisão mais recente: primeira publicação usará fixtures sem Firebase, com carrinho demonstrativo. Consulte o [guia prático vigente](PUBLICAR_DEMO_FIXTURES.md); configuração Firebase abaixo permanece como histórico/opção futura.
+
 15/10/2026. Preparação local concluída. Push, IAM, geração de credenciais, Firestore real e criação do serviço Render não executados. Catálogo bloqueado. A ordem atual autoriza preparar branch/commits e aguardar autorização específica para push.
 
 ## 1. Branch e estado do Git
