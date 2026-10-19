@@ -1,5 +1,5 @@
 const {criarAppDemo}=require('./app');
-const fixture=require('../../fixtures/catalogo-publico.json');
+const fixture=require('../../data/catalogo-publico.json');
 
 // Fonte fechada de catálogo fictício. Nenhum SDK, arquivo externo ou armazenamento persistente.
 function criarAppFixtures(config,env) {

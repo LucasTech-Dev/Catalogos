@@ -1,4 +1,5 @@
 function validarAmbiente(env=process.env) {
+  require('../middleware/publicacaoCatalogo').configurarPublicacao(env);
   const demo=require('./demoPublica').configurarDemo(env);
   const modo=env.APP_ENV || 'development';
   if(demo?.fonte==='fixtures'){
@@ -33,7 +34,9 @@ function validarAmbiente(env=process.env) {
       const email=env.FIREBASE_SERVICE_ACCOUNT_EMAIL || '';
       if(credentialMode==='render-secret-file' && (!/^[a-z][a-z0-9-]{4,28}[a-z0-9]$/.test(email.split('@')[0]) || email.split('@').length!==2 || !email.endsWith('@'+permitido+'.iam.gserviceaccount.com')))throw new Error('Conta de serviço de homologação deve ser explícita e pertencer ao projeto permitido.');
     }
-    if(env.GOOGLE_APPLICATION_CREDENTIALS)throw new Error('ADC por arquivo não é permitido em ambiente externo; use o modo de identidade autorizado.');
+    // O loader continua usando cert() e o Secret File fixo; esta variável não libera ADC arbitrária.
+    if(env.GOOGLE_APPLICATION_CREDENTIALS && !(credentialMode==='render-secret-file' &&
+      env.GOOGLE_APPLICATION_CREDENTIALS===require('./credencialHomologacao').SECRET_PATH))throw new Error('Arquivo de identidade externo deve corresponder ao Secret File autorizado.');
     if(env.RATE_LIMIT_MODE!=='enforce' || env.HTTP_LOG_ENABLED!=='1')throw new Error('Ambiente externo exige limites e logs HTTP habilitados.');
   }
   const auth=env.FIREBASE_AUTH_EMULATOR_HOST,firestore=env.FIRESTORE_EMULATOR_HOST;

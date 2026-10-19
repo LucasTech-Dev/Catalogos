@@ -1,4 +1,3 @@
-const {ErroHttp}=require('../lib/seguranca');
 const base=require('../validators/base');
 const contratos=require('../validators/contratos');
 const admin=require('../validators/administracao');

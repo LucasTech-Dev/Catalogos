@@ -3,8 +3,8 @@
 !package-lock.json
 !src/
 !src/**
-!fixtures/
-!fixtures/catalogo-publico.json
+!data/
+!data/catalogo-publico.json
 !Dockerfile
 
 # Defesa adicional caso a lista de inclusão seja ampliada no futuro

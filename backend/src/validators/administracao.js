@@ -1,6 +1,6 @@
 const {ErroDominio}=require('../lib/seguranca');
 function erro(mensagem,status=400) {return new ErroDominio(mensagem,status);}
-const {objeto,campos,texto,dinheiro:numero,booleano,telefone,uf,cep}=require('./base');
+const {campos,texto,dinheiro:numero,booleano,telefone,uf,cep}=require('./base');
 function url(valor,nome) {if (valor === '') return '';const v=texto(valor,nome,2048);try {const u=new URL(v);if (!['https:','http:'].includes(u.protocol) || u.username || u.password) throw Error();return u.href;} catch {throw erro(`${nome} deve ser uma URL HTTP ou HTTPS válida.`);}}
 function id(valor) {return require('../lib/identificadores').identificador(valor);}
 const CAMPOS_PRODUTO = ['nome','descricao','preco','categoriaId','ativo','disponivel','imagem','ingredientes'];

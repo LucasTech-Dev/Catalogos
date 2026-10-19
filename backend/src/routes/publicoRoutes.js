@@ -5,9 +5,9 @@ router.param('enderecoId',require('../lib/identificadores').parametro);
 router.param('lojaId',require('../lib/identificadores').parametro);
 const auth = require('../middleware/authMiddleware');
 const loja = require('../middleware/lojaMiddleware');
-const {catalogo, selecionar, validarCliente, validarEndereco, clienteRef} = require('../services/publicoService');
+const {catalogo, validarCliente, validarEndereco, clienteRef} = require('../services/publicoService');
 const executar = fn => fn;
-router.get('/:lojaId/catalogo', validarEntrada, executar(async(req,res) => {
+router.get('/:lojaId/catalogo', validarEntrada, require('../middleware/publicacaoCatalogo').criarGuardaCatalogo(), executar(async(req,res) => {
   const dados = await catalogo(req.params.lojaId);
   if(!dados)throw new ErroHttp('Loja não encontrada.',404,'nao_encontrado');
   res.json(dados);

@@ -1,0 +1,17 @@
+{
+  "aviso": "Dados exclusivamente fictícios. Nenhum pedido é registrado.",
+  "loja": {"id":"loja-demo","nome":"Catálogos — Restaurante de demonstração","ativo":true},
+  "categorias": [
+    {"id":"refeicoes","nome":"Refeições","ativo":true},
+    {"id":"lanches","nome":"Lanches","ativo":true},
+    {"id":"bebidas","nome":"Bebidas","ativo":true}
+  ],
+  "produtos": [
+    {"id":"prato-teste","nome":"Prato da casa","descricao":"Arroz, feijão e legumes. Produto fictício para demonstração.","preco":20,"categoriaId":"refeicoes","ativo":true,"disponivel":true},
+    {"id":"prato-vegetariano","nome":"Prato vegetariano","descricao":"Legumes assados e arroz integral. Produto fictício.","preco":24,"categoriaId":"refeicoes","ativo":true,"disponivel":true},
+    {"id":"lanche-classico","nome":"Lanche clássico","descricao":"Pão, hambúrguer e queijo. Produto fictício.","preco":18,"categoriaId":"lanches","ativo":true,"disponivel":true},
+    {"id":"lanche-vegetariano","nome":"Lanche vegetariano","descricao":"Pão, hambúrguer vegetal e salada. Produto fictício.","preco":19.5,"categoriaId":"lanches","ativo":true,"disponivel":false},
+    {"id":"suco-teste","nome":"Suco de laranja","descricao":"Copo de 300 ml. Produto fictício.","preco":7,"categoriaId":"bebidas","ativo":true,"disponivel":true},
+    {"id":"agua-teste","nome":"Água mineral","descricao":"Garrafa de 500 ml. Produto fictício.","preco":4,"categoriaId":"bebidas","ativo":true,"disponivel":true}
+  ]
+}

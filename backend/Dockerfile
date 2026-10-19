@@ -3,6 +3,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
 COPY --chown=node:node src ./src
+COPY --chown=node:node data/catalogo-publico.json ./data/catalogo-publico.json
 USER node
 ENV NODE_ENV=production
 EXPOSE 8080

@@ -1,4 +1,3 @@
-const {ErroDominio}=require("../lib/seguranca");
 const {getFirestore} = require('firebase-admin/firestore');
 const {buscarLojaPorId} = require('./lojaService');
 const {listarProdutosPorLoja} = require('./produtoService');

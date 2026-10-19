@@ -18,14 +18,6 @@ const {
 } = require("./pedidoValidacaoService");
 
 const {
-  buscarEnderecoPorId,
-} = require("./enderecoService");
-
-const {
-  buscarLojaPorId,
-} = require("./lojaService");
-
-const {
   validarPagamentoInicial,
   validarTransicaoPagamento,
 } = require("./pagamentoService");
