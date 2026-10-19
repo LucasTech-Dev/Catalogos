@@ -13,6 +13,8 @@ function validarAmbiente(env=process.env) {
   if(!['development','test','homologacao','production'].includes(modo))throw new Error('APP_ENV inválido.');
   const credentialMode=env.FIREBASE_CREDENTIAL_MODE || 'managed';
   const projetoDemoExistente=env.FIREBASE_EXISTING_DEMO_PROJECT_ID;
+  const verificarFirebase=env.FIREBASE_STARTUP_CHECK==='1';
+  if(env.FIREBASE_STARTUP_CHECK && (!verificarFirebase || modo!=='homologacao' || projetoDemoExistente!=='bancorestaurante' || credentialMode!=='render-secret-file' || env.CATALOGOS_RUNTIME_MODE!=='full'))throw new Error('Verificação Firebase exige o backend completo de homologação autorizado.');
   if(projetoDemoExistente && (projetoDemoExistente!=='bancorestaurante' || modo!=='homologacao' || credentialMode!=='render-secret-file' || env.GCLOUD_PROJECT!==projetoDemoExistente))throw new Error('Autorização do projeto existente válida apenas na demonstração explícita com Secret File.');
   if(!['managed','render-secret-file'].includes(credentialMode))throw new Error('Modo de identidade Firebase inválido.');
   if(credentialMode==='render-secret-file' && modo!=='homologacao')throw new Error('Secret file permitido apenas em homologação.');
@@ -48,7 +50,7 @@ function validarAmbiente(env=process.env) {
   }
   if(projectId.startsWith('demo-'))throw new Error('Projeto demo exige ambos os emuladores.');
   if(modo==='test')throw new Error('Testes exigem projeto demo e ambos os emuladores.');
-  return {projectId,emulador:false,...(demo?{demo}:{}),...(credentialMode==='render-secret-file'?{credentialMode,serviceAccountEmail:env.FIREBASE_SERVICE_ACCOUNT_EMAIL}:{})};
+  return {projectId,emulador:false,...(demo?{demo}:{}),...(verificarFirebase?{verificarFirebase:true}:{}),...(credentialMode==='render-secret-file'?{credentialMode,serviceAccountEmail:env.FIREBASE_SERVICE_ACCOUNT_EMAIL}:{})};
 }
 function portaServidor(value='3000') {const porta=Number(value);if(!Number.isInteger(porta) || porta<1 || porta>65535)throw new Error('PORT inválida.');return porta;}
 module.exports={validarAmbiente,portaServidor};
