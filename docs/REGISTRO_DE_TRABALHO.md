@@ -1,3 +1,19 @@
+# Ordem011 — release publicada e verificada — 25/10/2026
+
+A — EXECUÇÃO PELO CODEX: PUB-PEND-01 CONCLUÍDA. Autorização direta no chat: push desta release na main de LucasTech-Dev/Catalogos e deploy no Pages catalogo-demo, sem alterar Firebase. Push normal f7be03bfa178e592b5c8cf0c08f1abed4dcede36, parent8927c27 preservado; Pages d370c31d-0f43-4a28-a38a-3762579da2b4/success às19:13:26 (America/Sao_Paulo), mesmo commit. Carrinho isolado/observações e área do cliente/pesquisa publicados. 56 verificações online aprovadas; 246 testes/23 arquivos e build local29,77s anteriores reutilizados, sem alteração de runtime. Firebase: nenhuma mudança de configuração, Rules, índices, IAM, usuários ou dados; login de contas sintéticas existentes somente para verificação, sem criar contas/pedidos ou gravar Firestore. [Relatório](ADAPTACAO_SERVERLESS/RELATORIO_PUBLICACAO_PENDENCIAS.md).
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: PUB-PEND-H1 ATENDIDA pela Ordem011 expressa nesta sessão. Próxima ação exata: revisar visualmente a release em https://catalogo-demo-cz1.pages.dev/; nenhuma intervenção técnica indispensável ou nova etapa automática. Ressalvas comerciais/B-03/B-04/quatro fotos preservadas, sem novo aceite comercial. Nenhuma limpeza pendente; fontes/testes/builds/backups/histórico preservados. Espelho externo ausente, não recriado. Histórico abaixo preservado.
+
+---
+
+# PUBLICAÇÃO BLOQUEADA pela revisão automática — 25/10/2026
+
+A — EXECUÇÃO PELO CODEX: PUB-PEND-01. Carrinho isolado/observações e área do cliente/pesquisa integrados no checkout de publicação, commit local f7be03bfa178e592b5c8cf0c08f1abed4dcede36, parent8927c27 preservado.246 testes distintos/23 arquivos aprovados (234+12 após ajustar somente caminho de fixture do checkout); build homologacao29,77s aprovado; scanner final33 arquivos sem achados. Primeiro push por terminal não executado: revisão automática expirou. Envio pela conexão GitHub rejeitado: revisão considerou o anexo de autorização não confiável para superar o gate Ordem011 do AGENTS. Nenhum push, árvore remota ou deployment novo confirmado; não tentar contornar por outro meio. Site permanece no deployment2b28a9c6/códigof678ee7. [Relatório](ADAPTACAO_SERVERLESS/RELATORIO_PUBLICACAO_PENDENCIAS.md).
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: PUB-PEND-H1, confirmar diretamente no chat autorização Ordem011 para enviar esta release à main de LucasTech-Dev/Catalogos e publicar no Pages catalogo-demo, sem Firebase. Motivo: rejeição explícita da revisão automática de permissão, apesar do anexo original. Próxima ação exata após autorização reconhecida: sincronizar commit preservando parent/main, confirmar deploy e executar verificador online preparado. Validação online desta release ainda não executada. Sem novo MVP/baixa comercial; Firebase real/Rules/índices/Auth/IAM/dados preservados. Sem limpeza pendente; espelho externo ausente, não recriado. Histórico abaixo preservado.
+
+---
+
 # Publicação das pendências prontas — 25/10/2026
 
 A — EXECUÇÃO PELO CODEX: PUB-PEND-01, autorização geral expressa atual para commit/push/main/Pages catalogo-demo. Integração de CART-01 e CLI-VISUAL-01 no checkout private-backups/publicacao-js-main, preservando histórico e configurações. Build homologacao aprovado29,77s; scanner seletivo sem achados; 246 testes distintos aprovados em23 arquivos (234+12 após corrigir fixture própria do checkout). [Relatório e arquivos](ADAPTACAO_SERVERLESS/RELATORIO_PUBLICACAO_PENDENCIAS.md). EM EXECUÇÃO: publicação ainda não confirmada. Firebase real/Rules/Auth/índices/IAM/dados preservados; nenhum novo MVP ou baixa comercial por associação.
