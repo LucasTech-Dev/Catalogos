@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-25T14:26:05.301Z",
+  "command": "npm run build -- --mode homologacao --outDir <artefato privado da publicação>",
+  "configuration": "idêntica ao Pages; dez variáveis públicas preservadas",
+  "files": [
+    {
+      "path": "_redirects",
+      "bytes": 19,
+      "sha256": "6036983e5fc00f0169c9e939b1816ed771eee00e27f2fcc517b819041460b9ef"
+    },
+    {
+      "path": "assets/App-BkUvQBLq.js",
+      "bytes": 893148,
+      "sha256": "32fcfc5c07b4014df3aca90b9e51b03923949f90094fcb0a0848cdec5ce6602d"
+    },
+    {
+      "path": "assets/DemoFixtures-BjFhf-tf.css",
+      "bytes": 2355,
+      "sha256": "2b1a28b2ac0bad8fcd37074aee415dca3401bbbd8da52f1e644fa2faa72903b1"
+    },
+    {
+      "path": "assets/DemoFixtures-DUq-VI-3.js",
+      "bytes": 7285,
+      "sha256": "11407beece95aaed96c4c1525d14d289223d66190333f02e6b90fd8ab7430500"
+    },
+    {
+      "path": "assets/DemoPublica-mB5Wh0Jy.js",
+      "bytes": 3468,
+      "sha256": "358daa8c300a586bac5ae5f9e1230474928d960aeef86df4407f1764233ec215"
+    },
+    {
+      "path": "assets/ambienteAplicacao--5ClFeEV.js",
+      "bytes": 3580,
+      "sha256": "b28eda04ae2e9ed0c4c322f0fd236477ad610b4d95fe8175152b1cc5fea6faba"
+    },
+    {
+      "path": "assets/index-Dq28_Ntu.css",
+      "bytes": 86772,
+      "sha256": "e0128aac14c189c0106d94519c4efacf7dd56c1cda9ff8ae795d322372d70624"
+    },
+    {
+      "path": "assets/index-GglDCzUr.js",
+      "bytes": 147808,
+      "sha256": "4eeec379628250256c2e565a331db43743cf9339697d05cb717a98564a05b677"
+    },
+    {
+      "path": "demo-produto.svg",
+      "bytes": 716,
+      "sha256": "2e12a9c897ed3265824be80fcec3fa1e2d0ee86029b3c6163eada4461eecb183"
+    },
+    {
+      "path": "index.html",
+      "bytes": 501,
+      "sha256": "806e3f48b2f70720faaa3f711ac6acb41cbf70e71ce05f0f10351c93a1257c4e"
+    }
+  ],
+  "firebaseChanges": false
+}

@@ -22,7 +22,7 @@ it('detalhe usa o mesmo catálogo SDK sem endpoint adicional',async()=>{
 });
 it('preserva loading, erro e retry do SDK sem sucesso fictício',async()=>{
   let rejeitar;mocks.carregar.mockImplementationOnce(()=>new Promise((_,reject)=>{rejeitar=reject;}));
-  render(<LojaProvider><Cardapio/></LojaProvider>);expect(screen.getByText('Carregando catálogo...')).toBeTruthy();
+  render(<LojaProvider><Cardapio/></LojaProvider>);expect(screen.getByText('Carregando...')).toBeTruthy();
   rejeitar(new Error('Catálogo não disponível para leitura pública.'));await screen.findByRole('alert');
   expect(screen.queryByText('Prato SDK')).toBeNull();fireEvent.click(screen.getByText('Tentar novamente'));await screen.findByText('Prato SDK');expect(mocks.api).not.toHaveBeenCalled();
 });
@@ -35,4 +35,11 @@ it('catálogo externo aceita configuração pública Firebase sem URL de Express
   const env={VITE_APP_ENV:'production',VITE_LOJA_ID:'cliente-b',VITE_FIREBASE_API_KEY:'fake-public',VITE_FIREBASE_AUTH_DOMAIN:'public.example',VITE_FIREBASE_PROJECT_ID:'projeto-exemplo',VITE_FIREBASE_EXPECTED_PROJECT_ID:'projeto-exemplo',VITE_FIREBASE_APP_ID:'app-publico'};
   expect(configuracaoAplicacao(env).lojaId).toBe('cliente-b');
   expect(()=>configuracaoAplicacao({...env,VITE_FIRESTORE_EMULATOR_HOST:'127.0.0.1:8080'})).toThrow();
+});
+it('catálogo pronto permanece durante releitura, mas é ocultado se a loja negar acesso',async()=>{
+  render(<LojaProvider><Cardapio/></LojaProvider>);await screen.findByText('Prato SDK');
+  let rejeitar;mocks.carregar.mockImplementationOnce(()=>new Promise((_,j)=>{rejeitar=j;}));
+  fireEvent(window,new Event('focus'));expect(screen.getByText('Prato SDK')).toBeTruthy();
+  rejeitar(Object.assign(new Error('Catálogo indisponível.'),{status:403}));await screen.findByRole('alert');
+  expect(screen.queryByText('Prato SDK')).toBeNull();expect(screen.queryByText('Carregando...')).toBeNull();
 });

@@ -1,3 +1,4 @@
+import {PageBoundary} from '../components/ui/PageLoader';
 import React, {useCallback} from "react";
 
 import {useRecurso} from '../hooks/useRecurso';
@@ -6,10 +7,11 @@ import {moeda} from '../lib/compras';
 function PedidoDetalhes() {
   const id = new URLSearchParams(window.location.search).get('id');
   const ler=useCallback(()=>buscarPedido(id),[id]);
-  const {dados,erro,carregando,atualizar} = useRecurso(ler);
-  if (!dados) return <main className="order-details-page"><p role="status">{erro || (carregando ? 'Carregando...' : 'Pedido não encontrado.')}</p><a href="/perfil/pedidos">Meus pedidos</a></main>;
+  const recurso=useRecurso(ler);
+  const {dados,erro,carregando,atualizar} = recurso;
+  if (!dados) return <PageBoundary recursos={[recurso]}><main className="order-details-page"><p role="status">{erro || (carregando ? 'Carregando...' : 'Pedido não encontrado.')}</p><a href="/perfil/pedidos">Meus pedidos</a></main></PageBoundary>;
   const pedido = {...dados,subtotal:moeda(dados.subtotal),total:moeda(dados.total),entrega:moeda(dados.taxaEntrega),pagamento:dados.pagamento?.forma,endereco:dados.endereco || {},itens:dados.itens.map(i => ({...i,preco:moeda(i.subtotal)}))};
-  return (
+  return (<PageBoundary recursos={[recurso]}>
     <main className="order-details-page">
       <div className="container order-details-container">
 
@@ -210,7 +212,7 @@ function PedidoDetalhes() {
         </div>
 
       </div>
-    </main>
+    </main></PageBoundary>
   );
 }
 

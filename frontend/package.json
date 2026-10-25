@@ -10,7 +10,9 @@
     "test": "node ../quality/run.cjs frontend-test",
     "docs:check": "node ../quality/docs/documentacao.cjs --check",
     "build:externo": "node scripts/build-externo.mjs",
-    "test:online:pages": "node ../quality/frontend/scripts/validar-pages-js-online.cjs"
+    "test:online:pages": "node ../quality/frontend/scripts/validar-pages-js-online.cjs",
+    "test:online:publicacao-geral": "node ../quality/frontend/scripts/validar-publicacao-geral.cjs",
+    "test:online:performance": "node ../quality/frontend/scripts/medir-performance-pages.cjs"
   },
   "dependencies": {
     "firebase": "^13.0.0",

@@ -4,12 +4,16 @@ import {modoDemo,modoFixtures,modoOriginalDemo} from './lib/runtimeDemo';
 
 import "./styles.css";
 
+import {PageLoader,PageBoundary} from './components/ui/PageLoader';
+import {aguardarLeitura} from './lib/carregamento';
+const root=ReactDOM.createRoot(document.getElementById('root'));
+root.render(<PageLoader/>);
 async function iniciar() {
-  const {default:App}=await (modoDemo(import.meta.env) && !modoOriginalDemo(import.meta.env)?(modoFixtures(import.meta.env)?import('./pages/DemoFixtures.jsx'):import('./pages/DemoPublica.jsx')):import('./App.jsx'));
-  ReactDOM.createRoot(document.getElementById("root")).render(
+  const {default:App}=await aguardarLeitura(() => (modoDemo(import.meta.env) && !modoOriginalDemo(import.meta.env)?(modoFixtures(import.meta.env)?import('./pages/DemoFixtures.jsx'):import('./pages/DemoPublica.jsx')):import('./App.jsx')));
+  root.render(
     <React.StrictMode>
       <App />
     </React.StrictMode>
   );
 }
-iniciar().catch(()=>{document.getElementById('root').textContent='Aplicação indisponível. Confira a configuração da demonstração.';});
+iniciar().catch(()=>{root.render(<PageBoundary recursos={[{pronto:false,erro:'Aplicação indisponível. Confira sua conexão ou a configuração da loja.',atualizar:()=>window.location.reload()}]}/>);});

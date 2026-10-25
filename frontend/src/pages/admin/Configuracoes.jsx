@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import {PageBoundary} from '../../components/ui/PageLoader';
+import React, { useState, useLayoutEffect } from "react";
 
 import {admin} from "../../services/admin";
 import {useAdminRecurso} from "../../hooks/useAdmin";
@@ -14,7 +15,7 @@ function Configuracoes() {
   const vazio={nome:'',descricao:'',telefone:'',whatsapp:'',instagram:'',endereco:'',bairro:'',cidade:'',numero:'',uf:'',logo:'',imagem:'',corPrimaria:'#f97316',tempoMedio:'',horarios:{},retirada:true,entrega:false,taxaEntrega:'0',pedidoMinimo:'0',pix:false,dinheiro:false,cartao_credito:false,cartao_debito:false};
   const [config,setConfig]=useState(vazio);
   function adaptar(dados) {const endereco=typeof dados.endereco==='string'?{rua:dados.endereco}:dados.endereco || {};return {...vazio,...dados,endereco:endereco.rua || endereco.logradouro || '',numero:endereco.numero || '',uf:endereco.uf || '',bairro:endereco.bairro || '',cidade:endereco.cidade || '',horarios:typeof dados.horarios==='object' && dados.horarios ? Object.fromEntries(Object.entries(dados.horarios).map(([dia,h])=>[dia==='terça'?'terca':dia==='sábado'?'sabado':dia,h])) : {},retirada:dados.retirada?.habilitada!==false,entrega:dados.entrega?.habilitada===true,taxaEntrega:String(dados.entrega?.taxa ?? 0),pedidoMinimo:String(dados.pedidoMinimo ?? 0),pix:dados.pagamentos?.pix===true,dinheiro:dados.pagamentos?.dinheiro===true,cartao_credito:dados.pagamentos?.cartao_credito===true || dados.pagamentos?.cartao===true,cartao_debito:dados.pagamentos?.cartao_debito===true || dados.pagamentos?.cartao===true};}
-  useEffect(()=>{if(recurso.dados)setConfig(adaptar(recurso.dados));},[recurso.dados]);
+  useLayoutEffect(()=>{if(recurso.dados)setConfig(adaptar(recurso.dados));},[recurso.dados]);
   const horario=(dia,campo,valor)=>{setConfig(a=>({...a,horarios:{...a.horarios,[dia]:{...(typeof a.horarios[dia]==='object'?a.horarios[dia]:{fechado:true}),[campo]:valor}}}));setSalvo(false);};
   function alterarCampo(campo, valor) {
     setConfig((atual) => ({
@@ -34,7 +35,7 @@ function Configuracoes() {
       const salvo=await admin.configurar(dados);recurso.setDados(salvo);sessao?.atualizarLoja(salvo);setConfig(adaptar(salvo));setSalvo(salvo.salvamento?.atomico===false?'Horários e configurações salvos em etapas.':'Alterações salvas');
     }catch(e){setErro(e.message);}finally{setOcupado(false);}
   }
-  return (
+  return (<PageBoundary recursos={[recurso]}>
     <main className="admin-settings-page">
       <div className="admin-container">
         <section className="admin-page-header">
@@ -400,7 +401,7 @@ function Configuracoes() {
           </div>
         </form>
       </div>
-    </main>
+    </main></PageBoundary>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ImagemCatalogo from "../components/ui/ImagemCatalogo";
 
-import {useLoja, EstadoCatalogo} from "../contexts/LojaContext";
+import {useLoja, EstadoCatalogo, CatalogoPronto} from "../contexts/LojaContext";
 function Produto() {
   const {produtos,adicionar,carregando,erro} = useLoja();
   const produto = produtos.find(p => p.id === new URLSearchParams(window.location.search).get("id"));
@@ -24,10 +24,10 @@ function Produto() {
     )
     .reduce((total, adicional) => total + adicional.preco, 0);
 
-  if (!produto) return <main className="product-page"><EstadoCatalogo />{!carregando && !erro && <p>Produto não encontrado.</p>}<a href="/cardapio">Ver cardápio</a></main>;
+  if (!produto) return <CatalogoPronto><main className="product-page"><EstadoCatalogo />{!carregando && !erro && <p>Produto não encontrado.</p>}<a href="/cardapio">Ver cardápio</a></main></CatalogoPronto>;
   const total = (produto.preco + totalAdicionais) * quantidade;
 
-  return (
+  return (<CatalogoPronto>
     <main className="product-page">
       <EstadoCatalogo />
       <section className="product-detail-section">
@@ -115,7 +115,7 @@ function Produto() {
           </div>
         </div>
       </section>
-    </main>
+    </main></CatalogoPronto>
   );
 }
 

@@ -1,3 +1,9 @@
+# Publicação geral autorizada — 25/10/2026
+
+PUB-GERAL-01 integra loading, performance e imagens da cópiaJS sob autorização expressa de commit/push/deploy e acionamentoPages manual se necessário. Escopo/testes/build/arquivos e resultado no [relatório](ADAPTACAO_SERVERLESS/RELATORIO_PUBLICACAO_GERAL.md). Configuração pública homologada preservada; nenhum Firebase real ou dado comercial alterado. Resultado online será registrado após publicar; não presumir sucesso antecipadamente. Histórico abaixo preservado.
+
+---
+
 # Otimizações de leitura — publicação autorizada — 25/10/2026
 
 PERF-PUB-01: diff de produção limitado aos quatro módulos de leitura; testes/build final e baseline de desempenho no [relatório técnico](ADAPTACAO_SERVERLESS/RELATORIO_OTIMIZACAO_LEITURAS.md). Commit/push normal/main e publicação autorizados nesta sessão; acompanhamento Pages e comparação online após publicação. Firebase/Rules/índices/Auth/IAM/dados comerciais preservados. Admin online medido somente no bloqueio do cliente; conta privilegiada de teste continua desativada. Sem nova funcionalidade ou etapa; resultado final será registrado após validação.

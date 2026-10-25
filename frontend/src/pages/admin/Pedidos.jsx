@@ -1,3 +1,4 @@
+import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useState } from "react";
 
 import {rotulosStatus,dataTexto,classeStatus} from "../../services/admin";
@@ -11,7 +12,7 @@ function Pedidos() {
   const recurso=useAdminLista('pedidos',status?{status}:{});
   const filtros=['Todos',...Object.values(rotulosStatus)];
   const pedidosFiltrados=recurso.itens.map(p=>({...p,cliente:p.cliente?.nome || 'Cliente',horario:dataTexto(p.criadoEm),tipo:p.tipoEntrega,itens:`${p.itens?.length || 0} itens`,valor:moeda(p.total),status:rotulosStatus[p.status] || p.status,statusClass:classeStatus[p.status] || ''}));
-  return (
+  return (<PageBoundary recursos={[recurso]}>
     <main className="admin-orders-page">
       <div className="admin-container">
 
@@ -126,7 +127,7 @@ function Pedidos() {
         </section>
 
       </div>
-    </main>
+    </main></PageBoundary>
   );
 }
 

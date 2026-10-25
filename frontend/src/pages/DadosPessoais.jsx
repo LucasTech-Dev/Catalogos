@@ -1,9 +1,11 @@
+import {PageBoundary} from '../components/ui/PageLoader';
 import React, {useState} from "react";
 import {useRecurso} from "../hooks/useRecurso";
 import {trocarSenha,buscarPerfil,salvarPerfil} from "../services/conta";
 
 function DadosPessoais() {
-  const {dados,erro:erroCarga,carregando,atualizar} = useRecurso(buscarPerfil);
+  const recurso=useRecurso(buscarPerfil);
+  const {dados,erro:erroCarga,carregando,atualizar} = recurso;
   const [erro,setErro] = useState(''),[ocupado,setOcupado] = useState(false);
   async function handleSubmit(event) {
     event.preventDefault();if (ocupado) return;setOcupado(true);setErro('');const valor = id => event.target.querySelector('#'+id).value;
@@ -12,8 +14,8 @@ function DadosPessoais() {
       await salvarPerfil({nome:valor('nome'),telefone:valor('telefone')},dados?.uid);setErro('Dados salvos.');atualizar();
     } catch(e) {setErro(e.message);} finally {setOcupado(false);}
   }
-  if (carregando) return <main className="account-data-page"><p>Carregando...</p></main>;
-  return (
+
+  return (<PageBoundary recursos={[recurso]}>
     <main className="account-data-page">
       <div className="container account-data-container">
 
@@ -179,7 +181,7 @@ function DadosPessoais() {
         </form>
 
       </div>
-    </main>
+    </main></PageBoundary>
   );
 }
 

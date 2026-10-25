@@ -1,3 +1,4 @@
+import {PageBoundary} from '../../components/ui/PageLoader';
 import React, {useCallback,useState} from "react";
 import {admin,rotulosStatus,dataTexto,classeStatus} from "../../services/admin";
 import {useAdminRecurso} from "../../hooks/useAdmin";
@@ -12,7 +13,7 @@ function Dashboard() {
   const carregar=useCallback(()=>admin.dashboard(periodo),[periodo]);const recurso=useAdminRecurso(carregar);const dados=recurso.dados;
   const stats=[{label:'Pedidos no período',value:dados?.pedidos ?? '—',description:'Pela data de criação',icon:'📦'},...Object.entries(rotulosStatus).map(([status,label])=>({label,value:dados?.porStatus?.[status] ?? '—',description:'Pedidos no período',icon:'📦'})),{label:'Produtos disponíveis',value:dados?.produtos?.disponiveis ?? '—',description:'Catálogo atual',icon:'🍔'},{label:'Produtos indisponíveis',value:dados?.produtos?.indisponiveis ?? '—',description:'Catálogo atual',icon:'🍔'}];
   const pedidosRecentes=(dados?.recentes || []).map(p=>({...p,cliente:p.cliente?.nome || 'Cliente',horario:dataTexto(p.criadoEm),valor:moeda(p.total),status:rotulosStatus[p.status] || p.status,statusClass:classeStatus[p.status] || ''}));
-  return (
+  return (<PageBoundary recursos={[recurso]}>
     <main className="admin-dashboard">
       <div className="admin-container">
 
@@ -240,7 +241,7 @@ function Dashboard() {
         </section>
 
       </div>
-    </main>
+    </main></PageBoundary>
   );
 }
 

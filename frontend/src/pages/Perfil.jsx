@@ -1,10 +1,12 @@
+import {PageBoundary} from '../components/ui/PageLoader';
 import React from "react";
 
 import {useRecurso} from "../hooks/useRecurso";
 import {sair,buscarPerfil} from "../services/conta";
 function Perfil() {
-  const {dados,erro,carregando} = useRecurso(buscarPerfil);
-  return (
+  const recurso=useRecurso(buscarPerfil);
+  const {dados,erro,carregando} = recurso;
+  return (<PageBoundary recursos={[recurso]}>
     <main className="profile-page">
       <div className="container profile-container">
 
@@ -120,7 +122,7 @@ function Perfil() {
         </section>
 
       </div>
-    </main>
+    </main></PageBoundary>
   );
 }
 

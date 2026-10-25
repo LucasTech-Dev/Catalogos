@@ -1,3 +1,4 @@
+import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useMemo, useState } from "react";
 
 import {admin} from "../../services/admin";
@@ -33,7 +34,7 @@ function Produtos() {
     });
   }, [busca, categoria, recurso.dados, categoriasRecurso.dados]);
 
-  return (
+  return (<PageBoundary recursos={[recurso,categoriasRecurso]}>
     <main className="admin-products-page">
       <div className="admin-container">
 
@@ -217,7 +218,7 @@ function Produtos() {
         </section>
 
       </div>
-    </main>
+    </main></PageBoundary>
   );
 }
 

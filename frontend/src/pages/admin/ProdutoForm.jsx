@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import {PageBoundary} from '../../components/ui/PageLoader';
+import React, { useState, useLayoutEffect, useCallback, useRef } from "react";
 
 import {admin} from "../../services/admin";
 import {useAdminRecurso,useAdminLista} from "../../hooks/useAdmin";
@@ -11,13 +12,13 @@ function ProdutoForm() {
   const [erro,setErro]=useState(''),[salvo,setSalvo]=useState(false),[ocupado,setOcupado]=useState(false);const trava=useRef(false);
   const carregar=useCallback(()=>produtoId?admin.buscar('produtos',produtoId):Promise.resolve(null),[produtoId]);
   const recurso=useAdminRecurso(carregar),categoriasRecurso=useAdminLista('categorias',{limite:100,contagem:'0'});const categorias=categoriasRecurso.itens;
-  useEffect(()=>{if(recurso.dados)setProduto({...recurso.dados,preco:String(recurso.dados.preco),disponivel:recurso.dados.disponivel!==false});},[recurso.dados]);
+  useLayoutEffect(()=>{if(recurso.dados)setProduto({...recurso.dados,preco:String(recurso.dados.preco),disponivel:recurso.dados.disponivel!==false});},[recurso.dados]);
   const atualizarCampo=(campo,valor)=>{setProduto(a=>({...a,[campo]:valor}));setSalvo(false);};
   async function salvarProduto(event){
     event.preventDefault();if(trava.current)return;trava.current=true;setOcupado(true);setErro('');setSalvo(false);
     try {if(produto.preco==='')throw new Error('Informe o preço.');const dados={nome:produto.nome,descricao:produto.descricao,categoriaId:produto.categoriaId,preco:Number(produto.preco),ativo:produto.ativo,disponivel:produto.disponivel,imagem:produto.imagem};const resultado=await admin.salvar('produtos',idSalvo || null,dados);setIdSalvo(resultado.id);setProduto({...resultado,preco:String(resultado.preco),disponivel:resultado.disponivel!==false});setSalvo(true);}catch(e){setErro(e.message);}finally{trava.current=false;setOcupado(false);}
   }
-  return (
+  return (<PageBoundary recursos={[recurso,categoriasRecurso]}>
     <main className="admin-product-form-page">
       <div className="admin-container">
 
@@ -313,7 +314,7 @@ function ProdutoForm() {
         </form>
 
       </div>
-    </main>
+    </main></PageBoundary>
   );
 }
 

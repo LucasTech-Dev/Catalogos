@@ -2,14 +2,14 @@ import React from "react";
 
 import CartItem from "../components/ui/CartItem";
 
-import {useLoja, EstadoCatalogo} from "../contexts/LojaContext";
+import {useLoja, EstadoCatalogo, CatalogoPronto} from "../contexts/LojaContext";
 import {modoOriginalDemo} from '../lib/runtimeDemo';
 function Carrinho() {
   const demonstrativo=modoOriginalDemo(import.meta.env);
   const {itens,alterarQuantidade,removerItem,subtotal,loja} = useLoja();
   const taxaEntrega = loja?.entrega?.habilitada ? Number(loja.entrega.taxa || 0) : 0;
   const total = subtotal + taxaEntrega;
-  return (
+  return (<CatalogoPronto>
     <main className="cart-page">
       <section className="cart-section">
         <div className="container">
@@ -138,7 +138,7 @@ function Carrinho() {
           </div>
         </div>
       </section>
-    </main>
+    </main></CatalogoPronto>
   );
 }
 

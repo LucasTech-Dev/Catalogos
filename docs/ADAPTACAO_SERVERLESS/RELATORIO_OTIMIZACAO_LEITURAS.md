@@ -1,3 +1,43 @@
+# Resultado da publicação de performance — INTERROMPIDA NO DEPLOY — 25/10/2026
+
+**Commit/push concluídos; otimizações ainda não publicadas no site.** Commit `e6677c786c396e7eba3559121863c3ebae672d7d`, [GitHub/main](https://github.com/LucasTech-Dev/Catalogos/commit/e6677c786c396e7eba3559121863c3ebae672d7d), pai `fac54aabb70a6e9317114a06de37d3e87606a7d5`. Fast-forward pela conexão GitHub, `force=false`, precondição de head conferida; história integral preservada. Árvore `b92069c5b4e875d874683b4a017f33d065b6bad6`. Onze arquivos: quatro módulos de leitura, dois testes/roteiros em quality e cinco documentos/recibos. Sem backend, Firebase, configuração ou dependências alteradas.
+
+A — EXECUÇÃO PELO CODEX: PERF-PUB-01. Nova suíte completa161/161 aprovada na cópia de trabalho (73,92s) e no checkout integrado que originou o commit (46,04s); quatro exemplos públicos e três builds aprovados, mais build final homologacao com configuração pública da release/oito saídas. Os diffs dos quatro módulos são exatamente as otimizações já implementadas; sem funcionalidade nova.
+
+Cloudflare conferida repetidamente após o push, por cerca de dois minutos. Última consulta em25/10/2026 10:25:25 America/Sao_Paulo (13:25:25UTC): `production_deployments_enabled=true`, produção `main`, fonte LucasTech-Dev/Catalogos, mas **nenhum deployment para e6677c7**. Canônico permanece `440ebe2b-1073-4e1e-a23a-132e90f4f1b3`, success, código `030ec02229f74375db72178f551bc5d0a0c5ada6`. GET público confirmouHTTP200 e asset `/assets/index-BUigF6rR.js`, diferente do novo build local `/assets/index-D5xQKw6F.js`. Não atribuir a falha ao código/build: o deploy não foi criado. Causa da ausência de disparo automático não investigada nesta ordem.
+
+Conforme a instrução explícita “Se houver falha, interrompa e informe a correção mínima”, **não foi acionado deployment alternativo/manualmente pela API**, nem alterada integração. Correção mínima para retomada: disparar buildGit/main no Pages catalogo-demo para o commit e6677c7, conferir hash e success, executar `CATALOGOS_PERFORMANCE_PAGES=AUTORIZADA node quality/frontend/scripts/medir-performance-pages.cjs depois`. Não corrigir webhook/configurações por associação. Não há falha funcional do site antigo; falta publicar a correção de performance.
+
+## Tempos realmente medidos
+
+Chrome headless desktop1440x1000, cacheHTTP desativado, rede/CPU sem throttling; mesma conta sintética existente; três navegações por tela. Valores são medianas do início da navegação até DOM utilizável com dados, incluindo HTML/JS/Auth/Firestore, não latência isolada de GET. Baseline capturado antes do push, recibo [PERFORMANCE_PAGES_ANTES.json](PERFORMANCE_PAGES_ANTES.json).
+
+| Tela | Antes | Depois |
+| --- | ---: | --- |
+| Home |3498ms|não publicado|
+| Catálogo/cardápio |3778ms|não publicado|
+| Detalhe do produto |3735ms|não publicado|
+| Histórico de pedidos do cliente |1718ms|não publicado|
+| Painel — bloqueio a cliente |1498ms|não publicado|
+| Produtos admin — bloqueio a cliente |1559ms|não publicado|
+| Pedidos admin — bloqueio a cliente |1729ms|não publicado|
+
+**Melhoria online: não mensurada.** Não criar comparação “depois” usando o código antigo. Ganho estrutural comprovado pelos testes locais: oito categorias em dois lotes de quatro, compartilhamento de leitura em andamento e uma leitura/etapa a menos por operação em pedidos/gestão. Isso não é prova de percentual ou tempo final de produção.
+
+Admin autorizado: sem métrica de consulta interna. A autoridade da conta sintética foi desativada na homologação anterior e permanece assim. Não foi solicitado segredo nem alterado documento para habilitar esse teste. Proteção medida no bloqueio a cliente não deve ser apresentada como carregamento do dashboard/produtos/pedidos administrativos.
+
+Validações online da versão anterior: nove produtos/preços renderizados; Classic Burger28,90; dois pedidos sintéticos existentes e detalhe de entrega33,90; ClienteB negado ao pedido de ClienteA; admin/produtos/pedidos administrativos negados a cliente. Zero criação de conta/pedido/tentativa de escritaFirestore/exceçãoJS/Render. Testes novos locais confirmam também isolamento por loja, revogação e troca de sessão. Sem alteração em Rules, índices, Auth/configuração, IAM ou documentos comerciais; sem auditoria privilegiada geral do banco ou alegação de homologação integrada da versão não publicada.
+
+## Registro, limpeza e estado final
+
+Primeira tentativa Chrome restrita falhou antes da navegação; o mesmo roteiro com permissão de navegador/rede passou. Primeiro `git fetch` restrito semDNS falhou; repetido com permissão de rede, aprovado. Essas falhas de ambiente não exigiram mudança no produto. Checkout local main alinhado a origin/main após comprovar igualdade da árvore integral; arquivos preservados, estado limpo. Git original permanece sem histórico/rastreados, sem stage próprio. Scanner dirigido sem achados de segredo; código/teste revisados; sem exclusões/limpeza pendentes. Recibos/testes permanentes preservados. Artefato atualdist e backups ignorados não foram apagados. Espelho externo ausente, não recriado.
+
+Arquivos pós-push: este relatório, recibo PERFORMANCE_PUBLICACAO_EVIDENCIAS.json e entradas locais do Guia Mestre/TXT, plano único, diário, Registro e Continuidade; índice/inventário regenerados/conferidos. Essas evidências finais ficam na cópia de trabalho local; **não foi feito segundo push** após a interrupção. Matriz, posição dos nove MVPs e ressalvas comerciais anteriores inalteradas. Teste permanente de medição em quality/frontend/scripts/medir-performance-pages.cjs, separado do bundle.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: nenhuma senha/painel solicitado. Publicação principal foi autorizada, mas esta execução para no disparo automático ausente por instrução explícita do proprietário. Próxima ação exata: decidir a retomada pelo acionamento mínimo do buildPages existente e validação posterior, sem alterar Firebase ou abrir nova etapa. Não solicitar reativação de conta de teste para cumprir medição. Tempo técnico estimado15min, sem cronômetro integral; espera de disparo cerca2min, nenhum minuto manual. Não houve nova alteração de runtime após os testes finais.
+
+---
+
 # Publicação autorizada das otimizações — 25/10/2026
 
 Autorização expressa do proprietário nesta sessão: somente otimizações já implementadas, testes/build, commit/push normal em LucasTech-Dev/Catalogos/main, acompanhamento Pages e validação/medição online. Nenhuma autorização de alteração de Rules, índices, Auth, IAM ou documentos comerciais. Sem funcionalidade nova.

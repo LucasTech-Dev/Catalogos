@@ -1,10 +1,25 @@
 import {useCallback,useEffect,useState,useRef} from 'react';
 import {admin} from '../services/admin';
+import {aguardarLeitura} from '../lib/carregamento';
 export function useAdminRecurso(carregar) {
   const [dados,setDados]=useState(null),[erro,setErro]=useState(''),[carregando,setCarregando]=useState(true);
+  const origemAtual=useRef(carregar);
   const versao=useRef(0);
-  const atualizar=useCallback(async()=>{const v=++versao.current;setCarregando(true);setErro('');try {const resposta=await carregar();if(v===versao.current)setDados(resposta);} catch(e){if(v===versao.current)setErro(e.message);} finally {if(v===versao.current)setCarregando(false);}},[carregar]);
-  useEffect(()=>{atualizar();return()=>{versao.current++;};},[atualizar]);return {dados,setDados,erro,setErro,carregando,atualizar};
+  const [pronto,setPronto]=useState(false),[origem,setOrigem]=useState(()=>carregar);
+  const emCurso=useRef(null);
+  const atualizar=useCallback(()=>{
+    if(emCurso.current?.origem===carregar && emCurso.current.versao===versao.current)return emCurso.current.promessa;
+    const v=++versao.current;
+    if(origemAtual.current!==carregar){origemAtual.current=carregar;setDados(null);setPronto(false);}
+    setCarregando(true);setErro('');setOrigem(()=>carregar);
+    const promessa=aguardarLeitura(carregar).then(resposta=>{
+      if(v===versao.current){setDados(resposta);setPronto(true);}
+    }).catch(e=>{
+      if(v===versao.current){if([401,403].includes(e.status)||e.code==='SESSION_CHANGED'){setDados(null);setPronto(false);}setErro(e.message);}
+    }).finally(()=>{if(v===versao.current)setCarregando(false);if(emCurso.current?.versao===v)emCurso.current=null;});
+    emCurso.current={origem:carregar,versao:v,promessa};return promessa;
+  },[carregar]);
+  useEffect(()=>{atualizar();return()=>{versao.current++;};},[atualizar]);return {dados:origem===carregar?dados:null,setDados,erro:origem===carregar?erro:'',setErro,carregando:origem!==carregar||carregando,pronto:origem===carregar&&pronto,atualizar};
 }
 export function useAdminLista(nome,filtros={}) {
   const chave=JSON.stringify(filtros),[estado,setEstado]=useState({nome,chave,cursor:'',historico:[]});

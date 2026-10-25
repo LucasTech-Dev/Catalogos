@@ -33,7 +33,7 @@ it.each(['/produto?id=prato-teste','/cardapio'])('MVP-01: %s distingue carga, fa
  let rejeitar;
  mocks.api.mockImplementationOnce(()=>new Promise((_,reject)=>{rejeitar=reject;}));
  render(<App/>);
- expect(screen.getByText('Carregando catálogo...')).toBeTruthy();
+ expect(screen.getByText('Carregando...')).toBeTruthy();
  expect(screen.queryByText('Produto não encontrado.')).toBeNull();
  expect(screen.queryByText(/Nada nesta categoria/)).toBeNull();
  rejeitar(new Error('Serviço temporariamente indisponível. Tente novamente.'));

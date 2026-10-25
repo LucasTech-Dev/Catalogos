@@ -1,3 +1,4 @@
+import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useState } from "react";
 
 import {admin} from "../../services/admin";
@@ -42,7 +43,7 @@ function Categorias() {
     try{const categoria=categorias.find(c=>c.id===id);await admin.salvar('categorias',id,{ativo:!categoria.ativa});await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}
   }
   async function excluir(id){if(ocupado || !window.confirm('Excluir categoria? Categorias com produtos vinculados são protegidas.'))return;setOcupado(true);setErro('');try{await admin.excluir('categorias',id);await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}
-  return (
+  return (<PageBoundary recursos={[recurso]}>
     <main className="admin-categories-page">
       <div className="admin-container">
         <section className="admin-page-header">
@@ -216,7 +217,7 @@ function Categorias() {
           </div>
         </div>
       )}
-    </main>
+    </main></PageBoundary>
   );
 }
 

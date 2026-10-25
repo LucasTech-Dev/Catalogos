@@ -1,9 +1,11 @@
+import {PageBoundary} from '../components/ui/PageLoader';
 import React, {useState,useEffect} from "react";
 import {useRecurso} from "../hooks/useRecurso";
 import {listarEnderecos,salvarEndereco,excluirEndereco} from "../services/conta";
 
 function Enderecos() {
-  const {dados:enderecos,erro:erroCarga,carregando,atualizar,uid} = useRecurso(listarEnderecos,[]);
+  const recurso=useRecurso(listarEnderecos,[]);
+  const {dados:enderecos,erro:erroCarga,carregando,atualizar,uid} = recurso;
   const [edicao,setEdicao] = useState(null),[erro,setErro] = useState(''),[ocupado,setOcupado] = useState(false);
   useEffect(()=>{if(carregando){setEdicao(null);setErro('');}},[carregando]);
   async function salvar(event) {
@@ -12,7 +14,7 @@ function Enderecos() {
     try {await salvarEndereco(edicao.id,dados,uid);setEdicao(null);await atualizar();} catch(e) {setErro(e.message);} finally {setOcupado(false);}
   }
   async function excluir(id) {if (ocupado) return;setOcupado(true);try {await excluirEndereco(id,uid);await atualizar();} catch(e) {setErro(e.message);} finally {setOcupado(false);}}
-  return (
+  return (<PageBoundary recursos={[recurso]}>
     <>
       <main className="addresses-page">
         <div className="addresses-container">
@@ -86,7 +88,7 @@ function Enderecos() {
 
         </div>
       </main>
-    </>
+    </></PageBoundary>
   );
 }
 

@@ -44,7 +44,7 @@ describe('checkout persistido',()=>{
     carrinho();render(<LojaProvider><Checkout/></LojaProvider>);await preencher();fireEvent.click(screen.getByText('Registrar pedido e preparar WhatsApp'));await screen.findByRole('alert');fireEvent.click(screen.getByText('Registrar pedido e preparar WhatsApp'));await screen.findByRole('link',{name:'Abrir WhatsApp'});expect(mocks.api.mock.calls.filter(([,o])=>o?.chave)).toHaveLength(1);
   });
   it('rejeita carrinho vazio e URL de domínio malicioso',async()=>{
-    render(<LojaProvider><Checkout/></LojaProvider>);expect(screen.getByText('Registrar pedido e preparar WhatsApp').disabled).toBe(true);await waitFor(()=>expect(screen.getByText('Registrar pedido e preparar WhatsApp').disabled).toBe(false));fireEvent.click(screen.getByText('Registrar pedido e preparar WhatsApp'));await screen.findByRole('alert');expect(mocks.api.mock.calls.filter(([,o])=>o?.chave)).toHaveLength(0);
+    render(<LojaProvider><Checkout/></LojaProvider>);expect(screen.getByText('Carregando...')).toBeTruthy();expect(screen.queryByText('Registrar pedido e preparar WhatsApp')).toBeNull();await screen.findByText('Registrar pedido e preparar WhatsApp');expect(screen.getByText('Registrar pedido e preparar WhatsApp').disabled).toBe(false);fireEvent.click(screen.getByText('Registrar pedido e preparar WhatsApp'));await screen.findByRole('alert');expect(mocks.api.mock.calls.filter(([,o])=>o?.chave)).toHaveLength(0);
     for(const url of ['http://wa.me/5511999999999','https://wa.me.evil.com/5511999999999','https://usuario@wa.me/5511999999999','https://wa.me:444/5511999999999','javascript:alert(1)'])expect(()=>urlWhatsapp(url)).toThrow();
     expect(quantidadeValida(1.5)).toBe(false);expect(quantidadeValida(100)).toBe(false);
   });

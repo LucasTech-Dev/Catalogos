@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ProductCard from "../components/ui/ProductCard";
 import CategoryFilter from "../components/ui/CategoryFilter";
 
-import {useLoja, EstadoCatalogo} from "../contexts/LojaContext";
+import {useLoja, EstadoCatalogo, CatalogoPronto} from "../contexts/LojaContext";
 function Cardapio() {
   const {produtos,categorias:lista,carregando,erro} = useLoja();
   const categorias = ["Todos", ...lista.map(c => c.nome)];
@@ -14,7 +14,7 @@ function Cardapio() {
       ? produtos
       : produtos.filter((produto) => produto.categoria === categoriaAtiva);
 
-  return (
+  return (<CatalogoPronto>
     <main>
       <section className="menu-hero">
         <div className="container">
@@ -62,7 +62,7 @@ function Cardapio() {
           ) : null}
         </div>
       </section>
-    </main>
+    </main></CatalogoPronto>
   );
 }
 

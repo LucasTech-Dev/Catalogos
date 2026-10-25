@@ -1,3 +1,4 @@
+import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useMemo, useState } from "react";
 
 import {admin} from "../../services/admin";
@@ -24,7 +25,7 @@ function Clientes() {
     );
   }, [busca, clientes]);
 
-  return (
+  return (<PageBoundary recursos={[recurso]}>
     <main className="admin-customers-page">
       <div className="admin-container">
         <section className="admin-page-header">
@@ -137,7 +138,7 @@ function Clientes() {
         </section>
       </div>
     {detalhe && <div className="admin-modal-overlay"><div className="admin-modal" role="dialog" aria-modal="true" aria-label="Dados do cliente"><h2>{detalhe.nome || "Convidado"}</h2><p>{detalhe.email || "E-mail não informado"}</p><p>{detalhe.telefone}</p><p>{detalhe.anonimo ? "Compra como convidado" : "Cliente"}</p><button onClick={()=>setDetalhe(null)}>Fechar</button></div></div>}
-    </main>
+    </main></PageBoundary>
   );
 }
 

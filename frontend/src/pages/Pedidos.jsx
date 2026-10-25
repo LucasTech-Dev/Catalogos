@@ -1,12 +1,14 @@
+import {PageBoundary} from '../components/ui/PageLoader';
 import React from "react";
 
 import {useRecurso} from '../hooks/useRecurso';
 import {listarPedidos} from '../services/pedidosConta';
 import {moeda} from '../lib/compras';
 function Pedidos() {
-  const {dados,erro,carregando,atualizar} = useRecurso(listarPedidos,[]);
+  const recurso=useRecurso(listarPedidos,[]);
+  const {dados,erro,carregando,atualizar} = recurso;
   const pedidos = dados.map(p => ({...p,total:moeda(p.total),tipo:p.tipoEntrega,itens:`${p.itens.length} itens`,data:p.criadoEm?._seconds ? new Date(p.criadoEm._seconds*1000).toLocaleString('pt-BR') : ''}));
-  return (
+  return (<PageBoundary recursos={[recurso]}>
     <main className="orders-page">
       <div className="container orders-container">
 
@@ -146,7 +148,7 @@ function Pedidos() {
         </div>
 
       </div>
-    </main>
+    </main></PageBoundary>
   );
 }
 

@@ -1,3 +1,5 @@
+import {PageBoundary} from '../components/ui/PageLoader';
+import {aguardarLeitura,LIMITE_LEITURA_MS} from '../lib/carregamento';
 import React, { useState, useRef, useEffect } from "react";
 
 import {useLoja, EstadoCatalogo} from '../contexts/LojaContext';
@@ -11,7 +13,9 @@ import {onIdTokenChanged} from 'firebase/auth';
 import {carregarTentativa,salvarTentativa,removerTentativa,limparDadosDeOutraSessao} from '../lib/tentativaCheckout';
 import {moeda,urlWhatsapp} from '../lib/compras';
 function Checkout() {
-  const {loja,itens,subtotal,limpar,carregando:carregandoCatalogo,erro:erroCatalogo} = useLoja();
+  const catalogo=useLoja();
+  const {loja,itens,subtotal,limpar,carregando:carregandoCatalogo,erro:erroCatalogo} = catalogo;
+  const [clientePronto,setClientePronto]=useState(false),[erroCliente,setErroCliente]=useState(''),[tentativaCarga,setTentativaCarga]=useState(0);
   const [cidade,setCidade] = useState(''), [uf,setUf] = useState('');
   const [erro,setErro] = useState(''), [ocupado,setOcupado] = useState(false), [pedido,setPedido] = useState(null), [url,setUrl] = useState('');
   const trava = useRef(false), tentativaKey = useRef(""), versaoSessao=useRef(0);
@@ -42,17 +46,18 @@ function Checkout() {
   },[loja]);
   useEffect(()=>{
     let ativo=true,uidAnterior;
-    function trocar(user){
+    const timer=setTimeout(()=>{if(ativo)setErroCliente('Não foi possível verificar sua sessão. Tente novamente.');},LIMITE_LEITURA_MS);
+    function trocar(user){clearTimeout(timer);
       const uid=user?.uid || null;if(uid===uidAnterior)return;uidAnterior=uid;const v=++versaoSessao.current;
-      limparDadosDeOutraSessao(uid);setNome('');setTelefone('');setEndereco('');setNumero('');setBairro('');setCidade('');setUf('');setObservacao('');setEnderecosSalvos([]);setEnderecoSalvo('');setPedido(null);setUrl('');setErro('');
-      Promise.all([buscarPerfil(),listarEnderecos()]).then(([perfil,lista])=>{
+      setClientePronto(false);setErroCliente('');limparDadosDeOutraSessao(uid);setNome('');setTelefone('');setEndereco('');setNumero('');setBairro('');setCidade('');setUf('');setObservacao('');setEnderecosSalvos([]);setEnderecoSalvo('');setPedido(null);setUrl('');setErro('');
+      aguardarLeitura(()=>Promise.all([buscarPerfil(),listarEnderecos()])).then(([perfil,lista])=>{
         if(!ativo || v!==versaoSessao.current)return;
-        setNome(atual=>atual || perfil.nome || '');setTelefone(atual=>atual || perfil.telefone || '');setEnderecosSalvos(Array.isArray(lista)?lista:[]);
-      }).catch(()=>{});
+        setClientePronto(true);setNome(atual=>atual || perfil.nome || '');setTelefone(atual=>atual || perfil.telefone || '');setEnderecosSalvos(Array.isArray(lista)?lista:[]);
+      }).catch(e=>{if(ativo&&v===versaoSessao.current)setErroCliente(e.message);});
     }
     const cancelar=auth?onIdTokenChanged(auth,trocar):null;if(!auth)trocar(null);
-    return()=>{ativo=false;versaoSessao.current++;cancelar?.();};
-  },[]);
+    return()=>{clearTimeout(timer);ativo=false;versaoSessao.current++;cancelar?.();};
+  },[tentativaCarga]);
   const finalizarPedido = async () => {
     if (trava.current) return;
     trava.current = true; setOcupado(true); setErro('');
@@ -95,7 +100,7 @@ function Checkout() {
     } finally {trava.current = false; setOcupado(false);}
   };
 
-  return (
+  return (<PageBoundary loja={loja} recursos={[{...catalogo,pronto:catalogo.pronto ?? Boolean(loja)},{pronto:clientePronto,erro:erroCliente,atualizar:()=>setTentativaCarga(v=>v+1)}]}>
     <main className="checkout-page">
       <section className="checkout-section">
         <div className="container">
@@ -440,7 +445,7 @@ function Checkout() {
           </div>
         </div>
       </section>
-    </main>
+    </main></PageBoundary>
   );
 }
 

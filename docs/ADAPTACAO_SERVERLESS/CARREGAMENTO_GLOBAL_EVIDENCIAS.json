@@ -1,0 +1,126 @@
+{
+  "at": "2026-10-25",
+  "scope": "implementação exclusivamente local de carregamento; sem commit/push/deploy ou Firebase real",
+  "tests": {
+    "command": "npm --prefix frontend test -- --maxWorkers=2",
+    "files": 19,
+    "passed": 175,
+    "durationSeconds": 77.91
+  },
+  "builds": {
+    "command": "node quality/frontend/scripts/build-final.mjs",
+    "examplesValidated": 4,
+    "modes": [
+      "test",
+      "homologacao",
+      "production"
+    ],
+    "passed": true,
+    "distModified": false
+  },
+  "emulator": {
+    "receipt": "CARREGAMENTO_EMULATOR_EVIDENCIAS.json",
+    "catalogo": {
+      "sdkChecks": 94,
+      "browserChecks": 17
+    },
+    "perfil": {
+      "sdkChecks": 72,
+      "browserChecks": 25
+    },
+    "adminGestao": {
+      "sdkChecks": 84,
+      "browserChecks": 20
+    },
+    "firebaseReal": false
+  },
+  "screenshots": "private-backups/carregamento-local/{desktop,mobile}.png; somente dados públicos sintéticos; desktop/mobile registrados e mobile inspecionado",
+  "created": [
+    "frontend/src/components/ui/PageLoader.jsx",
+    "frontend/src/components/ui/PageLoader.css",
+    "frontend/src/lib/carregamento.js",
+    "quality/frontend/test/carregamentoGlobal.test.jsx"
+  ],
+  "modified": [
+    "frontend/src/main.jsx",
+    "frontend/src/contexts/LojaContext.jsx",
+    "frontend/src/hooks/useRecurso.js",
+    "frontend/src/hooks/useAdmin.js",
+    "frontend/src/components/admin/AdminGate.jsx",
+    "frontend/src/pages/Home.jsx",
+    "frontend/src/pages/Cardapio.jsx",
+    "frontend/src/pages/Produto.jsx",
+    "frontend/src/pages/Carrinho.jsx",
+    "frontend/src/pages/Checkout.jsx",
+    "frontend/src/pages/Perfil.jsx",
+    "frontend/src/pages/DadosPessoais.jsx",
+    "frontend/src/pages/Enderecos.jsx",
+    "frontend/src/pages/Pedidos.jsx",
+    "frontend/src/pages/PedidoDetalhes.jsx",
+    "frontend/src/pages/admin/Dashboard.jsx",
+    "frontend/src/pages/admin/Produtos.jsx",
+    "frontend/src/pages/admin/Categorias.jsx",
+    "frontend/src/pages/admin/Pedidos.jsx",
+    "frontend/src/pages/admin/Clientes.jsx",
+    "frontend/src/pages/admin/Configuracoes.jsx",
+    "frontend/src/pages/admin/PedidoDetalhes.jsx",
+    "frontend/src/pages/admin/ProdutoForm.jsx",
+    "quality/frontend/test/vitrine.test.jsx",
+    "quality/frontend/test/catalogoSdk.test.jsx",
+    "quality/frontend/test/compras.test.jsx",
+    "quality/frontend/scripts/catalogo-browser.js"
+  ],
+  "sha256": {
+    "frontend/src/components/ui/PageLoader.jsx": "232373da7421554a047e0c8f8506205989acb5bf3c5d169611fb37d9d773e94c",
+    "frontend/src/components/ui/PageLoader.css": "ac8d5a1e0ac28902f0424046fd1a020855988edb87360d20b9d78b6185165d07",
+    "frontend/src/lib/carregamento.js": "86990805685dc521d8303446fafaf58cc16b4e19f23fdcc418bab6234d33b48e",
+    "quality/frontend/test/carregamentoGlobal.test.jsx": "b5d75c8dc9bffe47841e790c572205a4e49620ee3d70045f73887b66ab7403b1",
+    "frontend/src/main.jsx": "ee483ebb088797925fa7d6b76f263df68f2d246a7f1974fb8eb0ddea72cebc40",
+    "frontend/src/contexts/LojaContext.jsx": "c0de74da4d9538d7e8822a946fd93232f360b66b674444ba053ae32ceeafd5c9",
+    "frontend/src/hooks/useRecurso.js": "26e6a774a20e8219f1d307ea9ab0ee06579e4755f382f8aeb3956629446ee5c7",
+    "frontend/src/hooks/useAdmin.js": "31ef20576e96e976cb66dbf14d37e37ea1c7c9dac9ece4cf9f7ef896805a8a06",
+    "frontend/src/components/admin/AdminGate.jsx": "1c008f3f17b74a7a8ae826cb42533ecb40e6eff905f7b8da66511da503d2face",
+    "frontend/src/pages/Home.jsx": "7f021476da494379b99b990ed1041dd653997819fa11f28df50d6fac388a0335",
+    "frontend/src/pages/Cardapio.jsx": "af48c206d3cd3f0870ad98119ab6d8db00b833a66ed0e628a6323040be3f5c8a",
+    "frontend/src/pages/Produto.jsx": "55ba92ef889fa2fd2a3e9d146d8e146330f2599479b4a8ecac3ba4c53cb70c04",
+    "frontend/src/pages/Carrinho.jsx": "42bdc7a0ee7b82c9ad58ba88c21dd0a009f71137a8b06d5aa21d6fefdbbf7fdc",
+    "frontend/src/pages/Checkout.jsx": "c4947d688d566681361306b26616e0e000239ebf2a6272501865dd4c8d73bd90",
+    "frontend/src/pages/Perfil.jsx": "6002e29b8aa838b069931d0bf850fc4502d60937d111a2f771e45eb5085b6695",
+    "frontend/src/pages/DadosPessoais.jsx": "de87a6f57d579d735169fd8fb8897966ead0ce32683441edef9ce0ea302267f9",
+    "frontend/src/pages/Enderecos.jsx": "e3c2b576579861e06aad228fc98f94ade197272ea8b5611b766e493697807153",
+    "frontend/src/pages/Pedidos.jsx": "c5a37f9ba68544c45d646742f7d142e16df33092eb88486088caac749866d469",
+    "frontend/src/pages/PedidoDetalhes.jsx": "7b193e7b2beede2d9ef672cf8da1df0dd5d5fa3d0eb232f23de0c52498f05eca",
+    "frontend/src/pages/admin/Dashboard.jsx": "ee16864e4ac13c16ae378b8d8e4546c1da7ca6da197554e5ba7e16cca3c7eb6e",
+    "frontend/src/pages/admin/Produtos.jsx": "c5468baf9b174bf0d3d8990954d1a70db4743669a391181929308e8a26e53b4d",
+    "frontend/src/pages/admin/Categorias.jsx": "49c7c03ca5f6f7e7a7f290e6fe2a90105c477ec79330fb2af0456b525445b3b1",
+    "frontend/src/pages/admin/Pedidos.jsx": "dbc07d18268e54b5ce0cebe3fb2a6ee58e0cac95ab77cf24a7762cb6971893eb",
+    "frontend/src/pages/admin/Clientes.jsx": "7df5d1b885662dd07c540ede441133de94dfae7ee58a981e42c384e10d4c1843",
+    "frontend/src/pages/admin/Configuracoes.jsx": "7513aa8418b4a1d37eb3d7bfb8db9f90204b56ee6caeb5e4e0a7741eaf8a4c64",
+    "frontend/src/pages/admin/PedidoDetalhes.jsx": "3fc42a84ed86e1eb97675937ebe2e4b94afa4abdab9a9e14162773f71b775270",
+    "frontend/src/pages/admin/ProdutoForm.jsx": "482e8e0a83de7db47404deccc20481012038350851f96f919ae322b8a97897f5",
+    "quality/frontend/test/vitrine.test.jsx": "44d56e11ed9ede5ba7dd676728c58236d2d931c5ab741c2818e5d2e854c9904a",
+    "quality/frontend/test/catalogoSdk.test.jsx": "a77e37b78b5f6b60dfc0709911e9212da601954a5cf86522b378b53c9783f6e2",
+    "quality/frontend/test/compras.test.jsx": "76baf2e71939d30859cfbe8031a99beed014a9e5e4b79d0670528fb869a51832",
+    "quality/frontend/scripts/catalogo-browser.js": "71636df59a4adeb50a81a3eb55bc9f3469dd344a7e5c01e8a89799005dfcd410"
+  },
+  "disposableRunner": {
+    "path": "/tmp/catalogos-loader-emulators.cjs",
+    "sha256": "25b79f833e08d7597aa9213fb7d48ca0d2c734e9ff5cde90e0886a4c933e1297",
+    "usage": "launcher pontual encerrado e removido após registrar hash; suites/testes permanentes preservados em quality",
+    "removed": true
+  },
+  "notes": [
+    "Primeira suíte:4 falhas de expectativas antigas de loading corrigidas, sem enfraquecer validações comerciais.",
+    "Ajuste final adicional oculta catálogo após403/404 em releitura: regressão específica passou na suíte final.",
+    "Esperas e alterações de Rules/dados das suites limitadas ao Emulator; negativas esperadas não são erros do produto."
+  ],
+  "sensitiveScan": {
+    "scope": "arquivos desta tarefa; padrões de chave privada/tokenGitHub/APIkey literal; sem reproduzir valores",
+    "findings": 0
+  },
+  "afterCleanup": {
+    "tests": 19,
+    "passed": true,
+    "documentationCheck": "1834 documentos; caminhos/links válidos; histórico preservado"
+  }
+}

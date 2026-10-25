@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
+import {PageBoundary} from '../../components/ui/PageLoader';
+import React, { useState, useCallback, useLayoutEffect } from "react";
 
 import {admin,rotulosStatus,dataTexto} from "../../services/admin";
 import {useAdminRecurso} from "../../hooks/useAdmin";
@@ -8,12 +9,12 @@ function PedidoDetalhes() {
   const id=new URLSearchParams(window.location.search).get('id');
   const carregar=useCallback(()=>admin.buscar('pedidos',id || ''),[id]);const recurso=useAdminRecurso(carregar);
   const [status,setStatus]=useState(''),[erro,setErro]=useState(''),[ocupado,setOcupado]=useState(false),[sucesso,setSucesso]=useState(''),[confirmacao,setConfirmacao]=useState('');
-  useEffect(()=>{if(recurso.dados)setStatus(recurso.dados.status);},[recurso.dados]);
+  useLayoutEffect(()=>{if(recurso.dados)setStatus(recurso.dados.status);},[recurso.dados]);
   async function atualizar(tipo,novoStatus){if(ocupado)return;setOcupado(true);setErro('');setSucesso('');try{await admin[tipo](id,novoStatus,recurso.dados.revisaoAdministrativa);await recurso.atualizar();setSucesso(tipo==='pagamento'?'Registro manual do estabelecimento atualizado. Não comprova liquidação bancária.':'Status atualizado.');setConfirmacao('');}catch(e){setErro(e.message);}finally{setOcupado(false);}}
-  if(!recurso.dados)return <main className="admin-order-details-page"><div className="admin-container"><AdminState recurso={recurso}/><a href="/admin/pedidos">Voltar para pedidos</a></div></main>;
+  if(!recurso.dados)return <PageBoundary recursos={[recurso]}><main className="admin-order-details-page"><div className="admin-container"><AdminState recurso={recurso}/><a href="/admin/pedidos">Voltar para pedidos</a></div></main></PageBoundary>;
   const dados=recurso.dados,pedido={...dados,data:dataTexto(dados.criadoEm),cliente:dados.cliente || {nome:'Cliente',telefone:'Não informado',email:'Não informado'},tipo:dados.tipoEntrega,pagamento:{...dados.pagamento,metodo:dados.pagamento?.forma},subtotal:moeda(dados.subtotal),entrega:moeda(dados.taxaEntrega),total:moeda(dados.total),endereco:dados.endereco || {rua:dados.tipoEntrega==='retirada'?'Retirada no local':'Endereço não disponível'},itens:dados.itens.map(i=>({...i,preco:moeda(i.subtotal)}))};
   const statusOptions=[dados.status,...(dados.transicoesStatus || []).filter(s=>s!=='pagamento_confirmado' || dados.pagamento?.status==='confirmado').filter(s=>s!=='pagamento_recusado' || dados.pagamento?.status==='recusado')];
-  return (
+  return (<PageBoundary recursos={[recurso]}>
     <main className="admin-order-details-page">
       <div className="admin-container">
 
@@ -287,7 +288,7 @@ function PedidoDetalhes() {
         </section>
 
       </div>
-    </main>
+    </main></PageBoundary>
   );
 }
 

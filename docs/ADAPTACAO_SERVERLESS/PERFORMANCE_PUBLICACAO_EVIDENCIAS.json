@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-25T13:25:25.130Z",
+  "status": "INTERROMPIDA_NO_DEPLOY_AUTOMATICO",
+  "repository": "LucasTech-Dev/Catalogos",
+  "branch": "main",
+  "commit": "e6677c786c396e7eba3559121863c3ebae672d7d",
+  "parent": "fac54aabb70a6e9317114a06de37d3e87606a7d5",
+  "tree": "b92069c5b4e875d874683b4a017f33d065b6bad6",
+  "tests": {
+    "workingCopy": 161,
+    "integratedCheckout": 161,
+    "passed": true
+  },
+  "publicDeployment": {
+    "id": "440ebe2b-1073-4e1e-a23a-132e90f4f1b3",
+    "commit": "030ec02229f74375db72178f551bc5d0a0c5ada6",
+    "status": "success",
+    "httpStatus": 200,
+    "entryAsset": "/assets/index-BUigF6rR.js"
+  },
+  "automaticProductionDeploymentsEnabled": true,
+  "performanceCommitDeploymentFound": false,
+  "alternateDeploymentTriggered": false,
+  "firebaseChanges": false,
+  "afterMeasurements": null,
+  "nextAction": "Decidir retomada com buildGit/main do commit e6677c7 no Pages catalogo-demo e medição posterior; sem alterar integração ou Firebase",
+  "finalEvidencePublished": false
+}

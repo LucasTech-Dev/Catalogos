@@ -1,12 +1,12 @@
 import React from "react";
 import ImagemCatalogo from "../components/ui/ImagemCatalogo";
 
-import {useLoja, EstadoCatalogo} from "../contexts/LojaContext";
+import {useLoja, EstadoCatalogo, CatalogoPronto} from "../contexts/LojaContext";
 import {moeda,horariosTexto} from "../lib/compras";
 function Home() {
   const {loja,categorias,produtos} = useLoja();
   const destaque = produtos.find(produto => produto.imagem?.trim());
-  return (
+  return (<CatalogoPronto>
     <main>
       {/* HERO */}
       <section className="hero">
@@ -141,7 +141,7 @@ function Home() {
           </a>
         </div>
       </section>
-    </main>
+    </main></CatalogoPronto>
   );
 }
 
