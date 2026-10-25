@@ -1,3 +1,4 @@
+import '../components/conta/areaCliente.css';
 import {notificar} from '../lib/notificacoes';
 import {FeedbackAcao,confirmarAcao} from '../components/ui/ToastProvider';
 import {PageBoundary} from '../components/ui/PageLoader';
@@ -18,8 +19,8 @@ function Enderecos() {
   async function excluir(id) {if (ocupado || !await confirmarAcao('Excluir este endereço? Os pedidos anteriores serão preservados.','Excluir endereço')) return;setOcupado(true);try {setSucesso('');await excluirEndereco(id,uid);await atualizar();setSucesso('Endereço excluído.');} catch(e) {setErro(e.message);} finally {setOcupado(false);}}
   return (<PageBoundary recursos={[recurso]}>
     <>
-      <main className="addresses-page">
-        <div className="addresses-container">
+      <main className="addresses-page customer-page">
+        <div className="addresses-container customer-container">
 
           <div className="addresses-top">
             <a href="/perfil" className="back-link">
@@ -36,14 +37,14 @@ function Enderecos() {
               </p>
             </div>
 
-            <button className="primary-button" onClick={() => setEdicao({})}>
+            <button className="button button-primary primary-button" onClick={() => setEdicao({})}>
               + Adicionar endereço
             </button>
           </div>
 
           {sucesso && <FeedbackAcao mensagem={sucesso} tipo="sucesso"/>}{erroCarga && <p role="alert">{erroCarga}</p>}{erro && <FeedbackAcao mensagem={erro}/>}{carregando && <p>Carregando...</p>}
-          {edicao && <form aria-busy={ocupado} className="personal-data-card" onSubmit={salvar} key={edicao.id || 'novo'}><h2>{edicao.id ? 'Editar endereço' : 'Novo endereço'}</h2><div className="personal-data-grid">{['apelido','rua','numero','bairro','cidade','uf','complemento','cep'].map(campo => <div className="form-group" key={campo}><label htmlFor={'end-'+campo}>{campo}</label><input id={'end-'+campo} name={campo} defaultValue={edicao[campo] || ''} required={['rua','numero','bairro','cidade','uf'].includes(campo)} /></div>)}</div><button className="primary-button" disabled={ocupado}>Salvar endereço</button><button type="button" onClick={() => {setEdicao(null);notificar("info","Edição cancelada.");}}>Cancelar</button></form>}
-          {!carregando && !enderecos.length && <p>Nenhum endereço cadastrado.</p>}
+          {edicao && <form aria-busy={ocupado} className="personal-data-card address-form" onSubmit={salvar} key={edicao.id || 'novo'}><h2>{edicao.id ? 'Editar endereço' : 'Novo endereço'}</h2><div className="personal-data-grid">{['apelido','rua','numero','bairro','cidade','uf','complemento','cep'].map(campo => <div className="form-group" key={campo}><label htmlFor={'end-'+campo}>{campo}</label><input id={'end-'+campo} name={campo} defaultValue={edicao[campo] || ''} required={['rua','numero','bairro','cidade','uf'].includes(campo)} /></div>)}</div><button className="button button-primary primary-button" disabled={ocupado}>Salvar endereço</button><button type="button" className="button button-secondary" onClick={() => {setEdicao(null);notificar("info","Edição cancelada.");}}>Cancelar</button></form>}
+          {!carregando && !enderecos.length && <section className="orders-empty"><h2>Nenhum endereço cadastrado</h2><p>Adicione um endereço para facilitar suas próximas entregas.</p></section>}
           <section className="addresses-list">
             {enderecos.map((endereco) => (
               <article className="address-card" key={endereco.id}>
@@ -83,7 +84,7 @@ function Enderecos() {
           </section>
 
           <div className="addresses-bottom">
-            <a href="/perfil" className="secondary-button">
+            <a href="/perfil" className="button button-secondary secondary-button">
               Voltar para minha conta
             </a>
           </div>

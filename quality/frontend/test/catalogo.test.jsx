@@ -19,11 +19,11 @@ it('Etapa24: resposta antiga não sobrescreve catálogo atualizado',async()=>{
   await act(async()=>antiga(catalogo));expect(dados().produtos[0].preco).toBe(33);
 });
 it('Etapa24: cache com null e duplicatas preserva apenas itens válidos',async()=>{
-  localStorage.setItem('catalogos:carrinho:loja-A',JSON.stringify([null,{id:'burger',quantidade:1},{id:'burger',quantidade:1},{id:'suco',quantidade:0},{id:'suco',quantidade:100},{id:'../privado',quantidade:1}]));
+  localStorage.setItem('catalogos:carrinho:v2:loja-A:visitante',JSON.stringify({dono:'visitante',itens:[null,{id:'burger',quantidade:1},{id:'burger',quantidade:1},{id:'suco',quantidade:0},{id:'suco',quantidade:100},{id:'../privado',quantidade:1}]}));
   render(<LojaProvider><Estado/></LojaProvider>);await waitFor(()=>expect(dados().produtos).toHaveLength(2));expect(dados().itens).toEqual([{id:'burger',quantidade:1,ativo:true}]);
 });
 it('Etapa24: carrinho da outra loja não é carregado',async()=>{
-  localStorage.setItem('catalogos:carrinho:loja-B',JSON.stringify([{id:'burger',quantidade:99}]));render(<LojaProvider><Estado/></LojaProvider>);await waitFor(()=>expect(dados().produtos).toHaveLength(2));expect(dados().itens).toEqual([]);expect(JSON.parse(localStorage.getItem('catalogos:carrinho:loja-B'))[0].quantidade).toBe(99);
+  localStorage.setItem('catalogos:carrinho:v2:loja-B:visitante',JSON.stringify({dono:'visitante',itens:[{id:'burger',quantidade:99}]}));render(<LojaProvider><Estado/></LojaProvider>);await waitFor(()=>expect(dados().produtos).toHaveLength(2));expect(dados().itens).toEqual([]);expect(JSON.parse(localStorage.getItem('catalogos:carrinho:v2:loja-B:visitante')).itens[0].quantidade).toBe(99);
 });
 it('Etapa24: quantidades máximas, remover e limpar permanecem consistentes',async()=>{
   render(<LojaProvider><Estado/></LojaProvider>);await waitFor(()=>expect(dados().produtos).toHaveLength(2));fireEvent.click(screen.getByText('Adicionar'));fireEvent.click(screen.getByText('Máximo'));fireEvent.click(screen.getByText('Excesso'));expect(dados().itens[0].quantidade).toBe(99);fireEvent.click(screen.getByText('Remover'));expect(dados().itens).toEqual([]);fireEvent.click(screen.getByText('Adicionar'));fireEvent.click(screen.getByText('Limpar'));expect(dados().subtotal).toBe(0);
@@ -41,5 +41,5 @@ it('Etapa24: URL de detalhe seleciona produto correto',async()=>{
   history.replaceState({},'', '/produto?id=suco');render(<LojaProvider><Produto/></LojaProvider>);await screen.findByRole('heading',{name:'Suco real'});expect(screen.queryByRole('heading',{name:'Burger real'})).toBeNull();
 });
 it('Etapa24: produto desativado ao recarregar permanece impedido no carrinho',async()=>{
-  localStorage.setItem('catalogos:carrinho:loja-A',JSON.stringify([{id:'burger',quantidade:1}]));mocks.api.mockResolvedValue({...catalogo,produtos:[]});render(<LojaProvider><Estado/></LojaProvider>);await waitFor(()=>expect(dados().itens[0].ativo).toBeUndefined());expect(dados().subtotal).toBe(0);
+  localStorage.setItem('catalogos:carrinho:v2:loja-A:visitante',JSON.stringify({dono:'visitante',itens:[{id:'burger',quantidade:1}]}));mocks.api.mockResolvedValue({...catalogo,produtos:[]});render(<LojaProvider><Estado/></LojaProvider>);await waitFor(()=>expect(dados().itens[0].ativo).toBeUndefined());expect(dados().subtotal).toBe(0);
 });

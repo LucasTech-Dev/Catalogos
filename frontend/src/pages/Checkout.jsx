@@ -13,7 +13,7 @@ import {calcularPrevia,validarPreviaCompra} from '../lib/previaCompra';
 import {auth,sessao} from '../lib/firebase';
 import {onIdTokenChanged} from 'firebase/auth';
 import {carregarTentativa,salvarTentativa,removerTentativa,limparDadosDeOutraSessao} from '../lib/tentativaCheckout';
-import {moeda,urlWhatsapp} from '../lib/compras';
+import {moeda,urlWhatsapp,compraDoCarrinho} from '../lib/compras';
 function Checkout() {
   const catalogo=useLoja();
   const {loja,itens,subtotal,limpar,carregando:carregandoCatalogo,erro:erroCatalogo} = catalogo;
@@ -78,8 +78,9 @@ function Checkout() {
       }
       if (tentativa && tentativa.uid !== user.uid) throw new Error('Há uma finalização de outra sessão. Entre na conta original para retomá-la.');
       if (!tentativa?.dados && !tentativa?.pedido) {
-        validarPreviaCompra({loja,itens,tipoEntrega,cliente:{nome,telefone},endereco:{rua:endereco,numero,bairro,cidade,uf},enderecoId:tipoEntrega==='entrega'?enderecoSalvo:null,forma:formaPagamento,observacao});
-        tentativa = {uid:user.uid,chave:tentativa?.chave || crypto.randomUUID(),dados:{itens:itens.map(i => ({produtoId:i.id,quantidade:i.quantidade})),tipoEntrega,pagamento:{forma:formaPagamento},cliente:{nome,telefone},observacao},endereco:tipoEntrega === 'entrega' ? {rua:endereco,numero,bairro,cidade,uf} : null};
+        const compra=compraDoCarrinho(itens,observacao);
+        validarPreviaCompra({loja,itens:compra.itens,tipoEntrega,cliente:{nome,telefone},endereco:{rua:endereco,numero,bairro,cidade,uf},enderecoId:tipoEntrega==='entrega'?enderecoSalvo:null,forma:formaPagamento,observacao:compra.observacao});
+        tentativa = {uid:user.uid,chave:tentativa?.chave || crypto.randomUUID(),dados:{itens:compra.itens.map(i => ({produtoId:i.id,quantidade:i.quantidade})),tipoEntrega,pagamento:{forma:formaPagamento},cliente:{nome,telefone},observacao:compra.observacao},endereco:tipoEntrega === 'entrega' ? {rua:endereco,numero,bairro,cidade,uf} : null};
         if (tipoEntrega === "entrega" && enderecoSalvo) {tentativa.dados.enderecoId = enderecoSalvo; tentativa.endereco = null;}
         salvarTentativa(key,tentativa);
       }
@@ -387,7 +388,7 @@ function Checkout() {
                 <strong>{itensExibidos.length} itens</strong>
               </div>
 
-              {itensExibidos.map(item => <div className="checkout-product" key={item.id}><strong>{item.quantidade}x {item.nome}</strong><strong>{moeda(item.preco*item.quantidade)}</strong></div>)}
+              {itensExibidos.map(item => <div className="checkout-product" key={item.chave || item.id}><strong>{item.quantidade}x {item.nome}</strong><strong>{moeda(item.preco*item.quantidade)}</strong></div>)}
               <div className="checkout-summary-divider" />
 
               <div className="checkout-summary-row">

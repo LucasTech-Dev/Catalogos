@@ -1,18 +1,31 @@
 import {notificar} from '../lib/notificacoes';
 import React, {createContext, useContext, useState, useEffect, useCallback, useRef} from 'react';
 import {api, publico, lojaId} from '../services/api';
-import {alterarCarrinho,carregarCarrinho,quantidadeValida} from '../lib/compras';
+import {alterarCarrinho,quantidadeValida,chaveItem} from '../lib/compras';
 import {modoOriginalDemo} from '../lib/runtimeDemo';
 import {adaptarCatalogoDemo} from '../services/catalogoDemo';
 import {carregarCatalogo} from '../services/catalogo';
 import {modoFixtures} from '../lib/runtimeDemo';
 import {aguardarLeitura} from '../lib/carregamento';
+import {auth} from '../lib/firebase';
+import {onIdTokenChanged} from 'firebase/auth';
+import {criarCarrinhoSessao} from '../lib/carrinhoSessao';
 import {PageBoundary} from '../components/ui/PageLoader';
 const Context = createContext(null);
 export function LojaProvider({children}) {
   const [dados, setDados] = useState(null), [erro,setErro] = useState(''), [carregando,setCarregando] = useState(true);
-  const key = `catalogos:carrinho:${lojaId}`;
-  const [carrinho,setCarrinho] = useState(() => {try{return carregarCarrinho(localStorage.getItem(key));}catch{return [];}});
+  const sessaoCarrinho=useRef(null);
+  if(!sessaoCarrinho.current)sessaoCarrinho.current=criarCarrinhoSessao({getItem:key=>window.localStorage.getItem(key),setItem:(key,value)=>window.localStorage.setItem(key,value)},lojaId);
+  const [carrinho,exibirCarrinho]=useState([]);
+  useEffect(()=>{
+    const trocar=user=>exibirCarrinho(sessaoCarrinho.current.trocar(user));
+    if(auth)return onIdTokenChanged(auth,trocar);
+    trocar(null);
+  },[]);
+  function setCarrinho(operacao){
+    // Persistir antes de navegar; conferir a identidade atual também em ações atrasadas.
+    exibirCarrinho(sessaoCarrinho.current.alterar(auth?.currentUser,atual=>typeof operacao==='function'?operacao(atual):operacao));
+  }
   const versao=useRef(0);
   const atualizar = useCallback(async() => {
     const atual=++versao.current;setCarregando(true);setErro('');
@@ -25,18 +38,18 @@ export function LojaProvider({children}) {
     if (/^#[0-9a-f]{6}$/i.test(dados?.loja?.corPrimaria || "")) document.documentElement.style.setProperty("--primary",dados.loja.corPrimaria);
     return () => document.documentElement.style.removeProperty("--primary");
   },[dados?.loja?.corPrimaria]);
-  useEffect(() => {localStorage.setItem(key,JSON.stringify(carrinho));},[carrinho,key]);
   const produtos = (dados?.produtos || []).map(p => ({...p, ingredientes:p.ingredientes || [], categoria:dados?.categorias.find(c => c.id === p.categoriaId)?.nome || '', adicionais:[], adicionaisTotal:0}));
-  const itens = carrinho.map(i => ({...(produtos.find(p => p.id === i.id) || {id:i.id,nome:'Produto removido',preco:0,adicionais:[],adicionaisTotal:0}), quantidade:i.quantidade}));
-  function adicionar(produto, quantidade = 1) {
+  const itens = carrinho.map(i => ({...(produtos.find(p => p.id === i.id) || {id:i.id,nome:'Produto removido',preco:0,adicionais:[],adicionaisTotal:0}), quantidade:i.quantidade,observacao:i.observacao,chave:chaveItem(i)}));
+  function adicionar(produto, quantidade = 1, observacao = '') {
     if (!produto || produto.ativo !== true || produto.disponivel === false){notificar('aviso','Este produto está indisponível.');return false;}
-    const total=(carrinho.find(i=>i.id===produto.id)?.quantidade||0)+quantidade;
+    if(typeof observacao!=='string' || observacao.length>1000)return false;
+    const total=carrinho.filter(i=>i.id===produto.id).reduce((s,i)=>s+i.quantidade,0)+quantidade;
     if(!quantidadeValida(total)){notificar('aviso','Você pode adicionar até 99 unidades de cada produto.');return false;}
-    setCarrinho(atual => alterarCarrinho(atual,produto.id,(atual.find(i => i.id === produto.id)?.quantidade || 0) + quantidade));
+    setCarrinho(atual => alterarCarrinho(atual,produto.id,(atual.find(i => chaveItem(i) === chaveItem({id:produto.id,observacao}))?.quantidade || 0) + quantidade,observacao));
     notificar('sucesso','Produto adicionado ao carrinho.');return true;
   }
-  function alterarQuantidade(id,q){const item=carrinho.find(i=>i.id===id);if(!item)return;if(!quantidadeValida(q)||item.quantidade===q){notificar('aviso','A quantidade deve ficar entre 1 e 99.');return;}setCarrinho(a=>alterarCarrinho(a,id,q));notificar('sucesso','Quantidade atualizada.');}
-  function removerItem(id){if(!carrinho.some(i=>i.id===id))return;setCarrinho(a=>a.filter(i=>i.id!==id));notificar('sucesso','Produto removido do carrinho.');}
+  function alterarQuantidade(id,q){const item=carrinho.find(i=>chaveItem(i)===id);if(!item)return;if(!quantidadeValida(q)||item.quantidade===q){notificar('aviso','A quantidade deve ficar entre 1 e 99.');return;}setCarrinho(a=>alterarCarrinho(a,item.id,q,item.observacao));notificar('sucesso','Quantidade atualizada.');}
+  function removerItem(id){if(!carrinho.some(i=>chaveItem(i)===id))return;setCarrinho(a=>a.filter(i=>chaveItem(i)!==id));notificar('sucesso','Produto removido do carrinho.');}
   return <Context.Provider value={{loja:dados?.loja,categorias:dados?.categorias || [],produtos,itens,erro,carregando,pronto:Boolean(dados),atualizar,adicionar,alterarQuantidade,removerItem,limpar:() => setCarrinho([]),subtotal:Number(itens.reduce((s,i) => s + Number((i.preco*i.quantidade).toFixed(2)),0).toFixed(2))}}>{children}</Context.Provider>;
 }
 export const useLoja = () => useContext(Context);

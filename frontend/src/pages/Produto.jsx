@@ -73,6 +73,8 @@ function Produto() {
 
             <div className="product-divider" />
 
+            <label htmlFor="observacao-produto">Observações do produto</label>
+            <textarea id="observacao-produto" value={observacao} maxLength={1000} onChange={event=>setObservacao(event.target.value)} />
             <div className="product-purchase">
 
               <div className="quantity-control">
@@ -103,7 +105,7 @@ function Produto() {
                 type="button"
                 className="add-to-cart-button"
                 disabled={produto.ativo !== true || produto.disponivel === false}
-                onClick={() => {if(adicionar(produto, quantidade)!==false){notificarAoNavegar("Produto adicionado ao carrinho.");window.location.assign("/carrinho");}}}
+                onClick={() => {if(adicionar(produto, quantidade, observacao)!==false){notificarAoNavegar("Produto adicionado ao carrinho.");window.location.assign("/carrinho");}}}
               >
                 <span>{produto.ativo === true && produto.disponivel !== false ? "Adicionar ao carrinho" : "Produto indisponível"}</span>
                 <strong>

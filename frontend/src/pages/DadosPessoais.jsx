@@ -1,3 +1,4 @@
+import '../components/conta/areaCliente.css';
 import {notificarAoNavegar} from '../lib/notificacoes';
 import {FeedbackAcao} from '../components/ui/ToastProvider';
 import CampoSenha from '../components/ui/CampoSenha';
@@ -19,8 +20,8 @@ function DadosPessoais() {
   }
 
   return (<PageBoundary recursos={[recurso]}>
-    <main className="account-data-page">
-      <div className="container account-data-container">
+    <main className="account-data-page customer-page">
+      <div className="account-data-container customer-container">
 
         {/* CABEÇALHO */}
         <div className="account-data-top">

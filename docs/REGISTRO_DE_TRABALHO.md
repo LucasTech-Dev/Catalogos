@@ -1,3 +1,11 @@
+# Publicação das pendências prontas — 25/10/2026
+
+A — EXECUÇÃO PELO CODEX: PUB-PEND-01, autorização geral expressa atual para commit/push/main/Pages catalogo-demo. Integração de CART-01 e CLI-VISUAL-01 no checkout private-backups/publicacao-js-main, preservando histórico e configurações. Build homologacao aprovado29,77s; scanner seletivo sem achados; 246 testes distintos aprovados em23 arquivos (234+12 após corrigir fixture própria do checkout). [Relatório e arquivos](ADAPTACAO_SERVERLESS/RELATORIO_PUBLICACAO_PENDENCIAS.md). EM EXECUÇÃO: publicação ainda não confirmada. Firebase real/Rules/Auth/índices/IAM/dados preservados; nenhum novo MVP ou baixa comercial por associação.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: PUB-PEND-H1, nenhuma intervenção técnica indispensável. Próxima ação exata desta mesma ordem: concluir testes, commit/push e deploy já autorizados, validar online e registrar fechamento. Sem exclusões/limpeza pendente; espelho externo ausente, não recriado. Histórico abaixo preservado.
+
+---
+
 # Google e notificações publicados — 25/10/2026
 
 A — EXECUÇÃO PELO CODEX: NOTIF-01 CONCLUÍDA/publicada. Código f678ee7/main, Pages2b28a9c6/success às16:18:02 local. Google compartilhado no cadastro, toast único de ações explícitas (até5s/X/fora), confirmações persistentes.217 testes React,34 direcionados finais,367 checksSDK/87Chrome em Emulators, build homologado e46 checks online aprovados. Zero contas/pedidos/sessões anônimas novos/escritasFireStore pelos testes online. Push normal e buildGit no Pages existente, sem mudar configuração. Domínio Pages acrescentado ao Firebase bancorestaurante sob aprovação própria; demais configurações comparadas/preservadas. Relatório/evidências em docs/ADAPTACAO_SERVERLESS/RELATORIO_GOOGLE_NOTIFICACOES.md. Finalização documental/teste com CF-Pages-Skip em commit separado, mesmo runtime.

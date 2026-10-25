@@ -1,0 +1,93 @@
+/* Padrão único das cinco telas da conta. O catálogo e o admin mantêm seus estilos. */
+.customer-page:is(.orders-page,.profile-page,.account-data-page,.addresses-page,.order-details-page) {
+  --customer-border:#e2e6eb;
+  min-height:calc(100vh - 76px);
+  padding:40px 16px 64px;
+  background:#f3f5f7;
+  color:#222a35;
+}
+.customer-page .customer-container { width:100%; max-width:960px; margin-inline:auto; min-width:0; }
+.customer-page :is(.orders-top,.account-data-top,.addresses-heading,.order-details-top) { margin-bottom:26px; }
+.customer-page :is(.orders-top,.account-data-top,.addresses-heading,.order-details-heading) h1 { font-size:clamp(1.7rem,3vw,2.2rem); line-height:1.2; overflow-wrap:anywhere; letter-spacing:-.025em; }
+.customer-page :is(.orders-top,.account-data-top,.addresses-heading,.profile-header) p { color:#586271; line-height:1.65; }
+.customer-page .back-link { display:inline-flex; margin-bottom:24px; min-height:32px; align-items:center; }
+.customer-page :is(.order-card,.orders-empty,.order-tracking-card,.order-details-card,.address-card,.profile-option,.profile-header,.personal-data-card,.orders-tools) { background:#fff; border:1px solid var(--customer-border); box-shadow:0 4px 18px #23304406; border-radius:18px; }
+.customer-page :is(.button,.primary-button,.secondary-button) { display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:44px; padding:11px 17px; border-radius:11px; font-family:inherit; font-size:.875rem; font-weight:650; line-height:1.4; text-decoration:none; cursor:pointer; }
+.customer-page .button-primary { color:#fff; background:var(--primary,#e85d04); border:1px solid var(--primary,#e85d04); }
+.customer-page .button-secondary { color:#384353; background:#fff; border:1px solid #d5dce4; }
+.customer-page .button-secondary:hover { background:#f7f8fa; border-color:#aeb9c7; }
+.customer-page .button-primary:hover { filter:brightness(.94); }
+.customer-page button:disabled { opacity:.6; cursor:wait; }
+.customer-page :is(a,button,input,select):focus-visible { outline:3px solid var(--primary,#e85d04); outline-offset:3px; }
+.customer-page :is(.order-main,.order-product-info,.profile-header>div,.profile-option-content) { min-width:0; }
+.customer-page :is(.order-number strong,.order-product-info strong,.profile-header h1,.profile-header p,.address-content p) { overflow-wrap:anywhere; }
+.customer-page .profile-header { padding:24px; margin-bottom:20px; }
+.customer-page .profile-option { min-height:100px; }
+.customer-page .personal-data-grid input { min-width:0; }
+.customer-page .address-form { padding:22px; margin-bottom:20px; }
+.customer-page .address-form h2 { margin:0 0 20px; font-size:1.15rem; }
+.customer-page .address-form>.button { margin:20px 10px 0 0; }
+.customer-page .order-tracking-card .orders-refresh { margin-top:14px; }
+.customer-inline-error { padding:14px 18px; border:1px solid #efc1c1; border-radius:12px; color:#912828; background:#fff5f5; }
+.orders-tools { padding:18px; margin-bottom:22px; }
+.orders-controls { display:flex; align-items:flex-end; gap:12px; flex-wrap:wrap; }
+.orders-search-field { flex:1 1 290px; min-width:0; }
+.orders-tools label { display:block; margin-bottom:8px; font-size:.8rem; font-weight:650; color:#414d5c; }
+.orders-search { display:flex; align-items:center; gap:10px; height:46px; padding:0 12px; border:1px solid #d5dce4; border-radius:10px; color:#798493; background:#fafbfc; }
+.orders-search:focus-within { border-color:var(--primary,#e85d04); box-shadow:0 0 0 3px #f9731615; }
+.orders-search>svg { flex-shrink:0; }
+.orders-search input { width:100%; min-width:0; border:0; outline:0; box-shadow:none; background:transparent; color:#253141; font:inherit; font-size:.875rem; }
+.orders-search input::-webkit-search-cancel-button { appearance:none; }
+.orders-search input:focus-visible { outline:0; }
+.orders-search input::placeholder { color:#687484; }
+.orders-search button { display:grid; place-items:center; flex-shrink:0; width:34px; height:36px; border:0; border-radius:7px; color:#586271; background:transparent; cursor:pointer; }
+.orders-search button:hover { background:#e9edf2; }
+.orders-filter { flex:0 1 190px; }
+.orders-filter select { width:100%; height:46px; padding:0 30px 0 12px; border:1px solid #d5dce4; border-radius:10px; background:#fafbfc; color:#384353; font:inherit; font-size:.875rem; }
+.customer-page .orders-refresh { flex-shrink:0; min-height:46px; }
+.orders-refresh[aria-busy=true] svg { animation:customer-refresh 1s linear infinite; }
+.orders-search-summary { display:flex; align-items:center; flex-wrap:wrap; gap:8px 16px; margin-top:13px; color:#637080; font-size:.75rem; line-height:1.5; }
+.orders-search-summary p { flex:1; min-width:180px; margin:0; }
+.orders-search-summary>span { color:#414d5c; }
+.orders-clear { padding:3px 0; border:0; background:none; color:#414d5c; font:inherit; text-decoration:underline; cursor:pointer; }
+.customer-page .order-card { grid-template-columns:minmax(0,1fr) auto auto; gap:16px; padding:22px; }
+.customer-page .order-number { flex-wrap:wrap; gap:4px 8px; }
+.customer-page .order-number strong { font-size:.96rem; }
+.customer-page .order-info { gap:6px 12px; color:#606c7b; line-height:1.5; }
+.order-items-preview { margin:9px 0 0; font-size:.8rem; line-height:1.6; color:#526070; overflow-wrap:anywhere; }
+.customer-page .order-details-link { grid-column:1/-1; justify-self:stretch; justify-content:flex-end; padding-top:13px; border-top:1px solid #edf0f3; min-height:36px; }
+.customer-page .order-status-badge { max-width:100%; white-space:normal; line-height:1.4; }
+.customer-page .order-status-dot { flex-shrink:0; background:currentColor; }
+.customer-page .order-status-badge.neutral { color:#475568; background:#edf1f5; }
+.customer-page .order-status-badge.confirmed { color:#245e76; background:#e8f3f8; }
+.customer-page .order-status-badge.cancelled { color:#9e3542; background:#fcecef; }
+.customer-page .orders-empty { padding:48px 20px; }
+.customer-page .orders-empty-icon { color:#788494; background:#f1f4f7; border-radius:18px; }
+.customer-page .orders-empty p { color:#606c7b; }
+@keyframes customer-refresh { to { transform:rotate(360deg); } }
+@media(min-width:769px) { .customer-page:is(.orders-page,.profile-page,.account-data-page,.addresses-page,.order-details-page) { padding:48px 28px 80px; } }
+@media(max-width:850px) {
+ .customer-page .order-card { grid-template-columns:minmax(0,1fr) auto; }
+ .customer-page .order-status { grid-row:1; grid-column:2; }
+ .customer-page .order-total { grid-column:1; align-items:flex-start; }
+ .customer-page .order-details-link { grid-column:2; align-self:end; }
+}
+@media(max-width:600px) {
+ .customer-page .orders-controls { display:grid; grid-template-columns:minmax(0,1fr); align-items:stretch; }
+ .orders-search-field { flex-basis:100%; }
+ .orders-filter { width:100%; min-width:0; }
+ .customer-page .orders-refresh { width:100%; padding-inline:12px; }
+ .customer-page .order-card { display:flex; gap:16px; padding:20px; }
+ .customer-page .order-total { flex-direction:row; align-items:center; }
+ .customer-page .order-details-link { width:100%; }
+ .customer-page .profile-header { padding:20px; gap:14px; align-items:flex-start; }
+ .customer-page .profile-avatar { width:48px; height:48px; border-radius:14px; font-size:1.4rem; }
+ .customer-page .profile-header h1 { font-size:1.4rem; }
+ .customer-page .addresses-heading { gap:20px; }
+ .customer-page .address-actions { padding-left:0; }
+ .customer-page .address-content { margin-left:0; }
+ .customer-page .address-form>.button { margin-right:0; width:100%; }
+ .customer-page .order-details-heading { align-items:flex-start; flex-direction:column; }
+ .customer-page .order-details-columns { grid-template-columns:1fr; }
+}
+@media(prefers-reduced-motion:reduce) { .orders-refresh[aria-busy=true] svg { animation:none; } }

@@ -36,7 +36,7 @@ function Carrinho() {
               {itens.length > 0 ? (
                 itens.map((item) => (
                   <CartItem
-                    key={item.id}
+                    key={item.chave || item.id}
                     item={item}
                     onQuantidadeChange={
                       alterarQuantidade

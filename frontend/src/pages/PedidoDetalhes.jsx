@@ -1,4 +1,6 @@
-import {atualizarComFeedback} from '../lib/notificacoes';
+import '../components/conta/areaCliente.css';
+import AtualizarPedidos from '../components/conta/AtualizarPedidos';
+import {statusPedido,dataPedido} from '../lib/pedidosApresentacao';
 import {PageBoundary} from '../components/ui/PageLoader';
 import React, {useCallback} from "react";
 
@@ -9,12 +11,13 @@ function PedidoDetalhes() {
   const id = new URLSearchParams(window.location.search).get('id');
   const ler=useCallback(()=>buscarPedido(id),[id]);
   const recurso=useRecurso(ler);
-  const {dados,erro,carregando,atualizar} = recurso;
-  if (!dados) return <PageBoundary recursos={[recurso]}><main className="order-details-page"><p role="status">{erro || (carregando ? 'Carregando...' : 'Pedido não encontrado.')}</p><a href="/perfil/pedidos">Meus pedidos</a></main></PageBoundary>;
-  const pedido = {...dados,subtotal:moeda(dados.subtotal),total:moeda(dados.total),entrega:moeda(dados.taxaEntrega),pagamento:dados.pagamento?.forma,endereco:dados.endereco || {},itens:dados.itens.map(i => ({...i,preco:moeda(i.subtotal)}))};
+  const {dados,erro,carregando} = recurso;
+  if (!dados) return <PageBoundary recursos={[recurso]}><main className="order-details-page customer-page"><p role="status">{erro || (carregando ? 'Carregando...' : 'Pedido não encontrado.')}</p><a href="/perfil/pedidos">Meus pedidos</a></main></PageBoundary>;
+  const estado=statusPedido(dados.status);
+  const pedido = {...dados,data:dataPedido(dados),subtotal:moeda(dados.subtotal),total:moeda(dados.total),entrega:moeda(dados.taxaEntrega),pagamento:dados.pagamento?.forma,endereco:dados.endereco || {},itens:dados.itens.map(i => ({...i,preco:moeda(i.subtotal)}))};
   return (<PageBoundary recursos={[recurso]}>
-    <main className="order-details-page">
-      <div className="container order-details-container">
+    <main className="order-details-page customer-page">
+      <div className="order-details-container customer-container">
 
         {/* CABEÇALHO */}
         <div className="order-details-top">
@@ -37,14 +40,14 @@ function PedidoDetalhes() {
               </p>
             </div>
 
-            <span className="order-status-badge preparing">
+            <span data-status={pedido.status} className={"order-status-badge "+estado.classe}>
               <span className="order-status-dot" />
-              {pedido.status}
+              {estado.nome}
             </span>
           </div>
         </div>
 
-        <section className="order-tracking-card"><h2>Status: {pedido.status}</h2><p>Pagamento: {dados.pagamento?.status}</p>{dados.pagamento?.origem==='manual_estabelecimento' && <p>Registro manual do estabelecimento; não comprova liquidação bancária.</p>}<button onClick={()=>atualizarComFeedback(recurso)}>Atualizar pedido</button>{erro && <p role="alert">{erro}</p>}</section>
+        <section className="order-tracking-card"><h2>Status: {estado.nome}</h2><p>Pagamento: {dados.pagamento?.status}</p>{dados.pagamento?.origem==='manual_estabelecimento' && <p>Registro manual do estabelecimento; não comprova liquidação bancária.</p>}<AtualizarPedidos recurso={recurso} detalhe/>{erro && <p role="alert">{erro}</p>}</section>
         {/* PRODUTOS */}
         <section className="order-details-card">
 

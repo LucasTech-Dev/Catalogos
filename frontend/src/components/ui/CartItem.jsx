@@ -49,7 +49,7 @@ function CartItem({
           <button
             type="button"
             className="cart-remove-button"
-            onClick={() => onRemover(item.id)}
+            onClick={() => onRemover(item.chave || item.id)}
           >
             Remover
           </button>
@@ -61,7 +61,7 @@ function CartItem({
               type="button"
               onClick={() =>
                 onQuantidadeChange(
-                  item.id,
+                  item.chave || item.id,
                   Math.max(
                     1,
                     item.quantidade - 1
@@ -78,7 +78,7 @@ function CartItem({
               type="button"
               onClick={() =>
                 onQuantidadeChange(
-                  item.id,
+                  item.chave || item.id,
                   Math.min(99,item.quantidade + 1)
                 )
               }

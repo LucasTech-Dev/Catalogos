@@ -19,13 +19,13 @@ it('adapta DTO real sem ativo, preserva preço e indisponibilidade e rejeita res
 it('renderiza design original e adiciona detalhe ao carrinho usando DTO HTTP',async()=>{
  preparar('/produto?id=prato-teste');render(<App/>);await screen.findByRole('heading',{name:'Prato da casa'});
  const botao=screen.getAllByRole('button').find(b=>/Adicionar/i.test(b.textContent));expect(botao).toBeTruthy();fireEvent.click(botao);
- expect(JSON.parse(localStorage.getItem('catalogos:carrinho:loja-demo'))).toEqual([{id:'prato-teste',quantidade:1}]);
+ expect(JSON.parse(localStorage.getItem('catalogos:carrinho:v2:loja-demo:visitante')).itens).toEqual([{id:'prato-teste',quantidade:1}]);
 });
 it.each(['/checkout','/admin','/admin/produtos','/login','/cadastro','/perfil'])('bloqueia %s antes de montar funcionalidades completas',path=>{
  preparar(path);render(<App/>);expect(screen.getByRole('heading',{name:'Recurso indisponível nesta demonstração'})).toBeTruthy();expect(mocks.api).not.toHaveBeenCalled();
 });
 it('carrinho mantém checkout desabilitado',async()=>{
- preparar('/carrinho');localStorage.setItem('catalogos:carrinho:loja-demo',JSON.stringify([{id:'prato-teste',quantidade:2}]));render(<App/>);await screen.findByText('Prato da casa');expect(screen.getByRole('button',{name:'Checkout indisponível na demonstração'}).disabled).toBe(true);
+ preparar('/carrinho');localStorage.setItem('catalogos:carrinho:v2:loja-demo:visitante',JSON.stringify({dono:'visitante',itens:[{id:'prato-teste',quantidade:2}]}));render(<App/>);await screen.findByText('Prato da casa');expect(screen.getByRole('button',{name:'Checkout indisponível na demonstração'}).disabled).toBe(true);
 });
 
 it.each(['/produto?id=prato-teste','/cardapio'])('MVP-01: %s distingue carga, falha recuperável e ausência de dados',async path=>{

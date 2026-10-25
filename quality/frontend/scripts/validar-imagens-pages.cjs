@@ -23,6 +23,8 @@ const {chrome}=require('./lib/chrome.cjs');
   await b.wait('Boolean(document.querySelector(".product-detail-image img[data-image-fallback]"))');
   receipt.checks.push('Detalhe: fallback acessível para produto sem foto');
   await b.evaluate('localStorage.setItem("catalogos:carrinho:loja-demo",JSON.stringify([{id:"bacon-burger",quantidade:1}]))');
+  // A versão publicada anterior ainda usa o cache legado; a candidata usa v2.
+  await b.evaluate('localStorage.setItem("catalogos:carrinho:v2:loja-demo:visitante",JSON.stringify({dono:"visitante",itens:[{id:"bacon-burger",quantidade:1}]}))');
   await b.navigate(base+'/carrinho');
   await b.wait('Boolean(document.querySelector(".cart-item-image img[data-image-fallback]"))');
   receipt.checks.push('Carrinho: fallback; somente localStorage temporário do Chrome');

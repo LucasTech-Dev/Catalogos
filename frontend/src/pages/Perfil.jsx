@@ -1,3 +1,4 @@
+import '../components/conta/areaCliente.css';
 import {notificarAoNavegar} from '../lib/notificacoes';
 import {FeedbackAcao} from '../components/ui/ToastProvider';
 import {PageBoundary} from '../components/ui/PageLoader';
@@ -10,8 +11,8 @@ function Perfil() {
   const recurso=useRecurso(buscarPerfil);
   const {dados,erro,carregando} = recurso;
   return (<PageBoundary recursos={[recurso]}>
-    <main className="profile-page">
-      <div className="container profile-container">
+    <main className="profile-page customer-page">
+      <div className="profile-container customer-container">
 
         {/* CABEÇALHO */}
         {erro && <p role="alert">{erro}</p>}{carregando && <p>Carregando...</p>}{dados?.anonimo && <p>Você está usando uma sessão de convidado. <a href="/cadastro">Crie uma conta para preservar seu histórico.</a></p>}<section className="profile-header">
