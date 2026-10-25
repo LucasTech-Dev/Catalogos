@@ -1,9 +1,11 @@
 import React from "react";
+import ImagemCatalogo from "../components/ui/ImagemCatalogo";
 
 import {useLoja, EstadoCatalogo} from "../contexts/LojaContext";
 import {moeda,horariosTexto} from "../lib/compras";
 function Home() {
   const {loja,categorias,produtos} = useLoja();
+  const destaque = produtos.find(produto => produto.imagem?.trim());
   return (
     <main>
       {/* HERO */}
@@ -34,9 +36,9 @@ function Home() {
 
           <div className="hero-image">
             <div className="hero-image-card">
-              <img
-                src={produtos[0]?.imagem || loja?.imagem}
-                alt={produtos[0]?.nome || loja?.nome}
+              <ImagemCatalogo
+                src={destaque?.imagem || loja?.imagem}
+                alt={destaque?.nome || loja?.nome}
               />
             </div>
 
@@ -87,7 +89,7 @@ function Home() {
             {produtos.map((produto) => (
               <article className="product-card" key={produto.nome}>
                 <div className="product-image">
-                  <img src={produto.imagem} alt={produto.nome} />
+                  <ImagemCatalogo src={produto.imagem} alt={produto.nome} />
                 </div>
 
                 <div className="product-content">
@@ -113,7 +115,7 @@ function Home() {
       <section className="section about-section" id="sobre">
         <div className="container about-grid">
           <div className="about-image">
-            <img
+            <ImagemCatalogo
               src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1000&q=80"
               alt="Interior de uma lancheria"
             />

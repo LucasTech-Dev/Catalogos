@@ -1,11 +1,12 @@
 import React from "react";
+import ImagemCatalogo from "./ImagemCatalogo";
 
 import {moeda} from "../../lib/compras";
 function ProductCard({ produto }) {
   return (
     <article className="product-card">
       <div className="product-image">
-        <img
+        <ImagemCatalogo
           src={produto.imagem}
           alt={produto.nome}
         />

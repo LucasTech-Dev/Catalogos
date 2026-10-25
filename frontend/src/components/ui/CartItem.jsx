@@ -1,4 +1,5 @@
 import React from "react";
+import ImagemCatalogo from "./ImagemCatalogo";
 
 function CartItem({
   item,
@@ -12,7 +13,7 @@ function CartItem({
   return (
     <article className="cart-item">
       <div className="cart-item-image">
-        <img
+        <ImagemCatalogo
           src={item.imagem}
           alt={item.nome}
         />

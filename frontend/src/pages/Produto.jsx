@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ImagemCatalogo from "../components/ui/ImagemCatalogo";
 
 import {useLoja, EstadoCatalogo} from "../contexts/LojaContext";
 function Produto() {
@@ -33,7 +34,7 @@ function Produto() {
         <div className="container product-detail-grid">
 
           <div className="product-detail-image">
-            <img
+            <ImagemCatalogo
               src={produto.imagem}
               alt={produto.nome}
             />

@@ -1,0 +1,21 @@
+# Correção de imagens — 25/10/2026
+
+Estado: correção frontend validada; quatro fotos reais continuam pendentes. Não confundir fallback com recuperação de fotografia.
+
+## A — Execução pelo Codex
+
+IMG-C1 diagnóstico somente leitura: Firestore bancorestaurante, coleções `lojas/loja-demo/produtos` e `catalogosPublicos/loja-demo/produtos`, campo `imagem`. Bacon Burger (`bacon-burger`), Batata Frita (`batata-frita`) e Coca-Cola Lata (`coca-cola-lata`) têm string vazia nas duas coleções. Fontes históricas de cadastro também não contêm fotos desses produtos. Chicken Crispy (`chicken-crispy`) usa `https://images.unsplash.com/photo-1615297928064-24977384d0f8?auto=format&fit=crop&w=800&q=80`: HTTP404/text-html, com CORS permitido. Não é bloqueio de Storage ou CORS. Os outros cinco produtos ativos e o interior da loja retornam HTTP200/image-jpeg; Chrome confirma carga. Todos usam serviço externo Unsplash, sem nova imagem externa introduzida. Combo Classic e Guaraná Lata estão inativos e sem imagem. Loja pública tem `imagem`/`logo` vazios.
+
+IMG-C2 correção mínima: home usava primeiro produto (Bacon Burger) e loja sem imagem, causando destaque vazio. Agora destaca primeiro produto com referência preenchida, atualmente Bacon Supreme, com nome correspondente. Componente compartilhado conserva referência original, trata ausência/erro com SVG neutro local e texto acessível “foto indisponível”; aplicado em home/sobre/cardápio/detalhe/carrinho. Preços, descrição, pedidos, funcionalidades e configuração remota preservados. Não se atribuiu foto de outro produto ao produto sem imagem.
+
+IMG-C3 testes:17 testes relevantes (`imagensCatalogo.test.jsx` e `vitrine.test.jsx`) aprovados; build `npm run build -- --mode homologacao` aprovado, apenas avisos existentes de bundle. Chrome no build: desktop1440/mobile390,11 imagens renderizadas,quatro fallbacks explícitos, destaque real, sem overflow; detalhe/carrinho com fallback, sem exceções JS. Sem login/cadastro/pedido novo; localStorage só no perfil temporário encerrado. Teste reutilizável `quality/frontend/scripts/validar-imagens-pages.cjs`. Homologação completa anterior não repetida.
+
+Arquivos de produto: `frontend/src/components/ui/ImagemCatalogo.jsx` (tratamento comum), `frontend/src/components/ui/{ProductCard,CartItem}.jsx`, `frontend/src/pages/{Home,Produto}.jsx` (uso da proteção), `frontend/public/demo-produto.svg` (aviso visual). Testes: `quality/frontend/test/imagensCatalogo.test.jsx` e script de validação citado. Documentação: este relatório, Guia Mestre, Continuidade, diário/plano/registro/ressalvas e inventário gerado. Fonte e checkout integrado sincronizados seletivamente; nenhuma exclusão de histórico, segredos ou backups. Temporários Chrome removidos pelo helper; builds/backups necessários ignorados. Espelho externo ausente, não recriado.
+
+IMG-C4 publicação: commit/push normal em LucasTech-Dev/Catalogos/main autorizados exclusivamente para imagens. Pages existente catalogo-demo confirmado: root frontend, comando homologacao,dist. Evidência online será anexada após deployment.
+
+## B — Execução manual pelo proprietário
+
+Nenhuma ação de painel é necessária para publicar esta correção frontend. Para completar as fotos, alternativa apropriada: quatro fotos próprias/licenciadas correspondentes aos produtos; nenhuma fotografia original recuperável foi encontrada nas fontes consultadas. Não aprovar automaticamente imagens de produto diferente. Definir arquivos/URLs corretos e obter autorização específica antes de eventual edição de `imagem` nos oito documentos: `lojas/loja-demo/produtos/{bacon-burger,batata-frita,chicken-crispy,coca-cola-lata}` e `catalogosPublicos/loja-demo/produtos/{bacon-burger,batata-frita,chicken-crispy,coca-cola-lata}`. Não há proposta de valor/URL nova nem escrita pendente disparada nesta ordem. Preferir assets locais com direitos comprovados.
+
+Limite concreto: quatro fotos não recuperadas; URL original do Chicken continua404 e pode gerar erro de recurso antes do fallback. Critérios “todas as fotos reais” e “nenhuma URL original quebrada” não atendidos. Não marcar visual comercial completo. Firebase, Auth, Rules, índices, IAM e57 documentos comerciais não modificados. Não iniciar criação de contas nesta tarefa.
