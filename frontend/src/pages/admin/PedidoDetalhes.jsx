@@ -1,3 +1,5 @@
+import {atualizarComFeedback,notificar} from '../../lib/notificacoes';
+import {FeedbackAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useState, useCallback, useLayoutEffect } from "react";
 
@@ -18,7 +20,7 @@ function PedidoDetalhes() {
     <main className="admin-order-details-page">
       <div className="admin-container">
 
-        <AdminState recurso={recurso}/>{erro && <p role="alert">{erro}</p>}{sucesso && <p role="status">{sucesso}</p>}<button onClick={recurso.atualizar}>Atualizar pedido</button>
+        <AdminState recurso={recurso}/>{erro && <FeedbackAcao mensagem={erro}/>}{sucesso && <FeedbackAcao mensagem={sucesso} tipo="sucesso"/>}<button onClick={()=>atualizarComFeedback(recurso)}>Atualizar pedido</button>
         {/* TOPO */}
         <div className="admin-details-back">
           <a href="/admin/pedidos">
@@ -258,7 +260,7 @@ function PedidoDetalhes() {
 
               <p>Estados financeiros registrados manualmente pelo estabelecimento. Não representam confirmação bancária automática.</p>
               {(dados.transicoesPagamento || []).map(novo=><button key={novo} type="button" className="admin-secondary-button" disabled={ocupado} onClick={()=>setConfirmacao(novo)}>{{confirmado:'Confirmar pagamento',recusado:'Recusar pagamento',cancelado:'Cancelar pagamento'}[novo]}</button>)}
-              {confirmacao && <div role="dialog" aria-label="Confirmar alteração financeira"><p>Alterar o pagamento para {confirmacao}? Registro manual do estabelecimento; não comprova liquidação por instituição financeira.</p><button disabled={ocupado} onClick={()=>atualizar('pagamento',confirmacao)}>Confirmar alteração financeira</button><button disabled={ocupado} onClick={()=>setConfirmacao('')}>Voltar</button></div>}
+              {confirmacao && <div role="dialog" aria-label="Confirmar alteração financeira"><p>Alterar o pagamento para {confirmacao}? Registro manual do estabelecimento; não comprova liquidação por instituição financeira.</p><button disabled={ocupado} onClick={()=>atualizar('pagamento',confirmacao)}>Confirmar alteração financeira</button><button disabled={ocupado} onClick={()=>{setConfirmacao('');notificar('info','Alteração cancelada.');}}>Voltar</button></div>}
               </div>
 
             </section>

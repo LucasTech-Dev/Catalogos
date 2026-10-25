@@ -1,3 +1,4 @@
+import {FeedbackAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useMemo, useState } from "react";
 
@@ -9,8 +10,8 @@ function Clientes() {
 
   const recurso=useAdminLista('clientes');
   const clientes=recurso.itens.map(c=>({...c,nome:c.nome || (c.anonimo?'Convidado':'Cliente'),email:c.email || 'Não informado',pedidos:'—',totalGasto:'—',ultimoPedido:'—',status:c.anonimo?'Convidado':'Cliente'}));
-  const [detalhe,setDetalhe]=useState(null),[erro,setErro]=useState('');
-  async function abrir(id){try{setDetalhe(await admin.buscar('clientes',id));}catch(e){setErro(e.message);}}
+  const [detalhe,setDetalhe]=useState(null),[erro,setErro]=useState(''),[ocupado,setOcupado]=useState(false);
+  async function abrir(id){if(ocupado)return;setOcupado(true);setErro('');try{setDetalhe(await admin.buscar('clientes',id));}catch(e){setErro(e.message);}finally{setOcupado(false);}}
   const clientesFiltrados = useMemo(() => {
     const termo = busca.toLowerCase().trim();
 
@@ -36,7 +37,7 @@ function Clientes() {
           </div>
         </section>
 
-        <AdminState recurso={recurso}/>{erro && <p role="alert">{erro}</p>}<AdminPaginacao recurso={recurso}/><p>Dados dos clientes desta loja. Totais históricos não são calculados nesta lista.</p><section className="admin-customers-panel">
+        <AdminState recurso={recurso}/>{erro && <FeedbackAcao mensagem={erro}/>}<AdminPaginacao recurso={recurso}/><p>Dados dos clientes desta loja. Totais históricos não são calculados nesta lista.</p><section className="admin-customers-panel">
           <div className="admin-customers-toolbar">
             <div className="admin-customers-search">
               <span>⌕</span>
@@ -116,7 +117,7 @@ function Clientes() {
                   </div>
 
                   <div className="admin-customer-actions">
-                    <button type="button" onClick={()=>abrir(cliente.id)}>
+                    <button type="button" disabled={ocupado} aria-busy={ocupado} onClick={()=>abrir(cliente.id)}>
                       Ver cliente
                     </button>
                   </div>

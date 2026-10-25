@@ -1,3 +1,5 @@
+import {notificarAoNavegar} from '../../lib/notificacoes';
+import {FeedbackAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useState, useLayoutEffect, useCallback, useRef } from "react";
 
@@ -54,8 +56,8 @@ function ProdutoForm() {
 
         </section>
 
-        <AdminState recurso={recurso}/><AdminState recurso={categoriasRecurso}/>{erro && <p role="alert">{erro}</p>}{salvo && <p role="status">Produto salvo. <a href="/admin/produtos">Ver produtos</a></p>}
-        <form
+        <AdminState recurso={recurso}/><AdminState recurso={categoriasRecurso}/>{erro && <FeedbackAcao mensagem={erro}/>}{salvo && <><FeedbackAcao mensagem="Produto salvo." tipo="sucesso"/><a href="/admin/produtos">Ver produtos</a></>}
+        <form aria-busy={ocupado}
           className="admin-product-form"
           onSubmit={salvarProduto}
         >
@@ -294,7 +296,7 @@ function ProdutoForm() {
           <div className="admin-product-form-actions">
 
             <a
-              href="/admin/produtos"
+              href="/admin/produtos" onClick={()=>notificarAoNavegar("Edição cancelada.")}
               className="admin-secondary-button"
             >
               Cancelar

@@ -1,3 +1,4 @@
+import {atualizarComFeedback} from '../lib/notificacoes';
 import {PageBoundary} from '../components/ui/PageLoader';
 import React, {useCallback} from "react";
 
@@ -43,7 +44,7 @@ function PedidoDetalhes() {
           </div>
         </div>
 
-        <section className="order-tracking-card"><h2>Status: {pedido.status}</h2><p>Pagamento: {dados.pagamento?.status}</p>{dados.pagamento?.origem==='manual_estabelecimento' && <p>Registro manual do estabelecimento; não comprova liquidação bancária.</p>}<button onClick={atualizar}>Atualizar pedido</button>{erro && <p role="alert">{erro}</p>}</section>
+        <section className="order-tracking-card"><h2>Status: {pedido.status}</h2><p>Pagamento: {dados.pagamento?.status}</p>{dados.pagamento?.origem==='manual_estabelecimento' && <p>Registro manual do estabelecimento; não comprova liquidação bancária.</p>}<button onClick={()=>atualizarComFeedback(recurso)}>Atualizar pedido</button>{erro && <p role="alert">{erro}</p>}</section>
         {/* PRODUTOS */}
         <section className="order-details-card">
 

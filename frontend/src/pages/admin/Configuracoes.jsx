@@ -1,3 +1,4 @@
+import {FeedbackAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useState, useLayoutEffect } from "react";
 
@@ -49,7 +50,7 @@ function Configuracoes() {
           </div>
         </section>
 
-        <AdminState recurso={recurso}/>{erro && <p role="alert">{erro}</p>}<form onSubmit={salvarConfiguracoes}>
+        <AdminState recurso={recurso}/>{erro && <FeedbackAcao mensagem={erro} persistente={erro.startsWith("Salvamento em etapas")}/>}<form aria-busy={ocupado} onSubmit={salvarConfiguracoes}>
           {/* IDENTIDADE */}
           <section className="admin-settings-section">
             <div className="admin-settings-section-header">
@@ -387,9 +388,7 @@ function Configuracoes() {
           {/* AÇÕES */}
           <div className="admin-settings-actions">
             {salvo && (
-              <span className="admin-settings-saved">
-                ✓ {salvo}
-              </span>
+              <FeedbackAcao mensagem={salvo} tipo={salvo.includes("etapas")?"aviso":"sucesso"}/>
             )}
 
             <button

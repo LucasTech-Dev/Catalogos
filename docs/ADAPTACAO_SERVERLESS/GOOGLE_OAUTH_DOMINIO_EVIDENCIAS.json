@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-25T18:45:19.297Z",
+  "project": "bancorestaurante",
+  "authDomain": "bancorestaurante.firebaseapp.com",
+  "webProjectMatches": true,
+  "googleEnabled": true,
+  "authorizedDomains": [
+    "localhost",
+    "bancorestaurante.firebaseapp.com",
+    "bancorestaurante.web.app"
+  ],
+  "pagesDomainAuthorized": false,
+  "remoteWrites": 0
+}

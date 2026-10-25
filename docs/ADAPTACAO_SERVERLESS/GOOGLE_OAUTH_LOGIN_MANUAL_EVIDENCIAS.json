@@ -1,0 +1,8 @@
+{
+  "dataRegistroUTC": "2026-10-25T19:07:17.063728+00:00",
+  "executor": "proprietario",
+  "alvo": "https://catalogo-demo-cz1.pages.dev/login",
+  "confirmacao": "Login Google funcionou e abriu Minha conta",
+  "tipo": "manual",
+  "dadosPrivadosRegistrados": false
+}

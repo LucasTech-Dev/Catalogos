@@ -1,3 +1,6 @@
+import BotaoGoogle from '../components/ui/BotaoGoogle';
+import {FeedbackAcao} from '../components/ui/ToastProvider';
+import {notificarAoNavegar} from '../lib/notificacoes';
 import CampoSenha from '../components/ui/CampoSenha';
 import React, {useState} from "react";
 import {cadastrar} from "../services/conta";
@@ -9,7 +12,7 @@ function Cadastro() {
     const valor = id => event.target.querySelector('#' + id).value;
     try {
       if (valor('cadastro-senha') !== valor('confirmar-senha')) throw new Error('As senhas devem ser iguais.');
-      await cadastrar({nome:valor('nome'),telefone:valor('telefone'),email:valor('cadastro-email'),senha:valor('cadastro-senha')});window.location.assign('/perfil');
+      await cadastrar({nome:valor('nome'),telefone:valor('telefone'),email:valor('cadastro-email'),senha:valor('cadastro-senha')});notificarAoNavegar('Conta criada com sucesso.');window.location.assign('/perfil');
     } catch(e) {setErro(e.message);} finally {setOcupado(false);}
   }
   return (
@@ -36,8 +39,8 @@ function Cadastro() {
             </p>
           </div>
 
-          {erro && <p role="alert">{erro}</p>}
-          <form
+          {erro && <FeedbackAcao mensagem={erro}/>}
+          <form aria-busy={ocupado}
             className="account-form"
             onSubmit={handleSubmit}
           >
@@ -124,6 +127,7 @@ function Cadastro() {
             </button>
           </form>
 
+          <div className="login-divider"><span>ou continue com</span></div><BotaoGoogle disabled={ocupado} onBusyChange={busy=>{setOcupado(busy);if(busy){setErro('');}}}/>
           <div className="account-footer">
             <span>
               Já possui uma conta?

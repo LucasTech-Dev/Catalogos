@@ -15,9 +15,9 @@ export function useRecurso(path,initial=null) {
     if(origemAtual.current!==path){origemAtual.current=path;setDados(inicial.current);setPronto(false);}
     setCarregando(true);setErro('');setOrigem(()=>path);
     const promessa=aguardarLeitura(()=>typeof path==='function'?path():api(path)).then(resultado=>{
-      if(v===versao.current){setDados(resultado);setPronto(true);}
+      if(v===versao.current){setDados(resultado);setPronto(true);return {ok:true};}return {ok:false,cancelado:true};
     }).catch(e=>{
-      if(v===versao.current){if([401,403,409].includes(e.status)){setDados(inicial.current);setPronto(false);}setErro(e.message);}
+      if(v===versao.current){if([401,403,409].includes(e.status)){setDados(inicial.current);setPronto(false);}setErro(e.message);return {ok:false,mensagem:e.message,erroPersistente:true};}return {ok:false,cancelado:true};
     }).finally(()=>{if(v===versao.current)setCarregando(false);if(emCurso.current?.versao===v)emCurso.current=null;});
     emCurso.current={origem:path,versao:v,promessa};return promessa;
   },[path]);

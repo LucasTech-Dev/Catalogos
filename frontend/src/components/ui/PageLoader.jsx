@@ -1,3 +1,4 @@
+import {atualizarComFeedback} from '../../lib/notificacoes';
 import React from 'react';
 import './PageLoader.css';
 export function PageLoader({loja}) {
@@ -13,7 +14,7 @@ export function PageBoundary({recursos=[],loja,children}) {
   const falhou=pendentes.find(r=>r.erro);
   if(falhou)return <div className="page-loader page-loader-error" role="alert">
     <h1>Não foi possível abrir esta página</h1><p>{falhou.erro}</p>
-    {falhou.atualizar && <button type="button" className="button button-primary" onClick={falhou.atualizar}>Tentar novamente</button>}
+    {falhou.atualizar && <button type="button" className="button button-primary" onClick={()=>atualizarComFeedback(falhou)}>Tentar novamente</button>}
     <a href="/">Voltar ao catálogo</a>
   </div>;
   if(pendentes.length)return <PageLoader loja={loja}/>;

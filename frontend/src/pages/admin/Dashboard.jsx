@@ -1,3 +1,4 @@
+import {atualizarComFeedback} from '../../lib/notificacoes';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, {useCallback,useState} from "react";
 import {admin,rotulosStatus,dataTexto,classeStatus} from "../../services/admin";
@@ -36,7 +37,7 @@ function Dashboard() {
           </div>
         </section>
 
-        <AdminState recurso={recurso}/><form className="admin-products-controls" onSubmit={e=>{e.preventDefault();setPeriodo({inicio,fim});}}><label>De <input type="date" value={inicio} onChange={e=>setInicio(e.target.value)} required/></label><label>Até <input type="date" value={fim} onChange={e=>setFim(e.target.value)} required/></label><button className="admin-primary-button" disabled={recurso.carregando}>Consultar período</button><button type="button" onClick={recurso.atualizar}>Atualizar</button></form>
+        <AdminState recurso={recurso}/><form className="admin-products-controls" onSubmit={e=>{e.preventDefault();setPeriodo({inicio,fim});}}><label>De <input type="date" value={inicio} onChange={e=>setInicio(e.target.value)} required/></label><label>Até <input type="date" value={fim} onChange={e=>setFim(e.target.value)} required/></label><button className="admin-primary-button" disabled={recurso.carregando}>Consultar período</button><button type="button" onClick={()=>atualizarComFeedback(recurso)}>Atualizar</button></form>
         {/* ESTATÍSTICAS */}
         <section className="admin-stats">
 

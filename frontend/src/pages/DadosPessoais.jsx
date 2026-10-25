@@ -1,3 +1,5 @@
+import {notificarAoNavegar} from '../lib/notificacoes';
+import {FeedbackAcao} from '../components/ui/ToastProvider';
 import CampoSenha from '../components/ui/CampoSenha';
 import {PageBoundary} from '../components/ui/PageLoader';
 import React, {useState} from "react";
@@ -40,9 +42,9 @@ function DadosPessoais() {
           </p>
         </div>
 
-        {(erro || erroCarga) && <p role="status">{erro || erroCarga}</p>}
+        {erroCarga && <p role="alert">{erroCarga}</p>}{erro && <FeedbackAcao mensagem={erro} tipo={erro==="Dados salvos."?"sucesso":"erro"}/>}
         {/* FORMULÁRIO */}
-        <form
+        <form aria-busy={ocupado}
           className="personal-data-card"
           onSubmit={handleSubmit}
         >
@@ -163,7 +165,7 @@ function DadosPessoais() {
           <div className="personal-data-actions">
 
             <a
-              href="/perfil"
+              href="/perfil" onClick={()=>notificarAoNavegar("Edição cancelada.")}
               className="button button-secondary"
             >
               Cancelar

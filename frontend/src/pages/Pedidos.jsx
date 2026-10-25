@@ -1,3 +1,4 @@
+import {atualizarComFeedback} from '../lib/notificacoes';
 import {PageBoundary} from '../components/ui/PageLoader';
 import React from "react";
 
@@ -32,7 +33,7 @@ function Pedidos() {
         </div>
 
         {/* LISTA DE PEDIDOS */}
-        {carregando && <p>Carregando pedidos...</p>}{erro && <p role="alert">{erro}</p>}<button onClick={atualizar}>Atualizar pedidos</button><section className="orders-list">
+        {carregando && <p>Carregando pedidos...</p>}{erro && <p role="alert">{erro}</p>}<button onClick={()=>atualizarComFeedback(recurso)}>Atualizar pedidos</button><section className="orders-list">
 
           {pedidos.map((pedido) => (
             <article

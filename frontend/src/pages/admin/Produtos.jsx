@@ -1,3 +1,5 @@
+import {notificar} from '../../lib/notificacoes';
+import {FeedbackAcao,confirmarAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useMemo, useState } from "react";
 
@@ -15,7 +17,7 @@ function Produtos() {
   const [erro,setErro]=useState(''),[ocupado,setOcupado]=useState(false);
   const produtos=recurso.itens.map(p=>({...p,categoria:categoriasRecurso.itens.find(c=>c.id===p.categoriaId)?.nome || (p.categoriaId ? 'Categoria cadastrada' : 'Sem categoria'),preco:moeda(p.preco)}));
   const categorias=[{id:'Todas',nome:'Todas'},...categoriasRecurso.itens,...(categoria!=='Todas' && !categoriasRecurso.itens.some(c=>c.id===categoria)?[{id:categoria,nome:categoriaNome || 'Categoria selecionada'}]:[])];
-  async function alternar(produto){if(ocupado)return;setOcupado(true);setErro('');try{await admin.salvar('produtos',produto.id,{ativo:!produto.ativo});await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}
+  async function alternar(produto){if(ocupado)return;setOcupado(true);setErro('');try{await admin.salvar('produtos',produto.id,{ativo:!produto.ativo});notificar('sucesso',produto.ativo?'Produto desativado.':'Produto ativado.');await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}
   const produtosFiltrados = useMemo(() => {
     return produtos.filter((produto) => {
       const correspondeBusca =
@@ -95,7 +97,7 @@ function Produtos() {
 
         </section>
 
-        <AdminState recurso={recurso}/><AdminState recurso={categoriasRecurso}/>{erro && <p role="alert">{erro}</p>}<AdminPaginacao recurso={recurso}/>{categoriasRecurso.temProximo && <button onClick={categoriasRecurso.proximo}>Mais categorias</button>}
+        <AdminState recurso={recurso}/><AdminState recurso={categoriasRecurso}/>{erro && <FeedbackAcao mensagem={erro}/>}<AdminPaginacao recurso={recurso}/>{categoriasRecurso.temProximo && <button onClick={categoriasRecurso.proximo}>Mais categorias</button>}
         {/* RESULTADOS */}
 
         <section className="admin-panel">
@@ -176,7 +178,7 @@ function Produtos() {
                     className="admin-product-edit"
                   >
                     Editar
-                  </a><button disabled={ocupado} onClick={async()=>{if(!window.confirm("Desativar este produto? Ele ficará preservado nos pedidos anteriores."))return;setOcupado(true);try{await admin.excluir("produtos",produto.id);await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}}>Remover do catálogo</button>
+                  </a><button disabled={ocupado} onClick={async()=>{if(!await confirmarAcao("Desativar este produto? Ele ficará preservado nos pedidos anteriores.","Remover do catálogo"))return;setOcupado(true);try{await admin.excluir("produtos",produto.id);notificar("sucesso","Produto removido do catálogo. Histórico preservado.");await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}}>Remover do catálogo</button>
 
                   <button
                     type="button"

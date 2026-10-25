@@ -14,7 +14,8 @@
     "test:online:publicacao-geral": "node ../quality/frontend/scripts/validar-publicacao-geral.cjs",
     "test:online:performance": "node ../quality/frontend/scripts/medir-performance-pages.cjs",
     "test:online:autenticacao": "node ../quality/frontend/scripts/validar-autenticacao-pages.cjs",
-    "firebase:emulator:auth": "node ../quality/run.cjs frontend-auth"
+    "firebase:emulator:auth": "node ../quality/run.cjs frontend-auth",
+    "test:online:notificacoes": "node ../quality/frontend/scripts/validar-notificacoes-pages.cjs"
   },
   "dependencies": {
     "firebase": "^13.0.0",

@@ -1,0 +1,146 @@
+{
+  "ambiente": "Emulators exclusivos loopback, projetos demo-, contas/pedidos sintéticos; nenhuma escrita comercial real",
+  "resultados": [
+    {
+      "suite": "perfil",
+      "exitCode": 0,
+      "segundos": 107.86,
+      "relatorios": [
+        {
+          "perfilSdkRules": "aprovado",
+          "checks": 72,
+          "projeto": "demo-catalogos-sdk",
+          "express": false
+        },
+        {
+          "contaReactNavegador": "aprovado",
+          "checks": 27,
+          "build": "aprovado",
+          "saidas": 9,
+          "express": false,
+          "distAlterado": false
+        }
+      ]
+    },
+    {
+      "suite": "admin-catalogo",
+      "exitCode": 0,
+      "segundos": 156.374,
+      "relatorios": [
+        {
+          "adminCatalogoSdk": "aprovado",
+          "projectId": "demo-catalogos-admin006",
+          "checks": 59,
+          "pedido50": 50,
+          "total50": 532.25,
+          "B03": "desativacao_exclusao_bloqueadas_inclusive_vazia",
+          "produtoExcluido": "desativacao_logica",
+          "express": false
+        },
+        {
+          "adminCatalogoNavegador": {
+            "checks": 19,
+            "build": "aprovado",
+            "saidas": 9,
+            "express": false,
+            "rotas": [
+              "/admin/produtos",
+              "/admin/produto/novo",
+              "/admin/categorias"
+            ],
+            "distAlterado": false
+          }
+        },
+        {
+          "admin006": "aprovado_local",
+          "sdkChecks": 59,
+          "navegador": {
+            "checks": 19,
+            "build": "aprovado",
+            "saidas": 9,
+            "express": false,
+            "rotas": [
+              "/admin/produtos",
+              "/admin/produto/novo",
+              "/admin/categorias"
+            ],
+            "distAlterado": false
+          },
+          "B03": "parcial_operacoes_perigosas_bloqueadas",
+          "lojaRealAlterada": false
+        }
+      ]
+    },
+    {
+      "suite": "admin-pedidos",
+      "exitCode": 0,
+      "segundos": 111.144,
+      "relatorios": [
+        {
+          "adminPedidosSdk": "aprovado",
+          "checks": 152
+        },
+        {
+          "adminPedidosNavegador": {
+            "checks": 21,
+            "build": "aprovado",
+            "saidas": 9,
+            "compraReal": true,
+            "express": false,
+            "distAlterado": false
+          }
+        },
+        {
+          "admin007": "aprovado_local",
+          "sdkChecks": 152,
+          "navegador": {
+            "checks": 21,
+            "build": "aprovado",
+            "saidas": 9,
+            "compraReal": true,
+            "express": false,
+            "distAlterado": false
+          },
+          "pedido50": 50,
+          "express": false,
+          "lojaRealAlterada": false
+        }
+      ]
+    },
+    {
+      "suite": "admin-gestao",
+      "exitCode": 0,
+      "segundos": 108.122,
+      "relatorios": [
+        {
+          "adminGestaoSdk": "aprovado_B04_em_etapas",
+          "checks": 84,
+          "pedido50": 50,
+          "express": false
+        },
+        {
+          "adminGestaoNavegador": {
+            "checks": 20,
+            "build": "aprovado",
+            "saidas": 9,
+            "express": false,
+            "distAlterado": false
+          }
+        },
+        {
+          "admin008": "local_B04_em_etapas",
+          "sdkChecks": 84,
+          "navegador": {
+            "checks": 20,
+            "build": "aprovado",
+            "saidas": 9,
+            "express": false,
+            "distAlterado": false
+          },
+          "express": false,
+          "lojaRealAlterada": false
+        }
+      ]
+    }
+  ]
+}

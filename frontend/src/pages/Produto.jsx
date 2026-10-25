@@ -1,3 +1,4 @@
+import {notificarAoNavegar} from '../lib/notificacoes';
 import React, { useState } from "react";
 import ImagemCatalogo from "../components/ui/ImagemCatalogo";
 
@@ -102,7 +103,7 @@ function Produto() {
                 type="button"
                 className="add-to-cart-button"
                 disabled={produto.ativo !== true || produto.disponivel === false}
-                onClick={() => {adicionar(produto, quantidade); window.location.assign("/carrinho");}}
+                onClick={() => {if(adicionar(produto, quantidade)!==false){notificarAoNavegar("Produto adicionado ao carrinho.");window.location.assign("/carrinho");}}}
               >
                 <span>{produto.ativo === true && produto.disponivel !== false ? "Adicionar ao carrinho" : "Produto indisponível"}</span>
                 <strong>

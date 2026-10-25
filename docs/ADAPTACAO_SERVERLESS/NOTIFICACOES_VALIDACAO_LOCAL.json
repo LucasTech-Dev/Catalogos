@@ -1,0 +1,206 @@
+{
+  "unitSuite": {
+    "files": 21,
+    "passed": 217,
+    "log": "notificacoes-release-testes.log"
+  },
+  "finalFocused": {
+    "files": 2,
+    "passed": 34,
+    "log": "notificacoes-release-final-direcionados.log"
+  },
+  "build": {
+    "mode": "homologacao",
+    "seconds": 23.32,
+    "files": [
+      {
+        "path": "_redirects",
+        "sha256": "6036983e5fc00f0169c9e939b1816ed771eee00e27f2fcc517b819041460b9ef"
+      },
+      {
+        "path": "assets/App-COFIySjV.css",
+        "sha256": "fed1e9127f934af81ec2481f2d8bac030899678bbb91a13f5263a3e830088df5"
+      },
+      {
+        "path": "assets/App-DoeV4L9Z.js",
+        "sha256": "99f1f5d88e7412a3dc9e63338b885a3afed8462250e037dd80e447805287f638"
+      },
+      {
+        "path": "assets/DemoFixtures-BjFhf-tf.css",
+        "sha256": "2b1a28b2ac0bad8fcd37074aee415dca3401bbbd8da52f1e644fa2faa72903b1"
+      },
+      {
+        "path": "assets/DemoFixtures-F9szc5TQ.js",
+        "sha256": "c9a50916c89a1a8c45a1225e4ee7d4c03781d5001af0a6e94b4a55a921f64a73"
+      },
+      {
+        "path": "assets/DemoPublica-BD7pZh8a.js",
+        "sha256": "2f3e3d6afe9714673231baa06a6c771de1801333ce30b4cbbb54d32a0be77c34"
+      },
+      {
+        "path": "assets/ambienteAplicacao-HMg8MdyA.js",
+        "sha256": "391ab32d2280f86411fa1ade85f182b488fd8077a2b55de3ace5a6f376be7b01"
+      },
+      {
+        "path": "assets/index-BhB3C8Aa.css",
+        "sha256": "5748023f69a6fc1d59f0d28a0593b0b29c07c6afddffec69a676f4743ce8fad9"
+      },
+      {
+        "path": "assets/index-D0SCu6LQ.js",
+        "sha256": "d7f270c416aa1e74b790e3b6aa3cfddee3f4742c605715ff948aa88506dbe6ab"
+      },
+      {
+        "path": "demo-produto.svg",
+        "sha256": "2e12a9c897ed3265824be80fcec3fa1e2d0ee86029b3c6163eada4461eecb183"
+      },
+      {
+        "path": "index.html",
+        "sha256": "41665175885e4bd540337671126fd9b14dc49ad6088d79b34168955f1d6a3d25"
+      }
+    ]
+  },
+  "sourceFiles": [
+    {
+      "path": "frontend/package.json",
+      "sha256": "f7b98ddd39e41f70b8f11ea5b9c6af29d4442b8654cbb485fd291b709b8445c1"
+    },
+    {
+      "path": "frontend/src/App.jsx",
+      "sha256": "d6bc3c2e06438331233eed07492032e0e779f095f5e07b3dc07ae056f8993aca"
+    },
+    {
+      "path": "frontend/src/components/admin/AdminGate.jsx",
+      "sha256": "276240cfa488e6f33bec3175409b88883977f188d72998d236e832ac3c6d0659"
+    },
+    {
+      "path": "frontend/src/components/admin/AdminState.jsx",
+      "sha256": "d20571a4999c06bb781eccaf426f1af2d6d4d364597b38a27a363e4c9195bac7"
+    },
+    {
+      "path": "frontend/src/components/ui/BotaoGoogle.jsx",
+      "sha256": "8725a60af33fede18c601cbcda20e26478ab089ba8b68e0209e40ed1aa1eb26f"
+    },
+    {
+      "path": "frontend/src/components/ui/PageLoader.jsx",
+      "sha256": "b974251c5baa2d0b16aeeeb0267c241629e8930c5150ca866ea54aca5b96c9d0"
+    },
+    {
+      "path": "frontend/src/components/ui/ToastProvider.css",
+      "sha256": "e30547f001ca78545fd9216ed45c71464b3848179ba58ade05c8499d2009fda9"
+    },
+    {
+      "path": "frontend/src/components/ui/ToastProvider.jsx",
+      "sha256": "673e7a574e42ce6b59cf2c0cce0994b9d1f448fa1616e6fee836cdd3d23f757e"
+    },
+    {
+      "path": "frontend/src/contexts/LojaContext.jsx",
+      "sha256": "c18efcaa1e0bf31a6ea84071c920ca895199b23b0f76606e657d397aa9ebb925"
+    },
+    {
+      "path": "frontend/src/hooks/useAdmin.js",
+      "sha256": "c24acc8bf75a9c6e4989f41d38da4bbdf5f4c536d454c047d347831d2f357183"
+    },
+    {
+      "path": "frontend/src/hooks/useRecurso.js",
+      "sha256": "05c70acd4112b01b179c4c1b3262443061caff0ba79cb770fa8573977316e0eb"
+    },
+    {
+      "path": "frontend/src/lib/notificacoes.js",
+      "sha256": "d79a84b0f346d05dc1179007af2598c0f7fe55afe028c0fd4a5745f116edb673"
+    },
+    {
+      "path": "frontend/src/pages/Cadastro.jsx",
+      "sha256": "4dec035d0720314d8b466c5ddf5a8709827c04b6ee96a8504d262a94f139462a"
+    },
+    {
+      "path": "frontend/src/pages/Checkout.jsx",
+      "sha256": "6c5d1cc4161191f66aadddc64255b9c24e9ea442d600027dd6cc1799c63b0482"
+    },
+    {
+      "path": "frontend/src/pages/DadosPessoais.jsx",
+      "sha256": "799454fffd75ef661d71cb81ba19d8c8a984635cebbaa3d91ad60b3cfb8dd7fe"
+    },
+    {
+      "path": "frontend/src/pages/Enderecos.jsx",
+      "sha256": "d3dbabd7479ef3a6c63ad0d3c8623204a10006bc43ea3b5941556fe8321bccf5"
+    },
+    {
+      "path": "frontend/src/pages/Login.jsx",
+      "sha256": "86db9c23eaa5bdd9bb331cd308bb339fb31a7e4458253697c3276de542bbf93d"
+    },
+    {
+      "path": "frontend/src/pages/PedidoDetalhes.jsx",
+      "sha256": "59239f28a9bc0ecbe172ed8d081c7d0a58abeaeba88ea1c89cfb1bf3e3ee20d5"
+    },
+    {
+      "path": "frontend/src/pages/Pedidos.jsx",
+      "sha256": "e2b423d26b12a37de7995a4d9ba2611de5c4a5cebe23868691c808ef20c75acc"
+    },
+    {
+      "path": "frontend/src/pages/Perfil.jsx",
+      "sha256": "a557a3d039b53d668b0a37f75d3b5a3a782720d15a668b5d85cc2a37c14e7ece"
+    },
+    {
+      "path": "frontend/src/pages/Produto.jsx",
+      "sha256": "9facba2b1852b3a518f0142f3a25928e712398f7e3272c87d536b0ad8a577932"
+    },
+    {
+      "path": "frontend/src/pages/admin/Categorias.jsx",
+      "sha256": "12ed4995cd23b7c2d5f61724051ed7eb0a19a4fb264337954a9fd91f4d645c53"
+    },
+    {
+      "path": "frontend/src/pages/admin/Clientes.jsx",
+      "sha256": "8867b28e1f7f932d7f8efbafcd4c3a962c09db2be7205f98a243b0668bdcb9ca"
+    },
+    {
+      "path": "frontend/src/pages/admin/Configuracoes.jsx",
+      "sha256": "b2bb9f5352b9179214f6c51c944cb341f313de3fe971db04d9c2fb4ddcb848f2"
+    },
+    {
+      "path": "frontend/src/pages/admin/Dashboard.jsx",
+      "sha256": "d5abe3ead2645316bd8a81edeb25813a69aaad031ecfbd1e4a850f838a99f7ad"
+    },
+    {
+      "path": "frontend/src/pages/admin/PedidoDetalhes.jsx",
+      "sha256": "78d7504bb2dd8f99be0f74d39e6f94f9925e26269501f3cc84d9be3b8b2fb8b6"
+    },
+    {
+      "path": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "sha256": "8ad5cb2bff0db1b010d8d7986ea5a1fac11cb5c3d08f3617621b96cd6e5311d3"
+    },
+    {
+      "path": "frontend/src/pages/admin/Produtos.jsx",
+      "sha256": "4c9ebf6f070668d4132bfcd48686da4a60d3bbee005443caac22f4a547cb4a04"
+    },
+    {
+      "path": "quality/firebase/autorizar-dominio-google.cjs",
+      "sha256": "0c56742bea127ac7f9da4edb845e6e42092c84a2558256874e473f788e4092d7"
+    },
+    {
+      "path": "quality/firebase/oauth-google-readonly.cjs",
+      "sha256": "6d9ef422ddb9fe8b6b9bf73c9c5b4a87256b6909d06be2febda3011725b5a38f"
+    },
+    {
+      "path": "quality/frontend/scripts/validar-notificacoes-pages.cjs",
+      "sha256": "2a5dbf28f7886786d67f318bc7b15bef77bd6a26958553453b72f263befd94df"
+    },
+    {
+      "path": "quality/frontend/test/admin.test.jsx",
+      "sha256": "eed6c327bc32f92d7101f795d5f1aa90a8b6fd2c72b8f1e453ca3b65b7a9e9d7"
+    },
+    {
+      "path": "quality/frontend/test/conta.test.jsx",
+      "sha256": "69f7a81bce7a9387adde05565a1cb2f9bac658b0d8f4efded6ca22b79e47c961"
+    },
+    {
+      "path": "quality/frontend/test/notificacoes.test.jsx",
+      "sha256": "2f928a046cfd379b29e45932dc4397c2b9a6d1374a1bf14c2322b24dd297b472"
+    }
+  ],
+  "secretScan": {
+    "patterns": 6,
+    "findings": 0,
+    "syntheticException": "test fixture contains only private-key header without any key, required to validate sanitizer",
+    "scope": "changed/new runtime, operational scripts and tests, no env files"
+  }
+}

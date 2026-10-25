@@ -1,3 +1,5 @@
+import {notificar} from '../../lib/notificacoes';
+import {FeedbackAcao,confirmarAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useState } from "react";
 
@@ -36,13 +38,13 @@ function Categorias() {
 
   async function salvarCategoria(event) {
     event.preventDefault();if(ocupado)return;setOcupado(true);setErro('');
-    try{await admin.salvar('categorias',categoriaEditando?.id,{nome:nome.trim(),descricao:descricao.trim()});await recurso.atualizar();fecharModal();}catch(e){setErro(e.message);}finally{setOcupado(false);}
+    try{await admin.salvar('categorias',categoriaEditando?.id,{nome:nome.trim(),descricao:descricao.trim()});notificar("sucesso",categoriaEditando?"Categoria atualizada.":"Categoria criada.");await recurso.atualizar();fecharModal();}catch(e){setErro(e.message);}finally{setOcupado(false);}
   }
   async function alternarStatus(id) {
     if(ocupado)return;setOcupado(true);setErro('');
-    try{const categoria=categorias.find(c=>c.id===id);await admin.salvar('categorias',id,{ativo:!categoria.ativa});await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}
+    try{const categoria=categorias.find(c=>c.id===id);await admin.salvar('categorias',id,{ativo:!categoria.ativa});notificar('sucesso',categoria.ativa?'Categoria desativada.':'Categoria ativada.');await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}
   }
-  async function excluir(id){if(ocupado || !window.confirm('Excluir categoria? Categorias com produtos vinculados são protegidas.'))return;setOcupado(true);setErro('');try{await admin.excluir('categorias',id);await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}
+  async function excluir(id){if(ocupado || !await confirmarAcao('Excluir esta categoria? A exclusão só será permitida se não houver produtos vinculados.','Excluir categoria'))return;setOcupado(true);setErro('');try{await admin.excluir('categorias',id);notificar('sucesso','Categoria excluída.');await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}
   return (<PageBoundary recursos={[recurso]}>
     <main className="admin-categories-page">
       <div className="admin-container">
@@ -62,7 +64,7 @@ function Categorias() {
           </button>
         </section>
 
-        <AdminState recurso={recurso}/>{erro && <p role="alert">{erro}</p>}<AdminPaginacao recurso={recurso}/><section className="admin-categories-panel">
+        <AdminState recurso={recurso}/>{erro && <FeedbackAcao mensagem={erro}/>}<AdminPaginacao recurso={recurso}/><section className="admin-categories-panel">
           {categorias.length > 0 ? (
             <div className="admin-categories-list">
               {categorias.map((categoria) => (
@@ -158,13 +160,13 @@ function Categorias() {
               <button
                 type="button"
                 className="admin-modal-close"
-                onClick={fecharModal}
+                onClick={()=>{fecharModal();notificar("info","Edição cancelada.");}}
               >
                 ×
               </button>
             </div>
 
-            <form onSubmit={salvarCategoria}>{erro && <p role="alert">{erro}</p>}
+            <form aria-busy={ocupado} onSubmit={salvarCategoria}>{erro && <FeedbackAcao mensagem={erro}/>}
               <div className="admin-form-group">
                 <label htmlFor="categoria-nome">
                   Nome da categoria
@@ -199,7 +201,7 @@ function Categorias() {
                 <button
                   type="button"
                   className="admin-secondary-button"
-                  onClick={fecharModal}
+                  onClick={()=>{fecharModal();notificar("info","Edição cancelada.");}}
                 >
                   Cancelar
                 </button>

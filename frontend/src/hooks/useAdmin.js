@@ -13,9 +13,9 @@ export function useAdminRecurso(carregar) {
     if(origemAtual.current!==carregar){origemAtual.current=carregar;setDados(null);setPronto(false);}
     setCarregando(true);setErro('');setOrigem(()=>carregar);
     const promessa=aguardarLeitura(carregar).then(resposta=>{
-      if(v===versao.current){setDados(resposta);setPronto(true);}
+      if(v===versao.current){setDados(resposta);setPronto(true);return {ok:true};}return {ok:false,cancelado:true};
     }).catch(e=>{
-      if(v===versao.current){if([401,403].includes(e.status)||e.code==='SESSION_CHANGED'){setDados(null);setPronto(false);}setErro(e.message);}
+      if(v===versao.current){if([401,403].includes(e.status)||e.code==='SESSION_CHANGED'){setDados(null);setPronto(false);}setErro(e.message);return {ok:false,mensagem:e.message,erroPersistente:true};}return {ok:false,cancelado:true};
     }).finally(()=>{if(v===versao.current)setCarregando(false);if(emCurso.current?.versao===v)emCurso.current=null;});
     emCurso.current={origem:carregar,versao:v,promessa};return promessa;
   },[carregar]);

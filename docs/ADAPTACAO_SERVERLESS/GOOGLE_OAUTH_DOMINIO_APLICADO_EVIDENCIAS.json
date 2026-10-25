@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-25T19:01:14.011Z",
+  "project": "bancorestaurante",
+  "domain": "catalogo-demo-cz1.pages.dev",
+  "operation": "added-only-domain",
+  "beforeDomains": [
+    "localhost",
+    "bancorestaurante.firebaseapp.com",
+    "bancorestaurante.web.app",
+    "catalogo-demo-cz1.pages.deV"
+  ],
+  "afterDomains": [
+    "localhost",
+    "bancorestaurante.firebaseapp.com",
+    "bancorestaurante.web.app",
+    "catalogo-demo-cz1.pages.deV",
+    "catalogo-demo-cz1.pages.dev"
+  ],
+  "otherConfigPreserved": true,
+  "otherConfigSha256": "a6582d5278b5c7539068106f42efc91d3fde93f40947fad6890414be837de5ea",
+  "remoteWrites": 1,
+  "updateMask": "authorizedDomains"
+}

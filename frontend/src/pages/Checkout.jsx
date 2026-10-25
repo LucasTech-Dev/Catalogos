@@ -1,3 +1,5 @@
+import {notificar} from '../lib/notificacoes';
+import {FeedbackAcao} from '../components/ui/ToastProvider';
 import {PageBoundary} from '../components/ui/PageLoader';
 import {aguardarLeitura,LIMITE_LEITURA_MS} from '../lib/carregamento';
 import React, { useState, useRef, useEffect } from "react";
@@ -88,7 +90,7 @@ function Checkout() {
       if(v!==versaoSessao.current || (auth && auth.currentUser?.uid!==user.uid))return;
       setPedido(tentativa.pedido); limpar();
       const finalizacao = await conferirResultado(prepararFinalizacao(tentativa.pedido.id,uid));
-      if(v===versaoSessao.current && (!auth || auth.currentUser?.uid===user.uid))setUrl(urlWhatsapp(finalizacao.url));
+      if(v===versaoSessao.current && (!auth || auth.currentUser?.uid===user.uid)){setUrl(urlWhatsapp(finalizacao.url));notificar('sucesso','Pedido registrado. Confira os detalhes antes de enviar pelo WhatsApp.');}
     } catch(e) {
       if(v!==versaoSessao.current)return;
       if (e.status === 400 && !e.message.includes('Chave já utilizada')) {
@@ -372,7 +374,7 @@ function Checkout() {
             </div>
 
             <aside className="checkout-summary">
-              {erro && <p role="alert">{erro} {erro!==CRIACAO_BLOQUEADA && 'Em falhas de conexão, repita a finalização para retomar a mesma tentativa.'}</p>}
+              {erro && <><FeedbackAcao mensagem={erro} persistente={erro===CRIACAO_BLOQUEADA}/>{erro!==CRIACAO_BLOQUEADA && <p>Em falhas de conexão, repita a finalização para retomar a mesma tentativa.</p>}</>}
               {pedido && <p role="status">Pedido #{pedido.id} registrado. Total definitivo: {moeda(pedido.total)}. Pagamento: {pedido.pagamento.status}.</p>}
               {url && <><a className="whatsapp-checkout-button" href={url} target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a><p>Envie a mensagem e aguarde a confirmação da loja. Se o WhatsApp estiver indisponível, seu pedido continua registrado.</p><button onClick={() => {removerTentativa(tentativaKey.current);window.location.assign('/cardapio');}}>Iniciar novo pedido</button></>}
 
@@ -431,7 +433,7 @@ function Checkout() {
                 type="button"
                 className="whatsapp-checkout-button"
                 disabled={ocupado || carregandoCatalogo || Boolean(erroCatalogo)}
-                onClick={finalizarPedido}
+                aria-busy={ocupado} onClick={finalizarPedido}
               >
                 {ocupado ? "Registrando..." : "Registrar pedido e preparar WhatsApp"}
               </button>

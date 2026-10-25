@@ -1,3 +1,5 @@
+import {notificarAoNavegar} from '../lib/notificacoes';
+import {FeedbackAcao} from '../components/ui/ToastProvider';
 import {PageBoundary} from '../components/ui/PageLoader';
 import React,{useState} from "react";
 
@@ -111,11 +113,11 @@ function Perfil() {
         </section>
 
         {/* AÇÕES */}
-        <section className="profile-actions">{erroSaida && <p role="alert">{erroSaida}</p>}
+        <section className="profile-actions">{erroSaida && <FeedbackAcao mensagem={erroSaida}/>}
 
           <button
             type="button"
-            className="profile-logout" disabled={saindo} onClick={async () => {if(saindo)return;setSaindo(true);try{await sair();window.location.assign("/login");}catch{setErroSaida("Não foi possível sair. Tente novamente.");setSaindo(false);}}}
+            className="profile-logout" disabled={saindo} onClick={async () => {if(saindo)return;setSaindo(true);try{await sair();notificarAoNavegar("Você saiu da sua conta.");window.location.assign("/login");}catch{setErroSaida("Não foi possível sair. Tente novamente.");setSaindo(false);}}}
           >
             Sair da conta
           </button>

@@ -1,4 +1,5 @@
 import React from "react";
+import {ToastProvider} from "./components/ui/ToastProvider";
 import {LojaProvider} from "./contexts/LojaContext";
 
 import Header from "./components/layout/Header";
@@ -142,4 +143,4 @@ function App() {
   );
 }
 
-export default App;
+export default function Aplicacao(){return <ToastProvider><App/></ToastProvider>;}

@@ -1,0 +1,160 @@
+{
+  "at": "2026-10-25T19:11:24.759878+00:00",
+  "deletedIntermediateDirectories": [
+    {
+      "path": "private-backups/notificacoes-build-inicial",
+      "reason": "intermediate build of this task, replaced by verified notificacoes-final-build; original source, prior release and logs preserved",
+      "files": [
+        {
+          "path": "_redirects",
+          "sha256": "6036983e5fc00f0169c9e939b1816ed771eee00e27f2fcc517b819041460b9ef"
+        },
+        {
+          "path": "assets/App-j3T-7A9O.js",
+          "sha256": "7b089cf4bd8d5efc9f508a484896285699aea3c0abadc9ffe80730652295ab6e"
+        },
+        {
+          "path": "assets/DemoFixtures-BjFhf-tf.css",
+          "sha256": "2b1a28b2ac0bad8fcd37074aee415dca3401bbbd8da52f1e644fa2faa72903b1"
+        },
+        {
+          "path": "assets/DemoFixtures-C1jk8iOL.js",
+          "sha256": "d047828950127af512bfbd11396efd73af8d68c5a232fc39f0c22e2b02d6ab26"
+        },
+        {
+          "path": "assets/DemoPublica-BsfVghVW.js",
+          "sha256": "57cb1f4e19285c8eaeec9a8a409c84b80451e9461d2ec62c0995cfedfb23c22d"
+        },
+        {
+          "path": "assets/ambienteAplicacao-DO7fxk6K.js",
+          "sha256": "17ae62bec01cc9c4bf49dee0897e950717a3aecf345986c857929cc7245ed3ae"
+        },
+        {
+          "path": "assets/index-6lVpqRyy.js",
+          "sha256": "438d2db1346638da5b04e3485aff74b641738911230fb7b61a8ba16ff2a37cb4"
+        },
+        {
+          "path": "assets/index-BhB3C8Aa.css",
+          "sha256": "5748023f69a6fc1d59f0d28a0593b0b29c07c6afddffec69a676f4743ce8fad9"
+        },
+        {
+          "path": "demo-produto.svg",
+          "sha256": "2e12a9c897ed3265824be80fcec3fa1e2d0ee86029b3c6163eada4461eecb183"
+        },
+        {
+          "path": "index.html",
+          "sha256": "a21c754d0b1b8519f2bcff040fe81a9adcaa4166d05c8ec9ecaa4f9eb2b6e312"
+        }
+      ]
+    },
+    {
+      "path": "private-backups/notificacoes-build-local",
+      "reason": "intermediate build of this task, replaced by verified notificacoes-final-build; original source, prior release and logs preserved",
+      "files": [
+        {
+          "path": "_redirects",
+          "sha256": "6036983e5fc00f0169c9e939b1816ed771eee00e27f2fcc517b819041460b9ef"
+        },
+        {
+          "path": "assets/App-BzgCcNdj.js",
+          "sha256": "6b8db107bedc6ba7719bb3b3a59185fb4b100f5c1870d406882f7c1d3c112752"
+        },
+        {
+          "path": "assets/App-COFIySjV.css",
+          "sha256": "fed1e9127f934af81ec2481f2d8bac030899678bbb91a13f5263a3e830088df5"
+        },
+        {
+          "path": "assets/DemoFixtures-45jP-Hfa.js",
+          "sha256": "07fc5154bbf662349f40b909629315c80998890abac420289d71b379251f2bf3"
+        },
+        {
+          "path": "assets/DemoFixtures-BjFhf-tf.css",
+          "sha256": "2b1a28b2ac0bad8fcd37074aee415dca3401bbbd8da52f1e644fa2faa72903b1"
+        },
+        {
+          "path": "assets/DemoPublica-D0ytEqBZ.js",
+          "sha256": "9f385fa9df10afa97f3d25a9cc75a7aabb4f46738014519bcbedca5b77936955"
+        },
+        {
+          "path": "assets/ambienteAplicacao-DR1HXK5k.js",
+          "sha256": "5744c117eb7552c04095702395c64aa97e9d150206a1b673574935d8701a8b9f"
+        },
+        {
+          "path": "assets/index-BhB3C8Aa.css",
+          "sha256": "5748023f69a6fc1d59f0d28a0593b0b29c07c6afddffec69a676f4743ce8fad9"
+        },
+        {
+          "path": "assets/index-yLn7oNEJ.js",
+          "sha256": "fb4c5d7c8517bbe7814e3d2a89a28fa93d0d620db9c152354fe221595222e9e5"
+        },
+        {
+          "path": "demo-produto.svg",
+          "sha256": "2e12a9c897ed3265824be80fcec3fa1e2d0ee86029b3c6163eada4461eecb183"
+        },
+        {
+          "path": "index.html",
+          "sha256": "9f1e199d7858da3fd565026f94e57aad93e1f27d6d551792150be1140588499d"
+        }
+      ]
+    },
+    {
+      "path": "private-backups/notificacoes-release-build",
+      "reason": "intermediate build of this task, replaced by verified notificacoes-final-build; original source, prior release and logs preserved",
+      "files": [
+        {
+          "path": "_redirects",
+          "sha256": "6036983e5fc00f0169c9e939b1816ed771eee00e27f2fcc517b819041460b9ef"
+        },
+        {
+          "path": "assets/App-COFIySjV.css",
+          "sha256": "fed1e9127f934af81ec2481f2d8bac030899678bbb91a13f5263a3e830088df5"
+        },
+        {
+          "path": "assets/App-D8UJdOC7.js",
+          "sha256": "c0f3e4d80fa67b2ccd0edd2c18c3187a870df69f71317507acb617ae4ebd9720"
+        },
+        {
+          "path": "assets/DemoFixtures-BSS4qkXj.js",
+          "sha256": "72ddc583685825c9d46afc0ac1e4f690f0fecf12ec19a8fe0a64787f5fa03523"
+        },
+        {
+          "path": "assets/DemoFixtures-BjFhf-tf.css",
+          "sha256": "2b1a28b2ac0bad8fcd37074aee415dca3401bbbd8da52f1e644fa2faa72903b1"
+        },
+        {
+          "path": "assets/DemoPublica-BnMpAhT7.js",
+          "sha256": "6c25263391c78f302dd4053885583c4e34214e8317ca309a1a585fc5c3b46899"
+        },
+        {
+          "path": "assets/ambienteAplicacao-D_mp3o0I.js",
+          "sha256": "c7dadeea4d0443abd24acd94e44765277d588cda0b73d5aed7a06e3fd2055ec3"
+        },
+        {
+          "path": "assets/index-BhB3C8Aa.css",
+          "sha256": "5748023f69a6fc1d59f0d28a0593b0b29c07c6afddffec69a676f4743ce8fad9"
+        },
+        {
+          "path": "assets/index-CmLrJX72.js",
+          "sha256": "eafe91871087936f0defb3fe2628c7217060898d32319d737a250ac4cb87f5a1"
+        },
+        {
+          "path": "demo-produto.svg",
+          "sha256": "2e12a9c897ed3265824be80fcec3fa1e2d0ee86029b3c6163eada4461eecb183"
+        },
+        {
+          "path": "index.html",
+          "sha256": "5ea21231a231cee7823a32a6a0e5aede1c34b1998bef340eb2079b0554a8ee29"
+        }
+      ]
+    }
+  ],
+  "preserved": [
+    "original source",
+    "release checkout",
+    "final build",
+    "prior release rollback",
+    "private failed/success logs",
+    "private OAuth backup"
+  ],
+  "runtimeDeployCiReferences": 0
+}

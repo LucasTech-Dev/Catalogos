@@ -1,3 +1,11 @@
+# Google e notificações — validado; publicação em execução — 25/10/2026
+
+A — EXECUÇÃO PELO CODEX: NOTIF-01 implementada;217 testes React aprovados. Google compartilhado no cadastro, notificações de ações explícitas e confirmação persistente. Domínio Pages acrescentado ao Firebase bancorestaurante sob aprovação específica, demais configurações comparadas/preservadas. Quatro suítes Emulator/Chrome aprovadas (367 checksSDK/87Chrome), build final e34 testes finais direcionados aprovados. Publicação automática na main/Pages autorizada em execução. Relatório: RELATORIO_GOOGLE_NOTIFICACOES.md em docs/ADAPTACAO_SERVERLESS; evidências sanitizadas no mesmo diretório.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: OAUTH-H1 autorizado; OAUTH-H2 confirmado (“Login Google funcionou e abriu Minha conta”). Nenhuma intervenção humana adicional necessária. Próxima ação exata: publicar a mesma release autorizada e validar a URL pública; sem nova etapa, exclusão ou baixa de riscos comerciais por associação. Histórico abaixo preservado; espelho externo ausente.
+
+---
+
 # Autenticação e área do cliente publicadas — 25/10/2026
 
 A — EXECUÇÃO PELO CODEX: AUTH-01 concluída tecnicamente/publicada, commit2fe8644/main, Pagesa17d18e3/success às15:03:13. Google/vinculação preservando UID e decisão em colisões, olhos nas senhas, cabeçalho por sessão e melhorias de perfil/endereços.195 testes, build homologado, perfil72SDK/27Chrome e35 checks online aprovados; zero contas/pedidos/sessões anônimas novos/escritasFireStore. Push normal e buildGit do mesmo commit no projeto existente, sem configurar Firebase/Pages. [Arquivos, evidências e limites](ADAPTACAO_SERVERLESS/RELATORIO_AUTENTICACAO_CLIENTE.md). Sem limpeza pendente; build final e histórico preservados, espelho externo ausente. Documentação final em commitSkip separado, mesmo runtime.
