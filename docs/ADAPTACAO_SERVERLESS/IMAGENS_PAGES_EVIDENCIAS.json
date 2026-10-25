@@ -1,0 +1,108 @@
+{
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "date": "2026-10-25T11:25:38.431Z",
+  "checks": [
+    "desktop: 11 imagens renderizadas; quatro fotos pendentes identificadas; hero real; sem overflow",
+    "mobile: 11 imagens renderizadas; quatro fotos pendentes identificadas; hero real; sem overflow",
+    "Detalhe: fallback acessível para produto sem foto",
+    "Carrinho: fallback; somente localStorage temporário do Chrome",
+    "Zero exceções JavaScript; sem login, contas, pedidos ou gravações Firebase"
+  ],
+  "images": [
+    {
+      "alt": "Bacon Supreme",
+      "src": "https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=80",
+      "fallback": false,
+      "width": 500,
+      "height": 555.546875,
+      "naturalWidth": 800
+    },
+    {
+      "alt": "Bacon Burger — foto indisponível",
+      "src": "/demo-produto.svg",
+      "fallback": true,
+      "width": 378,
+      "height": 328.6875,
+      "naturalWidth": 640
+    },
+    {
+      "alt": "Bacon Supreme",
+      "src": "https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=80",
+      "fallback": false,
+      "width": 378,
+      "height": 328.6875,
+      "naturalWidth": 800
+    },
+    {
+      "alt": "Batata da Casa",
+      "src": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80",
+      "fallback": false,
+      "width": 378,
+      "height": 328.6875,
+      "naturalWidth": 800
+    },
+    {
+      "alt": "Batata Frita — foto indisponível",
+      "src": "/demo-produto.svg",
+      "fallback": true,
+      "width": 378,
+      "height": 328.6875,
+      "naturalWidth": 640
+    },
+    {
+      "alt": "Chicken Crispy — foto indisponível",
+      "src": "/demo-produto.svg",
+      "fallback": true,
+      "width": 378,
+      "height": 328.6875,
+      "naturalWidth": 640
+    },
+    {
+      "alt": "Classic Burger",
+      "src": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=80",
+      "fallback": false,
+      "width": 378,
+      "height": 328.6875,
+      "naturalWidth": 1000
+    },
+    {
+      "alt": "Coca-Cola Lata — foto indisponível",
+      "src": "/demo-produto.svg",
+      "fallback": true,
+      "width": 378,
+      "height": 328.6875,
+      "naturalWidth": 640
+    },
+    {
+      "alt": "Onion Rings",
+      "src": "https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=800&q=80",
+      "fallback": false,
+      "width": 378,
+      "height": 328.6875,
+      "naturalWidth": 800
+    },
+    {
+      "alt": "Refrigerante",
+      "src": "https://images.unsplash.com/photo-1629203849820-fdd70d49c38e?auto=format&fit=crop&w=800&q=80",
+      "fallback": false,
+      "width": 378,
+      "height": 328.6875,
+      "naturalWidth": 800
+    },
+    {
+      "alt": "Interior de uma lancheria",
+      "src": "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1000&q=80",
+      "fallback": false,
+      "width": 550,
+      "height": 550,
+      "naturalWidth": 1000
+    }
+  ],
+  "pending": [
+    "Bacon Burger: campo imagem vazio",
+    "Batata Frita: campo imagem vazio",
+    "Coca-Cola Lata: campo imagem vazio",
+    "Chicken Crispy: URL original HTTP404; fallback não recupera foto"
+  ],
+  "consoleErrors": []
+}
