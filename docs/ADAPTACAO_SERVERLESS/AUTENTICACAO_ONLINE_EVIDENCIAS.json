@@ -1,0 +1,192 @@
+{
+  "started": "2026-10-25T18:03:33.026Z",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "checks": [
+    {
+      "id": "loader-com-dados-pendentes",
+      "passed": true,
+      "at": "2026-10-25T18:03:38.733Z"
+    },
+    {
+      "id": "home-dados-reais",
+      "passed": true,
+      "at": "2026-10-25T18:03:40.943Z"
+    },
+    {
+      "id": "loader-removido-apos-dados",
+      "passed": true,
+      "at": "2026-10-25T18:03:43.707Z"
+    },
+    {
+      "id": "categorias-produtos",
+      "passed": true,
+      "at": "2026-10-25T18:03:43.719Z",
+      "products": 9
+    },
+    {
+      "id": "mobile-sem-transbordamento",
+      "passed": true,
+      "at": "2026-10-25T18:03:43.825Z"
+    },
+    {
+      "id": "imagens-fallback-preservados",
+      "passed": true,
+      "at": "2026-10-25T18:03:43.837Z"
+    },
+    {
+      "id": "rota-login-direta",
+      "passed": true,
+      "at": "2026-10-25T18:03:44.450Z"
+    },
+    {
+      "id": "google-disponivel",
+      "passed": true,
+      "at": "2026-10-25T18:03:44.467Z"
+    },
+    {
+      "id": "olho-login-mostra",
+      "passed": true,
+      "at": "2026-10-25T18:03:44.574Z"
+    },
+    {
+      "id": "olho-login-oculta",
+      "passed": true,
+      "at": "2026-10-25T18:03:44.588Z"
+    },
+    {
+      "id": "login-mobile-sem-overflow",
+      "passed": true,
+      "at": "2026-10-25T18:03:44.767Z"
+    },
+    {
+      "id": "rota-cadastro-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T18:03:45.699Z"
+    },
+    {
+      "id": "cadastro-dois-olhos-telefone-opcional",
+      "passed": true,
+      "at": "2026-10-25T18:03:45.713Z"
+    },
+    {
+      "id": "cadastro-mobile-sem-overflow",
+      "passed": true,
+      "at": "2026-10-25T18:03:45.777Z"
+    },
+    {
+      "id": "login-cliente-existente",
+      "passed": true,
+      "at": "2026-10-25T18:03:49.447Z"
+    },
+    {
+      "id": "header-minha-conta",
+      "passed": true,
+      "at": "2026-10-25T18:03:49.457Z"
+    },
+    {
+      "id": "sessao-persiste-apos-reload",
+      "passed": true,
+      "at": "2026-10-25T18:03:51.225Z"
+    },
+    {
+      "id": "produto-preco-real",
+      "passed": true,
+      "at": "2026-10-25T18:03:54.826Z"
+    },
+    {
+      "id": "carrinho-persiste",
+      "passed": true,
+      "at": "2026-10-25T18:04:00.562Z"
+    },
+    {
+      "id": "checkout-entrega-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T18:04:02.896Z"
+    },
+    {
+      "id": "checkout-retirada-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T18:04:02.922Z"
+    },
+    {
+      "id": "historico-pedidos-existentes",
+      "passed": true,
+      "at": "2026-10-25T18:04:04.291Z",
+      "orders": 2
+    },
+    {
+      "id": "detalhe-acompanhamento-existente",
+      "passed": true,
+      "at": "2026-10-25T18:04:05.542Z"
+    },
+    {
+      "id": "admin-restrito-cliente",
+      "passed": true,
+      "at": "2026-10-25T18:04:07.028Z"
+    },
+    {
+      "id": "dados-pessoais-sem-editar",
+      "passed": true,
+      "at": "2026-10-25T18:04:08.078Z"
+    },
+    {
+      "id": "enderecos-sem-editar",
+      "passed": true,
+      "at": "2026-10-25T18:04:09.351Z"
+    },
+    {
+      "id": "checkout-mobile-sem-transbordamento",
+      "passed": true,
+      "at": "2026-10-25T18:04:11.882Z"
+    },
+    {
+      "id": "produto-ausente-sem-loader-infinito",
+      "passed": true,
+      "at": "2026-10-25T18:04:14.496Z"
+    },
+    {
+      "id": "sem-paginas-provisorias",
+      "passed": true,
+      "at": "2026-10-25T18:04:14.502Z"
+    },
+    {
+      "id": "sdk-firebase-sem-render",
+      "passed": true,
+      "at": "2026-10-25T18:04:14.512Z"
+    },
+    {
+      "id": "logout-limpa-sessao-e-header",
+      "passed": true,
+      "at": "2026-10-25T18:04:16.450Z"
+    },
+    {
+      "id": "historico-nao-expoe-outro-cliente",
+      "passed": true,
+      "at": "2026-10-25T18:04:19.915Z"
+    },
+    {
+      "id": "pedido-outro-cliente-negado",
+      "passed": true,
+      "at": "2026-10-25T18:04:21.550Z"
+    },
+    {
+      "id": "sem-gravacao-firestore",
+      "passed": true,
+      "at": "2026-10-25T18:04:23.042Z"
+    },
+    {
+      "id": "sem-excecao-js",
+      "passed": true,
+      "at": "2026-10-25T18:04:23.043Z"
+    }
+  ],
+  "newOrders": 0,
+  "newRegisteredAccounts": 0,
+  "necessaryAnonymousSessions": 0,
+  "legacyRequest": false,
+  "firestoreRequest": true,
+  "firestoreWriteAttempt": false,
+  "entryAsset": "/assets/index-BbOZIrkR.js",
+  "status": "APROVADO",
+  "finished": "2026-10-25T18:04:23.050Z"
+}

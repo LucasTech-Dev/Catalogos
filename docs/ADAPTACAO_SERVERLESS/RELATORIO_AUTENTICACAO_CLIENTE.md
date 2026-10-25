@@ -1,3 +1,17 @@
+# Publicado e verificado — 25/10/2026
+
+**https://catalogo-demo-cz1.pages.dev/** atualizado com o commit `2fe8644e054be7c68ae03f676579e2436db8fc59` de LucasTech-Dev/Catalogos/main. Deployment de produção `a17d18e3-580d-4aa2-a784-0e4e7bf7da97`, success às15:03:13 America/Sao_Paulo. Push normal preservou dbecfcf e o histórico; build Git da mesma main acionado no Pages existente após ausência de disparo automático. Nenhuma configuração de projeto alterada. [Recibo de publicação](AUTENTICACAO_PUBLICACAO_EVIDENCIAS.json).
+
+195/195 testes em20 arquivos no checkout de publicação; build homologado com configuração pública existente; perfil72SDK/27Chrome, Google no Auth Emulator, pedidos/admin e isolamento aprovados. **35 verificações na URL pública aprovadas**, incluindo loader, login, cadastro sem submit, controles de senha, desktop/mobile390px sem overflow, Minha conta, persistência, logout, endereços, histórico/detalhe e recusa ao pedido de outro cliente. Zero usuários/pedidos/sessões anônimas novos e zero tentativas de escrita Firestore. Viewport mobile no Chrome não representa dispositivo físico. [Evidência online](AUTENTICACAO_ONLINE_EVIDENCIAS.json), [local](AUTENTICACAO_LOCAL_EVIDENCIAS.json).
+
+Bundle servido contém os recursos Google e mostrar/ocultar senha, entrada `/assets/index-BbOZIrkR.js`, App-B_28SBB9.js. Metadados de commit/deployment e os recursos novos confirmam a atualização. Não se alega igualdade byte a byte com todo o build local: os nomes/hashes de App diferem entre Vite local e Pages, como já ocorria na release anterior; não se alteraram dependências para forçar igualdade. [Recibo HTTP dos recursos](AUTENTICACAO_ASSETS_ONLINE_EVIDENCIAS.json).
+
+A — Codex: implementação, testes, limpeza verificada de builds intermediários, scanner seletivo, commit/push/deploy e35 checks concluídos. Documentação final enviada separadamente com marcador CF-Pages-Skip; sem novo runtime. Build final/credenciais locais/evidências necessárias preservados, sem limpeza pendente. Tempo técnico estimado35–45min, sem cronômetro integral; intervalo de interrupção/retomada excluído, sem espera manual solicitada. Build Pages25s e deployment42s aproximados estão no período automatizado; não somar os5812s da rodada interrompida de admin como trabalho técnico contínuo.
+
+B — Proprietário: **AUTH-H1 pendente somente para login/consentimento Google pessoal em produção**. Abrir /login, usar Continuar com Google, concluir seleção/consentimento e conferir Minha conta/logout; responder sucesso ou erro sanitizado/rota/dispositivo/horário, sem segredos. Estimativa2–5min. Prova Google no Emulator não substitui essa confirmação. Nenhuma conta administrativa criada/reativada nem pedido real novo autorizado por associação. Fotos/limites comerciais anteriores continuam no registro oficial; não há aceite comercial integral presumido. Próxima ação exata: essa confirmação pessoal, sem repetir gates concluídos.
+
+---
+
 # Autenticação e área do cliente — 25/10/2026
 
 Pedido do proprietário: complementar a autenticação existente e, quando validada, enviar diretamente a LucasTech-Dev/Catalogos/main para atualizar https://catalogo-demo-cz1.pages.dev/. A autorização expressa da mensagem atual supera a restrição de publicação automática do anexo somente para esta entrega. Não autoriza mudanças em Rules, índices, IAM, configuração Auth, documentos comerciais, criação de usuários/pedidos reais ou atribuição administrativa.

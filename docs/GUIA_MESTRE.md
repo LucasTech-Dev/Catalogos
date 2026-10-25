@@ -1,9 +1,8 @@
-# Autenticação e área do cliente — 25/10/2026
+# Autenticação e área do cliente publicadas — 25/10/2026
 
-A — EXECUÇÃO PELO CODEX: AUTH-01, pedido atual e autorização explícita para publicar após validar na main LucasTech-Dev/Catalogos, Pages catalogo-demo. Google/vinculação preservando UID, decisão explícita em colisão, olhos em todas as senhas, cabeçalho por sessão e complementos de perfil/endereços implementados. 195 testes aprovados em ambas as árvores, perfil72SDK/27Chrome, Google no Auth Emulator e build homologado aprovados; publicação em fechamento; nenhuma criação de conta/pedido real ou mudança de Rules/índices/IAM/configuração Auth autorizada. [Arquivos, testes, limites e estado](ADAPTACAO_SERVERLESS/RELATORIO_AUTENTICACAO_CLIENTE.md). Sem novo plano/MVP, migração ou alteração de posição comercial.
+A — EXECUÇÃO PELO CODEX: AUTH-01 concluída tecnicamente/publicada, commit2fe8644/main, Pagesa17d18e3/success às15:03:13. Google/vinculação preservando UID e decisão em colisões, olhos nas senhas, cabeçalho por sessão e melhorias de perfil/endereços.195 testes, build homologado, perfil72SDK/27Chrome e35 checks online aprovados; zero contas/pedidos/sessões anônimas novos/escritasFireStore. Push normal e buildGit do mesmo commit no projeto existente, sem configurar Firebase/Pages. [Arquivos, evidências e limites](ADAPTACAO_SERVERLESS/RELATORIO_AUTENTICACAO_CLIENTE.md). Sem limpeza pendente; build final e histórico preservados, espelho externo ausente. Documentação final em commitSkip separado, mesmo runtime.
 
-B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: AUTH-H1, após publicação, confirmar login/consentimento Google pessoal e logout no site, sem enviar segredos. Login pessoal não será presumido pela prova no Emulator. Próxima tarefa exata: push normal já autorizado e verificar site; depois essa confirmação. Administração real e pedidos novos não iniciados. Histórico e cópia local preservados; espelho externo ausente.
-
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: AUTH-H1, próxima ação exata: confirmar login/consentimento com sua conta Google em /login e logout; informar somente resultado/erro sanitizado/rota/dispositivo/horário, sem segredos. Teste Google no Emulator não comprova esse consentimento pessoal. Sem criação de admin, pedido novo, novo MVP ou baixa de ressalvas comerciais por associação. Plano/matriz/posição comercial anteriores preservados.
 
 ---
 
