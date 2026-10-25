@@ -1,0 +1,10 @@
+{
+  "status": "APROVADO",
+  "checks": 111,
+  "restoredDocuments": 33,
+  "changedProducts": 6,
+  "productionWrites": 0,
+  "backupSha256": "efc5315cdfcf6e4dc3b91f61f3e70a11b05f9fbdea42b2551241b1b5f411fd3d",
+  "rulesSha256": "75b901b55edca9273bee94932e212ea410178c351326b991aff565298687d2f8",
+  "scope": "Restaurar conteúdo dos campos, aplicar via WebSDK/Rules, negar cliente e restaurar; metadata updateTime não é restaurada."
+}

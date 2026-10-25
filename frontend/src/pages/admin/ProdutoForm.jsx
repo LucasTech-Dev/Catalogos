@@ -1,4 +1,5 @@
 import MaterialIcon from "../../components/ui/MaterialIcon";
+import {ingredientesDoTexto} from '../../lib/ingredientes';
 import {notificarAoNavegar} from '../../lib/notificacoes';
 import {FeedbackAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
@@ -12,14 +13,16 @@ function ProdutoForm() {
   const produtoId = params.get("id");
   const [idSalvo,setIdSalvo]=useState(produtoId || '');const editando=Boolean(idSalvo);
   const [produto,setProduto]=useState({nome:'',descricao:'',categoriaId:'',preco:'',ativo:true,disponivel:true,imagem:''});
+  const [ingredientesTexto,setIngredientesTexto]=useState('');
   const [erro,setErro]=useState(''),[salvo,setSalvo]=useState(false),[ocupado,setOcupado]=useState(false);const trava=useRef(false);
   const carregar=useCallback(()=>produtoId?admin.buscar('produtos',produtoId):Promise.resolve(null),[produtoId]);
   const recurso=useAdminRecurso(carregar),categoriasRecurso=useAdminLista('categorias',{limite:100,contagem:'0'});const categorias=categoriasRecurso.itens;
   useLayoutEffect(()=>{if(recurso.dados)setProduto({...recurso.dados,preco:String(recurso.dados.preco),disponivel:recurso.dados.disponivel!==false});},[recurso.dados]);
+  useLayoutEffect(()=>{if(recurso.dados)setIngredientesTexto((recurso.dados.ingredientes || []).join('\n'));},[recurso.dados]);
   const atualizarCampo=(campo,valor)=>{setProduto(a=>({...a,[campo]:valor}));setSalvo(false);};
   async function salvarProduto(event){
     event.preventDefault();if(trava.current)return;trava.current=true;setOcupado(true);setErro('');setSalvo(false);
-    try {if(produto.preco==='')throw new Error('Informe o preço.');const dados={nome:produto.nome,descricao:produto.descricao,categoriaId:produto.categoriaId,preco:Number(produto.preco),ativo:produto.ativo,disponivel:produto.disponivel,imagem:produto.imagem};const resultado=await admin.salvar('produtos',idSalvo || null,dados);setIdSalvo(resultado.id);setProduto({...resultado,preco:String(resultado.preco),disponivel:resultado.disponivel!==false});setSalvo(true);}catch(e){setErro(e.message);}finally{trava.current=false;setOcupado(false);}
+    try {if(produto.preco==='')throw new Error('Informe o preço.');const dados={nome:produto.nome,descricao:produto.descricao,categoriaId:produto.categoriaId,preco:Number(produto.preco),ativo:produto.ativo,disponivel:produto.disponivel,imagem:produto.imagem,ingredientes:ingredientesDoTexto(ingredientesTexto)};const resultado=await admin.salvar('produtos',idSalvo || null,dados);setIdSalvo(resultado.id);setProduto({...resultado,preco:String(resultado.preco),disponivel:resultado.disponivel!==false});setIngredientesTexto((resultado.ingredientes || []).join('\n'));setSalvo(true);}catch(e){setErro(e.message);}finally{trava.current=false;setOcupado(false);}
   }
   return (<PageBoundary recursos={[recurso,categoriasRecurso]}>
     <main className="admin-product-form-page">
@@ -120,6 +123,23 @@ function ProdutoForm() {
                   placeholder="Descreva o produto..."
                 />
 
+              </div>
+
+              <div className="admin-form-group">
+                <label htmlFor="ingredientes">Ingredientes</label>
+                <p id="ingredientes-ajuda" className="product-ingredients-help">
+                  Informe um ingrediente por linha. Essa lista aparece na página do produto.
+                </p>
+                <textarea
+                  id="ingredientes"
+                  rows={5}
+                  maxLength={10049}
+                  aria-describedby="ingredientes-ajuda ingredientes-limite"
+                  value={ingredientesTexto}
+                  onChange={event => {setIngredientesTexto(event.target.value);setSalvo(false);}}
+                  placeholder={'Ex.:\nBatata\nÓleo vegetal\nSal'}
+                />
+                <small id="ingredientes-limite">Até 50 ingredientes, com 200 caracteres cada.</small>
               </div>
 
               <div className="admin-form-row">

@@ -1,0 +1,277 @@
+{
+  "date": "2026-10-25",
+  "project": "bancorestaurante",
+  "store": "loja-demo",
+  "status": "AGUARDANDO_APROVACAO_COMPOSICAO_E_AUTORIZACAO_ESPECIFICA",
+  "executable": false,
+  "sourceReadAt": "2026-10-25T23:07:37.587Z",
+  "publicReadAt": "2026-10-25T23:06:21.705Z",
+  "sourceCount": 11,
+  "publicActiveCount": 9,
+  "inactiveIds": [
+    "combo-classic",
+    "guarana-lata"
+  ],
+  "proposedUpdates": 6,
+  "allowedBusinessField": "ingredientes",
+  "preservedFields": [
+    "id",
+    "nome",
+    "descricao",
+    "preco",
+    "categoriaId",
+    "ativo",
+    "disponivel",
+    "imagem",
+    "demais campos existentes"
+  ],
+  "entries": [
+    {
+      "id": "bacon-burger",
+      "nome": "Bacon Burger",
+      "ativo": true,
+      "disponivel": true,
+      "preco": 32.9,
+      "categoriaId": "hamburgueres",
+      "descricao": "Hambúrguer artesanal, queijo, bacon e molho especial.",
+      "beforeIngredients": [],
+      "proposedIngredients": [
+        "Pão de hambúrguer",
+        "Hambúrguer artesanal",
+        "Queijo",
+        "Bacon",
+        "Molho especial"
+      ],
+      "fieldChanged": [
+        "ingredientes"
+      ],
+      "beforeUpdateTime": "2026-10-25T01:33:08.926620Z",
+      "decision": "Preservar molho especial da descrição; não substituir por maionese. Pão é proposta adicional, ainda não documentada na descrição.",
+      "recipeConfirmed": false,
+      "composition": null
+    },
+    {
+      "id": "bacon-supreme",
+      "nome": "Bacon Supreme",
+      "ativo": true,
+      "disponivel": true,
+      "preco": 32.9,
+      "categoriaId": "hamburgueres",
+      "descricao": "Hambúrguer artesanal, cheddar, bacon crocante e molho da casa.",
+      "beforeIngredients": [],
+      "proposedIngredients": [
+        "Pão de hambúrguer",
+        "Hambúrguer artesanal",
+        "Cheddar",
+        "Bacon crocante",
+        "Molho da casa"
+      ],
+      "fieldChanged": [
+        "ingredientes"
+      ],
+      "beforeUpdateTime": "2026-10-25T01:33:08.926620Z",
+      "decision": "Sem segunda carne ou cebola caramelizada: não constam na descrição. Preservar cheddar, bacon crocante e molho da casa; pão proposto.",
+      "recipeConfirmed": false,
+      "composition": null
+    },
+    {
+      "id": "batata-da-casa",
+      "nome": "Batata da Casa",
+      "ativo": true,
+      "disponivel": true,
+      "preco": 18.9,
+      "categoriaId": "porcoes",
+      "descricao": "Batatas crocantes acompanhadas do nosso molho especial.",
+      "beforeIngredients": [],
+      "proposedIngredients": [
+        "Batata",
+        "Óleo vegetal",
+        "Sal",
+        "Molho especial"
+      ],
+      "fieldChanged": [
+        "ingredientes"
+      ],
+      "beforeUpdateTime": "2026-10-25T01:33:08.926620Z",
+      "decision": "Preservar molho especial documentado; não acrescentar cheddar, bacon ou cebolinha. Óleo e sal são proposta, não receita confirmada.",
+      "recipeConfirmed": false,
+      "composition": null
+    },
+    {
+      "id": "batata-frita",
+      "nome": "Batata Frita",
+      "ativo": true,
+      "disponivel": true,
+      "preco": 12.9,
+      "categoriaId": "porcoes",
+      "descricao": "Porção individual.",
+      "beforeIngredients": [],
+      "proposedIngredients": [
+        "Batata",
+        "Óleo vegetal",
+        "Sal"
+      ],
+      "fieldChanged": [
+        "ingredientes"
+      ],
+      "beforeUpdateTime": "2026-10-25T01:33:08.926620Z",
+      "decision": "Batata, óleo e sal são proposta; a descrição atual informa somente porção individual.",
+      "recipeConfirmed": false,
+      "composition": null
+    },
+    {
+      "id": "chicken-crispy",
+      "nome": "Chicken Crispy",
+      "ativo": true,
+      "disponivel": true,
+      "preco": 29.9,
+      "categoriaId": "hamburgueres",
+      "descricao": "Frango crocante, queijo, alface e molho especial.",
+      "beforeIngredients": [],
+      "proposedIngredients": [
+        "Pão de hambúrguer",
+        "Frango empanado",
+        "Queijo",
+        "Alface",
+        "Molho especial"
+      ],
+      "fieldChanged": [
+        "ingredientes"
+      ],
+      "beforeUpdateTime": "2026-10-25T01:33:08.926620Z",
+      "decision": "Preservar molho especial da descrição; não substituir por maionese. Pão e preparo empanado propostos, pendentes de aprovação.",
+      "recipeConfirmed": false,
+      "composition": null
+    },
+    {
+      "id": "classic-burger",
+      "nome": "Classic Burger",
+      "ativo": true,
+      "disponivel": true,
+      "preco": 28.9,
+      "categoriaId": "hamburgueres",
+      "descricao": "Um hambúrguer artesanal preparado com ingredientes selecionados, pão brioche macio, queijo derretido e nosso molho especial.",
+      "beforeIngredients": [
+        "Pão brioche",
+        "Hambúrguer artesanal",
+        "Queijo cheddar",
+        "Molho especial",
+        "Alface",
+        "Tomate"
+      ],
+      "proposedIngredients": [
+        "Pão brioche",
+        "Hambúrguer artesanal",
+        "Queijo cheddar",
+        "Molho especial",
+        "Alface",
+        "Tomate"
+      ],
+      "fieldChanged": [],
+      "beforeUpdateTime": "2026-10-25T01:33:08.926620Z",
+      "decision": "Preservar exatamente a lista já cadastrada, incluindo pão brioche e queijo cheddar.",
+      "recipeConfirmed": false,
+      "composition": null
+    },
+    {
+      "id": "coca-cola-lata",
+      "nome": "Coca-Cola Lata",
+      "ativo": true,
+      "disponivel": true,
+      "preco": 6,
+      "categoriaId": "bebidas",
+      "descricao": "Refrigerante Coca-Cola 350ml.",
+      "beforeIngredients": [],
+      "proposedIngredients": [],
+      "fieldChanged": [],
+      "beforeUpdateTime": "2026-10-25T01:33:08.926620Z",
+      "decision": "Manter lista vazia; refrigerante fechado 350 ml. Não criar remoção de componentes industriais.",
+      "recipeConfirmed": false,
+      "composition": null
+    },
+    {
+      "id": "combo-classic",
+      "nome": "Combo Classic",
+      "ativo": false,
+      "disponivel": false,
+      "preco": 39.9,
+      "categoriaId": "combos",
+      "descricao": "Classic Burger + batata frita + refrigerante.",
+      "beforeIngredients": [],
+      "proposedIngredients": [],
+      "fieldChanged": [],
+      "beforeUpdateTime": "2026-10-25T01:33:08.926620Z",
+      "decision": "Manter inativo. Composição documentada: Classic Burger + batata frita + refrigerante. Componentes não serão gravados como ingredientes removíveis.",
+      "recipeConfirmed": false,
+      "composition": [
+        "Classic Burger",
+        "Batata frita",
+        "Refrigerante"
+      ]
+    },
+    {
+      "id": "guarana-lata",
+      "nome": "Guaraná Lata",
+      "ativo": false,
+      "disponivel": false,
+      "preco": 6,
+      "categoriaId": "bebidas",
+      "descricao": "Refrigerante Guaraná 350ml.",
+      "beforeIngredients": [],
+      "proposedIngredients": [],
+      "fieldChanged": [],
+      "beforeUpdateTime": "2026-10-25T01:33:08.926620Z",
+      "decision": "Manter inativo e lista vazia; refrigerante fechado 350 ml. Sem opções de remoção.",
+      "recipeConfirmed": false,
+      "composition": null
+    },
+    {
+      "id": "onion-rings",
+      "nome": "Onion Rings",
+      "ativo": true,
+      "disponivel": true,
+      "preco": 21.9,
+      "categoriaId": "porcoes",
+      "descricao": "Anéis de cebola empanados e crocantes.",
+      "beforeIngredients": [],
+      "proposedIngredients": [
+        "Cebola",
+        "Farinha de trigo",
+        "Temperos",
+        "Massa para empanar",
+        "Óleo vegetal"
+      ],
+      "fieldChanged": [
+        "ingredientes"
+      ],
+      "beforeUpdateTime": "2026-10-25T01:33:08.926620Z",
+      "decision": "Cebola empanada consta na descrição; farinha de trigo, temperos, massa e óleo são sugestões pendentes de aprovação.",
+      "recipeConfirmed": false,
+      "composition": null
+    },
+    {
+      "id": "refrigerante",
+      "nome": "Refrigerante",
+      "ativo": true,
+      "disponivel": true,
+      "preco": 7,
+      "categoriaId": "bebidas",
+      "descricao": "Refrigerante gelado para acompanhar seu pedido.",
+      "beforeIngredients": [],
+      "proposedIngredients": [],
+      "fieldChanged": [],
+      "beforeUpdateTime": "2026-10-25T01:33:08.926620Z",
+      "decision": "Manter lista vazia; sabor e embalagem não definidos no cadastro. Não criar variações nem opções de remoção.",
+      "recipeConfirmed": false,
+      "composition": null
+    }
+  ],
+  "futureWriteRequirements": [
+    "Aprovação das composições; sugestões não confirmadas não se tornam receita oficial por geração do arquivo.",
+    "Autorização específica de atualização em bancorestaurante/loja-demo antes de qualquer escrita.",
+    "Releitura/precondições e cópia recuperável dos campos anteriores; não sobrescrever alteração concorrente.",
+    "Usar contrato existente de gravação com projeção pública, timestamps operacionais e revisão do catálogo; não editar fonte isoladamente.",
+    "Sem Rules, índices, Auth, IAM, adicionais pagos, preços ou reativação dos inativos.",
+    "Sem seletor automático de remoção para ingredientes de preparo, bebidas ou componentes de combo. Removíveis dependem de definição específica."
+  ]
+}

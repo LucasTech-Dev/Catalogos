@@ -1,0 +1,1921 @@
+{
+  "date": "2026-10-25",
+  "status": "IMPLEMENTACAO_LOCAL_VALIDADA_COMPOSICAO_PENDENTE",
+  "publicRead": {
+    "target": "catalogosPublicos/loja-demo/produtos/batata-frita",
+    "exists": true,
+    "nome": "Batata Frita",
+    "ingredientes": []
+  },
+  "tests": {
+    "passed": 43,
+    "files": 5,
+    "seconds": 16.45
+  },
+  "build": {
+    "status": "APROVADO",
+    "mode": "homologacao",
+    "seconds": 20.18
+  },
+  "mobile": {
+    "started": "2026-10-25T23:03:38.616Z",
+    "environment": "Chrome local; App real com serviços sintéticos em build de memória; sem Firebase real. AdminGate substituído somente neste ensaio, não comprova autorização.",
+    "checks": [
+      {
+        "id": "sem-overflow-320-/",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "observacao-320",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-publicos-320",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "carrinho-centrado-320",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/checkout",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/checkout",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/checkout",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/login",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/login",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/login",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/perfil",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/perfil",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/perfil",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/admin",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/admin",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/admin",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-campo-admin-320-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-campo-admin-320-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-320-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-320-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-320-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "menu-mobile-abre-320",
+        "passed": true
+      },
+      {
+        "id": "menu-mobile-fecha-320",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "observacao-390",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-publicos-390",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "carrinho-centrado-390",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/checkout",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/checkout",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/checkout",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/login",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/login",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/login",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/perfil",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/perfil",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/perfil",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/admin",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/admin",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/admin",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-campo-admin-390-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-campo-admin-390-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-390-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-390-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-390-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "menu-mobile-abre-390",
+        "passed": true
+      },
+      {
+        "id": "menu-mobile-fecha-390",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "observacao-768",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-publicos-768",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "carrinho-centrado-768",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/checkout",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/checkout",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/checkout",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/login",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/login",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/login",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/perfil",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/perfil",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/perfil",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/admin",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/admin",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/admin",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-campo-admin-768-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-campo-admin-768-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-768-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-768-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-768-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "menu-mobile-abre-768",
+        "passed": true
+      },
+      {
+        "id": "menu-mobile-fecha-768",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/cardapio",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "observacao-1366",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-publicos-1366",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/carrinho",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/carrinho?vazio",
+        "passed": true
+      },
+      {
+        "id": "carrinho-centrado-1366",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/checkout",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/checkout",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/checkout",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/login",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/login",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/login",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/cadastro",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/perfil",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/perfil",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/perfil",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/perfil/dados",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/perfil/enderecos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/perfil/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/perfil/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/admin",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/admin",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/admin",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/admin/pedidos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/admin/pedido?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/admin/produtos",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-campo-admin-1366-/admin/produto/novo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "ingredientes-campo-admin-1366-/admin/produto?id=demo",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/admin/categorias",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/admin/clientes",
+        "passed": true
+      },
+      {
+        "id": "sem-overflow-1366-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "material-renderizado-1366-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "sem-emoji-1366-/admin/configuracoes",
+        "passed": true
+      },
+      {
+        "id": "todos-layouts-sem-overflow",
+        "passed": true
+      },
+      {
+        "id": "sem-excecoes-js",
+        "passed": true
+      }
+    ],
+    "layouts": [
+      {
+        "requestedWidth": 320,
+        "route": "/",
+        "width": 320,
+        "scroll": 320,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/cardapio",
+        "width": 320,
+        "scroll": 320,
+        "icons": 9,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/produto?id=demo",
+        "width": 320,
+        "scroll": 320,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/carrinho",
+        "width": 322,
+        "scroll": 322,
+        "icons": 10,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/carrinho?vazio",
+        "width": 320,
+        "scroll": 320,
+        "icons": 9,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho0InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/checkout",
+        "width": 320,
+        "scroll": 320,
+        "icons": 8,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/login",
+        "width": 320,
+        "scroll": 320,
+        "icons": 11,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/cadastro",
+        "width": 320,
+        "scroll": 320,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/perfil",
+        "width": 320,
+        "scroll": 320,
+        "icons": 15,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/perfil/dados",
+        "width": 320,
+        "scroll": 320,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/perfil/enderecos",
+        "width": 320,
+        "scroll": 320,
+        "icons": 11,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/perfil/pedidos",
+        "width": 320,
+        "scroll": 320,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/perfil/pedido?id=demo",
+        "width": 320,
+        "scroll": 320,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/admin",
+        "width": 320,
+        "scroll": 320,
+        "icons": 24,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/admin/pedidos",
+        "width": 320,
+        "scroll": 320,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/admin/pedido?id=demo",
+        "width": 320,
+        "scroll": 320,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/admin/produtos",
+        "width": 320,
+        "scroll": 320,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/admin/produto/novo",
+        "width": 320,
+        "scroll": 320,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/admin/produto?id=demo",
+        "width": 320,
+        "scroll": 320,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/admin/categorias",
+        "width": 320,
+        "scroll": 320,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/admin/clientes",
+        "width": 320,
+        "scroll": 320,
+        "icons": 11,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 320,
+        "route": "/admin/configuracoes",
+        "width": 320,
+        "scroll": 320,
+        "icons": 11,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/",
+        "width": 390,
+        "scroll": 390,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/cardapio",
+        "width": 390,
+        "scroll": 390,
+        "icons": 9,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/produto?id=demo",
+        "width": 390,
+        "scroll": 390,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/carrinho",
+        "width": 390,
+        "scroll": 390,
+        "icons": 10,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/carrinho?vazio",
+        "width": 390,
+        "scroll": 390,
+        "icons": 9,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho0InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/checkout",
+        "width": 390,
+        "scroll": 390,
+        "icons": 8,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/login",
+        "width": 390,
+        "scroll": 390,
+        "icons": 11,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/cadastro",
+        "width": 390,
+        "scroll": 390,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/perfil",
+        "width": 390,
+        "scroll": 390,
+        "icons": 15,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/perfil/dados",
+        "width": 390,
+        "scroll": 390,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/perfil/enderecos",
+        "width": 390,
+        "scroll": 390,
+        "icons": 11,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/perfil/pedidos",
+        "width": 390,
+        "scroll": 390,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/perfil/pedido?id=demo",
+        "width": 390,
+        "scroll": 390,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/admin",
+        "width": 390,
+        "scroll": 390,
+        "icons": 24,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/admin/pedidos",
+        "width": 390,
+        "scroll": 390,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/admin/pedido?id=demo",
+        "width": 390,
+        "scroll": 390,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/admin/produtos",
+        "width": 390,
+        "scroll": 390,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/admin/produto/novo",
+        "width": 390,
+        "scroll": 390,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/admin/produto?id=demo",
+        "width": 390,
+        "scroll": 390,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/admin/categorias",
+        "width": 390,
+        "scroll": 390,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/admin/clientes",
+        "width": 390,
+        "scroll": 390,
+        "icons": 11,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 390,
+        "route": "/admin/configuracoes",
+        "width": 390,
+        "scroll": 390,
+        "icons": 11,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/",
+        "width": 768,
+        "scroll": 768,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/cardapio",
+        "width": 768,
+        "scroll": 768,
+        "icons": 9,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/produto?id=demo",
+        "width": 768,
+        "scroll": 768,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/carrinho",
+        "width": 768,
+        "scroll": 768,
+        "icons": 10,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/carrinho?vazio",
+        "width": 768,
+        "scroll": 768,
+        "icons": 9,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho0InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/checkout",
+        "width": 768,
+        "scroll": 768,
+        "icons": 8,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/login",
+        "width": 768,
+        "scroll": 768,
+        "icons": 11,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/cadastro",
+        "width": 768,
+        "scroll": 768,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/perfil",
+        "width": 768,
+        "scroll": 768,
+        "icons": 15,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/perfil/dados",
+        "width": 768,
+        "scroll": 768,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/perfil/enderecos",
+        "width": 768,
+        "scroll": 768,
+        "icons": 11,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/perfil/pedidos",
+        "width": 768,
+        "scroll": 768,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/perfil/pedido?id=demo",
+        "width": 768,
+        "scroll": 768,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/admin",
+        "width": 768,
+        "scroll": 768,
+        "icons": 24,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/admin/pedidos",
+        "width": 768,
+        "scroll": 768,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/admin/pedido?id=demo",
+        "width": 768,
+        "scroll": 768,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/admin/produtos",
+        "width": 768,
+        "scroll": 768,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/admin/produto/novo",
+        "width": 768,
+        "scroll": 768,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/admin/produto?id=demo",
+        "width": 768,
+        "scroll": 768,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/admin/categorias",
+        "width": 768,
+        "scroll": 768,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/admin/clientes",
+        "width": 768,
+        "scroll": 768,
+        "icons": 11,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 768,
+        "route": "/admin/configuracoes",
+        "width": 768,
+        "scroll": 768,
+        "icons": 11,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/cardapio",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 9,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/produto?id=demo",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/carrinho",
+        "width": 1366,
+        "scroll": 1366,
+        "icons": 10,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/carrinho?vazio",
+        "width": 1366,
+        "scroll": 1366,
+        "icons": 9,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho0InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/checkout",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 8,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/login",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 11,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/cadastro",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/perfil",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 15,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/perfil/dados",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/perfil/enderecos",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 11,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/perfil/pedidos",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/perfil/pedido?id=demo",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 12,
+        "text": "\n    Lancheria DemoInícioCardápioSobreMinha contaCarrinho1InícioCardápioSobreMin"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/admin",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 24,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/admin/pedidos",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/admin/pedido?id=demo",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/admin/produtos",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/admin/produto/novo",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/admin/produto?id=demo",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 12,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/admin/categorias",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 13,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/admin/clientes",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 11,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      },
+      {
+        "requestedWidth": 1366,
+        "route": "/admin/configuracoes",
+        "width": 1366,
+        "scroll": 1351,
+        "icons": 11,
+        "text": "\n    Lancheria DemoÁrea administrativaadmin@example.invalidSairADMINLancheria De"
+      }
+    ],
+    "screenshots": [
+      "-produto-id-demo-390.png",
+      "-carrinho-vazio-390.png",
+      "-perfil-390.png",
+      "-perfil-pedidos-390.png",
+      "-admin-390.png"
+    ],
+    "status": "APROVADO",
+    "finished": "2026-10-25T23:04:17.398Z"
+  },
+  "remoteWrites": 0,
+  "published": false,
+  "cleanupPending": false,
+  "sources": {
+    "frontend/src/lib/ingredientes.js": "74b63bcd168272be0daa1aeff57800cfa8c2975626fd718189a2ab0c79f40105",
+    "frontend/src/pages/admin/ProdutoForm.jsx": "d297053fb4451a9c5a8737bc4e4ed20f0c13fb8d935ae2a570a71a2f5287ffc2",
+    "frontend/src/pages/Produto.jsx": "e50a8c7a52d116dd5e7a308001972f07e03e96c9b221c6fc52bcd87170ce40a9",
+    "frontend/src/styles.css": "d07fcade78d33098ae0dfa845be3ed53f707eac458f6312bec0be0a5a7f73b0b",
+    "quality/frontend/test/ingredientes.test.jsx": "3d579d36f69e0aea25f0ae7206e49a0a82b41101d743a5c80327653a9eb73a74",
+    "quality/frontend/test/admin.test.jsx": "a9a798d52c225fc0700083665ad0e2c4af8a77226050410bddc60eeeca56c285",
+    "quality/frontend/scripts/material-mobile.mjs": "c51921a1fb1dfdaa403a66c806826e5bfa2a06e33a2d3718b0d69812bb327dc6"
+  }
+}

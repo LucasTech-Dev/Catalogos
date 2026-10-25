@@ -1,3 +1,11 @@
+# Ingredientes — dados aplicados; publicação do site em execução — 25/10/2026
+
+A — EXECUÇÃO PELO CODEX: ING-03, resposta atual “publique” após tabela revisável. Seislistas aplicadas em bancorestaurante/loja-demo com origem/projeção/revisão atômicas e precondições; demais campos/ClassicBurger/bebidas/doisinativos preservados. Cópia33documentos recuperável/restauraçãoEmulator111checks;43testes e buildintegrado7,65s aprovados. [Atos,evidências e limites](ADAPTACAO_SERVERLESS/RELATORIO_INGREDIENTES.md). Nenhuma alteraçãoRules/índices/Auth/IAM ou pedido/conta; contratos/noveMVPs mantidos.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: ING-H2 atendida pela instrução atual. Próxima ação desta mesma ordem: concluir pushmain/Pages autorizados e validar seteprodutos no mobile. Publicaçãofrontend ainda não confirmada nesta entrada. Sem limpeza pendente; histórico/testes/cópia/journal preservados. Espelhoexterno ausente,não recriado.
+
+---
+
 # Material Icons e mobile — publicado e verificado — 25/10/2026
 
 A — EXECUÇÃO PELO CODEX: MATERIAL-01 CONCLUÍDA/PUBLICADA. Todas as atualizações solicitadas publicadas: GoogleMaterialSymbolsSVG local no catálogo/conta/admin, observações do produto e carrinho centralizado, camposmobile16px e controles44px, detalheadmin sem transbordamento320px. Código7ac6a053c5faa07e9c2bf6cd95a04d2a3a2151bb/main; Pages23734aae-7370-44ba-aa74-bef5bc334b9b/success às19:36:26 local.249testes distintos,280checksChrome/22rotas/320–1366px,20testes do checkout/build6,75s e90checks online aprovados. Nenhuma conta/pedido/sessãoanônima nova ou escritaFirestore; configuraçõesFirebase/Pages preservadas. [Arquivos, evidências e limites](ADAPTACAO_SERVERLESS/RELATORIO_MATERIAL_MOBILE.md).

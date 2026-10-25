@@ -46,6 +46,8 @@ try{
    receipt.checks.push({id:'sem-overflow-'+width+'-'+route,passed:layout.scroll<=width+2});check('material-renderizado-'+width+'-'+route,layout.icons>0);
    check('sem-emoji-'+width+'-'+route,!await browser.evaluate('/[\\p{Extended_Pictographic}]/u.test(document.body.textContent)'));
    if(route==='/produto?id=demo'){await browser.fill('#observacao-produto','Sem cebola');check('observacao-'+width,await browser.evaluate('document.querySelector(".product-observation-count").textContent.startsWith("10 / 1000")&&document.querySelector("textarea").getBoundingClientRect().width<=innerWidth'));}
+   if(route==='/produto?id=demo')check('ingredientes-publicos-'+width,await browser.evaluate('document.querySelectorAll(".ingredients-list li").length===2&&[...document.querySelectorAll(".ingredients-list li")].every(e=>e.getBoundingClientRect().right<=document.documentElement.clientWidth)'));
+   if(route.startsWith('/admin/produto?')||route==='/admin/produto/novo')check('ingredientes-campo-admin-'+width+'-'+route,await browser.evaluate('Boolean(document.querySelector("#ingredientes"))&&document.querySelector("#ingredientes").getBoundingClientRect().right<=document.documentElement.clientWidth'));
    if(route==='/carrinho?vazio')check('carrinho-centrado-'+width,await browser.evaluate('(()=>{const r=document.querySelector(".cart-empty").getBoundingClientRect();return Math.abs(r.left-(document.documentElement.clientWidth-r.right))<2;})()'));
    if(width===390&&['/perfil','/produto?id=demo','/carrinho?vazio','/perfil/pedidos','/admin'].includes(route)){const file=route.replace(/\W/g,'-')+'-390.png';await browser.screenshot(path.join(outDir,file));receipt.screenshots.push(file);}
   }

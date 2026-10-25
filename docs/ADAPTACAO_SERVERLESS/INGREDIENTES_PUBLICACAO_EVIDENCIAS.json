@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-25",
+  "authorizationContext": "Resposta direta publique após tabela consolidada dos11produtos e seislistas propostas.",
+  "status": "DADOS_APLICADOS_FRONTEND_EM_PUBLICACAO",
+  "project": "bancorestaurante",
+  "store": "loja-demo",
+  "products": [
+    "bacon-burger",
+    "bacon-supreme",
+    "batata-da-casa",
+    "batata-frita",
+    "chicken-crispy",
+    "onion-rings"
+  ],
+  "dataStarted": "2026-10-25T23:17:27.262Z",
+  "dataFinished": "2026-10-25T23:17:46.348Z",
+  "sourceProjectionPairs": 6,
+  "revisionAdvances": 6,
+  "otherFieldsVerifiedPreserved": true,
+  "inactiveProductsPreserved": [
+    "combo-classic",
+    "guarana-lata"
+  ],
+  "backupDocuments": 33,
+  "backupSha256": "efc5315cdfcf6e4dc3b91f61f3e70a11b05f9fbdea42b2551241b1b5f411fd3d",
+  "emulatorChecks": 111,
+  "targetedTests": 43,
+  "targetedTestFiles": 5,
+  "buildSeconds": 7.65,
+  "runtimeCommit": null,
+  "deploymentId": null,
+  "cleanupPending": false
+}

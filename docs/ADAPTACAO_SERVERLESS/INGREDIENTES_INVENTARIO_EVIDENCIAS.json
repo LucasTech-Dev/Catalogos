@@ -1,0 +1,159 @@
+{
+  "project": "bancorestaurante",
+  "readOnly": true,
+  "methods": [
+    "GET"
+  ],
+  "sourceRead": {
+    "at": "2026-10-25T23:07:37.587Z",
+    "project": "bancorestaurante",
+    "collection": "lojas/loja-demo/produtos",
+    "method": "GET",
+    "produtos": [
+      {
+        "id": "bacon-burger",
+        "preco": 32.9,
+        "descricao": "Hambúrguer artesanal, queijo, bacon e molho especial.",
+        "ingredientes": [],
+        "ativo": true,
+        "disponivel": true,
+        "nome": "Bacon Burger",
+        "categoriaId": "hamburgueres",
+        "updateTime": "2026-10-25T01:33:08.926620Z"
+      },
+      {
+        "id": "bacon-supreme",
+        "ingredientes": [],
+        "categoriaId": "hamburgueres",
+        "ativo": true,
+        "disponivel": true,
+        "nome": "Bacon Supreme",
+        "descricao": "Hambúrguer artesanal, cheddar, bacon crocante e molho da casa.",
+        "preco": 32.9,
+        "updateTime": "2026-10-25T01:33:08.926620Z"
+      },
+      {
+        "id": "batata-da-casa",
+        "ativo": true,
+        "categoriaId": "porcoes",
+        "nome": "Batata da Casa",
+        "descricao": "Batatas crocantes acompanhadas do nosso molho especial.",
+        "preco": 18.9,
+        "ingredientes": [],
+        "disponivel": true,
+        "updateTime": "2026-10-25T01:33:08.926620Z"
+      },
+      {
+        "id": "batata-frita",
+        "nome": "Batata Frita",
+        "descricao": "Porção individual.",
+        "preco": 12.9,
+        "categoriaId": "porcoes",
+        "ativo": true,
+        "disponivel": true,
+        "ingredientes": [],
+        "updateTime": "2026-10-25T01:33:08.926620Z"
+      },
+      {
+        "id": "chicken-crispy",
+        "preco": 29.9,
+        "descricao": "Frango crocante, queijo, alface e molho especial.",
+        "nome": "Chicken Crispy",
+        "categoriaId": "hamburgueres",
+        "ingredientes": [],
+        "ativo": true,
+        "disponivel": true,
+        "updateTime": "2026-10-25T01:33:08.926620Z"
+      },
+      {
+        "id": "classic-burger",
+        "descricao": "Um hambúrguer artesanal preparado com ingredientes selecionados, pão brioche macio, queijo derretido e nosso molho especial.",
+        "ingredientes": [
+          "Pão brioche",
+          "Hambúrguer artesanal",
+          "Queijo cheddar",
+          "Molho especial",
+          "Alface",
+          "Tomate"
+        ],
+        "categoriaId": "hamburgueres",
+        "ativo": true,
+        "disponivel": true,
+        "nome": "Classic Burger",
+        "preco": 28.9,
+        "updateTime": "2026-10-25T01:33:08.926620Z"
+      },
+      {
+        "id": "coca-cola-lata",
+        "nome": "Coca-Cola Lata",
+        "categoriaId": "bebidas",
+        "descricao": "Refrigerante Coca-Cola 350ml.",
+        "disponivel": true,
+        "ativo": true,
+        "ingredientes": [],
+        "preco": 6,
+        "updateTime": "2026-10-25T01:33:08.926620Z"
+      },
+      {
+        "id": "combo-classic",
+        "nome": "Combo Classic",
+        "disponivel": false,
+        "descricao": "Classic Burger + batata frita + refrigerante.",
+        "preco": 39.9,
+        "ingredientes": [],
+        "ativo": false,
+        "categoriaId": "combos",
+        "updateTime": "2026-10-25T01:33:08.926620Z"
+      },
+      {
+        "id": "guarana-lata",
+        "ingredientes": [],
+        "categoriaId": "bebidas",
+        "disponivel": false,
+        "nome": "Guaraná Lata",
+        "ativo": false,
+        "preco": 6,
+        "descricao": "Refrigerante Guaraná 350ml.",
+        "updateTime": "2026-10-25T01:33:08.926620Z"
+      },
+      {
+        "id": "onion-rings",
+        "preco": 21.9,
+        "ingredientes": [],
+        "nome": "Onion Rings",
+        "categoriaId": "porcoes",
+        "ativo": true,
+        "disponivel": true,
+        "descricao": "Anéis de cebola empanados e crocantes.",
+        "updateTime": "2026-10-25T01:33:08.926620Z"
+      },
+      {
+        "id": "refrigerante",
+        "nome": "Refrigerante",
+        "descricao": "Refrigerante gelado para acompanhar seu pedido.",
+        "ingredientes": [],
+        "preco": 7,
+        "categoriaId": "bebidas",
+        "ativo": true,
+        "disponivel": true,
+        "updateTime": "2026-10-25T01:33:08.926620Z"
+      }
+    ],
+    "complete": true,
+    "count": 11
+  },
+  "publicIds": [
+    "bacon-burger",
+    "bacon-supreme",
+    "batata-da-casa",
+    "batata-frita",
+    "chicken-crispy",
+    "classic-burger",
+    "coca-cola-lata",
+    "onion-rings",
+    "refrigerante"
+  ],
+  "publicSourceFieldsMatched": true,
+  "writes": 0,
+  "testsReused": "INGREDIENTES_EVIDENCIAS.json:43 testes/292 checks anteriores, sem nova execução nesta preparação documental."
+}

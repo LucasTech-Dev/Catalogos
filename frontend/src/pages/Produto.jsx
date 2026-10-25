@@ -63,13 +63,13 @@ function Produto() {
             <div className="product-info-block">
               <h2>Ingredientes</h2>
 
-              <div className="ingredients-list">
-                {produto.ingredientes.map((ingrediente) => (
-                  <span key={ingrediente}>
+              {produto.ingredientes.length > 0 ? <ul className="ingredients-list" aria-label="Ingredientes do produto">
+                {produto.ingredientes.map((ingrediente, indice) => (
+                  <li key={`${indice}-${ingrediente}`}>
                     <MaterialIcon name="check"/> {ingrediente}
-                  </span>
+                  </li>
                 ))}
-              </div>
+              </ul> : <p className="product-ingredients-help">Ingredientes não informados pelo estabelecimento.</p>}
             </div>
 
             <div className="product-divider" />

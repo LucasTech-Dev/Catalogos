@@ -18,7 +18,9 @@
     "test:online:notificacoes": "node ../quality/frontend/scripts/validar-notificacoes-pages.cjs",
     "test:visual:cliente": "node --require ../quality/register.cjs ../quality/frontend/scripts/area-cliente-browser.mjs",
     "test:visual:material": "node --require ../quality/register.cjs ../quality/frontend/scripts/material-mobile.mjs",
-    "test:online:material": "node ../quality/frontend/scripts/validar-material-pages.cjs"
+    "test:online:material": "node ../quality/frontend/scripts/validar-material-pages.cjs",
+    "firebase:emulator:ingredientes": "node ../quality/firebase/executar-ingredientes.cjs",
+    "test:online:ingredientes": "node ../quality/frontend/scripts/validar-ingredientes-pages.cjs"
   },
   "dependencies": {
     "firebase": "^13.0.0",

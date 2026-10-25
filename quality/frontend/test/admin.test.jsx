@@ -60,6 +60,24 @@ describe('operações do painel',()=>{
     fireEvent.change(screen.getByLabelText('Nome do produto'),{target:{value:'Novo real'}});fireEvent.change(screen.getByLabelText('Preço'),{target:{value:'12.50'}});fireEvent.change(screen.getByLabelText('Categoria'),{target:{value:'cat'}});fireEvent.submit(screen.getByText('Criar produto').closest('form'));
     await screen.findByText('Produto salvo.',{exact:false});expect(m.admin.salvar.mock.calls[0][2].preco).toBe(12.5);expect(m.admin.salvar.mock.calls[0][2].adicionais).toBeUndefined();expect(screen.getByRole('button',{name:'Salvar alterações'})).toBeTruthy();
   });
+  it('carrega ingredientes existentes, preserva ao editar nome e permite atualizar a lista',async()=>{
+    history.replaceState({},'', '/admin/produto?id=produto');m.admin.buscar.mockResolvedValue({...produto,ingredientes:['Pão','Queijo']});
+    m.admin.salvar.mockImplementation(async(nome,id,body)=>({...body,id}));render(<ProdutoForm/>);
+    await waitFor(()=>expect(screen.getByLabelText('Ingredientes').value).toBe('Pão\nQueijo'));
+    fireEvent.change(screen.getByLabelText('Nome do produto'),{target:{value:'Nome atualizado'}});fireEvent.submit(screen.getByRole('button',{name:'Salvar alterações'}).closest('form'));
+    await screen.findByText('Produto salvo.',{exact:false});expect(m.admin.salvar.mock.calls[0][2].ingredientes).toEqual(['Pão','Queijo']);
+    fireEvent.change(screen.getByLabelText('Ingredientes'),{target:{value:' Batata\n\nÓleo vegetal, mistura\nSal '}});fireEvent.submit(screen.getByRole('button',{name:'Salvar alterações'}).closest('form'));
+    await waitFor(()=>expect(m.admin.salvar).toHaveBeenCalledTimes(2));expect(m.admin.salvar.mock.calls[1][2].ingredientes).toEqual(['Batata','Óleo vegetal, mistura','Sal']);
+  });
+  it('permite limpar ingredientes cadastrados com lista vazia explícita',async()=>{
+    history.replaceState({},'', '/admin/produto?id=produto');m.admin.buscar.mockResolvedValue({...produto,ingredientes:['Sal']});m.admin.salvar.mockImplementation(async(nome,id,body)=>({...body,id}));render(<ProdutoForm/>);
+    await waitFor(()=>expect(screen.getByLabelText('Ingredientes').value).toBe('Sal'));fireEvent.change(screen.getByLabelText('Ingredientes'),{target:{value:''}});fireEvent.submit(screen.getByRole('button',{name:'Salvar alterações'}).closest('form'));
+    await screen.findByText('Produto salvo.',{exact:false});expect(m.admin.salvar.mock.calls[0][2].ingredientes).toEqual([]);
+  });
+  it('bloqueia excesso de ingredientes antes da chamada de gravação',async()=>{
+    render(<ProdutoForm/>);await screen.findByRole('option',{name:'Categoria real'});fireEvent.change(screen.getByLabelText('Preço'),{target:{value:'10'}});fireEvent.change(screen.getByLabelText('Ingredientes'),{target:{value:Array(51).fill('Sal').join('\n')}});fireEvent.submit(screen.getByRole('button',{name:'Criar produto'}).closest('form'));
+    expect((await screen.findByRole('alert')).textContent).toContain('50 ingredientes');expect(m.admin.salvar).not.toHaveBeenCalled();
+  });
   it('erro HTTP de produto não simula salvamento',async()=>{
     m.admin.salvar.mockRejectedValue(Object.assign(new Error('Preço inválido.'),{status:400}));render(<ProdutoForm/>);await screen.findByRole('option',{name:'Categoria real'});fireEvent.submit(screen.getByText('Criar produto').closest('form'));await screen.findByRole('alert');expect(screen.queryByText('Produto salvo.',{exact:false})).toBeNull();
   });
