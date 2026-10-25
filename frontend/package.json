@@ -12,7 +12,9 @@
     "build:externo": "node scripts/build-externo.mjs",
     "test:online:pages": "node ../quality/frontend/scripts/validar-pages-js-online.cjs",
     "test:online:publicacao-geral": "node ../quality/frontend/scripts/validar-publicacao-geral.cjs",
-    "test:online:performance": "node ../quality/frontend/scripts/medir-performance-pages.cjs"
+    "test:online:performance": "node ../quality/frontend/scripts/medir-performance-pages.cjs",
+    "test:online:autenticacao": "node ../quality/frontend/scripts/validar-autenticacao-pages.cjs",
+    "firebase:emulator:auth": "node ../quality/run.cjs frontend-auth"
   },
   "dependencies": {
     "firebase": "^13.0.0",

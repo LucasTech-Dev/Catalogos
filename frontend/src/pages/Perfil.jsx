@@ -1,9 +1,10 @@
 import {PageBoundary} from '../components/ui/PageLoader';
-import React from "react";
+import React,{useState} from "react";
 
 import {useRecurso} from "../hooks/useRecurso";
 import {sair,buscarPerfil} from "../services/conta";
 function Perfil() {
+  const [erroSaida,setErroSaida]=useState(''),[saindo,setSaindo]=useState(false);
   const recurso=useRecurso(buscarPerfil);
   const {dados,erro,carregando} = recurso;
   return (<PageBoundary recursos={[recurso]}>
@@ -29,8 +30,8 @@ function Perfil() {
             <p>
               Gerencie seus dados e acompanhe seus pedidos.
             </p>
+            <p>{dados?.email}</p>{dados?.telefone && <p>{dados.telefone}</p>}
           </div>
-
         </section>
 
         {/* OPÇÕES DA CONTA */}
@@ -110,11 +111,11 @@ function Perfil() {
         </section>
 
         {/* AÇÕES */}
-        <section className="profile-actions">
+        <section className="profile-actions">{erroSaida && <p role="alert">{erroSaida}</p>}
 
           <button
             type="button"
-            className="profile-logout" onClick={async () => {await sair(); window.location.assign("/login");}}
+            className="profile-logout" disabled={saindo} onClick={async () => {if(saindo)return;setSaindo(true);try{await sair();window.location.assign("/login");}catch{setErroSaida("Não foi possível sair. Tente novamente.");setSaindo(false);}}}
           >
             Sair da conta
           </button>

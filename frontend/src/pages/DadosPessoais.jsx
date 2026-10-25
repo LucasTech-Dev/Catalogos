@@ -1,3 +1,4 @@
+import CampoSenha from '../components/ui/CampoSenha';
 import {PageBoundary} from '../components/ui/PageLoader';
 import React, {useState} from "react";
 import {useRecurso} from "../hooks/useRecurso";
@@ -10,7 +11,7 @@ function DadosPessoais() {
   async function handleSubmit(event) {
     event.preventDefault();if (ocupado) return;setOcupado(true);setErro('');const valor = id => event.target.querySelector('#'+id).value;
     try {
-      if (valor('nova-senha')) {if (valor('nova-senha') !== valor('confirmar-nova-senha')) throw new Error('As senhas devem ser iguais.');await trocarSenha(valor('senha-atual'),valor('nova-senha'));}
+      if (dados?.senhaDisponivel && valor('nova-senha')) {if (valor('nova-senha') !== valor('confirmar-nova-senha')) throw new Error('As senhas devem ser iguais.');await trocarSenha(valor('senha-atual'),valor('nova-senha'));}
       await salvarPerfil({nome:valor('nome'),telefone:valor('telefone')},dados?.uid);setErro('Dados salvos.');atualizar();
     } catch(e) {setErro(e.message);} finally {setOcupado(false);}
   }
@@ -106,7 +107,7 @@ function DadosPessoais() {
           </div>
 
           {/* SENHA */}
-          <div className="personal-data-section">
+          {dados?.senhaDisponivel ? <div className="personal-data-section">
 
             <div className="personal-data-section-heading">
               <h2>
@@ -125,9 +126,8 @@ function DadosPessoais() {
                   Senha atual
                 </label>
 
-                <input
-                  id="senha-atual"
-                  type="password"
+                <CampoSenha id="senha-atual"
+
                   placeholder="Digite sua senha atual"
                 />
               </div>
@@ -137,11 +137,10 @@ function DadosPessoais() {
                   Nova senha
                 </label>
 
-                <input
-                  id="nova-senha"
-                  type="password"
+                <CampoSenha id="nova-senha"
+
                   placeholder="Nova senha"
-                />
+                 autoComplete="new-password" minLength={6}/>
               </div>
 
               <div className="form-group">
@@ -149,15 +148,16 @@ function DadosPessoais() {
                   Confirmar nova senha
                 </label>
 
-                <input
-                  id="confirmar-nova-senha"
-                  type="password"
+                <CampoSenha id="confirmar-nova-senha"
+
                   placeholder="Digite novamente"
-                />
+                 autoComplete="new-password" minLength={6}/>
               </div>
 
             </div>
           </div>
+
+          : <p>A senha de uma conta Google é gerenciada diretamente no Google.</p>}
 
           {/* AÇÕES */}
           <div className="personal-data-actions">

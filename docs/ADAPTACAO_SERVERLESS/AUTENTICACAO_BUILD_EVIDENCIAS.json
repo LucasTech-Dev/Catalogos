@@ -1,0 +1,32 @@
+{
+  "ambiente": "build homologacao com dez campos VITE p\u00fablicos homologados; texto informativo final inclu\u00eddo",
+  "fontes": {
+    "frontend/src/components/ui/CampoSenha.jsx": "ad11861d9297c4a8e7722136335bf803eb5bbb04bb568ebe4148c0807cf0549a",
+    "frontend/src/hooks/useSessao.js": "af42c1e448819addb011c05e26ff9fb0ceeb55fb3df32181a303588aef87565c",
+    "frontend/src/services/conta.js": "eea0e02955445618cff17f0e31cf13c86e8a4716cc64c91172fb59646e1a7e20",
+    "frontend/src/services/perfil.js": "cc0876f439f6483178b815fcaa3151658a1bbe8616e72180c3e8449034545160",
+    "frontend/src/pages/Login.jsx": "1421f4e49ec685ff37d6c35d548693b4ca27f225bec3449c9f975eb9578c4a21",
+    "frontend/src/pages/Cadastro.jsx": "a81e491695d467db26649dd337c42c19759c3753e2bc0ef6034cf1dc13041dc6",
+    "frontend/src/pages/DadosPessoais.jsx": "8cd44df8cbdf5a785f87b015dfb4ee839167e56bb2c65f739826e6c9b3a27b1b",
+    "frontend/src/pages/Perfil.jsx": "4cd4b03428d714959bc1376b53f8caa9b96ea046b70862cce15cdb6451f2034b",
+    "frontend/src/pages/Enderecos.jsx": "dd788c2add5c4e63311881bdf5aaabbba9caccc9c2f8bfe2b25d935ad9e17685",
+    "frontend/src/components/layout/Header.jsx": "610e10f672f42eed9b776f7a747f6c1320d811b933ef4af207f09ccf2a80b343",
+    "frontend/src/components/admin/AdminGate.jsx": "913192ef77f33e5ac644f44969a764ebce2b820e47e54e4d09f4a2b6a900f453",
+    "frontend/src/styles.css": "65078d290c633fb526a0890420b3d2928221e551e035a3ec4a88f11efa4fb04c",
+    "quality/frontend/test/conta.test.jsx": "afe4596c9f9ce07a591af9834b92bf189e9652d019ffa1d128a797ae73481797",
+    "quality/frontend/scripts/auth-emulator-integration.js": "eb9368f66d4fe26b1d2e9f861126204a62f9d66edf907b08adf08a328cf232ca",
+    "quality/frontend/scripts/validar-autenticacao-pages.cjs": "30a153ce759dba8bb284e838a098c9200b53fdae107a523c2b4dd8287f2cd0c0"
+  },
+  "build": {
+    "index.html": "a21c754d0b1b8519f2bcff040fe81a9adcaa4166d05c8ec9ecaa4f9eb2b6e312",
+    "demo-produto.svg": "2e12a9c897ed3265824be80fcec3fa1e2d0ee86029b3c6163eada4461eecb183",
+    "_redirects": "6036983e5fc00f0169c9e939b1816ed771eee00e27f2fcc517b819041460b9ef",
+    "assets/DemoFixtures-BjFhf-tf.css": "2b1a28b2ac0bad8fcd37074aee415dca3401bbbd8da52f1e644fa2faa72903b1",
+    "assets/index-6lVpqRyy.js": "438d2db1346638da5b04e3485aff74b641738911230fb7b61a8ba16ff2a37cb4",
+    "assets/ambienteAplicacao-DO7fxk6K.js": "17ae62bec01cc9c4bf49dee0897e950717a3aecf345986c857929cc7245ed3ae",
+    "assets/DemoPublica-BsfVghVW.js": "57cb1f4e19285c8eaeec9a8a409c84b80451e9461d2ec62c0995cfedfb23c22d",
+    "assets/App-j3T-7A9O.js": "7b089cf4bd8d5efc9f508a484896285699aea3c0abadc9ffe80730652295ab6e",
+    "assets/index-BhB3C8Aa.css": "5748023f69a6fc1d59f0d28a0593b0b29c07c6afddffec69a676f4743ce8fad9",
+    "assets/DemoFixtures-C1jk8iOL.js": "d047828950127af512bfbd11396efd73af8d68c5a232fc39f0c22e2b02d6ab26"
+  }
+}

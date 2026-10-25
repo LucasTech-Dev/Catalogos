@@ -1,0 +1,166 @@
+{
+  "ambiente": "local e Emulators demo-catalogos-sdk; sem Firebase real",
+  "unitariosOriginal": {
+    "arquivos": 20,
+    "testes": 195,
+    "resultado": "aprovado"
+  },
+  "perfil": [
+    {
+      "suite": "perfil",
+      "exitCode": 0,
+      "segundos": 96.997,
+      "relatorios": [
+        {
+          "perfilSdkRules": "aprovado",
+          "checks": 72,
+          "projeto": "demo-catalogos-sdk",
+          "express": false
+        },
+        {
+          "contaReactNavegador": "aprovado",
+          "checks": 27,
+          "build": "aprovado",
+          "saidas": 8,
+          "express": false,
+          "distAlterado": false
+        }
+      ]
+    }
+  ],
+  "googleSdkEmulator": {
+    "resultado": "aprovado",
+    "cenarios": [
+      "link credencial Google mantém UID anônimo",
+      "login Google mantém conta existente",
+      "colisão mantém sessão anônima"
+    ],
+    "firebaseReal": false
+  },
+  "regressoesAnteriorRodada": {
+    "pedidos": {
+      "sdk": 70,
+      "limites": 5,
+      "navegador": 23,
+      "resultado": "aprovado"
+    },
+    "adminPedidos": {
+      "sdk": 152,
+      "navegador": 21,
+      "resultado": "aprovado",
+      "interrupcaoIncluidaNoTempo": true
+    }
+  },
+  "buildRelease": {
+    "resultado": "aprovado",
+    "modo": "homologacao",
+    "configuracaoPublicaCampos": 10,
+    "dependenciasAlteradas": false
+  },
+  "limites": [
+    "Google pessoal em produção depende de login/consentimento humano",
+    "nenhuma conta/pedido real novo",
+    "nenhuma alteração Rules/índices/IAM/configuração Auth"
+  ],
+  "unitariosRelease": {
+    "arquivos": 20,
+    "testes": 195,
+    "resultado": "aprovado",
+    "duracaoSegundos": 147.77
+  },
+  "limpezaVerificada": [
+    {
+      "diretorio": "private-backups/autenticacao-build",
+      "origem": "Vite desta tarefa, substituído por autenticacao-final-build; não usado em runtime/CI/deploy",
+      "arquivos": [
+        {
+          "caminho": "index.html",
+          "sha256": "dc5da80e6d67aaa7ca64487fcf94395b8ac692e7e74583157943d27af2dc3499"
+        },
+        {
+          "caminho": "demo-produto.svg",
+          "sha256": "2e12a9c897ed3265824be80fcec3fa1e2d0ee86029b3c6163eada4461eecb183"
+        },
+        {
+          "caminho": "_redirects",
+          "sha256": "6036983e5fc00f0169c9e939b1816ed771eee00e27f2fcc517b819041460b9ef"
+        },
+        {
+          "caminho": "assets/DemoFixtures-BjFhf-tf.css",
+          "sha256": "2b1a28b2ac0bad8fcd37074aee415dca3401bbbd8da52f1e644fa2faa72903b1"
+        },
+        {
+          "caminho": "assets/ambienteAplicacao-CML9z3mF.js",
+          "sha256": "2a7c3033846985d608417abb9ef5f61eb2b0eae331207f30b44b6d367edcc4ba"
+        },
+        {
+          "caminho": "assets/DemoPublica-BynpHhqy.js",
+          "sha256": "13eaa699a53844f120a61da1fc125f5d384e1cc707248305bbafae63848a2e5b"
+        },
+        {
+          "caminho": "assets/DemoFixtures-C_JXWT0z.js",
+          "sha256": "4716f02a0739c95d9059ec8d0ebbd98410bcb47e21b8174a381e1af733bbbae8"
+        },
+        {
+          "caminho": "assets/index-CpPa1KeG.js",
+          "sha256": "7fbca9190b99b9b9fe41746c133d87d649a1b0b94175c19b16066720ea80690e"
+        },
+        {
+          "caminho": "assets/App-gbwX34ov.js",
+          "sha256": "af4403c64780667fbf0056029ef3d34e982027b7db3fa72b2826c6d7c1e2fffe"
+        },
+        {
+          "caminho": "assets/index-BhB3C8Aa.css",
+          "sha256": "5748023f69a6fc1d59f0d28a0593b0b29c07c6afddffec69a676f4743ce8fad9"
+        }
+      ]
+    },
+    {
+      "diretorio": "private-backups/autenticacao-release-build",
+      "origem": "Vite desta tarefa, substituído por autenticacao-final-build; não usado em runtime/CI/deploy",
+      "arquivos": [
+        {
+          "caminho": "index.html",
+          "sha256": "babe4ef69736ce582d2a8c80e9394199c655e7d98364224e7272a68958dae98b"
+        },
+        {
+          "caminho": "demo-produto.svg",
+          "sha256": "2e12a9c897ed3265824be80fcec3fa1e2d0ee86029b3c6163eada4461eecb183"
+        },
+        {
+          "caminho": "_redirects",
+          "sha256": "6036983e5fc00f0169c9e939b1816ed771eee00e27f2fcc517b819041460b9ef"
+        },
+        {
+          "caminho": "assets/DemoFixtures-BjFhf-tf.css",
+          "sha256": "2b1a28b2ac0bad8fcd37074aee415dca3401bbbd8da52f1e644fa2faa72903b1"
+        },
+        {
+          "caminho": "assets/App-BmcqBD3V.js",
+          "sha256": "95064acf35b6a15b8dfe2355f06b421a06fd04c23e7421a916cb4002ef3da42e"
+        },
+        {
+          "caminho": "assets/ambienteAplicacao-C6uyMTLj.js",
+          "sha256": "56064806d65a394d8abdf696a4fb5dae68b9ef84dfc9a4ccbd0e029c169ade64"
+        },
+        {
+          "caminho": "assets/DemoPublica-D0oYXCZG.js",
+          "sha256": "4e3e92727a1288b1609d8ec290fac31db53ec80c57a224c52748103f9ca350d4"
+        },
+        {
+          "caminho": "assets/DemoFixtures-CqqD7I_X.js",
+          "sha256": "e05be8535e14cf4d5aa1f1bbd2359aee1bd10a79e0aaa0f9f2735988c1bfd47a"
+        },
+        {
+          "caminho": "assets/index-C9CPTl2M.js",
+          "sha256": "92f625e6d7a4d9a5c730c0ab0b035c7a6580626f9a38609d53bb5b3c0d8286df"
+        },
+        {
+          "caminho": "assets/index-BhB3C8Aa.css",
+          "sha256": "5748023f69a6fc1d59f0d28a0593b0b29c07c6afddffec69a676f4743ce8fad9"
+        }
+      ]
+    }
+  ],
+  "temporarioProprioRemovido": "/tmp/implementar-conta.py"
+}

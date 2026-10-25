@@ -6,14 +6,14 @@ import {listarEnderecos,salvarEndereco,excluirEndereco} from "../services/conta"
 function Enderecos() {
   const recurso=useRecurso(listarEnderecos,[]);
   const {dados:enderecos,erro:erroCarga,carregando,atualizar,uid} = recurso;
-  const [edicao,setEdicao] = useState(null),[erro,setErro] = useState(''),[ocupado,setOcupado] = useState(false);
+  const [edicao,setEdicao] = useState(null),[erro,setErro] = useState(''),[ocupado,setOcupado] = useState(false),[sucesso,setSucesso]=useState('');
   useEffect(()=>{if(carregando){setEdicao(null);setErro('');}},[carregando]);
   async function salvar(event) {
-    event.preventDefault();if (ocupado) return;setOcupado(true);setErro('');
+    event.preventDefault();if (ocupado) return;setOcupado(true);setErro('');setSucesso('');
     const dados = Object.fromEntries(new FormData(event.target));
-    try {await salvarEndereco(edicao.id,dados,uid);setEdicao(null);await atualizar();} catch(e) {setErro(e.message);} finally {setOcupado(false);}
+    try {await salvarEndereco(edicao.id,dados,uid);setEdicao(null);await atualizar();setSucesso('Endereço salvo.');} catch(e) {setErro(e.message);} finally {setOcupado(false);}
   }
-  async function excluir(id) {if (ocupado) return;setOcupado(true);try {await excluirEndereco(id,uid);await atualizar();} catch(e) {setErro(e.message);} finally {setOcupado(false);}}
+  async function excluir(id) {if (ocupado) return;setOcupado(true);try {setSucesso('');await excluirEndereco(id,uid);await atualizar();setSucesso('Endereço excluído.');} catch(e) {setErro(e.message);} finally {setOcupado(false);}}
   return (<PageBoundary recursos={[recurso]}>
     <>
       <main className="addresses-page">
@@ -39,7 +39,7 @@ function Enderecos() {
             </button>
           </div>
 
-          {(erro || erroCarga) && <p role="alert">{erro || erroCarga}</p>}{carregando && <p>Carregando...</p>}
+          {sucesso && <p role="status">{sucesso}</p>}{(erro || erroCarga) && <p role="alert">{erro || erroCarga}</p>}{carregando && <p>Carregando...</p>}
           {edicao && <form className="personal-data-card" onSubmit={salvar} key={edicao.id || 'novo'}><h2>{edicao.id ? 'Editar endereço' : 'Novo endereço'}</h2><div className="personal-data-grid">{['apelido','rua','numero','bairro','cidade','uf','complemento','cep'].map(campo => <div className="form-group" key={campo}><label htmlFor={'end-'+campo}>{campo}</label><input id={'end-'+campo} name={campo} defaultValue={edicao[campo] || ''} required={['rua','numero','bairro','cidade','uf'].includes(campo)} /></div>)}</div><button className="primary-button" disabled={ocupado}>Salvar endereço</button><button type="button" onClick={() => setEdicao(null)}>Cancelar</button></form>}
           {!carregando && !enderecos.length && <p>Nenhum endereço cadastrado.</p>}
           <section className="addresses-list">

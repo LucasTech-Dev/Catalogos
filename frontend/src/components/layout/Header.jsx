@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import {useLoja} from "../../contexts/LojaContext";
 
+import {useSessao} from '../../hooks/useSessao';
+
 function Header() {
+  const {usuario,carregando:sessaoPendente}=useSessao();
+  const conectado=Boolean(usuario && !usuario.isAnonymous);
+  const contaUrl=conectado?'/perfil':'/login';
+  const contaTexto=sessaoPendente?'Verificando conta…':conectado?'Minha conta':'Entrar';
   const {loja,itens} = useLoja();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -64,12 +70,12 @@ function Header() {
 
           {/* LOGIN — aparece somente no desktop */}
           <a
-            href="/login"
+            href={contaUrl}
             className="desktop-login-button"
-            aria-label="Entrar na conta"
+            aria-label={contaTexto}
           >
             <span aria-hidden="true">👤</span>
-            <span>Entrar</span>
+            <span>{contaTexto}</span>
           </a>
 
           <a
@@ -137,7 +143,7 @@ function Header() {
           <div className="mobile-nav-footer">
 
             <a
-              href="/login"
+              href={contaUrl}
               className="mobile-menu-action"
               onClick={closeMenu}
             >
@@ -146,7 +152,7 @@ function Header() {
               </span>
 
               <span>
-                Entrar
+                {contaTexto}
               </span>
 
               <span className="mobile-menu-arrow">

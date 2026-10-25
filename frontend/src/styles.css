@@ -7253,3 +7253,11 @@ body,
     display: none !important;
   }
 }
+
+/* Controles de autenticação, preservando o estilo do catálogo. */
+.password-field { position:relative; width:100%; }
+.password-field input { width:100%; padding-right:3.5rem !important; }
+.password-toggle { position:absolute; right:4px; top:50%; transform:translateY(-50%); display:grid; place-items:center; min-width:44px; min-height:44px; border:0; background:transparent; color:#555; cursor:pointer; }
+.password-toggle:focus-visible { outline:2px solid var(--primary); border-radius:8px; }
+.google-login { width:100%; min-height:48px; margin-bottom:20px; }
+.account-conflict { display:grid; gap:12px; margin:16px 0; padding:16px; background:#fff4e5; border-radius:12px; }

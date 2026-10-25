@@ -1,11 +1,21 @@
+import CampoSenha from '../components/ui/CampoSenha';
 import React, {useState} from "react";
-import {entrar,recuperar} from "../services/conta";
+import {entrar,entrarGoogle,recuperar} from "../services/conta";
 
 function Login() {
+  const [conflito,setConflito]=useState(null);
   const [erro,setErro] = useState(''),[ocupado,setOcupado] = useState(false);
-  async function handleSubmit(event) {
-    event.preventDefault(); if (ocupado) return; setOcupado(true);setErro('');
-    try {await entrar(event.target.querySelector('#email').value,event.target.querySelector('#password').value);window.location.assign('/perfil');} catch(e) {setErro(e.message);} finally {setOcupado(false);}
+  async function autenticarGoogle(trocarConta=false) {
+    if(ocupado)return;setOcupado(true);setErro('');setConflito(null);
+    try {await entrarGoogle({trocarConta});window.location.assign('/perfil');}catch(e){setErro(e.message);if(e.code==='conta/convidado-separado')setConflito('google');}finally{setOcupado(false);}
+  }
+  async function handleSubmit(event,trocarConta=false) {
+    event.preventDefault(); if (ocupado) return; setOcupado(true);setErro('');setConflito(null);
+    try {await entrar(event.target.querySelector('#email').value,event.target.querySelector('#password').value,...(trocarConta?[{trocarConta:true}]:[]));window.location.assign('/perfil');} catch(e) {setErro(e.message);if(e.code==='conta/convidado-separado')setConflito('email');} finally {setOcupado(false);}
+  }
+  function confirmarTroca() {
+    const form=document.querySelector('.login-form');
+    if(form.reportValidity())handleSubmit({preventDefault(){},target:form},true);
   }
   return (
     <main className="login-page">
@@ -27,6 +37,7 @@ function Login() {
           </div>
 
           {erro && <p role="alert">{erro}</p>}
+          {conflito && <div className="account-conflict"><a href="/cadastro">Preservar histórico criando outra conta</a><button type="button" disabled={ocupado} onClick={()=>conflito==='google'?autenticarGoogle(true):confirmarTroca()}>Entendo, entrar na conta existente</button></div>}
           <form className="login-form" onSubmit={handleSubmit}>
 
             <div className="form-group">
@@ -37,6 +48,7 @@ function Login() {
               <input
                 id="email"
                 type="email"
+                autoComplete="email"
                 placeholder="seuemail@email.com"
                 required
               />
@@ -53,9 +65,8 @@ function Login() {
                 </a>
               </div>
 
-              <input
-                id="password"
-                type="password"
+              <CampoSenha id="password"
+
                 placeholder="Digite sua senha"
                 required
               />
@@ -70,9 +81,10 @@ function Login() {
           </form>
 
           <div className="login-divider">
-            <span>ou</span>
+            <span>ou continue com</span>
           </div>
 
+          <button type="button" className="button button-secondary google-login" disabled={ocupado} onClick={()=>autenticarGoogle()}>Continuar com Google</button>
           <div className="login-register">
             <p>
               Ainda não possui uma conta?

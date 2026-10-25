@@ -1,3 +1,12 @@
+# Autenticação e área do cliente — 25/10/2026
+
+A — EXECUÇÃO PELO CODEX: AUTH-01, pedido atual e autorização explícita para publicar após validar na main LucasTech-Dev/Catalogos, Pages catalogo-demo. Google/vinculação preservando UID, decisão explícita em colisão, olhos em todas as senhas, cabeçalho por sessão e complementos de perfil/endereços implementados. 195 testes aprovados em ambas as árvores, perfil72SDK/27Chrome, Google no Auth Emulator e build homologado aprovados; publicação em fechamento; nenhuma criação de conta/pedido real ou mudança de Rules/índices/IAM/configuração Auth autorizada. [Arquivos, testes, limites e estado](ADAPTACAO_SERVERLESS/RELATORIO_AUTENTICACAO_CLIENTE.md). Sem novo plano/MVP, migração ou alteração de posição comercial.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: AUTH-H1, após publicação, confirmar login/consentimento Google pessoal e logout no site, sem enviar segredos. Login pessoal não será presumido pela prova no Emulator. Próxima tarefa exata: push normal já autorizado e verificar site; depois essa confirmação. Administração real e pedidos novos não iniciados. Histórico e cópia local preservados; espelho externo ausente.
+
+
+---
+
 # SITE ATUALIZADO — publicação geral — 25/10/2026
 
 A — EXECUÇÃO PELO CODEX: PUB-GERAL-01. Código4f3c01fb47e71683521405a174917ca893562552/main, push normal com histórico, Pages3afef9fe-e047-4f18-ba4c-12b7ed2a5fbf/success. Loading global, performanceGET e imagens/fallback integrados;175 testes/build e24 checks online aprovados. Home2637ms/cardápio2742ms/produto3217ms/pedidos1992ms, medianas3amostras; ganhos observados nas três primeiras telas, sem ganho em pedidos/bloqueioadmin. Método, variações e limite de comparação binária no [relatório](ADAPTACAO_SERVERLESS/RELATORIO_PUBLICACAO_GERAL.md). Deploy manual já autorizado contornou ausência de disparo automático. Firebase real/configurações protegidas preservados, zero contas/pedidos novos/escritasFireStore.

@@ -1,3 +1,4 @@
+import CampoSenha from '../components/ui/CampoSenha';
 import React, {useState} from "react";
 import {cadastrar} from "../services/conta";
 
@@ -61,6 +62,7 @@ function Cadastro() {
               <input
                 id="cadastro-email"
                 type="email"
+                autoComplete="email"
                 placeholder="seuemail@email.com"
                 required
               />
@@ -68,14 +70,13 @@ function Cadastro() {
 
             <div className="form-group">
               <label htmlFor="telefone">
-                Telefone
+                Telefone (opcional)
               </label>
 
               <input
                 id="telefone"
                 type="tel"
                 placeholder="(51) 99999-9999"
-                required
               />
             </div>
 
@@ -84,12 +85,11 @@ function Cadastro() {
                 Senha
               </label>
 
-              <input
-                id="cadastro-senha"
-                type="password"
+              <CampoSenha id="cadastro-senha"
+
                 placeholder="Crie uma senha"
                 required
-              />
+               autoComplete="new-password" minLength={6}/>
             </div>
 
             <div className="form-group">
@@ -97,12 +97,11 @@ function Cadastro() {
                 Confirmar senha
               </label>
 
-              <input
-                id="confirmar-senha"
-                type="password"
+              <CampoSenha id="confirmar-senha"
+
                 placeholder="Digite a senha novamente"
                 required
-              />
+               autoComplete="new-password" minLength={6}/>
             </div>
 
             <label className="terms-checkbox">
