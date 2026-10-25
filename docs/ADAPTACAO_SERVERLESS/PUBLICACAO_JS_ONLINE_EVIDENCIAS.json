@@ -1,0 +1,104 @@
+{
+  "started": "2026-10-25T03:03:19.410Z",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "checks": [
+    {
+      "id": "anonimo-persiste-reload",
+      "passed": true,
+      "at": "2026-10-25T03:03:34.532Z"
+    },
+    {
+      "id": "home-dados-reais",
+      "passed": true,
+      "at": "2026-10-25T03:05:01.229Z"
+    },
+    {
+      "id": "categorias-produtos",
+      "passed": true,
+      "at": "2026-10-25T03:05:04.436Z",
+      "products": 9
+    },
+    {
+      "id": "mobile-sem-transbordamento",
+      "passed": true,
+      "at": "2026-10-25T03:05:04.542Z"
+    },
+    {
+      "id": "login-cliente-existente",
+      "passed": true,
+      "at": "2026-10-25T03:05:07.620Z"
+    },
+    {
+      "id": "produto-preco-real",
+      "passed": true,
+      "at": "2026-10-25T03:05:10.637Z"
+    },
+    {
+      "id": "carrinho-persiste",
+      "passed": true,
+      "at": "2026-10-25T03:05:15.622Z"
+    },
+    {
+      "id": "checkout-entrega-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T03:05:18.860Z"
+    },
+    {
+      "id": "checkout-retirada-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T03:05:18.889Z"
+    },
+    {
+      "id": "historico-pedidos-existentes",
+      "passed": true,
+      "at": "2026-10-25T03:05:20.088Z",
+      "orders": 2
+    },
+    {
+      "id": "detalhe-acompanhamento-existente",
+      "passed": true,
+      "at": "2026-10-25T03:05:21.086Z"
+    },
+    {
+      "id": "admin-restrito-cliente",
+      "passed": true,
+      "at": "2026-10-25T03:05:22.094Z"
+    },
+    {
+      "id": "sem-paginas-provisorias",
+      "passed": true,
+      "at": "2026-10-25T03:05:22.099Z"
+    },
+    {
+      "id": "sdk-firebase-sem-render",
+      "passed": true,
+      "at": "2026-10-25T03:05:22.099Z"
+    },
+    {
+      "id": "sem-gravacao-firestore",
+      "passed": true,
+      "at": "2026-10-25T03:05:22.100Z"
+    },
+    {
+      "id": "sem-excecao-js",
+      "passed": true,
+      "at": "2026-10-25T03:05:22.100Z"
+    }
+  ],
+  "newOrders": 0,
+  "newRegisteredAccounts": 0,
+  "necessaryAnonymousSessions": 1,
+  "legacyRequest": false,
+  "firestoreRequest": true,
+  "firestoreWriteAttempt": false,
+  "entryAsset": "/assets/index-BuXTszG9.js",
+  "anonymousUid": "ElsxHWF98zTTkTVCuDof486Fxx13",
+  "status": "APROVADO",
+  "previousFailures": [
+    {
+      "at": "2026-10-25T03:03:40.300Z",
+      "message": "carrinho-persiste"
+    }
+  ],
+  "finished": "2026-10-25T03:05:22.100Z"
+}

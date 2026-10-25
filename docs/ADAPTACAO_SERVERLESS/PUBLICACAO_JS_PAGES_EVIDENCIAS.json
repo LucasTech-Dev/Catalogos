@@ -1,0 +1,147 @@
+{
+  "order": "publicacao-js-github-pages",
+  "status": "DEMO_FUNCIONAL",
+  "date": "2026-10-25",
+  "git": {
+    "repository": "https://github.com/LucasTech-Dev/Catalogos",
+    "branch": "main",
+    "integrationCheckout": "private-backups/publicacao-js-main",
+    "codeCommit": "c63a6e05119fb363e57512fa929a80209fd8d713",
+    "parent": "b8e2a4ba39ae233ad413b434d6ce5cbb42b15308",
+    "push": "SUCCESS",
+    "historyPreserved": true,
+    "force": false,
+    "unrelatedHistories": false,
+    "originalLocalRepoUntouched": true
+  },
+  "pagesConfig": {
+    "at": "2026-10-25T03:00:19.967Z",
+    "name": "catalogo-demo",
+    "subdomain": "catalogo-demo-cz1.pages.dev",
+    "branch": "main",
+    "build": {
+      "root": "frontend",
+      "command": "npm run build -- --mode homologacao",
+      "output": "dist"
+    },
+    "publicVariableNames": [
+      "VITE_APP_ENV",
+      "VITE_CATALOGOS_RUNTIME_MODE",
+      "VITE_FIREBASE_API_KEY",
+      "VITE_FIREBASE_APP_ID",
+      "VITE_FIREBASE_AUTH_DOMAIN",
+      "VITE_FIREBASE_EXISTING_DEMO_PROJECT_ID",
+      "VITE_FIREBASE_EXPECTED_PROJECT_ID",
+      "VITE_FIREBASE_HOMOLOG_PROJECT_ID",
+      "VITE_FIREBASE_PROJECT_ID",
+      "VITE_LOJA_ID"
+    ],
+    "source": {
+      "owner": "LucasTech-Dev",
+      "repo": "Catalogos",
+      "auto": true
+    },
+    "firebaseChanges": false
+  },
+  "deployment": {
+    "id": "81f69c28-c10f-4647-a8b4-355464daf214",
+    "url": "https://81f69c28.catalogo-demo-cz1.pages.dev",
+    "environment": "production",
+    "created_on": "2026-10-25T03:00:33.909443Z",
+    "stage": {
+      "name": "queued",
+      "started_on": null,
+      "ended_on": null,
+      "status": "idle"
+    },
+    "skipped": false,
+    "trigger": {
+      "type": "ad_hoc",
+      "metadata": {
+        "branch": "main",
+        "commit_hash": "c63a6e05119fb363e57512fa929a80209fd8d713",
+        "commit_message": "[CF-Pages-Skip] Integra catalogo JS homologado em frontend\n\nPreserva o historico de main e as fontes legadas. Publica apenas React/Vite/Web SDK; inclui 147 testes com referencias de contrato isoladas, protecoes de Git e documentacao da release. Build homologacao reproduz os hashes aprovados; root Pages sera ajustado apos este push.",
+        "commit_dirty": false
+      }
+    },
+    "build": {
+      "root": "frontend",
+      "command": "npm run build -- --mode homologacao",
+      "output": "dist"
+    },
+    "finalStatus": "success",
+    "canonical": true
+  },
+  "canonical": {
+    "at": "2026-10-25T03:04:27.643Z",
+    "name": "catalogo-demo",
+    "subdomain": "catalogo-demo-cz1.pages.dev",
+    "branch": "main",
+    "canonical": {
+      "id": "81f69c28-c10f-4647-a8b4-355464daf214",
+      "url": "https://81f69c28.catalogo-demo-cz1.pages.dev",
+      "commit": "c63a6e05119fb363e57512fa929a80209fd8d713",
+      "status": "success"
+    },
+    "build": {
+      "root": "frontend",
+      "command": "npm run build -- --mode homologacao",
+      "output": "dist"
+    },
+    "publicVariables": [
+      "VITE_APP_ENV",
+      "VITE_CATALOGOS_RUNTIME_MODE",
+      "VITE_FIREBASE_API_KEY",
+      "VITE_FIREBASE_APP_ID",
+      "VITE_FIREBASE_AUTH_DOMAIN",
+      "VITE_FIREBASE_EXISTING_DEMO_PROJECT_ID",
+      "VITE_FIREBASE_EXPECTED_PROJECT_ID",
+      "VITE_FIREBASE_HOMOLOG_PROJECT_ID",
+      "VITE_FIREBASE_PROJECT_ID",
+      "VITE_LOJA_ID"
+    ]
+  },
+  "localValidation": {
+    "reactTests": 147,
+    "testFiles": 16,
+    "build": "APROVADO",
+    "mode": "homologacao",
+    "optimized": true,
+    "outputs": 8,
+    "sameLocalHomologatedArtifact": true,
+    "node": "24.19.0",
+    "spa": "/* /index.html 200",
+    "secretScan": "sem achados"
+  },
+  "firebase": {
+    "rulesChanged": false,
+    "indexesChanged": false,
+    "iamChanged": false,
+    "authenticationConfigChanged": false,
+    "existingUsersRegistrationOrRolesChanged": false,
+    "commercialDocumentsWritten": 0,
+    "migrations": 0,
+    "onlineTest": "Somente sessão anônima necessária e login com cliente sintético existente; sem pedido novo"
+  },
+  "preservedRemotePaths": [
+    "backend/",
+    "demo/",
+    "firebase/",
+    "firebase.json",
+    ".firebaserc"
+  ],
+  "independentProjectsModified": false,
+  "onlineReceipt": "PUBLICACAO_JS_ONLINE_EVIDENCIAS.json",
+  "online": {
+    "status": "APROVADO",
+    "checks": 16,
+    "newOrders": 0,
+    "newRegisteredAccounts": 0,
+    "necessaryAnonymousSessions": 1,
+    "anonymousTestUid": "ElsxHWF98zTTkTVCuDof486Fxx13",
+    "entryAsset": "/assets/index-BuXTszG9.js",
+    "firestoreWrites": 0,
+    "legacyRequests": false
+  },
+  "documentationRecordedInGit": true
+}

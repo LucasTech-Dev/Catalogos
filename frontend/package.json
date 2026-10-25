@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "node ../quality/run.cjs frontend-test",
     "docs:check": "node ../quality/docs/documentacao.cjs --check",
-    "build:externo": "node scripts/build-externo.mjs"
+    "build:externo": "node scripts/build-externo.mjs",
+    "test:online:pages": "node ../quality/frontend/scripts/validar-pages-js-online.cjs"
   },
   "dependencies": {
     "firebase": "^13.0.0",
