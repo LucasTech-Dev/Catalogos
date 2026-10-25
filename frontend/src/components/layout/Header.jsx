@@ -1,3 +1,4 @@
+import MaterialIcon from "../ui/MaterialIcon";
 import React, { useEffect, useState } from "react";
 
 import {useLoja} from "../../contexts/LojaContext";
@@ -47,7 +48,7 @@ function Header() {
         {/* Logo */}
         <a href="/" className="logo" onClick={closeMenu}>
           <span className="logo-mark" aria-hidden="true">
-            {loja?.logo ? <img src={loja.logo} alt="" style={{width:32,height:32,objectFit:"contain"}} /> : "🍔"}
+            {loja?.logo ? <img src={loja.logo} alt="" style={{width:32,height:32,objectFit:"contain"}} /> : <MaterialIcon name="lunch_dining"/>}
           </span>
 
           <span className="logo-text">
@@ -74,7 +75,7 @@ function Header() {
             className="desktop-login-button"
             aria-label={contaTexto}
           >
-            <span aria-hidden="true">👤</span>
+            <span aria-hidden="true"><MaterialIcon name="person"/></span>
             <span>{contaTexto}</span>
           </a>
 
@@ -83,7 +84,7 @@ function Header() {
             className="desktop-cart-button"
             aria-label="Abrir carrinho"
           >
-            <span aria-hidden="true">🛒</span>
+            <span aria-hidden="true"><MaterialIcon name="shopping_cart"/></span>
             <span>Carrinho</span>
             <strong>{itens.reduce((s,i) => s+i.quantidade,0)}</strong>
           </a>
@@ -104,7 +105,7 @@ function Header() {
                 menuOpen ? "is-open" : ""
               }`}
             >
-              {menuOpen ? "✕" : "☰"}
+              <MaterialIcon name={menuOpen ? "close" : "menu"}/>
             </span>
           </button>
 
@@ -148,7 +149,7 @@ function Header() {
               onClick={closeMenu}
             >
               <span className="mobile-menu-action-icon">
-                👤
+                <MaterialIcon name="person"/>
               </span>
 
               <span>
@@ -156,7 +157,7 @@ function Header() {
               </span>
 
               <span className="mobile-menu-arrow">
-                →
+                <MaterialIcon name="arrow_forward"/>
               </span>
             </a>
 
@@ -166,7 +167,7 @@ function Header() {
               onClick={closeMenu}
             >
               <span className="mobile-menu-action-icon">
-                🛒
+                <MaterialIcon name="shopping_cart"/>
               </span>
 
               <span>
@@ -178,7 +179,7 @@ function Header() {
               </strong>
 
               <span className="mobile-menu-arrow">
-                →
+                <MaterialIcon name="arrow_forward"/>
               </span>
             </a>
 

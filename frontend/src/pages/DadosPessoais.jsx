@@ -1,3 +1,4 @@
+import MaterialIcon from "../components/ui/MaterialIcon";
 import '../components/conta/areaCliente.css';
 import {notificarAoNavegar} from '../lib/notificacoes';
 import {FeedbackAcao} from '../components/ui/ToastProvider';
@@ -26,7 +27,7 @@ function DadosPessoais() {
         {/* CABEÇALHO */}
         <div className="account-data-top">
           <a href="/perfil" className="back-link">
-            ← Minha conta
+            <MaterialIcon name="arrow_back"/> Minha conta
           </a>
 
           <span className="eyebrow">

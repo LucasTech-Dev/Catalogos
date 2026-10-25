@@ -1104,6 +1104,89 @@ p {
   font-weight: 600;
 }
 
+.product-observation {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.product-observation-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+
+.product-observation-heading label {
+  color: var(--text-primary, var(--dark));
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.product-observation-optional {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg-surface, #fff);
+  color: var(--text-secondary, var(--muted));
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.product-observation-help {
+  margin: 0;
+  color: var(--text-secondary, var(--muted));
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.product-observation-input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 124px;
+  padding: 16px;
+  border: 1px solid var(--border-subtle, var(--border));
+  border-radius: 16px;
+  background: var(--bg-input, #fff);
+  color: var(--text-primary, var(--dark));
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.6;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-observation-input::placeholder {
+  color: var(--text-secondary, var(--muted));
+  opacity: 1;
+}
+
+.product-observation-input:hover {
+  border-color: var(--primary);
+}
+
+.product-observation-input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-color: var(--primary);
+  box-shadow: 0 3px 14px rgb(0 0 0 / 5%);
+}
+
+.product-observation-count {
+  justify-self: end;
+  color: var(--text-secondary, var(--muted));
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-observation-input {
+    transition: none;
+  }
+}
+
 .extras-list {
   display: flex;
   flex-direction: column;
@@ -2154,6 +2237,27 @@ p {
   border-radius: 20px;
   background: white;
   text-align: center;
+}
+
+.cart-layout--empty {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.cart-page--empty .cart-header,
+.cart-page--empty .cart-notice {
+  text-align: center;
+}
+
+.cart-page--empty .cart-header p {
+  margin-inline: auto;
+}
+
+.cart-empty .continue-shopping-button {
+  width: 100%;
+  max-width: 240px;
+  margin-inline: auto;
 }
 
 .cart-empty > span {
@@ -7261,3 +7365,52 @@ body,
 .password-toggle:focus-visible { outline:2px solid var(--primary); border-radius:8px; }
 .google-login { width:100%; min-height:48px; margin-bottom:20px; }
 .account-conflict { display:grid; gap:12px; margin:16px 0; padding:16px; background:#fff4e5; border-radius:12px; }
+
+/* Google Material Symbols: SVGs locais, cor única e alinhamento consistente. */
+.material-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+  line-height: 1;
+}
+:is(.logo-mark,.mobile-menu-action-icon,.profile-avatar,.profile-option-icon,
+    .category-icon,.address-icon,.payment-icon,.admin-empty-icon,
+    .admin-category-icon,.admin-stat-icon,.admin-shortcut-icon) > .material-icon {
+  width: 24px;
+  height: 24px;
+}
+.profile-avatar > .material-icon { width: 32px; height: 32px; }
+:is(.cart-empty,.orders-empty) > span > .material-icon,
+.admin-empty-icon > .material-icon { width: 40px; height: 40px; }
+:is(.back-link,.section-link) { gap: 8px; }
+:is(.back-link,.section-link,.category-arrow,.profile-option-arrow,.mobile-menu-arrow) .material-icon {
+  width: 18px;
+  height: 18px;
+}
+:is(.quantity-control button,.add-button,.mobile-menu-toggle,.password-toggle) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-header > div:last-child { min-width: 0; }
+@media (max-width: 600px) {
+  .quantity-control button { min-width: 44px; min-height: 44px; }
+  .orders-search button { min-width: 44px; min-height: 44px; }
+  .profile-option-arrow { flex-shrink: 0; }
+}
+@media (max-width: 600px) {
+  .customer-page :is(input, select, textarea),
+  .checkout-page :is(input, select, textarea),
+  .login-page input,
+  .account-page input { font-size: 16px; }
+  .mobile-menu-toggle { min-width: 44px; min-height: 44px; }
+}
+/* Dados longos do pedido não devem alargar a coluna lateral no celular. */
+.admin-order-details-main,
+.admin-order-details-sidebar { min-width: 0; }
+.admin-order-details-page :is(.admin-info-list strong,.admin-address strong,.admin-address span,.admin-payment-info strong) {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 850px) {
+  .admin-order-details-grid { grid-template-columns: minmax(0, 1fr); }
+}

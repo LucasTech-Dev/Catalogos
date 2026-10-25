@@ -1,3 +1,4 @@
+import MaterialIcon from "../../components/ui/MaterialIcon";
 import {notificar} from '../../lib/notificacoes';
 import {FeedbackAcao,confirmarAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
@@ -59,7 +60,7 @@ function Produtos() {
             href="/admin/produto/novo"
             className="admin-primary-button"
           >
-            + Novo produto
+            <MaterialIcon name="add"/> Novo produto
           </a>
 
         </section>
@@ -128,7 +129,7 @@ function Produtos() {
                 {/* IMAGEM MOCK */}
 
                 <div className="admin-product-image">
-                  {produto.imagem ? <img src={produto.imagem} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/> : "🍔"}
+                  {produto.imagem ? <img src={produto.imagem} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/> : <MaterialIcon name="lunch_dining"/>}
                 </div>
 
                 {/* INFORMAÇÕES */}
@@ -203,7 +204,7 @@ function Produtos() {
 
             <div className="admin-products-empty">
 
-              <span>🔎</span>
+              <span><MaterialIcon name="search"/></span>
 
               <h2>
                 Nenhum produto encontrado

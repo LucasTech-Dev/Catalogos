@@ -1,3 +1,4 @@
+import MaterialIcon from "./MaterialIcon";
 import React from "react";
 import ImagemCatalogo from "./ImagemCatalogo";
 
@@ -58,7 +59,7 @@ function CartItem({
         <div className="cart-item-footer">
           <div className="quantity-control">
             <button
-              type="button"
+              type="button" aria-label="Diminuir quantidade"
               onClick={() =>
                 onQuantidadeChange(
                   item.chave || item.id,
@@ -69,13 +70,13 @@ function CartItem({
                 )
               }
             >
-              −
+              <MaterialIcon name="remove"/>
             </button>
 
             <strong>{item.quantidade}</strong>
 
             <button
-              type="button"
+              type="button" aria-label="Aumentar quantidade"
               onClick={() =>
                 onQuantidadeChange(
                   item.chave || item.id,
@@ -83,7 +84,7 @@ function CartItem({
                 )
               }
             >
-              +
+              <MaterialIcon name="add"/>
             </button>
           </div>
 

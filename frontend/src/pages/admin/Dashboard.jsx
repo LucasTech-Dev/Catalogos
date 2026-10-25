@@ -1,3 +1,4 @@
+import MaterialIcon from "../../components/ui/MaterialIcon";
 import {atualizarComFeedback} from '../../lib/notificacoes';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, {useCallback,useState} from "react";
@@ -12,7 +13,7 @@ function Dashboard() {
   const hoje=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
   const [inicio,setInicio]=useState(hoje),[fim,setFim]=useState(hoje),[periodo,setPeriodo]=useState({inicio:hoje,fim:hoje});
   const carregar=useCallback(()=>admin.dashboard(periodo),[periodo]);const recurso=useAdminRecurso(carregar);const dados=recurso.dados;
-  const stats=[{label:'Pedidos no período',value:dados?.pedidos ?? '—',description:'Pela data de criação',icon:'📦'},...Object.entries(rotulosStatus).map(([status,label])=>({label,value:dados?.porStatus?.[status] ?? '—',description:'Pedidos no período',icon:'📦'})),{label:'Produtos disponíveis',value:dados?.produtos?.disponiveis ?? '—',description:'Catálogo atual',icon:'🍔'},{label:'Produtos indisponíveis',value:dados?.produtos?.indisponiveis ?? '—',description:'Catálogo atual',icon:'🍔'}];
+  const stats=[{label:'Pedidos no período',value:dados?.pedidos ?? '—',description:'Pela data de criação',icon:'inventory_2'},...Object.entries(rotulosStatus).map(([status,label])=>({label,value:dados?.porStatus?.[status] ?? '—',description:'Pedidos no período',icon:'inventory_2'})),{label:'Produtos disponíveis',value:dados?.produtos?.disponiveis ?? '—',description:'Catálogo atual',icon:'lunch_dining'},{label:'Produtos indisponíveis',value:dados?.produtos?.indisponiveis ?? '—',description:'Catálogo atual',icon:'lunch_dining'}];
   const pedidosRecentes=(dados?.recentes || []).map(p=>({...p,cliente:p.cliente?.nome || 'Cliente',horario:dataTexto(p.criadoEm),valor:moeda(p.total),status:rotulosStatus[p.status] || p.status,statusClass:classeStatus[p.status] || ''}));
   return (<PageBoundary recursos={[recurso]}>
     <main className="admin-dashboard">
@@ -69,7 +70,7 @@ function Dashboard() {
               </div>
 
               <a href="/admin/pedidos">
-                Ver todos →
+                Ver todos <MaterialIcon name="arrow_forward"/>
               </a>
             </div>
 
@@ -182,7 +183,7 @@ function Dashboard() {
               className="admin-shortcut"
             >
               <span className="admin-shortcut-icon">
-                ➕
+                <MaterialIcon name="add"/>
               </span>
 
               <div>
@@ -193,7 +194,7 @@ function Dashboard() {
               </div>
 
               <span className="admin-shortcut-arrow">
-                →
+                <MaterialIcon name="arrow_forward"/>
               </span>
             </a>
 
@@ -202,7 +203,7 @@ function Dashboard() {
               className="admin-shortcut"
             >
               <span className="admin-shortcut-icon">
-                📦
+                <MaterialIcon name="inventory_2"/>
               </span>
 
               <div>
@@ -213,7 +214,7 @@ function Dashboard() {
               </div>
 
               <span className="admin-shortcut-arrow">
-                →
+                <MaterialIcon name="arrow_forward"/>
               </span>
             </a>
 
@@ -222,7 +223,7 @@ function Dashboard() {
               className="admin-shortcut"
             >
               <span className="admin-shortcut-icon">
-                ⚙️
+                <MaterialIcon name="settings"/>
               </span>
 
               <div>
@@ -233,7 +234,7 @@ function Dashboard() {
               </div>
 
               <span className="admin-shortcut-arrow">
-                →
+                <MaterialIcon name="arrow_forward"/>
               </span>
             </a>
 

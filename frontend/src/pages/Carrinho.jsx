@@ -1,3 +1,4 @@
+import MaterialIcon from "../components/ui/MaterialIcon";
 import React from "react";
 
 import CartItem from "../components/ui/CartItem";
@@ -10,7 +11,7 @@ function Carrinho() {
   const taxaEntrega = loja?.entrega?.habilitada ? Number(loja.entrega.taxa || 0) : 0;
   const total = subtotal + taxaEntrega;
   return (<CatalogoPronto>
-    <main className="cart-page">
+    <main className={`cart-page${itens.length === 0 ? " cart-page--empty" : ""}`}>
       <section className="cart-section">
         <div className="container">
 
@@ -29,7 +30,9 @@ function Carrinho() {
             </p>
           </div>
 
-          <EstadoCatalogo /><p>{demonstrativo?'Carrinho demonstrativo. Nenhum pedido será enviado.':'Valores estimados. O total é confirmado somente após validação e gravação do pedido.'}</p><div className="cart-layout">
+          <EstadoCatalogo />
+          <p className="cart-notice">{demonstrativo?'Carrinho demonstrativo. Nenhum pedido será enviado.':'Valores estimados. O total é confirmado somente após validação e gravação do pedido.'}</p>
+          <div className={`cart-layout${itens.length === 0 ? " cart-layout--empty" : ""}`}>
 
             <div className="cart-items">
 
@@ -46,7 +49,7 @@ function Carrinho() {
                 ))
               ) : (
                 <div className="cart-empty">
-                  <span>🛒</span>
+                  <span><MaterialIcon name="shopping_cart"/></span>
 
                   <h2>
                     Seu carrinho está vazio.

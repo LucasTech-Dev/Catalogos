@@ -1,3 +1,4 @@
+import MaterialIcon from "../../components/ui/MaterialIcon";
 import {atualizarComFeedback,notificar} from '../../lib/notificacoes';
 import {FeedbackAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
@@ -24,7 +25,7 @@ function PedidoDetalhes() {
         {/* TOPO */}
         <div className="admin-details-back">
           <a href="/admin/pedidos">
-            ← Voltar para pedidos
+            <MaterialIcon name="arrow_back"/> Voltar para pedidos
           </a>
         </div>
 
@@ -277,7 +278,7 @@ function PedidoDetalhes() {
             className="admin-secondary-button"
             onClick={() => window.history.back()}
           >
-            ← Voltar
+            <MaterialIcon name="arrow_back"/> Voltar
           </button>
 
           <button

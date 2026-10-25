@@ -1,3 +1,11 @@
+# Material Icons e mobile — publicação autorizada em execução — 25/10/2026
+
+A — EXECUÇÃO PELO CODEX: MATERIAL-01. Pedido atual autoriza MaterialGoogle em todo o site, revisão mobile e publicação de todas as atualizações, incluindo observações e centralização do carrinho anteriores. ÍconesSVG locais/licençaApache;249testes distintos e280checksChrome/22rotas em320/390/768/1366px aprovados. Transbordamento do detalheadmin320px corrigido. [Arquivos, evidências e limites](ADAPTACAO_SERVERLESS/RELATORIO_MATERIAL_MOBILE.md). Sem alteraçõesFirebase ou novoMVP; contratos/ressalvascomerciais preservados.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: MATERIAL-H1, nenhuma intervenção técnica indispensável. Próxima ação desta mesma ordem: build integrado,pushmain/Pages autorizados,validaronline e fecharregistro. Publicação ainda não confirmada nesta entrada. Documentação6ca2588 antes pendente incluída na autorização atual. Histórico preservado; espelhoexterno ausente, não recriado.
+
+---
+
 # Ordem011 — release publicada e verificada — 25/10/2026
 
 A — EXECUÇÃO PELO CODEX: PUB-PEND-01 CONCLUÍDA. Autorização direta no chat: push desta release na main de LucasTech-Dev/Catalogos e deploy no Pages catalogo-demo, sem alterar Firebase. Push normal f7be03bfa178e592b5c8cf0c08f1abed4dcede36, parent8927c27 preservado; Pages d370c31d-0f43-4a28-a38a-3762579da2b4/success às19:13:26 (America/Sao_Paulo), mesmo commit. Carrinho isolado/observações e área do cliente/pesquisa publicados. 56 verificações online aprovadas; 246 testes/23 arquivos e build local29,77s anteriores reutilizados, sem alteração de runtime. Firebase: nenhuma mudança de configuração, Rules, índices, IAM, usuários ou dados; login de contas sintéticas existentes somente para verificação, sem criar contas/pedidos ou gravar Firestore. [Relatório](ADAPTACAO_SERVERLESS/RELATORIO_PUBLICACAO_PENDENCIAS.md).

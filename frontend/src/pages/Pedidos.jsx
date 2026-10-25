@@ -1,6 +1,7 @@
+import MaterialIcon from "../components/ui/MaterialIcon";
 import {PageBoundary} from '../components/ui/PageLoader';
 import React,{useMemo,useState} from 'react';
-import {Search,X,Package,ArrowRight} from 'lucide-react';
+import {Search,X,Package,ArrowRight} from "../components/ui/MaterialIcon";
 import AtualizarPedidos from '../components/conta/AtualizarPedidos';
 import {useRecurso} from '../hooks/useRecurso';
 import {listarPedidos} from '../services/pedidosConta';
@@ -19,7 +20,7 @@ function Pedidos(){
  const limpar=()=>alterar({consulta:'',status:''});
  return <PageBoundary recursos={[recurso]}><main className="orders-page customer-page"><div className="orders-container customer-container">
   <header className="orders-top">
-   <a href="/perfil" className="back-link">← Minha conta</a>
+   <a href="/perfil" className="back-link"><MaterialIcon name="arrow_back"/> Minha conta</a>
    <span className="eyebrow">HISTÓRICO</span><h1>Meus pedidos</h1>
    <p>Acompanhe suas compras e consulte seus pedidos anteriores.</p>
   </header>

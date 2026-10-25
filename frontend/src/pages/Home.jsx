@@ -1,3 +1,5 @@
+import {CategoryIcon} from "../components/ui/MaterialIcon";
+import MaterialIcon from "../components/ui/MaterialIcon";
 import React from "react";
 import ImagemCatalogo from "../components/ui/ImagemCatalogo";
 
@@ -62,9 +64,9 @@ function Home() {
                 className="category-card"
                 key={categoria.id} onClick={() => window.location.assign("/cardapio")}
               >
-                <span className="category-icon">{categoria.icone}</span>
+                <span className="category-icon"><CategoryIcon categoria={categoria}/></span>
                 <span>{categoria.nome}</span>
-                <span className="category-arrow">→</span>
+                <span className="category-arrow"><MaterialIcon name="arrow_forward"/></span>
               </button>
             ))}
           </div>
@@ -81,7 +83,7 @@ function Home() {
             </div>
 
             <a href="/cardapio" className="section-link">
-              Ver cardápio completo →
+              Ver cardápio completo <MaterialIcon name="arrow_forward"/>
             </a>
           </div>
 
@@ -100,8 +102,8 @@ function Home() {
                   <div className="product-footer">
                     <strong>{moeda(produto.preco)}</strong>
 
-                    <button className="add-button" type="button" onClick={() => window.location.assign(`/produto?id=${encodeURIComponent(produto.id)}`)}>
-                      +
+                    <button className="add-button" type="button" aria-label={`Ver ${produto.nome}`} onClick={() => window.location.assign(`/produto?id=${encodeURIComponent(produto.id)}`)}>
+                      <MaterialIcon name="add"/>
                     </button>
                   </div>
                 </div>

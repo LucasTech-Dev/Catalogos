@@ -1,3 +1,4 @@
+import MaterialIcon from "./MaterialIcon";
 import React from "react";
 import ImagemCatalogo from "./ImagemCatalogo";
 
@@ -20,7 +21,7 @@ function ProductCard({ produto }) {
         <div className="product-footer">
           <strong>{moeda(produto.preco)}</strong>
 
-          <a className="add-button" aria-label={produto.ativo === true && produto.disponivel !== false ? `Ver ${produto.nome}` : `${produto.nome} indisponível`} href={`/produto?id=${encodeURIComponent(produto.id)}`}>{produto.ativo === true && produto.disponivel !== false ? "+" : "−"}</a>
+          <a className="add-button" aria-label={produto.ativo === true && produto.disponivel !== false ? `Ver ${produto.nome}` : `${produto.nome} indisponível`} href={`/produto?id=${encodeURIComponent(produto.id)}`}>{produto.ativo === true && produto.disponivel !== false ? <MaterialIcon name="add"/> : <MaterialIcon name="remove"/>}</a>
         </div>
       </div>
     </article>

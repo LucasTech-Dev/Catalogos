@@ -1,3 +1,4 @@
+import MaterialIcon from "../../components/ui/MaterialIcon";
 import {notificarAoNavegar} from '../../lib/notificacoes';
 import {FeedbackAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
@@ -28,7 +29,7 @@ function ProdutoForm() {
 
         <div className="admin-details-back">
           <a href="/admin/produtos">
-            ← Voltar para produtos
+            <MaterialIcon name="arrow_back"/> Voltar para produtos
           </a>
         </div>
 
@@ -218,7 +219,7 @@ function ProdutoForm() {
                       alt={produto.nome}
                     />
                   ) : (
-                    <span>🍔</span>
+                    <span><MaterialIcon name="lunch_dining"/></span>
                   )}
                 </div>
 

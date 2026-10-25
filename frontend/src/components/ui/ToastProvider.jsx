@@ -1,5 +1,5 @@
 import React,{createContext,useContext,useEffect,useLayoutEffect,useRef,useState} from 'react';
-import {CheckCircle2,AlertCircle,Info,TriangleAlert,X} from 'lucide-react';
+import {CheckCircle2,AlertCircle,Info,TriangleAlert,X} from "./MaterialIcon";
 import {DURACAO_TOAST,ouvirNotificacoes,consumirNotificacao,notificar,textoSeguro} from '../../lib/notificacoes';
 import './ToastProvider.css';
 const Context=createContext(null);

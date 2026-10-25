@@ -7,7 +7,7 @@ import {
   LogOut,
   Settings,
   Users,
-} from "lucide-react";
+} from "../ui/MaterialIcon";
 
 const navItems = [
   {

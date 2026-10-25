@@ -1,0 +1,131 @@
+{
+  "status": "APROVADO",
+  "checks": [
+    {
+      "id": "vazio-centralizado-1366",
+      "passed": true
+    },
+    {
+      "id": "botao-centralizado-1366",
+      "passed": true
+    },
+    {
+      "id": "cheio-preservado-1366",
+      "passed": true
+    },
+    {
+      "id": "ultimo-item-centraliza-1366",
+      "passed": true
+    },
+    {
+      "id": "vazio-centralizado-1024",
+      "passed": true
+    },
+    {
+      "id": "botao-centralizado-1024",
+      "passed": true
+    },
+    {
+      "id": "cheio-preservado-1024",
+      "passed": true
+    },
+    {
+      "id": "ultimo-item-centraliza-1024",
+      "passed": true
+    },
+    {
+      "id": "vazio-centralizado-390",
+      "passed": true
+    },
+    {
+      "id": "botao-centralizado-390",
+      "passed": true
+    },
+    {
+      "id": "cheio-preservado-390",
+      "passed": true
+    },
+    {
+      "id": "ultimo-item-centraliza-390",
+      "passed": true
+    },
+    {
+      "id": "vazio-centralizado-320",
+      "passed": true
+    },
+    {
+      "id": "botao-centralizado-320",
+      "passed": true
+    },
+    {
+      "id": "cheio-preservado-320",
+      "passed": true
+    },
+    {
+      "id": "ultimo-item-centraliza-320",
+      "passed": true
+    },
+    {
+      "id": "sem-excecoes-js",
+      "passed": true
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1366,
+      "left": 283,
+      "right": 283,
+      "cardWidth": 800,
+      "buttonCenter": 683,
+      "cardCenter": 683,
+      "overflow": false,
+      "header": "center"
+    },
+    {
+      "width": 1024,
+      "left": 112,
+      "right": 112,
+      "cardWidth": 800,
+      "buttonCenter": 512,
+      "cardCenter": 512,
+      "overflow": false,
+      "header": "center"
+    },
+    {
+      "width": 390,
+      "left": 20,
+      "right": 20,
+      "cardWidth": 350,
+      "buttonCenter": 195,
+      "cardCenter": 195,
+      "overflow": false,
+      "header": "center"
+    },
+    {
+      "width": 320,
+      "left": 20,
+      "right": 20,
+      "cardWidth": 280,
+      "buttonCenter": 160,
+      "cardCenter": 160,
+      "overflow": false,
+      "header": "center"
+    }
+  ],
+  "environment": "Chrome local, Carrinho real com contexto sintético em memória, rede externa bloqueada",
+  "date": "2026-10-25",
+  "build": {
+    "status": "APROVADO",
+    "mode": "homologacao",
+    "seconds": 16.56
+  },
+  "sources": {
+    "frontend/src/pages/Carrinho.jsx": "420be47a97ab42fae06268479141933ee67f5cacae3946f4b17e2698ace386f5",
+    "frontend/src/styles.css": "e73c8396c55b336ae434ef01be64193315502d3d0ad1ffd5e5130d80aaacb2d9"
+  },
+  "diagnostic": {
+    "path": "private-backups/carrinho-alinhamento/verificar.mjs",
+    "sha256": "a6ea45349423ea51af8298c54d3d60170f74634f34595e91c8cdb5f284b0e558",
+    "cleanup": "Script pontual próprio removido; não consumido por runtime/deploy/CI/npm. Recibo e capturas preservados."
+  }
+}

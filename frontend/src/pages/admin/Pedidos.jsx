@@ -1,3 +1,4 @@
+import MaterialIcon from "../../components/ui/MaterialIcon";
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useState } from "react";
 
@@ -104,7 +105,7 @@ function Pedidos() {
                   href={`/admin/pedido?id=${pedido.id}`}
                   className="admin-order-link"
                 >
-                  Ver →
+                  Ver <MaterialIcon name="arrow_forward"/>
                 </a>
 
               </article>
@@ -114,7 +115,7 @@ function Pedidos() {
 
           {pedidosFiltrados.length === 0 && (
             <div className="admin-orders-empty">
-              <span>📦</span>
+              <span><MaterialIcon name="inventory_2"/></span>
 
               <h2>Nenhum pedido encontrado</h2>
 

@@ -1,3 +1,4 @@
+import MaterialIcon from "../components/ui/MaterialIcon";
 import '../components/conta/areaCliente.css';
 import {notificar} from '../lib/notificacoes';
 import {FeedbackAcao,confirmarAcao} from '../components/ui/ToastProvider';
@@ -24,7 +25,7 @@ function Enderecos() {
 
           <div className="addresses-top">
             <a href="/perfil" className="back-link">
-              ← Minha conta
+              <MaterialIcon name="arrow_back"/> Minha conta
             </a>
           </div>
 
@@ -38,7 +39,7 @@ function Enderecos() {
             </div>
 
             <button className="button button-primary primary-button" onClick={() => setEdicao({})}>
-              + Adicionar endereço
+              <MaterialIcon name="add"/> Adicionar endereço
             </button>
           </div>
 
@@ -51,7 +52,7 @@ function Enderecos() {
 
                 <div className="address-card-header">
                   <div className="address-title">
-                    <span className="address-icon">⌖</span>
+                    <span className="address-icon"><MaterialIcon name="location_on"/></span>
 
                     <div>
                       <h2>{endereco.apelido}</h2>

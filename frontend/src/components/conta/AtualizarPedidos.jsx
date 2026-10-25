@@ -1,5 +1,5 @@
 import React,{useRef,useState} from 'react';
-import {RefreshCw} from 'lucide-react';
+import {RefreshCw} from "../ui/MaterialIcon";
 import {atualizarComFeedback} from '../../lib/notificacoes';
 export default function AtualizarPedidos({recurso,detalhe=false}){
  const [ocupado,setOcupado]=useState(false),trava=useRef(false);

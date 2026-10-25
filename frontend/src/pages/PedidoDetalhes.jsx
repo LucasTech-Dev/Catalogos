@@ -1,3 +1,4 @@
+import MaterialIcon from "../components/ui/MaterialIcon";
 import '../components/conta/areaCliente.css';
 import AtualizarPedidos from '../components/conta/AtualizarPedidos';
 import {statusPedido,dataPedido} from '../lib/pedidosApresentacao';
@@ -22,7 +23,7 @@ function PedidoDetalhes() {
         {/* CABEÇALHO */}
         <div className="order-details-top">
           <a href="/perfil/pedidos" className="back-link">
-            ← Meus pedidos
+            <MaterialIcon name="arrow_back"/> Meus pedidos
           </a>
 
           <div className="order-details-heading">
@@ -142,7 +143,7 @@ function PedidoDetalhes() {
 
             <div className="order-address">
               <strong>
-                📍 Endereço de entrega
+                <MaterialIcon name="location_on"/> Endereço de entrega
               </strong>
 
               <span>
@@ -178,7 +179,7 @@ function PedidoDetalhes() {
 
             <div className="order-payment">
               <span className="payment-icon">
-                💳
+                <MaterialIcon name="credit_card"/>
               </span>
 
               <div>

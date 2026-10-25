@@ -1,3 +1,4 @@
+import MaterialIcon from "../components/ui/MaterialIcon";
 import '../components/conta/areaCliente.css';
 import {notificarAoNavegar} from '../lib/notificacoes';
 import {FeedbackAcao} from '../components/ui/ToastProvider';
@@ -18,7 +19,7 @@ function Perfil() {
         {erro && <p role="alert">{erro}</p>}{carregando && <p>Carregando...</p>}{dados?.anonimo && <p>Você está usando uma sessão de convidado. <a href="/cadastro">Crie uma conta para preservar seu histórico.</a></p>}<section className="profile-header">
 
           <div className="profile-avatar">
-            👤
+            <MaterialIcon name="person"/>
           </div>
 
           <div>
@@ -27,7 +28,7 @@ function Perfil() {
             </span>
 
             <h1>
-              Olá, {dados?.nome || "visitante"} 👋
+              Olá, {dados?.nome || "visitante"}
             </h1>
 
             <p>
@@ -45,7 +46,7 @@ function Perfil() {
             className="profile-option"
           >
             <div className="profile-option-icon">
-              👤
+              <MaterialIcon name="person"/>
             </div>
 
             <div className="profile-option-content">
@@ -59,7 +60,7 @@ function Perfil() {
             </div>
 
             <span className="profile-option-arrow">
-              →
+              <MaterialIcon name="arrow_forward"/>
             </span>
           </a>
 
@@ -69,7 +70,7 @@ function Perfil() {
             className="profile-option"
           >
             <div className="profile-option-icon">
-              📦
+              <MaterialIcon name="inventory_2"/>
             </div>
 
             <div className="profile-option-content">
@@ -83,7 +84,7 @@ function Perfil() {
             </div>
 
             <span className="profile-option-arrow">
-              →
+              <MaterialIcon name="arrow_forward"/>
             </span>
           </a>
 
@@ -93,7 +94,7 @@ function Perfil() {
             className="profile-option"
           >
             <div className="profile-option-icon">
-              📍
+              <MaterialIcon name="location_on"/>
             </div>
 
             <div className="profile-option-content">
@@ -107,7 +108,7 @@ function Perfil() {
             </div>
 
             <span className="profile-option-arrow">
-              →
+              <MaterialIcon name="arrow_forward"/>
             </span>
           </a>
 

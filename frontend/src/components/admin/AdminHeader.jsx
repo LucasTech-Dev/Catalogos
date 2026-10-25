@@ -1,5 +1,5 @@
 import React from "react";
-import { LogOut, Menu, Settings, Store, X } from "lucide-react";
+import { LogOut, Menu, Settings, Store, X } from "../ui/MaterialIcon";
 
 import {useAdminSessao} from "./AdminGate";
 function AdminHeader({ onMenuClick, sidebarOpen }) {

@@ -1,3 +1,4 @@
+import MaterialIcon from "../../components/ui/MaterialIcon";
 import {notificar} from '../../lib/notificacoes';
 import {FeedbackAcao,confirmarAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
@@ -60,7 +61,7 @@ function Categorias() {
             className="admin-primary-button"
             onClick={abrirNovaCategoria}
           >
-            + Nova categoria
+            <MaterialIcon name="add"/> Nova categoria
           </button>
         </section>
 
@@ -73,7 +74,7 @@ function Categorias() {
                   key={categoria.id}
                 >
                   <div className="admin-category-icon">
-                    ☰
+                    <MaterialIcon name="menu"/>
                   </div>
 
                   <div className="admin-category-info">
@@ -122,7 +123,7 @@ function Categorias() {
             </div>
           ) : (
             <div className="admin-empty-state">
-              <div className="admin-empty-icon">☰</div>
+              <div className="admin-empty-icon"><MaterialIcon name="menu"/></div>
 
               <h2>Nenhuma categoria cadastrada</h2>
 
@@ -162,7 +163,7 @@ function Categorias() {
                 className="admin-modal-close"
                 onClick={()=>{fecharModal();notificar("info","Edição cancelada.");}}
               >
-                ×
+                <MaterialIcon name="close"/>
               </button>
             </div>
 

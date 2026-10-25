@@ -1,3 +1,4 @@
+import MaterialIcon from "../components/ui/MaterialIcon";
 import {notificarAoNavegar} from '../lib/notificacoes';
 import React, { useState } from "react";
 import ImagemCatalogo from "../components/ui/ImagemCatalogo";
@@ -65,7 +66,7 @@ function Produto() {
               <div className="ingredients-list">
                 {produto.ingredientes.map((ingrediente) => (
                   <span key={ingrediente}>
-                    ✓ {ingrediente}
+                    <MaterialIcon name="check"/> {ingrediente}
                   </span>
                 ))}
               </div>
@@ -73,31 +74,51 @@ function Produto() {
 
             <div className="product-divider" />
 
-            <label htmlFor="observacao-produto">Observações do produto</label>
-            <textarea id="observacao-produto" value={observacao} maxLength={1000} onChange={event=>setObservacao(event.target.value)} />
+            <div className="product-observation">
+              <div className="product-observation-heading">
+                <label htmlFor="observacao-produto">Observações do produto</label>
+                <span className="product-observation-optional">Opcional</span>
+              </div>
+              <p id="observacao-produto-ajuda" className="product-observation-help">
+                Quer ajustar algum detalhe? Conte pra gente.
+              </p>
+              <textarea
+                id="observacao-produto"
+                className="product-observation-input"
+                aria-describedby="observacao-produto-ajuda observacao-produto-limite"
+                placeholder="Ex.: sem cebola, molho à parte…"
+                rows={4}
+                value={observacao}
+                maxLength={1000}
+                onChange={event => setObservacao(event.target.value)}
+              />
+              <span id="observacao-produto-limite" className="product-observation-count">
+                {observacao.length} / 1000 caracteres
+              </span>
+            </div>
             <div className="product-purchase">
 
               <div className="quantity-control">
                 <button
-                  type="button"
+                  type="button" aria-label="Diminuir quantidade"
                   onClick={() =>
                     setQuantidade(
                       Math.max(1, quantidade - 1)
                     )
                   }
                 >
-                  −
+                  <MaterialIcon name="remove"/>
                 </button>
 
                 <strong>{quantidade}</strong>
 
                 <button
-                  type="button"
+                  type="button" aria-label="Aumentar quantidade"
                   onClick={() =>
                     setQuantidade(Math.min(99,quantidade + 1))
                   }
                 >
-                  +
+                  <MaterialIcon name="add"/>
                 </button>
               </div>
 

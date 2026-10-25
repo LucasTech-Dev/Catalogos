@@ -1,0 +1,62 @@
+{
+  "status": "APROVADO",
+  "environment": "Chrome local, Produto real, contexto sintético em memória, rede externa bloqueada",
+  "checks": [
+    {
+      "id": "layout-1366",
+      "passed": true
+    },
+    {
+      "id": "layout-768",
+      "passed": true
+    },
+    {
+      "id": "layout-390",
+      "passed": true
+    },
+    {
+      "id": "layout-320",
+      "passed": true
+    },
+    {
+      "id": "contador",
+      "passed": true
+    },
+    {
+      "id": "label-ajuda-limite",
+      "passed": true
+    },
+    {
+      "id": "foco-visivel",
+      "passed": true
+    },
+    {
+      "id": "observacao-carrinho-preservada",
+      "passed": true
+    },
+    {
+      "id": "sem-erros-js",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "produto-1366.png",
+    "produto-390.png"
+  ],
+  "date": "2026-10-25",
+  "build": {
+    "mode": "homologacao",
+    "status": "APROVADO",
+    "seconds": 14.22,
+    "outDir": "private-backups/observacoes-build"
+  },
+  "sources": {
+    "frontend/src/pages/Produto.jsx": "3e892a4cb373645f46e7b5cc3811e7aa64ffa8d0658e080d8fec316cb7f39f47",
+    "frontend/src/styles.css": "ff9b87ae293fe1f6215c4331a83679bad937f6aa673fa81ad8da33c71cf3e79b"
+  },
+  "diagnostic": {
+    "script": "private-backups/observacoes-visual/verificar.mjs",
+    "sha256": "36c89462e45db97ba09426786bf84151bd6e3bf82c625df0b19fd70274f2f32e",
+    "cleanup": "Ensaio pontual próprio removido após validação; não usado por npm, CI, runtime ou deploy. Recibo/capturas/build final preservados."
+  }
+}

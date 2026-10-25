@@ -1,3 +1,4 @@
+import MaterialIcon from "../components/ui/MaterialIcon";
 import BotaoGoogle from '../components/ui/BotaoGoogle';
 import {FeedbackAcao} from '../components/ui/ToastProvider';
 import {notificarAoNavegar} from '../lib/notificacoes';
@@ -22,7 +23,7 @@ function Cadastro() {
 
           <div className="account-header">
             <div className="account-logo">
-              🍔
+              <MaterialIcon name="lunch_dining"/>
             </div>
 
             <span className="eyebrow">
@@ -140,7 +141,7 @@ function Cadastro() {
 
           <div className="account-guest">
             <a href="/cardapio">
-              Continuar sem criar conta →
+              Continuar sem criar conta <MaterialIcon name="arrow_forward"/>
             </a>
           </div>
 

@@ -1,3 +1,4 @@
+import MaterialIcon from "../../components/ui/MaterialIcon";
 import {FeedbackAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useMemo, useState } from "react";
@@ -126,7 +127,7 @@ function Clientes() {
             </div>
           ) : (
             <div className="admin-empty-state">
-              <div className="admin-empty-icon">👤</div>
+              <div className="admin-empty-icon"><MaterialIcon name="person"/></div>
 
               <h2>Nenhum cliente encontrado</h2>
 

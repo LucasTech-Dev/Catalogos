@@ -1,3 +1,4 @@
+import MaterialIcon from "../components/ui/MaterialIcon";
 import BotaoGoogle from '../components/ui/BotaoGoogle';
 import {FeedbackAcao} from '../components/ui/ToastProvider';
 import {notificarAoNavegar} from '../lib/notificacoes';
@@ -28,7 +29,7 @@ function Login() {
 
           <div className="login-header">
             <div className="login-logo">
-              🍔
+              <MaterialIcon name="lunch_dining"/>
             </div>
 
             <span className="eyebrow">BEM-VINDO DE VOLTA</span>
@@ -103,7 +104,7 @@ function Login() {
             <span>Você também pode comprar sem criar uma conta.</span>
 
             <a href="/cardapio">
-              Continuar sem login →
+              Continuar sem login <MaterialIcon name="arrow_forward"/>
             </a>
           </div>
 
