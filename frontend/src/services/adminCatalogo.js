@@ -45,6 +45,8 @@ export function criarAdminCatalogo({db,auth,sessaoExistente,lojaId,invalidar=()=
  }
  async function buscarInterno(base,tipo,identificador){const s=await getDocFromServer(doc(base,tipo,id(identificador)));if(!s.exists())throw falha('Registro não encontrado.',404);return projetar(tipo,s);}
  return {
+  // Valida autoridade atual no servidor sem buscar os dados da loja só para o gate.
+  autorizar:()=>executar(({uid})=>({uid})),
   sessao:()=>executar(async({uid,base})=>{const l=await getDocFromServer(base);if(!l.exists())throw falha('Loja não encontrada.',404);return {uid,email:auth.currentUser.email || '',role:'admin',lojaId,loja:{id:lojaId,nome:l.data().nome || ''}};}),
   buscar:(tipo,identificador)=>executar(({base})=>buscarInterno(base,tipoValido(tipo),identificador)),
   listar:(tipo,opcoes={})=>executar(async({base,conferir})=>{

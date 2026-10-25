@@ -1,0 +1,268 @@
+{
+  "fase": "antes",
+  "started": "2026-10-25T13:19:46.761Z",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "method": "Chrome headless desktop1440x1000; HTTP cache desativado; rede/CPU sem throttling; mesma conta cliente de teste existente; 3 navegações por tela; pronto=DOM com dados; latência inclui HTML/JS/Auth/Firestore; não é tempo isolado de GET",
+  "samples": [
+    {
+      "tela": "home",
+      "rodada": 1,
+      "dadosProntosMs": 3872,
+      "ttfbMs": 36,
+      "documentoMs": 44,
+      "fcpMs": 416
+    },
+    {
+      "tela": "catalogo",
+      "rodada": 1,
+      "dadosProntosMs": 3778,
+      "ttfbMs": 81,
+      "documentoMs": 94,
+      "fcpMs": 492
+    },
+    {
+      "tela": "produto",
+      "rodada": 1,
+      "dadosProntosMs": 3735,
+      "ttfbMs": 71,
+      "documentoMs": 134,
+      "fcpMs": 908
+    },
+    {
+      "tela": "pedidos-cliente",
+      "rodada": 1,
+      "dadosProntosMs": 1716,
+      "ttfbMs": 54,
+      "documentoMs": 88,
+      "fcpMs": 780
+    },
+    {
+      "tela": "painel-bloqueio-cliente",
+      "rodada": 1,
+      "dadosProntosMs": 1478,
+      "ttfbMs": 43,
+      "documentoMs": 54,
+      "fcpMs": 412
+    },
+    {
+      "tela": "produtos-admin-bloqueio-cliente",
+      "rodada": 1,
+      "dadosProntosMs": 1559,
+      "ttfbMs": 92,
+      "documentoMs": 116,
+      "fcpMs": 596
+    },
+    {
+      "tela": "pedidos-admin-bloqueio-cliente",
+      "rodada": 1,
+      "dadosProntosMs": 1668,
+      "ttfbMs": 42,
+      "documentoMs": 61,
+      "fcpMs": 588
+    },
+    {
+      "tela": "home",
+      "rodada": 2,
+      "dadosProntosMs": 3296,
+      "ttfbMs": 43,
+      "documentoMs": 67,
+      "fcpMs": 540
+    },
+    {
+      "tela": "catalogo",
+      "rodada": 2,
+      "dadosProntosMs": 5033,
+      "ttfbMs": 49,
+      "documentoMs": 138,
+      "fcpMs": 820
+    },
+    {
+      "tela": "produto",
+      "rodada": 2,
+      "dadosProntosMs": 3521,
+      "ttfbMs": 37,
+      "documentoMs": 73,
+      "fcpMs": 652
+    },
+    {
+      "tela": "pedidos-cliente",
+      "rodada": 2,
+      "dadosProntosMs": 1732,
+      "ttfbMs": 48,
+      "documentoMs": 88,
+      "fcpMs": 572
+    },
+    {
+      "tela": "painel-bloqueio-cliente",
+      "rodada": 2,
+      "dadosProntosMs": 1569,
+      "ttfbMs": 44,
+      "documentoMs": 53,
+      "fcpMs": 484
+    },
+    {
+      "tela": "produtos-admin-bloqueio-cliente",
+      "rodada": 2,
+      "dadosProntosMs": 2282,
+      "ttfbMs": 61,
+      "documentoMs": 75,
+      "fcpMs": 556
+    },
+    {
+      "tela": "pedidos-admin-bloqueio-cliente",
+      "rodada": 2,
+      "dadosProntosMs": 1729,
+      "ttfbMs": 67,
+      "documentoMs": 99,
+      "fcpMs": 860
+    },
+    {
+      "tela": "home",
+      "rodada": 3,
+      "dadosProntosMs": 3498,
+      "ttfbMs": 45,
+      "documentoMs": 79,
+      "fcpMs": 668
+    },
+    {
+      "tela": "catalogo",
+      "rodada": 3,
+      "dadosProntosMs": 3082,
+      "ttfbMs": 63,
+      "documentoMs": 75,
+      "fcpMs": 480
+    },
+    {
+      "tela": "produto",
+      "rodada": 3,
+      "dadosProntosMs": 4726,
+      "ttfbMs": 42,
+      "documentoMs": 118,
+      "fcpMs": 632
+    },
+    {
+      "tela": "pedidos-cliente",
+      "rodada": 3,
+      "dadosProntosMs": 1718,
+      "ttfbMs": 43,
+      "documentoMs": 82,
+      "fcpMs": 696
+    },
+    {
+      "tela": "painel-bloqueio-cliente",
+      "rodada": 3,
+      "dadosProntosMs": 1498,
+      "ttfbMs": 37,
+      "documentoMs": 62,
+      "fcpMs": 576
+    },
+    {
+      "tela": "produtos-admin-bloqueio-cliente",
+      "rodada": 3,
+      "dadosProntosMs": 1424,
+      "ttfbMs": 38,
+      "documentoMs": 47,
+      "fcpMs": 628
+    },
+    {
+      "tela": "pedidos-admin-bloqueio-cliente",
+      "rodada": 3,
+      "dadosProntosMs": 1959,
+      "ttfbMs": 89,
+      "documentoMs": 106,
+      "fcpMs": 1032
+    }
+  ],
+  "checks": [
+    "Login em conta cliente de homologação existente; sem cadastro novo",
+    "Nove produtos/preços renderizados; Classic Burger28,90; dois pedidos existentes íntegros; painel/produtos/pedidos administrativos negados a cliente",
+    "Detalhe de pedido de entrega33,90 preservado",
+    "ClienteB não acessa pedido de ClienteA; sem dados do titular expostos",
+    "Zero tentativas de escrita Firestore; zero exceções JS; sem Render"
+  ],
+  "writesAttempted": 0,
+  "newAccounts": 0,
+  "newOrders": 0,
+  "adminLimit": "Sem sessão administrativa ativa disponível: mede bloqueio a cliente, não consultas internas do painel.",
+  "entryAsset": "/assets/index-BUigF6rR.js",
+  "catalogoHash": "13cfa7311621ec2801427c06711106ee01eee8f3ce01df92ab274b9d9836e615",
+  "produtos": [
+    {
+      "nome": "Bacon Burger",
+      "preco": "R$ 32,90"
+    },
+    {
+      "nome": "Bacon Supreme",
+      "preco": "R$ 32,90"
+    },
+    {
+      "nome": "Batata da Casa",
+      "preco": "R$ 18,90"
+    },
+    {
+      "nome": "Batata Frita",
+      "preco": "R$ 12,90"
+    },
+    {
+      "nome": "Chicken Crispy",
+      "preco": "R$ 29,90"
+    },
+    {
+      "nome": "Classic Burger",
+      "preco": "R$ 28,90"
+    },
+    {
+      "nome": "Coca-Cola Lata",
+      "preco": "R$ 6,00"
+    },
+    {
+      "nome": "Onion Rings",
+      "preco": "R$ 21,90"
+    },
+    {
+      "nome": "Refrigerante",
+      "preco": "R$ 7,00"
+    }
+  ],
+  "pedidosHash": "6b20a7aec02ec74480f16bc58e89a8cf90701810aa050c76143b3e3bb56be9ce",
+  "pedidosCount": 2,
+  "summary": [
+    {
+      "tela": "home",
+      "medianaMs": 3498,
+      "amostras": 3
+    },
+    {
+      "tela": "catalogo",
+      "medianaMs": 3778,
+      "amostras": 3
+    },
+    {
+      "tela": "produto",
+      "medianaMs": 3735,
+      "amostras": 3
+    },
+    {
+      "tela": "pedidos-cliente",
+      "medianaMs": 1718,
+      "amostras": 3
+    },
+    {
+      "tela": "painel-bloqueio-cliente",
+      "medianaMs": 1498,
+      "amostras": 3
+    },
+    {
+      "tela": "produtos-admin-bloqueio-cliente",
+      "medianaMs": 1559,
+      "amostras": 3
+    },
+    {
+      "tela": "pedidos-admin-bloqueio-cliente",
+      "medianaMs": 1729,
+      "amostras": 3
+    }
+  ],
+  "status": "APROVADO",
+  "finished": "2026-10-25T13:20:56.884Z"
+}

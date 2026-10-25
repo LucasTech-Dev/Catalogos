@@ -11,7 +11,7 @@ export function criarAdminPedidos(contexto){
  async function executar(fn){
   let uid;
   const conferir=()=>{if(!uid || auth.currentUser?.uid!==uid)throw erro('A sessão mudou. Entre novamente.',409,'SESSION_CHANGED');};
-  try{uid=(await gate.sessao()).uid;conferir();const r=await fn({uid,conferir,base:doc(db,'lojas',id(lojaId))});conferir();return r;}
+  try{uid=(await gate.autorizar()).uid;conferir();const r=await fn({uid,conferir,base:doc(db,'lojas',id(lojaId))});conferir();return r;}
   catch(e){if(e.code==='permission-denied'){invalidar();throw erro('Acesso negado. Atualize o pedido e confira sua sessão.',403);}if(e.status)throw e;throw erro('Não foi possível confirmar a operação. Atualize o pedido antes de tentar novamente.',503,'ADMIN_PEDIDO_INCERTO');}
  }
  function projetar(s){const d=s.data();if(d.lojaId!==lojaId)throw erro('Acesso negado.',403);return {...projetarPedido(d,s.id),revisaoAdministrativa:d.revisaoAdministrativa ?? 0,transicoesStatus:TRANSICOES_STATUS[d.status] || [],transicoesPagamento:d.status==='cancelado'?[]:TRANSICOES_PAGAMENTO[d.pagamento?.status] || [],registroPagamento:d.pagamento?.registroManual?{origem:d.pagamento.registroManual.origem}:null};}

@@ -1,3 +1,9 @@
+# Otimizações de leitura — publicação autorizada — 25/10/2026
+
+PERF-PUB-01: diff de produção limitado aos quatro módulos de leitura; testes/build final e baseline de desempenho no [relatório técnico](ADAPTACAO_SERVERLESS/RELATORIO_OTIMIZACAO_LEITURAS.md). Commit/push normal/main e publicação autorizados nesta sessão; acompanhamento Pages e comparação online após publicação. Firebase/Rules/índices/Auth/IAM/dados comerciais preservados. Admin online medido somente no bloqueio do cliente; conta privilegiada de teste continua desativada. Sem nova funcionalidade ou etapa; resultado final será registrado após validação.
+
+---
+
 # Catálogo JS — publicação Pages autorizada
 
 Versão funcional em frontend/, sobre a main existente e sem hospedar backend/Render. Estado da release, build e validação no [registro da release](ADAPTACAO_SERVERLESS/RELEASE_JS_PAGES.md). Documentação histórica abaixo preservada; não usar procedimentos antigos de infraestrutura para este frontend.

@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-25T13:21:33.466Z",
+  "root": "frontend",
+  "mode": "homologacao",
+  "write": false,
+  "configPublicKeys": [
+    "VITE_APP_ENV",
+    "VITE_CATALOGOS_RUNTIME_MODE",
+    "VITE_LOJA_ID",
+    "VITE_FIREBASE_PROJECT_ID",
+    "VITE_FIREBASE_API_KEY",
+    "VITE_FIREBASE_APP_ID",
+    "VITE_FIREBASE_AUTH_DOMAIN",
+    "VITE_FIREBASE_EXPECTED_PROJECT_ID",
+    "VITE_FIREBASE_HOMOLOG_PROJECT_ID",
+    "VITE_FIREBASE_EXISTING_DEMO_PROJECT_ID"
+  ],
+  "hashes": {
+    "assets/index-D5xQKw6F.js": "29685ab6e4249dce64def91506cf837c1d2d7fac22c29f152abdf7373a26d3a7",
+    "assets/DemoFixtures-eeGglleV.js": "b541762ba1f694fb0853d318a3fe43c90042db23cf21e9babcee35fc5432184f",
+    "assets/DemoPublica-ByRHLc_n.js": "169d9c158c25a84d866a6e923fa66bb7e047d6aab5a264e70c1cb5bdd41c9986",
+    "assets/App-BJuXb3Ih.js": "6f38c7719459fcbae06330f9517239c4e34858a507aa224889a0b4610258f450",
+    "assets/ambienteAplicacao-D8irifq9.js": "d312109d1594e7cded1d40690cab0bda4efe79f0e0bc55e159484ea21738d89d",
+    "assets/index-Ccuw53bS.css": "f3c02cb312b99cf5ae07626ad0e4017f293bfffcb239553fa7cf947936ff5277",
+    "assets/DemoFixtures-BjFhf-tf.css": "2b1a28b2ac0bad8fcd37074aee415dca3401bbbd8da52f1e644fa2faa72903b1",
+    "index.html": "edf0cdc95ee1d5770009c35dec7f83818895ef2e45663691a4aa774f67523a83"
+  },
+  "firebaseChanges": false
+}
