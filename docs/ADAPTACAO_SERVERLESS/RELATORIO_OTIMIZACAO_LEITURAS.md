@@ -1,3 +1,9 @@
+# Publicado na ordem geral — 25/10/2026
+
+Loading/performance efetivamente publicados no código4f3c01fb47e71683521405a174917ca893562552, Pages3afef9fe-e047-4f18-ba4c-12b7ed2a5fbf/success. Resultado e limites no [relatório da publicação geral](RELATORIO_PUBLICACAO_GERAL.md). Os estados de publicação pendente/bloqueada abaixo são históricos, superados somente por esta autorização/execução. Firebase real preservado; fotos/ressalvas comerciais mantidas.
+
+---
+
 # Resultado da publicação de performance — INTERROMPIDA NO DEPLOY — 25/10/2026
 
 **Commit/push concluídos; otimizações ainda não publicadas no site.** Commit `e6677c786c396e7eba3559121863c3ebae672d7d`, [GitHub/main](https://github.com/LucasTech-Dev/Catalogos/commit/e6677c786c396e7eba3559121863c3ebae672d7d), pai `fac54aabb70a6e9317114a06de37d3e87606a7d5`. Fast-forward pela conexão GitHub, `force=false`, precondição de head conferida; história integral preservada. Árvore `b92069c5b4e875d874683b4a017f33d065b6bad6`. Onze arquivos: quatro módulos de leitura, dois testes/roteiros em quality e cinco documentos/recibos. Sem backend, Firebase, configuração ou dependências alteradas.

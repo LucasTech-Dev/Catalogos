@@ -1,3 +1,12 @@
+# SITE ATUALIZADO — publicação geral — 25/10/2026
+
+A — EXECUÇÃO PELO CODEX: PUB-GERAL-01. Código4f3c01fb47e71683521405a174917ca893562552/main, push normal com histórico, Pages3afef9fe-e047-4f18-ba4c-12b7ed2a5fbf/success. Loading global, performanceGET e imagens/fallback integrados;175 testes/build e24 checks online aprovados. Home2637ms/cardápio2742ms/produto3217ms/pedidos1992ms, medianas3amostras; ganhos observados nas três primeiras telas, sem ganho em pedidos/bloqueioadmin. Método, variações e limite de comparação binária no [relatório](ADAPTACAO_SERVERLESS/RELATORIO_PUBLICACAO_GERAL.md). Deploy manual já autorizado contornou ausência de disparo automático. Firebase real/configurações protegidas preservados, zero contas/pedidos novos/escritasFireStore.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: autorização atendida, sem nova intervenção. Próxima ação: usar/revisar a demo publicada; não abrir etapa por associação. Quatro fotos e ressalvas comerciais preservadas; admin positivo real não retestado por conta sintética desativada. Finalização documental em commitSkip sem alteração de runtime. Sem limpeza pendente; espelho externo ausente. Histórico abaixo preservado.
+
+
+---
+
 # Publicação geral autorizada — 25/10/2026
 
 PUB-GERAL-01 integra loading, performance e imagens da cópiaJS sob autorização expressa de commit/push/deploy e acionamentoPages manual se necessário. Escopo/testes/build/arquivos e resultado no [relatório](ADAPTACAO_SERVERLESS/RELATORIO_PUBLICACAO_GERAL.md). Configuração pública homologada preservada; nenhum Firebase real ou dado comercial alterado. Resultado online será registrado após publicar; não presumir sucesso antecipadamente. Histórico abaixo preservado.

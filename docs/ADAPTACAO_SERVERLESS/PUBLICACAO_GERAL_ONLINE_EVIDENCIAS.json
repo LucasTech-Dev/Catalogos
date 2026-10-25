@@ -1,0 +1,137 @@
+{
+  "started": "2026-10-25T14:31:45.398Z",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "checks": [
+    {
+      "id": "loader-com-dados-pendentes",
+      "passed": true,
+      "at": "2026-10-25T14:31:50.161Z"
+    },
+    {
+      "id": "home-dados-reais",
+      "passed": true,
+      "at": "2026-10-25T14:31:52.541Z"
+    },
+    {
+      "id": "loader-removido-apos-dados",
+      "passed": true,
+      "at": "2026-10-25T14:31:55.375Z"
+    },
+    {
+      "id": "categorias-produtos",
+      "passed": true,
+      "at": "2026-10-25T14:31:55.390Z",
+      "products": 9
+    },
+    {
+      "id": "mobile-sem-transbordamento",
+      "passed": true,
+      "at": "2026-10-25T14:31:55.554Z"
+    },
+    {
+      "id": "imagens-fallback-preservados",
+      "passed": true,
+      "at": "2026-10-25T14:31:55.569Z"
+    },
+    {
+      "id": "rota-login-direta",
+      "passed": true,
+      "at": "2026-10-25T14:31:55.917Z"
+    },
+    {
+      "id": "rota-cadastro-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T14:31:56.177Z"
+    },
+    {
+      "id": "login-cliente-existente",
+      "passed": true,
+      "at": "2026-10-25T14:31:59.591Z"
+    },
+    {
+      "id": "produto-preco-real",
+      "passed": true,
+      "at": "2026-10-25T14:32:01.675Z"
+    },
+    {
+      "id": "carrinho-persiste",
+      "passed": true,
+      "at": "2026-10-25T14:32:05.522Z"
+    },
+    {
+      "id": "checkout-entrega-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T14:32:07.525Z"
+    },
+    {
+      "id": "checkout-retirada-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T14:32:07.549Z"
+    },
+    {
+      "id": "historico-pedidos-existentes",
+      "passed": true,
+      "at": "2026-10-25T14:32:09.306Z",
+      "orders": 2
+    },
+    {
+      "id": "detalhe-acompanhamento-existente",
+      "passed": true,
+      "at": "2026-10-25T14:32:11.243Z"
+    },
+    {
+      "id": "admin-restrito-cliente",
+      "passed": true,
+      "at": "2026-10-25T14:32:13.246Z"
+    },
+    {
+      "id": "dados-pessoais-sem-editar",
+      "passed": true,
+      "at": "2026-10-25T14:32:14.596Z"
+    },
+    {
+      "id": "enderecos-sem-editar",
+      "passed": true,
+      "at": "2026-10-25T14:32:17.064Z"
+    },
+    {
+      "id": "checkout-mobile-sem-transbordamento",
+      "passed": true,
+      "at": "2026-10-25T14:32:19.934Z"
+    },
+    {
+      "id": "produto-ausente-sem-loader-infinito",
+      "passed": true,
+      "at": "2026-10-25T14:32:22.753Z"
+    },
+    {
+      "id": "sem-paginas-provisorias",
+      "passed": true,
+      "at": "2026-10-25T14:32:22.757Z"
+    },
+    {
+      "id": "sdk-firebase-sem-render",
+      "passed": true,
+      "at": "2026-10-25T14:32:22.758Z"
+    },
+    {
+      "id": "sem-gravacao-firestore",
+      "passed": true,
+      "at": "2026-10-25T14:32:22.758Z"
+    },
+    {
+      "id": "sem-excecao-js",
+      "passed": true,
+      "at": "2026-10-25T14:32:22.761Z"
+    }
+  ],
+  "newOrders": 0,
+  "newRegisteredAccounts": 0,
+  "necessaryAnonymousSessions": 0,
+  "legacyRequest": false,
+  "firestoreRequest": true,
+  "firestoreWriteAttempt": false,
+  "entryAsset": "/assets/index-Darx4mFw.js",
+  "status": "APROVADO",
+  "finished": "2026-10-25T14:32:22.762Z"
+}

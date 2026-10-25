@@ -1,3 +1,9 @@
+# Publicado na ordem geral — 25/10/2026
+
+Loading/performance efetivamente publicados no código4f3c01fb47e71683521405a174917ca893562552, Pages3afef9fe-e047-4f18-ba4c-12b7ed2a5fbf/success. Resultado e limites no [relatório da publicação geral](RELATORIO_PUBLICACAO_GERAL.md). Os estados de publicação pendente/bloqueada abaixo são históricos, superados somente por esta autorização/execução. Firebase real preservado; fotos/ressalvas comerciais mantidas.
+
+---
+
 # Carregamento global por rota — 25/10/2026
 
 **CONCLUÍDO LOCALMENTE.** Pedido do anexo “IMPLEMENTAÇÃO — SISTEMA GLOBAL DE CARREGAMENTO DO CATÁLOGO JS”. Implementação e validação locais, sem stage/commit/push/deploy ou alterações no Firebase real. Nenhum plano concorrente, nova rota ou MVP. A autorização de publicação da tarefa anterior não se aplica a esta, que proíbe publicação automática expressamente.

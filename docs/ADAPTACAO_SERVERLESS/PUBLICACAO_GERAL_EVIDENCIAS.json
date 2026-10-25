@@ -1,0 +1,82 @@
+{
+  "at": "2026-10-25T14:41:39.575Z",
+  "status": "SITE_ATUALIZADO",
+  "repository": "LucasTech-Dev/Catalogos",
+  "branch": "main",
+  "codeCommit": "4f3c01fb47e71683521405a174917ca893562552",
+  "parent": "e6677c786c396e7eba3559121863c3ebae672d7d",
+  "push": "normal origin/main confirmado pelo Git e conexão GitHub",
+  "deployment": {
+    "id": "3afef9fe-e047-4f18-ba4c-12b7ed2a5fbf",
+    "status": "success",
+    "environment": "production",
+    "branch": "main",
+    "commitDirty": false,
+    "trigger": "ad_hoc após ausência de disparo automático",
+    "finished": "2026-10-25T14:31:00.217955Z"
+  },
+  "url": "https://catalogo-demo-cz1.pages.dev/",
+  "entryAsset": "/assets/index-Darx4mFw.js",
+  "remoteHtmlSha256": "97e21020ae1d02301c6c89f26351e61ab3c6d8d0117dc4fd2f4ac66a775cde5c",
+  "receivedAssets": [
+    {
+      "path": "assets/ambienteAplicacao-CNcvCdJF.js",
+      "sha256": "3af88ee7581d1598ef28effcb50c1eed2a12e4e00b7ad8b93f85c9cf615b3c00",
+      "type": "application/javascript"
+    },
+    {
+      "path": "assets/DemoFixtures-5cCz9iO4.js",
+      "sha256": "639ee65114cb79015f16fae47c2f63c7231b74fbd82b39ab55e045dc23e726f9",
+      "type": "application/javascript"
+    },
+    {
+      "path": "assets/index-Darx4mFw.js",
+      "sha256": "eef6b5bda8a0c65ca030a50a3a66f015f02bc04604d3b4c910aa1deeff6f14ec",
+      "type": "application/javascript"
+    },
+    {
+      "path": "assets/DemoPublica-Co7UpKBy.js",
+      "sha256": "b448e0353774fe1ec1148c143259b0b00e67d5525ffca75ccf9a4a5e5bd9bd5e",
+      "type": "application/javascript"
+    },
+    {
+      "path": "assets/App-DOqftL64.js",
+      "sha256": "c40a5ce17eef1bdd42bfb935c2c73ea1c4d4432ed8f5377b94219d95e03cf948",
+      "type": "application/javascript"
+    },
+    {
+      "path": "assets/index-Dq28_Ntu.css",
+      "sha256": "e0128aac14c189c0106d94519c4efacf7dd56c1cda9ff8ae795d322372d70624",
+      "type": "text/css"
+    }
+  ],
+  "tests": {
+    "unitPassed": 175,
+    "files": 19,
+    "onlineChecksPassed": 24,
+    "measuredRoutes": 7,
+    "samplesEach": 3,
+    "newOrders": 0,
+    "newAccounts": 0,
+    "anonymousAccountsCreated": 0,
+    "firestoreWriteAttempts": 0,
+    "jsExceptions": 0
+  },
+  "binaryComparison": {
+    "byteIdenticalToLocalBuild": false,
+    "cssMatches": true,
+    "publicConfigurationValuesMatch": true,
+    "normalizedEntrypointAndUtilityChunksMatch": true,
+    "firebaseAppChunkDiffers": true,
+    "isolatedNpmCiReproducesLocalBuild": true,
+    "limit": "Identidade da versão comprovada pelo clone/build/deploy de4f3c01f, canônico e testes dos novos recursos; não por igualdade binária integral entre ambientes. Causa completa da diferença no chunk SDK não estabelecida; nenhuma dependência alterada para forçar igualdade."
+  },
+  "firebaseConfigurationChanges": false,
+  "firestoreCommercialDocumentChanges": false,
+  "cleanup": {
+    "originalWorkPreserved": true,
+    "backupAndCredentialsIgnored": true,
+    "isolatedReproTemporaryRemoved": true,
+    "rollbackDistPreserved": true
+  }
+}
