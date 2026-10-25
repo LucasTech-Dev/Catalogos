@@ -32,5 +32,13 @@
     "firebaseChanged": false,
     "cleanupPending": false
   },
-  "providerSessionOnly": true
+  "providerSessionOnly": true,
+  "documentationCommit": "6ca2588",
+  "documentationPush": "rejected_by_auto_review_requires_specific_authorization",
+  "documentationPushResolution": {
+    "status": "PUBLISHED",
+    "commit": "6ca2588",
+    "authorizedBy": "Pedido posteriorMATERIAL-01: publicar todas as atualizações",
+    "includedInPush": "7ac6a05"
+  }
 }

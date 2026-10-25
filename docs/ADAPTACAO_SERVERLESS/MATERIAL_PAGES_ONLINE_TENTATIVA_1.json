@@ -1,0 +1,436 @@
+{
+  "started": "2026-10-25T22:36:52.965Z",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "checks": [
+    {
+      "id": "loader-com-dados-pendentes",
+      "passed": true,
+      "at": "2026-10-25T22:36:56.879Z"
+    },
+    {
+      "id": "icones-google-material",
+      "passed": true,
+      "at": "2026-10-25T22:36:59.317Z"
+    },
+    {
+      "id": "home-dados-reais",
+      "passed": true,
+      "at": "2026-10-25T22:36:59.320Z"
+    },
+    {
+      "id": "get-inicial-sem-toast",
+      "passed": true,
+      "at": "2026-10-25T22:36:59.326Z"
+    },
+    {
+      "id": "loader-removido-apos-dados",
+      "passed": true,
+      "at": "2026-10-25T22:37:01.268Z"
+    },
+    {
+      "id": "categorias-produtos",
+      "passed": true,
+      "at": "2026-10-25T22:37:01.274Z",
+      "products": 9
+    },
+    {
+      "id": "mobile-sem-transbordamento",
+      "passed": true,
+      "at": "2026-10-25T22:37:01.341Z"
+    },
+    {
+      "id": "imagens-fallback-preservados",
+      "passed": true,
+      "at": "2026-10-25T22:37:01.356Z"
+    },
+    {
+      "id": "rota-login-direta",
+      "passed": true,
+      "at": "2026-10-25T22:37:01.729Z"
+    },
+    {
+      "id": "google-disponivel",
+      "passed": true,
+      "at": "2026-10-25T22:37:01.740Z"
+    },
+    {
+      "id": "olho-login-mostra",
+      "passed": true,
+      "at": "2026-10-25T22:37:01.769Z"
+    },
+    {
+      "id": "olho-login-oculta",
+      "passed": true,
+      "at": "2026-10-25T22:37:01.781Z"
+    },
+    {
+      "id": "login-mobile-sem-overflow",
+      "passed": true,
+      "at": "2026-10-25T22:37:01.852Z"
+    },
+    {
+      "id": "rota-cadastro-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T22:37:02.241Z"
+    },
+    {
+      "id": "google-no-cadastro",
+      "passed": true,
+      "at": "2026-10-25T22:37:02.246Z"
+    },
+    {
+      "id": "cadastro-dois-olhos-telefone-opcional",
+      "passed": true,
+      "at": "2026-10-25T22:37:02.248Z"
+    },
+    {
+      "id": "cadastro-mobile-sem-overflow",
+      "passed": true,
+      "at": "2026-10-25T22:37:02.318Z"
+    },
+    {
+      "id": "validacao-obrigatorios-sem-cadastro",
+      "passed": true,
+      "at": "2026-10-25T22:37:02.368Z"
+    },
+    {
+      "id": "toast-fecha-por-x",
+      "passed": true,
+      "at": "2026-10-25T22:37:02.401Z"
+    },
+    {
+      "id": "falha-login-toast-unico",
+      "passed": true,
+      "at": "2026-10-25T22:37:03.445Z"
+    },
+    {
+      "id": "login-sucesso-toast-apos-autenticar",
+      "passed": true,
+      "at": "2026-10-25T22:37:04.660Z"
+    },
+    {
+      "id": "login-cliente-existente",
+      "passed": true,
+      "at": "2026-10-25T22:37:05.513Z"
+    },
+    {
+      "id": "header-minha-conta",
+      "passed": true,
+      "at": "2026-10-25T22:37:05.517Z"
+    },
+    {
+      "id": "sessao-persiste-apos-reload",
+      "passed": true,
+      "at": "2026-10-25T22:37:06.694Z"
+    },
+    {
+      "id": "produto-preco-real",
+      "passed": true,
+      "at": "2026-10-25T22:37:10.563Z"
+    },
+    {
+      "id": "adicao-carrinho-toast-unico",
+      "passed": true,
+      "at": "2026-10-25T22:37:10.995Z"
+    },
+    {
+      "id": "quantidade-feedback",
+      "passed": true,
+      "at": "2026-10-25T22:37:12.604Z"
+    },
+    {
+      "id": "toast-fecha-clique-externo",
+      "passed": true,
+      "at": "2026-10-25T22:37:12.656Z"
+    },
+    {
+      "id": "toast-some-ate-cinco-segundos",
+      "passed": true,
+      "at": "2026-10-25T22:37:17.760Z",
+      "observadoMs": 5075
+    },
+    {
+      "id": "observacao-persiste-no-carrinho",
+      "passed": true,
+      "at": "2026-10-25T22:37:19.662Z"
+    },
+    {
+      "id": "carrinho-persiste",
+      "passed": true,
+      "at": "2026-10-25T22:37:19.673Z"
+    },
+    {
+      "id": "checkout-entrega-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T22:37:21.944Z"
+    },
+    {
+      "id": "checkout-retirada-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T22:37:21.963Z"
+    },
+    {
+      "id": "historico-pedidos-existentes",
+      "passed": true,
+      "at": "2026-10-25T22:37:23.360Z",
+      "orders": 2
+    },
+    {
+      "id": "pesquisa-id-pedido",
+      "passed": true,
+      "at": "2026-10-25T22:37:23.539Z"
+    },
+    {
+      "id": "pesquisa-vazio-distinto",
+      "passed": true,
+      "at": "2026-10-25T22:37:23.625Z"
+    },
+    {
+      "id": "limpar-pesquisa-recupera-pedidos",
+      "passed": true,
+      "at": "2026-10-25T22:37:23.708Z"
+    },
+    {
+      "id": "pedidos-responsivo-1440",
+      "passed": true,
+      "at": "2026-10-25T22:37:23.817Z"
+    },
+    {
+      "id": "pedidos-responsivo-390",
+      "passed": true,
+      "at": "2026-10-25T22:37:23.944Z"
+    },
+    {
+      "id": "pedidos-responsivo-320",
+      "passed": true,
+      "at": "2026-10-25T22:37:23.978Z"
+    },
+    {
+      "id": "atualizacao-manual-com-feedback",
+      "passed": true,
+      "at": "2026-10-25T22:37:24.657Z"
+    },
+    {
+      "id": "detalhe-acompanhamento-existente",
+      "passed": true,
+      "at": "2026-10-25T22:37:26.274Z"
+    },
+    {
+      "id": "admin-restrito-cliente",
+      "passed": true,
+      "at": "2026-10-25T22:37:27.718Z"
+    },
+    {
+      "id": "dados-pessoais-sem-editar",
+      "passed": true,
+      "at": "2026-10-25T22:37:30.112Z"
+    },
+    {
+      "id": "enderecos-sem-editar",
+      "passed": true,
+      "at": "2026-10-25T22:37:31.173Z"
+    },
+    {
+      "id": "checkout-mobile-sem-transbordamento",
+      "passed": true,
+      "at": "2026-10-25T22:37:33.407Z"
+    },
+    {
+      "id": "produto-ausente-sem-loader-infinito",
+      "passed": true,
+      "at": "2026-10-25T22:37:36.720Z"
+    },
+    {
+      "id": "sem-paginas-provisorias",
+      "passed": true,
+      "at": "2026-10-25T22:37:36.723Z"
+    },
+    {
+      "id": "sdk-firebase-sem-render",
+      "passed": true,
+      "at": "2026-10-25T22:37:36.725Z"
+    },
+    {
+      "id": "sem-gravacao-firestore",
+      "passed": true,
+      "at": "2026-10-25T22:37:36.726Z"
+    },
+    {
+      "id": "mobile-sem-overflow-320-/perfil",
+      "passed": true,
+      "at": "2026-10-25T22:37:39.912Z"
+    },
+    {
+      "id": "mobile-icones-320-/perfil",
+      "passed": true,
+      "at": "2026-10-25T22:37:39.916Z"
+    },
+    {
+      "id": "mobile-sem-overflow-320-/perfil/dados",
+      "passed": true,
+      "at": "2026-10-25T22:37:41.042Z"
+    },
+    {
+      "id": "mobile-icones-320-/perfil/dados",
+      "passed": true,
+      "at": "2026-10-25T22:37:41.045Z"
+    },
+    {
+      "id": "mobile-sem-overflow-320-/perfil/enderecos",
+      "passed": true,
+      "at": "2026-10-25T22:37:42.532Z"
+    },
+    {
+      "id": "mobile-icones-320-/perfil/enderecos",
+      "passed": true,
+      "at": "2026-10-25T22:37:42.538Z"
+    },
+    {
+      "id": "mobile-sem-overflow-320-/perfil/pedidos",
+      "passed": true,
+      "at": "2026-10-25T22:37:44.361Z"
+    },
+    {
+      "id": "mobile-icones-320-/perfil/pedidos",
+      "passed": true,
+      "at": "2026-10-25T22:37:44.365Z"
+    },
+    {
+      "id": "mobile-sem-overflow-320-/checkout",
+      "passed": true,
+      "at": "2026-10-25T22:37:47.926Z"
+    },
+    {
+      "id": "mobile-icones-320-/checkout",
+      "passed": true,
+      "at": "2026-10-25T22:37:47.930Z"
+    },
+    {
+      "id": "mobile-sem-overflow-320-/carrinho",
+      "passed": true,
+      "at": "2026-10-25T22:37:51.417Z"
+    },
+    {
+      "id": "mobile-icones-320-/carrinho",
+      "passed": true,
+      "at": "2026-10-25T22:37:51.426Z"
+    },
+    {
+      "id": "mobile-sem-overflow-320-/produto",
+      "passed": true,
+      "at": "2026-10-25T22:37:53.469Z"
+    },
+    {
+      "id": "mobile-icones-320-/produto",
+      "passed": true,
+      "at": "2026-10-25T22:37:53.476Z"
+    },
+    {
+      "id": "observacao-mobile-320",
+      "passed": true,
+      "at": "2026-10-25T22:37:53.482Z"
+    },
+    {
+      "id": "menu-mobile-abre-320",
+      "passed": true,
+      "at": "2026-10-25T22:37:53.496Z"
+    },
+    {
+      "id": "mobile-sem-overflow-390-/perfil",
+      "passed": true,
+      "at": "2026-10-25T22:37:54.505Z"
+    },
+    {
+      "id": "mobile-icones-390-/perfil",
+      "passed": true,
+      "at": "2026-10-25T22:37:54.511Z"
+    },
+    {
+      "id": "mobile-sem-overflow-390-/perfil/dados",
+      "passed": true,
+      "at": "2026-10-25T22:37:56.565Z"
+    },
+    {
+      "id": "mobile-icones-390-/perfil/dados",
+      "passed": true,
+      "at": "2026-10-25T22:37:56.575Z"
+    },
+    {
+      "id": "mobile-sem-overflow-390-/perfil/enderecos",
+      "passed": true,
+      "at": "2026-10-25T22:37:57.776Z"
+    },
+    {
+      "id": "mobile-icones-390-/perfil/enderecos",
+      "passed": true,
+      "at": "2026-10-25T22:37:57.782Z"
+    },
+    {
+      "id": "mobile-sem-overflow-390-/perfil/pedidos",
+      "passed": true,
+      "at": "2026-10-25T22:37:59.758Z"
+    },
+    {
+      "id": "mobile-icones-390-/perfil/pedidos",
+      "passed": true,
+      "at": "2026-10-25T22:37:59.765Z"
+    },
+    {
+      "id": "mobile-sem-overflow-390-/checkout",
+      "passed": true,
+      "at": "2026-10-25T22:38:02.662Z"
+    },
+    {
+      "id": "mobile-icones-390-/checkout",
+      "passed": true,
+      "at": "2026-10-25T22:38:02.665Z"
+    },
+    {
+      "id": "mobile-sem-overflow-390-/carrinho",
+      "passed": true,
+      "at": "2026-10-25T22:38:05.860Z"
+    },
+    {
+      "id": "mobile-icones-390-/carrinho",
+      "passed": true,
+      "at": "2026-10-25T22:38:05.864Z"
+    },
+    {
+      "id": "mobile-sem-overflow-390-/produto",
+      "passed": true,
+      "at": "2026-10-25T22:38:09.197Z"
+    },
+    {
+      "id": "mobile-icones-390-/produto",
+      "passed": true,
+      "at": "2026-10-25T22:38:09.202Z"
+    },
+    {
+      "id": "observacao-mobile-390",
+      "passed": true,
+      "at": "2026-10-25T22:38:09.208Z"
+    },
+    {
+      "id": "menu-mobile-abre-390",
+      "passed": true,
+      "at": "2026-10-25T22:38:09.217Z"
+    },
+    {
+      "id": "logout-limpa-sessao-e-header",
+      "passed": true,
+      "at": "2026-10-25T22:38:11.748Z"
+    }
+  ],
+  "newOrders": 0,
+  "newRegisteredAccounts": 0,
+  "necessaryAnonymousSessions": 0,
+  "legacyRequest": false,
+  "firestoreRequest": true,
+  "firestoreWriteAttempt": false,
+  "entryAsset": "/assets/index-CiYwvQV0.js",
+  "status": "REPROVADO",
+  "error": {
+    "at": "2026-10-25T22:38:14.591Z",
+    "message": "carrinho-vazio-centrado-publicado"
+  }
+}

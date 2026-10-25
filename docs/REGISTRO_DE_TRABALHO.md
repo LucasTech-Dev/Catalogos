@@ -1,3 +1,11 @@
+# Material Icons e mobile — publicado e verificado — 25/10/2026
+
+A — EXECUÇÃO PELO CODEX: MATERIAL-01 CONCLUÍDA/PUBLICADA. Todas as atualizações solicitadas publicadas: GoogleMaterialSymbolsSVG local no catálogo/conta/admin, observações do produto e carrinho centralizado, camposmobile16px e controles44px, detalheadmin sem transbordamento320px. Código7ac6a053c5faa07e9c2bf6cd95a04d2a3a2151bb/main; Pages23734aae-7370-44ba-aa74-bef5bc334b9b/success às19:36:26 local.249testes distintos,280checksChrome/22rotas/320–1366px,20testes do checkout/build6,75s e90checks online aprovados. Nenhuma conta/pedido/sessãoanônima nova ou escritaFirestore; configuraçõesFirebase/Pages preservadas. [Arquivos, evidências e limites](ADAPTACAO_SERVERLESS/RELATORIO_MATERIAL_MOBILE.md).
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: MATERIAL-H1 atendida pela autorização atual para publicar todas as atualizações, incluindo documento6ca2588 antes pendente. Nenhuma intervenção técnica indispensável; próxima ação exata: usar/revisar a versão em https://catalogo-demo-cz1.pages.dev/. RevisãoChrome não afirma teste em aparelhoSafari/iOS ou aceitecomercial. Sem novoMVP/baixa de ressalvasB-03/B-04/fotos. Diagnósticos temporários próprios removidos com hashes; testes permanentes, fontes, buildfinal, capturas, recibos e histórico preservados. Sem limpeza pendente; espelhoexterno ausente, não recriado. Registrofinal/testes em commitCF-Pages-Skip, mesmo runtime. Histórico abaixo preservado.
+
+---
+
 # Material Icons e mobile — publicação autorizada em execução — 25/10/2026
 
 A — EXECUÇÃO PELO CODEX: MATERIAL-01. Pedido atual autoriza MaterialGoogle em todo o site, revisão mobile e publicação de todas as atualizações, incluindo observações e centralização do carrinho anteriores. ÍconesSVG locais/licençaApache;249testes distintos e280checksChrome/22rotas em320/390/768/1366px aprovados. Transbordamento do detalheadmin320px corrigido. [Arquivos, evidências e limites](ADAPTACAO_SERVERLESS/RELATORIO_MATERIAL_MOBILE.md). Sem alteraçõesFirebase ou novoMVP; contratos/ressalvascomerciais preservados.

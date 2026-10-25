@@ -1,5 +1,5 @@
 {
-  "status": "PRONTA_PARA_PUSH",
+  "status": "PUBLICADO_VERIFICADO",
   "date": "2026-10-25",
   "authorization": "Pedido direto: substituir ícones, conferir mobile e publicar todas as atualizações; main LucasTech-Dev/Catalogos e Pages catalogo-demo existentes",
   "localTests": 249,
@@ -60,8 +60,8 @@
     "docs/REGISTRO_DE_TRABALHO.md"
   ],
   "scannerFindings": 0,
-  "runtimeCommit": null,
-  "deploymentId": null,
+  "runtimeCommit": "7ac6a053c5faa07e9c2bf6cd95a04d2a3a2151bb",
+  "deploymentId": "23734aae-7370-44ba-aa74-bef5bc334b9b",
   "firebaseConfigurationChanged": false,
   "firestoreWrites": 0,
   "cleanupPending": false,
@@ -76,5 +76,12 @@
       "sha256": "1bf37568b8d2f8bbd655ff7720b6a4437d07aa1201baabb943dbe1f5465f5fd5",
       "removed": true
     }
-  ]
+  ],
+  "integratedTests": 20,
+  "deploymentStatus": "success",
+  "deploymentEnded": "2026-10-25T22:36:26.922663Z",
+  "onlineChecks": 90,
+  "onlineStatus": "APROVADO",
+  "documentationPreviousCommitPublished": "6ca2588",
+  "documentationFinal": "CF-Pages-Skip; runtime preserved"
 }
