@@ -1,3 +1,9 @@
+# Catálogo JS — publicação Pages autorizada
+
+Versão funcional em frontend/, sobre a main existente e sem hospedar backend/Render. Estado da release, build e validação no [registro da release](ADAPTACAO_SERVERLESS/RELEASE_JS_PAGES.md). Documentação histórica abaixo preservada; não usar procedimentos antigos de infraestrutura para este frontend.
+
+---
+
 # Guia Mestre
 
 ## Regra oficial de documentacao

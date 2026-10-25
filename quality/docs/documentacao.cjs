@@ -1,0 +1,2 @@
+// Conferência da documentação pertinente à release; inventário integral permanece na cópiaJS.
+const fs=require('node:fs'),path=require('node:path');const root=path.resolve(__dirname,'../..');for(const file of ['docs/ADAPTACAO_SERVERLESS/RELEASE_JS_PAGES.md','frontend/package.json','frontend/public/_redirects'])if(!fs.existsSync(path.join(root,file)))throw Error('Arquivo de release ausente: '+file);console.log('Documentação da release conferida.');

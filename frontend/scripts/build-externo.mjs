@@ -1,0 +1,13 @@
+import {loadEnv} from 'vite';
+import {spawnSync} from 'node:child_process';
+import {configuracaoAplicacao} from '../src/lib/ambienteAplicacao.js';
+const modo=process.env.VITE_APP_ENV;
+if(!['homologacao','production'].includes(modo))throw new Error('Defina VITE_APP_ENV explicitamente para build externo.');
+const env={...loadEnv(modo,process.cwd(),'VITE_'),...process.env};
+for(const key of Object.keys(env))if(/^VITE_.*(PRIVATE|PASSWORD|SECRET|TOKEN|CREDENTIAL)/i.test(key))throw new Error('Variável privada proibida no build Web.');
+const hosts=env.VITE_LOJAS_POR_HOST?Object.keys(JSON.parse(env.VITE_LOJAS_POR_HOST)):['localhost'];
+if(!hosts.length)throw new Error('Mapa externo vazio.');
+for(const host of hosts)configuracaoAplicacao(env,host);
+console.log('Configuração pública externa validada; nenhum valor foi impresso.');
+const result=spawnSync(process.execPath,['node_modules/vite/bin/vite.js','build','--mode',modo],{stdio:'inherit',env});
+process.exit(result.status || (result.error?1:0));

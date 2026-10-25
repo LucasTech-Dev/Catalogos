@@ -1,0 +1,41 @@
+import {collection, doc, getDocFromServer, getDocsFromServer, query, where} from 'firebase/firestore';
+
+const identificador=id=>typeof id==='string' && id.trim() && id.length<=128 && id.isWellFormed() && !/[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) && !['.','..'].includes(id);
+const falha=(message,status)=>Object.assign(new Error(message),{status});
+const campos=(dados,nomes)=>Object.fromEntries(nomes.filter(n=>dados[n]!==undefined).map(n=>[n,dados[n]]));
+
+// Mesmo DTO consumido por LojaContext; Firestore mantém os IDs originais.
+// Nunca faz fallback HTTP ou retorna cache de outra loja quando a leitura falha.
+export async function consultarCatalogo(firestore,lojaId) {
+  if(!identificador(lojaId))throw falha('Estabelecimento inválido.',400);
+  if(!firestore)throw falha('Catálogo não configurado. Entre em contato com a loja.',503);
+  try {
+    const ref=doc(firestore,'catalogosPublicos',lojaId),lojaDoc=await getDocFromServer(ref);
+    if(!lojaDoc.exists() || lojaDoc.data().ativo===false)throw falha('Loja não encontrada ou indisponível.',404);
+    const dados=lojaDoc.data();
+    const categoriasDocs=await getDocsFromServer(query(collection(ref,'categorias'),where('ativo','==',true)));
+    const categorias=categoriasDocs.docs.map(d=>({...campos(d.data(),['nome','descricao','icone','ordem','ativo']),id:d.id})).filter(c=>c.ativo!==false);
+    const produtos=[];
+    // Consultas por categoria permitem que as Rules verifiquem sua visibilidade.
+    for(const categoria of categorias) {
+      const lista=await getDocsFromServer(query(collection(ref,'produtos'),where('ativo','==',true),where('categoriaId','==',categoria.id),where('preco','>=',0),where('preco','<=',1000000)));
+      for(const d of lista.docs)produtos.push({...campos(d.data(),['nome','descricao','categoriaId','preco','ativo','disponivel','imagem','ingredientes']),id:d.id});
+    }
+    const pagamentos=dados.pagamentos || {};
+    const loja={...campos(dados,['nome','descricao','telefone','whatsapp','endereco','logo','imagem','corPrimaria','tempoMedio','instagram','pedidoMinimo']),id:lojaId,
+      horarios:dados.horarios ?? dados.horarioFuncionamento ?? {},
+      pagamentos:Object.fromEntries(['pix','dinheiro','cartao_credito','cartao_debito'].map(f=>[f,pagamentos[f]===true || f.startsWith('cartao_') && pagamentos.cartao===true])),
+      entrega:{habilitada:dados.entrega?.habilitada===true,taxa:dados.entrega?.taxa ?? dados.taxaEntrega ?? null},
+      retirada:{habilitada:dados.retirada?.habilitada!==false}};
+    return {loja,categorias,produtos:produtos.sort((a,b)=>a.id.localeCompare(b.id))};
+  }catch(error) {
+    if(error.status)throw error;
+    if(error.code==='permission-denied')throw falha('Catálogo não disponível para leitura pública.',403);
+    throw falha('Não foi possível carregar o catálogo. Verifique sua conexão e tente novamente.',503);
+  }
+}
+
+export async function carregarCatalogo(lojaId) {
+  const {db}=await import('../lib/firebase.js');
+  return consultarCatalogo(db,lojaId);
+}

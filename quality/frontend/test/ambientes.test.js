@@ -1,0 +1,29 @@
+import {it,expect} from 'vitest';
+import {configuracaoAplicacao} from '../../../frontend/src/lib/ambienteAplicacao';
+const externo={VITE_APP_ENV:'production',VITE_API_URL:'https://api.example.com',VITE_LOJA_ID:'a',VITE_FIREBASE_API_KEY:'publica-ficticia',VITE_FIREBASE_AUTH_DOMAIN:'auth.example.com',VITE_FIREBASE_PROJECT_ID:'prod-exemplo',VITE_FIREBASE_EXPECTED_PROJECT_ID:'prod-exemplo',VITE_FIREBASE_APP_ID:'app-ficticio'};
+it('configuração externa exige HTTPS, projeto esperado e todos os campos públicos',()=>{
+ expect(configuracaoAplicacao(externo).lojaId).toBe('a');
+ for(const patch of [{VITE_API_URL:'http://api.example.com'},{VITE_API_URL:'https://user:senha@api.example.com'},{VITE_API_URL:'https://api.example.com?redirect=externo'},{VITE_FIREBASE_API_KEY:''},{VITE_FIREBASE_PROJECT_ID:'demo-x'},{VITE_FIREBASE_EXPECTED_PROJECT_ID:'outro'},{VITE_FIREBASE_AUTH_EMULATOR_URL:'http://localhost:9099'},{VITE_LOJA_ID:''}])expect(()=>configuracaoAplicacao({...externo,...patch})).toThrow();
+});
+it('um bundle seleciona lojas somente pelo mapa explícito de hostname',()=>{
+ const env={...externo,VITE_LOJA_ID:'',VITE_LOJAS_POR_HOST:'{"a.example.com":"a","b.example.com":"b"}'};
+ expect(configuracaoAplicacao(env,'a.example.com').lojaId).toBe('a');expect(configuracaoAplicacao(env,'b.example.com').lojaId).toBe('b');
+ expect(()=>configuracaoAplicacao(env,'nao-autorizado.example.com')).toThrow();expect(()=>configuracaoAplicacao({...env,VITE_LOJAS_POR_HOST:'{"a.example.com":"../b"}'},'a.example.com')).toThrow();
+});
+it('desenvolvimento mantém defaults e testes Web exigem projeto demo',()=>{
+ expect(configuracaoAplicacao({})).toEqual({lojaId:'loja-demo',base:'http://localhost:3000'});expect(()=>configuracaoAplicacao({VITE_APP_ENV:'test',VITE_FIREBASE_PROJECT_ID:'real'})).toThrow();
+});
+it('homologação Web recusa projeto existente, divergência e falta de permissão explícita',()=>{
+ const env={...externo,VITE_APP_ENV:'homologacao',VITE_FIREBASE_PROJECT_ID:'catalogos-homolog-2026',VITE_FIREBASE_EXPECTED_PROJECT_ID:'catalogos-homolog-2026',VITE_FIREBASE_HOMOLOG_PROJECT_ID:'catalogos-homolog-2026'};
+ expect(configuracaoAplicacao(env).lojaId).toBe('a');
+ for(const patch of [{VITE_FIREBASE_HOMOLOG_PROJECT_ID:''},{VITE_FIREBASE_HOMOLOG_PROJECT_ID:'outro'}, {VITE_FIREBASE_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_EXPECTED_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_HOMOLOG_PROJECT_ID:'bancorestaurante'}])expect(()=>configuracaoAplicacao({...env,...patch})).toThrow();
+});
+it('bancorestaurante exige autorização Web exata somente em demonstração',()=>{
+ const demo={...externo,VITE_APP_ENV:'homologacao',VITE_FIREBASE_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_EXPECTED_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_HOMOLOG_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_EXISTING_DEMO_PROJECT_ID:'bancorestaurante',VITE_LOJAS_POR_HOST:'{"catalogo-demo-cz1.pages.dev":"loja-demo"}'};
+ expect(configuracaoAplicacao(demo,'catalogo-demo-cz1.pages.dev').lojaId).toBe('loja-demo');
+ for(const patch of [{VITE_FIREBASE_EXISTING_DEMO_PROJECT_ID:''},{VITE_FIREBASE_EXISTING_DEMO_PROJECT_ID:'outro'},
+ {VITE_APP_ENV:'production'},{VITE_APP_ENV:'development'},{VITE_FIREBASE_PROJECT_ID:''},{VITE_FIREBASE_EXPECTED_PROJECT_ID:'outro'},
+ {VITE_FIREBASE_HOMOLOG_PROJECT_ID:'outro'},{VITE_FIREBASE_AUTH_EMULATOR_URL:'http://localhost:9099'}])expect(()=>configuracaoAplicacao({...demo,...patch},'catalogo-demo-cz1.pages.dev')).toThrow();
+ expect(()=>configuracaoAplicacao(demo,'outro.example.com')).toThrow();
+ expect(()=>configuracaoAplicacao({...externo,VITE_FIREBASE_PROJECT_ID:'bancorestaurante',VITE_FIREBASE_EXPECTED_PROJECT_ID:'bancorestaurante'})).toThrow();
+});

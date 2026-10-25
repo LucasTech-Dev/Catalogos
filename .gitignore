@@ -22,3 +22,46 @@ pnpm-debug.log*
 # Sistema/IDE
 .DS_Store
 .vscode/
+
+# Catálogo JS: credenciais/backups/testes privados nunca entram na release.
+# Isolamento local — Ordem 002. Não copiar credenciais nem artefatos para Git.
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+coverage/
+.vite/
+.vitest/
+.vitest-cache/
+*.tsbuildinfo
+.DS_Store
+.vscode/
+.agents/
+.codex/
+.aws/
+.config/gcloud/
+.firebase/
+.wrangler/
+.tools-local/
+private-backups/
+backups-privados/
+lojaDemoRestaurante_BACKUPS/
+lojaDemoRestaurante_BACKUPS*.zip
+*service-account*.json
+*serviceAccount*.json
+*-firebase-adminsdk-*.json
+credentials.json
+credentials-*.json
+application_default_credentials.json
+adc.json
+adc-*.json
+private_key*.json
+*.pem
+*.key
+**/firebase-homologacao.json
+**/secrets/**
+[Ee]mail*senhas*.txt
+*[Ss]enhas*teste*.txt
+conta\ adm\ teste\ firebase.txt
