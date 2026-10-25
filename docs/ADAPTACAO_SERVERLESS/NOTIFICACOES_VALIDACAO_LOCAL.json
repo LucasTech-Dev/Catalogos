@@ -182,7 +182,7 @@
     },
     {
       "path": "quality/frontend/scripts/validar-notificacoes-pages.cjs",
-      "sha256": "2a5dbf28f7886786d67f318bc7b15bef77bd6a26958553453b72f263befd94df"
+      "sha256": "38e377eac3deff16656bfc499b2591da90742caf2092e0fc04e5ab75aa8bb88b"
     },
     {
       "path": "quality/frontend/test/admin.test.jsx",
@@ -202,5 +202,6 @@
     "findings": 0,
     "syntheticException": "test fixture contains only private-key header without any key, required to validate sanitizer",
     "scope": "changed/new runtime, operational scripts and tests, no env files"
-  }
+  },
+  "onlineScriptTimingAdjustment": "Observed navigation toast before waiting for resource data; no runtime change. First attempt preserved."
 }

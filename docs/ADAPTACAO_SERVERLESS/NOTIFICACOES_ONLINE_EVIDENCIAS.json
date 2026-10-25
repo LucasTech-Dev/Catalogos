@@ -1,0 +1,248 @@
+{
+  "started": "2026-10-25T19:19:40.304Z",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "checks": [
+    {
+      "id": "loader-com-dados-pendentes",
+      "passed": true,
+      "at": "2026-10-25T19:19:44.377Z"
+    },
+    {
+      "id": "home-dados-reais",
+      "passed": true,
+      "at": "2026-10-25T19:19:46.133Z"
+    },
+    {
+      "id": "get-inicial-sem-toast",
+      "passed": true,
+      "at": "2026-10-25T19:19:46.143Z"
+    },
+    {
+      "id": "loader-removido-apos-dados",
+      "passed": true,
+      "at": "2026-10-25T19:19:49.074Z"
+    },
+    {
+      "id": "categorias-produtos",
+      "passed": true,
+      "at": "2026-10-25T19:19:49.090Z",
+      "products": 9
+    },
+    {
+      "id": "mobile-sem-transbordamento",
+      "passed": true,
+      "at": "2026-10-25T19:19:49.321Z"
+    },
+    {
+      "id": "imagens-fallback-preservados",
+      "passed": true,
+      "at": "2026-10-25T19:19:49.334Z"
+    },
+    {
+      "id": "rota-login-direta",
+      "passed": true,
+      "at": "2026-10-25T19:19:50.272Z"
+    },
+    {
+      "id": "google-disponivel",
+      "passed": true,
+      "at": "2026-10-25T19:19:50.336Z"
+    },
+    {
+      "id": "olho-login-mostra",
+      "passed": true,
+      "at": "2026-10-25T19:19:50.465Z"
+    },
+    {
+      "id": "olho-login-oculta",
+      "passed": true,
+      "at": "2026-10-25T19:19:50.490Z"
+    },
+    {
+      "id": "login-mobile-sem-overflow",
+      "passed": true,
+      "at": "2026-10-25T19:19:50.743Z"
+    },
+    {
+      "id": "rota-cadastro-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T19:19:51.788Z"
+    },
+    {
+      "id": "google-no-cadastro",
+      "passed": true,
+      "at": "2026-10-25T19:19:51.811Z"
+    },
+    {
+      "id": "cadastro-dois-olhos-telefone-opcional",
+      "passed": true,
+      "at": "2026-10-25T19:19:51.833Z"
+    },
+    {
+      "id": "cadastro-mobile-sem-overflow",
+      "passed": true,
+      "at": "2026-10-25T19:19:51.926Z"
+    },
+    {
+      "id": "validacao-obrigatorios-sem-cadastro",
+      "passed": true,
+      "at": "2026-10-25T19:19:52.087Z"
+    },
+    {
+      "id": "toast-fecha-por-x",
+      "passed": true,
+      "at": "2026-10-25T19:19:52.125Z"
+    },
+    {
+      "id": "falha-login-toast-unico",
+      "passed": true,
+      "at": "2026-10-25T19:19:53.787Z"
+    },
+    {
+      "id": "login-sucesso-toast-apos-autenticar",
+      "passed": true,
+      "at": "2026-10-25T19:19:55.893Z"
+    },
+    {
+      "id": "login-cliente-existente",
+      "passed": true,
+      "at": "2026-10-25T19:19:57.873Z"
+    },
+    {
+      "id": "header-minha-conta",
+      "passed": true,
+      "at": "2026-10-25T19:19:57.919Z"
+    },
+    {
+      "id": "sessao-persiste-apos-reload",
+      "passed": true,
+      "at": "2026-10-25T19:19:59.354Z"
+    },
+    {
+      "id": "produto-preco-real",
+      "passed": true,
+      "at": "2026-10-25T19:20:02.900Z"
+    },
+    {
+      "id": "adicao-carrinho-toast-unico",
+      "passed": true,
+      "at": "2026-10-25T19:20:03.477Z"
+    },
+    {
+      "id": "quantidade-feedback",
+      "passed": true,
+      "at": "2026-10-25T19:20:05.486Z"
+    },
+    {
+      "id": "toast-fecha-clique-externo",
+      "passed": true,
+      "at": "2026-10-25T19:20:05.546Z"
+    },
+    {
+      "id": "toast-some-ate-cinco-segundos",
+      "passed": true,
+      "at": "2026-10-25T19:20:10.640Z",
+      "observadoMs": 5054
+    },
+    {
+      "id": "carrinho-persiste",
+      "passed": true,
+      "at": "2026-10-25T19:20:12.872Z"
+    },
+    {
+      "id": "checkout-entrega-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T19:20:15.476Z"
+    },
+    {
+      "id": "checkout-retirada-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T19:20:15.555Z"
+    },
+    {
+      "id": "historico-pedidos-existentes",
+      "passed": true,
+      "at": "2026-10-25T19:20:16.947Z",
+      "orders": 2
+    },
+    {
+      "id": "atualizacao-manual-com-feedback",
+      "passed": true,
+      "at": "2026-10-25T19:20:17.496Z"
+    },
+    {
+      "id": "detalhe-acompanhamento-existente",
+      "passed": true,
+      "at": "2026-10-25T19:20:18.800Z"
+    },
+    {
+      "id": "admin-restrito-cliente",
+      "passed": true,
+      "at": "2026-10-25T19:20:20.136Z"
+    },
+    {
+      "id": "dados-pessoais-sem-editar",
+      "passed": true,
+      "at": "2026-10-25T19:20:21.710Z"
+    },
+    {
+      "id": "enderecos-sem-editar",
+      "passed": true,
+      "at": "2026-10-25T19:20:23.104Z"
+    },
+    {
+      "id": "checkout-mobile-sem-transbordamento",
+      "passed": true,
+      "at": "2026-10-25T19:20:25.927Z"
+    },
+    {
+      "id": "produto-ausente-sem-loader-infinito",
+      "passed": true,
+      "at": "2026-10-25T19:20:28.435Z"
+    },
+    {
+      "id": "sem-paginas-provisorias",
+      "passed": true,
+      "at": "2026-10-25T19:20:28.437Z"
+    },
+    {
+      "id": "sdk-firebase-sem-render",
+      "passed": true,
+      "at": "2026-10-25T19:20:28.439Z"
+    },
+    {
+      "id": "logout-limpa-sessao-e-header",
+      "passed": true,
+      "at": "2026-10-25T19:20:30.295Z"
+    },
+    {
+      "id": "historico-nao-expoe-outro-cliente",
+      "passed": true,
+      "at": "2026-10-25T19:20:34.246Z"
+    },
+    {
+      "id": "pedido-outro-cliente-negado",
+      "passed": true,
+      "at": "2026-10-25T19:20:35.819Z"
+    },
+    {
+      "id": "sem-gravacao-firestore",
+      "passed": true,
+      "at": "2026-10-25T19:20:37.045Z"
+    },
+    {
+      "id": "sem-excecao-js",
+      "passed": true,
+      "at": "2026-10-25T19:20:37.046Z"
+    }
+  ],
+  "newOrders": 0,
+  "newRegisteredAccounts": 0,
+  "necessaryAnonymousSessions": 0,
+  "legacyRequest": false,
+  "firestoreRequest": true,
+  "firestoreWriteAttempt": false,
+  "entryAsset": "/assets/index-CnXKQrXw.js",
+  "status": "APROVADO",
+  "finished": "2026-10-25T19:20:37.050Z"
+}

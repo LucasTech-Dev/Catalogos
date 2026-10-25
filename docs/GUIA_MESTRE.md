@@ -1,8 +1,8 @@
-# Google e notificações — validado; publicação em execução — 25/10/2026
+# Google e notificações publicados — 25/10/2026
 
-A — EXECUÇÃO PELO CODEX: NOTIF-01 implementada;217 testes React aprovados. Google compartilhado no cadastro, notificações de ações explícitas e confirmação persistente. Domínio Pages acrescentado ao Firebase bancorestaurante sob aprovação específica, demais configurações comparadas/preservadas. Quatro suítes Emulator/Chrome aprovadas (367 checksSDK/87Chrome), build final e34 testes finais direcionados aprovados. Publicação automática na main/Pages autorizada em execução. Relatório: RELATORIO_GOOGLE_NOTIFICACOES.md em docs/ADAPTACAO_SERVERLESS; evidências sanitizadas no mesmo diretório.
+A — EXECUÇÃO PELO CODEX: NOTIF-01 CONCLUÍDA/publicada. Código f678ee7/main, Pages2b28a9c6/success às16:18:02 local. Google compartilhado no cadastro, toast único de ações explícitas (até5s/X/fora), confirmações persistentes.217 testes React,34 direcionados finais,367 checksSDK/87Chrome em Emulators, build homologado e46 checks online aprovados. Zero contas/pedidos/sessões anônimas novos/escritasFireStore pelos testes online. Push normal e buildGit no Pages existente, sem mudar configuração. Domínio Pages acrescentado ao Firebase bancorestaurante sob aprovação própria; demais configurações comparadas/preservadas. Relatório/evidências em docs/ADAPTACAO_SERVERLESS/RELATORIO_GOOGLE_NOTIFICACOES.md. Finalização documental/teste com CF-Pages-Skip em commit separado, mesmo runtime.
 
-B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: OAUTH-H1 autorizado; OAUTH-H2 confirmado (“Login Google funcionou e abriu Minha conta”). Nenhuma intervenção humana adicional necessária. Próxima ação exata: publicar a mesma release autorizada e validar a URL pública; sem nova etapa, exclusão ou baixa de riscos comerciais por associação. Histórico abaixo preservado; espelho externo ausente.
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: OAUTH-H1 autorizado; OAUTH-H2 confirmado (“Login Google funcionou e abriu Minha conta”). Nenhuma intervenção indispensável pendente. Próxima ação exata: usar/revisar a demo atualizada; sem novo MVP ou baixa comercial por associação. Três builds intermediários próprios removidos com manifesto; fontes/testes/build final/rollback/backups/evidências preservados. Sem limpeza pendente; espelho externo ausente. Histórico abaixo preservado.
 
 ---
 

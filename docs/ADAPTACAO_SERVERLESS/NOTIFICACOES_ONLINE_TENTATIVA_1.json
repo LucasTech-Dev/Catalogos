@@ -1,0 +1,119 @@
+{
+  "started": "2026-10-25T19:18:20.660Z",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "checks": [
+    {
+      "id": "loader-com-dados-pendentes",
+      "passed": true,
+      "at": "2026-10-25T19:18:26.684Z"
+    },
+    {
+      "id": "home-dados-reais",
+      "passed": true,
+      "at": "2026-10-25T19:18:28.840Z"
+    },
+    {
+      "id": "get-inicial-sem-toast",
+      "passed": true,
+      "at": "2026-10-25T19:18:28.856Z"
+    },
+    {
+      "id": "loader-removido-apos-dados",
+      "passed": true,
+      "at": "2026-10-25T19:18:30.906Z"
+    },
+    {
+      "id": "categorias-produtos",
+      "passed": true,
+      "at": "2026-10-25T19:18:30.909Z",
+      "products": 9
+    },
+    {
+      "id": "mobile-sem-transbordamento",
+      "passed": true,
+      "at": "2026-10-25T19:18:31.153Z"
+    },
+    {
+      "id": "imagens-fallback-preservados",
+      "passed": true,
+      "at": "2026-10-25T19:18:31.173Z"
+    },
+    {
+      "id": "rota-login-direta",
+      "passed": true,
+      "at": "2026-10-25T19:18:31.798Z"
+    },
+    {
+      "id": "google-disponivel",
+      "passed": true,
+      "at": "2026-10-25T19:18:31.806Z"
+    },
+    {
+      "id": "olho-login-mostra",
+      "passed": true,
+      "at": "2026-10-25T19:18:31.880Z"
+    },
+    {
+      "id": "olho-login-oculta",
+      "passed": true,
+      "at": "2026-10-25T19:18:31.897Z"
+    },
+    {
+      "id": "login-mobile-sem-overflow",
+      "passed": true,
+      "at": "2026-10-25T19:18:31.942Z"
+    },
+    {
+      "id": "rota-cadastro-sem-submit",
+      "passed": true,
+      "at": "2026-10-25T19:18:32.563Z"
+    },
+    {
+      "id": "google-no-cadastro",
+      "passed": true,
+      "at": "2026-10-25T19:18:32.568Z"
+    },
+    {
+      "id": "cadastro-dois-olhos-telefone-opcional",
+      "passed": true,
+      "at": "2026-10-25T19:18:32.588Z"
+    },
+    {
+      "id": "cadastro-mobile-sem-overflow",
+      "passed": true,
+      "at": "2026-10-25T19:18:32.683Z"
+    },
+    {
+      "id": "validacao-obrigatorios-sem-cadastro",
+      "passed": true,
+      "at": "2026-10-25T19:18:32.861Z"
+    },
+    {
+      "id": "toast-fecha-por-x",
+      "passed": true,
+      "at": "2026-10-25T19:18:32.884Z"
+    },
+    {
+      "id": "falha-login-toast-unico",
+      "passed": true,
+      "at": "2026-10-25T19:18:34.555Z"
+    },
+    {
+      "id": "login-cliente-existente",
+      "passed": true,
+      "at": "2026-10-25T19:18:42.898Z"
+    }
+  ],
+  "newOrders": 0,
+  "newRegisteredAccounts": 0,
+  "necessaryAnonymousSessions": 0,
+  "legacyRequest": false,
+  "firestoreRequest": true,
+  "firestoreWriteAttempt": false,
+  "entryAsset": "/assets/index-CnXKQrXw.js",
+  "status": "REPROVADO",
+  "error": {
+    "at": "2026-10-25T19:18:42.908Z",
+    "message": "login-sucesso-toast-apos-autenticar"
+  }
+}
