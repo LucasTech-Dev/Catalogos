@@ -5241,8 +5241,11 @@ body,
 }
 
 @media (min-width: 981px) {
+  /* O cabeçalho ocupa a janela inteira; a barra lateral começa abaixo dele. */
   .admin-topbar {
-    left: 260px;
+    left: 0;
+    right: 0;
+    width: 100%;
   }
 
   .admin-menu-button {
