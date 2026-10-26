@@ -14,3 +14,7 @@ it('importação recusada encerra loader e descarte impede resposta atrasada',as
 it('valida Unicode e configura loja mesmo sem API recente do Safari',()=>{expect(textoBemFormado('a🍔')).toBe(true);expect(textoBemFormado('\ud800')).toBe(false);expect(textoBemFormado('\udc00')).toBe(false);const anterior=String.prototype.isWellFormed;try{delete String.prototype.isWellFormed;expect(configuracaoAplicacao({VITE_LOJA_ID:'loja-demo'}).lojaId).toBe('loja-demo');}finally{Object.defineProperty(String.prototype,'isWellFormed',{value:anterior,writable:true,configurable:true});}});
 
 it('busca por número exato não confunde produto ou data com outro pedido',()=>{const outro={...p,numeroPedido:7,itens:[{nome:'Combo 1025'}]};expect(filtrarPedidos([p,outro],'#1025')).toEqual([p]);expect(filtrarPedidos([p,outro],'1025')).toEqual([p]);});
+
+it('mensagem WhatsApp organiza itens, observações, entrega e total sem campos internos',()=>{
+ const pedido={...p,observacao:'Sem cebola. Molho à parte.',tipoEntrega:'entrega',endereco:{rua:'Rua de exemplo',numero:'1',cidade:'Cidade',uf:'RS'}};const texto=new URL(mensagemPedido({nome:'Demo',whatsapp:'5551995310123'},pedido).url).searchParams.get('text');expect(texto).toContain('*PEDIDO #1025*');expect(texto).toContain('• 1x Batata');expect(texto).toContain('Sem cebola. Molho à parte.');expect(texto).toContain('Tipo: Entrega');expect(texto).toContain('*Total:');expect(texto).not.toContain(pedido.id);expect(texto).toContain('Pendente');
+});

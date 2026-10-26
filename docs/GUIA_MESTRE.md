@@ -1,3 +1,11 @@
+# Checkout mobile final — validado; publicação autorizada — 25/10/2026
+
+A — Codex: CHECKOUT-MOBILE-02, UF com exemplo/siglas válidas/maiúsculas e preservação; confirmação com CSS próprio/card/ícone/total/botão verde; mensagemWhatsApp organizada; retomada de link ocupada e isolada por conta. Número comercial e confirmação exclusiva já existentes preservados.31testes +30checksSDK/RulesEmulator +36Chrome aprovados, capturas320/390inspecionadas e estilos verificados até1366px. Nenhuma alteraçãoFirebase/Rules/Auth/IAM/índice/preços/produtos/pedidos reais. Reporte: RELATORIO_CHECKOUT_MOBILE_FINAL.md na adaptação serverless. Contrato/matriz/noveMVPs e demais riscos preservados.
+
+B — proprietário: autorização atual para publicar automaticamente recebida, substitui a proibição do anexo nesse ato/alvo. Próxima ação desta mesma ordem: build/testes integrados,push main LucasTech-Dev/Catalogos,deploy Pages catalogo-demo,verificação online. Julgamento físico Android/iPhone/WhatsApp posterior; captura é de dados sintéticos/Chrome, não aparelho real. Sem nova confirmação indispensável. Histórico abaixo preservado.
+
+---
+
 # Publicação NUM-MOB-01 autorizada e em preparação — 25/10/2026
 
 A — Codex: resposta “publique” atende NUM-H1 e NUM-H2 específicos apresentados imediatamente antes: Rules bancorestaurante + commit/push main LucasTech-Dev/Catalogos + Pages catalogo-demo. Rules novas compiladas/verificadas como versão inativa, sem trocar a release atual; anterior conferida com baseline e preservada em backup privado. 274 testes e155checks locais aprovados permanecem evidência; integração/build da cópia de publicação em execução. Nenhum pedido/conta real ou mensagem de teste será criado nesta publicação. Ativação das Rules e implantação serão coordenadas; nenhuma conclusão remota presumida.

@@ -1,0 +1,33 @@
+{
+  "status": "APROVADO",
+  "checks": 30,
+  "browser": {
+    "checks": 36,
+    "widths": [
+      320,
+      360,
+      390
+    ],
+    "engine": "Chrome com UA simulada; não WebKit/iPhone real",
+    "slowNetwork": true,
+    "offlineRecovery": true,
+    "delayedBootstrapRecovery": true,
+    "authBlockedPublicCatalog": true,
+    "syntheticBrowserOrders": 1,
+    "checkoutCssVerified": true,
+    "ufInvalidBlocked": true,
+    "newFlowNoAutomaticOrder": true,
+    "screenshots": [
+      "EVIDENCIAS_CHECKOUT_MOBILE/sucesso-android-320.png",
+      "EVIDENCIAS_CHECKOUT_MOBILE/sucesso-android-390.png"
+    ]
+  },
+  "concurrentNumbers": [
+    1,
+    2
+  ],
+  "oldRulesDenyNewContract": true,
+  "realFirebaseWrites": 0,
+  "realAccountsCreated": 0,
+  "realOrdersCreated": 0
+}

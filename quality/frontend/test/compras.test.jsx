@@ -87,3 +87,15 @@ it('recarregar após resposta perdida recupera a mesma tentativa sem reenviar',a
  mocks.api.mockImplementation(async path=>path.endsWith('/catalogo')?catalogo:path.includes('/finalizacao/')?pedido:{url:'https://wa.me/5511999999999?text=real'});
  render(<LojaProvider><Checkout/></LojaProvider>);await screen.findByRole('heading',{name:'Pedido registrado com sucesso!'});expect(screen.queryByText('Registrar pedido e preparar WhatsApp')).toBeNull();expect(mocks.api.mock.calls.filter(([,o])=>o?.method==='POST')).toHaveLength(1);expect(localStorage.getItem('catalogos:checkout:loja-demo:uid-real')).toBe(marker);
 });
+
+it('UF explica o estado, normaliza sigla e preserva ao alternar modalidade',async()=>{
+ carrinho();render(<LojaProvider><Checkout/></LojaProvider>);await preencher();const uf=screen.getByLabelText('UF');expect(uf.placeholder).toBe('Ex.: RS');expect(screen.getByText('(Estado — ex.: RS)')).toBeTruthy();fireEvent.change(uf,{target:{value:'rs'}});expect(uf.value).toBe('RS');fireEvent.click(screen.getByText('Retirada').closest('button'));expect(screen.queryByLabelText('UF')).toBeNull();fireEvent.click(screen.getByRole('button',{name:/^Entrega/}));expect(screen.getByLabelText('UF').value).toBe('RS');
+});
+it('UF inválida impede gravação e oferece orientação no campo',async()=>{
+ carrinho();render(<LojaProvider><Checkout/></LojaProvider>);await preencher();fireEvent.change(screen.getByLabelText('UF'),{target:{value:'xx'}});fireEvent.click(screen.getByText('Registrar pedido e preparar WhatsApp'));await screen.findByRole('alert');expect(mocks.api.mock.calls.filter(([,o])=>o?.method==='POST')).toHaveLength(0);expect(screen.getByLabelText('UF').getAttribute('aria-invalid')).toBe('true');expect(screen.getByText('Informe uma sigla de estado válida, como RS.')).toBeTruthy();
+});
+it('retomada da confirmação bloqueia preparação duplicada enquanto a consulta está pendente',async()=>{
+ localStorage.setItem('catalogos:checkout:loja-demo:uid-real',JSON.stringify({uid:'uid-real',chave:'nonce-persistido',pedidoId:'pedido-real'}));let resolver;
+ mocks.api.mockImplementation(async path=>{if(path.endsWith('/pedido-real'))return pedido;if(path.endsWith('/catalogo'))return catalogo;if(path.endsWith('/whatsapp'))return new Promise(r=>{resolver=r;});return [];});
+ render(<LojaProvider><Checkout/></LojaProvider>);await screen.findByRole('heading',{name:'Pedido registrado com sucesso!'});const botao=screen.getByRole('button',{name:'Preparando WhatsApp...'});expect(botao.disabled).toBe(true);fireEvent.click(botao);expect(mocks.api.mock.calls.filter(([p])=>p.endsWith('/whatsapp'))).toHaveLength(1);resolver({url:'https://wa.me/5511999999999?text=real'});await screen.findByRole('link',{name:'Abrir WhatsApp'});expect(screen.queryByText('Registrar pedido e preparar WhatsApp')).toBeNull();
+});

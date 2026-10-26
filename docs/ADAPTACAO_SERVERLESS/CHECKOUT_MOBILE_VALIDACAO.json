@@ -1,0 +1,67 @@
+{
+  "dateLocal": "2026-10-25",
+  "order": "CHECKOUT-MOBILE-02",
+  "unitTests": 31,
+  "unitFiles": 3,
+  "unitSeconds": 32.45,
+  "sdkEmulatorChecks": 30,
+  "chromeChecks": 36,
+  "confirmationWidths": [
+    320,
+    360,
+    390,
+    1366
+  ],
+  "realDevice": false,
+  "realFirebaseWrites": 0,
+  "numberGeneratorChanged": false,
+  "rulesChanged": false,
+  "rulesSha256": "71ca854897cae61da43c880a9e6ced50fdc269a013f84d39fafec781bb661175",
+  "files": [
+    {
+      "path": "frontend/src/pages/Checkout.jsx",
+      "sha256": "314d1497ed31732277f0e619e562bce5bbf01855e409935e3f10f4b21b64ab1a"
+    },
+    {
+      "path": "frontend/src/components/conta/ConfirmacaoPedido.jsx",
+      "sha256": "303ee6834a6e6398c87136d40f6597a8dbc9ab143733462fb9c8fd8a0b260fe7"
+    },
+    {
+      "path": "frontend/src/components/conta/ConfirmacaoPedido.css",
+      "sha256": "58fcee300db042f3cd84b3bd639c5b91e3eb3a18758bbd0206ec54bf27a25f26"
+    },
+    {
+      "path": "frontend/src/styles.css",
+      "sha256": "a6628ee43d7c27300a1e8e1ae1066de78492751c27a260e23d0ba131e9e59aa5"
+    },
+    {
+      "path": "frontend/src/lib/whatsappPedido.js",
+      "sha256": "f72c25345fecf7ac7a0bff49bf008d1546d82d44833617f05ea664ed0c9206b2"
+    },
+    {
+      "path": "quality/frontend/test/compras.test.jsx",
+      "sha256": "b3b522489102a3b431855d42fe9e66911fdcf9a7c52e5cf4260bc7376b04b82e"
+    },
+    {
+      "path": "quality/frontend/test/numeroPublicoMobile.test.jsx",
+      "sha256": "d012b0ba3d2c4cad175128f3bb70be8ea3754494c48a7a27667ce6177f97c01d"
+    },
+    {
+      "path": "quality/frontend/test/seguranca.test.jsx",
+      "sha256": "fbfb383d393399cb3d6b6adebc1a0907ea8fea4c9d841ab2ab54159ecb38d236"
+    },
+    {
+      "path": "quality/frontend/scripts/numero-publico-browser.mjs",
+      "sha256": "b667abca8053d143ce1eac9d177247aad76e3fcb56f274106bc67fc4f1aa53a8"
+    },
+    {
+      "path": "quality/frontend/scripts/numero-publico-emulator.mjs",
+      "sha256": "1861416fa76cb05a543ae08a87af609b1a356805474000e64cde3ad889361a56"
+    }
+  ],
+  "screenshots": [
+    "EVIDENCIAS_CHECKOUT_MOBILE/sucesso-android-320.png",
+    "EVIDENCIAS_CHECKOUT_MOBILE/sucesso-android-390.png"
+  ],
+  "screenshotData": "conta/pedido sintéticos em Emulator; não são compras reais"
+}

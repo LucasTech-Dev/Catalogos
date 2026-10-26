@@ -54,5 +54,5 @@ try{
  await rules('../../fixtures/firestore-antes-numero-publico.rules');
  await assert.rejects(()=>a.api('a').criarPedido(dados(),{chave:'rules-publicadas-000001'}));checks++;ok((await seed.collection('lojas/a/pedidos').get()).size===antesContrato,'Rules anteriores não aceitam contrato novo nem criam pedido parcial');
  await rules('../../../firebase/firestore.rules');
- const out={status:'APROVADO',checks,browser,concurrentNumbers:results.map(p=>p.numeroPedido),oldRulesDenyNewContract:true,realFirebaseWrites:0,realAccountsCreated:0,realOrdersCreated:0};fs.writeFileSync(new URL('../../../docs/ADAPTACAO_SERVERLESS/NUMERO_PUBLICO_EMULATOR_EVIDENCIAS.json',import.meta.url),JSON.stringify(out,null,2)+'\n');console.log(JSON.stringify(out));
+ const out={status:'APROVADO',checks,browser,concurrentNumbers:results.map(p=>p.numeroPedido),oldRulesDenyNewContract:true,realFirebaseWrites:0,realAccountsCreated:0,realOrdersCreated:0};fs.writeFileSync(new URL('../../../docs/ADAPTACAO_SERVERLESS/'+(process.env.CATALOGOS_CHECKOUT_MOBILE==='1'?'CHECKOUT_MOBILE_EMULATOR_EVIDENCIAS.json':'NUMERO_PUBLICO_EMULATOR_EVIDENCIAS.json'),import.meta.url),JSON.stringify(out,null,2)+'\n');console.log(JSON.stringify(out));
 }finally{for(const a of actors){await terminate(a.db);await deleteApp(a.app);}await seed.terminate();await admin.deleteApp(appAdmin);}

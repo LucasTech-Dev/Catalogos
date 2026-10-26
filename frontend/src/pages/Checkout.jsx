@@ -15,11 +15,13 @@ import {auth,sessao} from '../lib/firebase';
 import {onIdTokenChanged} from 'firebase/auth';
 import {carregarTentativa,salvarTentativa,removerTentativa,limparDadosDeOutraSessao} from '../lib/tentativaCheckout';
 import {moeda,urlWhatsapp,compraDoCarrinho} from '../lib/compras';
+const ufs='AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' ');
 function Checkout() {
   const catalogo=useLoja();
   const {loja,itens,subtotal,limpar,carregando:carregandoCatalogo,erro:erroCatalogo} = catalogo;
   const [clientePronto,setClientePronto]=useState(false),[erroCliente,setErroCliente]=useState(''),[tentativaCarga,setTentativaCarga]=useState(0);
-  const [cidade,setCidade] = useState(''), [uf,setUf] = useState('');
+  const [cidade,setCidade] = useState(''), [uf,setUf] = useState(''), [ufTocada,setUfTocada]=useState(false);
+  const ufInvalida=ufTocada && !ufs.includes(uf);
   const [erro,setErro] = useState(''), [ocupado,setOcupado] = useState(false), [pedido,setPedido] = useState(null), [url,setUrl] = useState('');
   const trava = useRef(false), tentativaKey = useRef(""), versaoSessao=useRef(0);
   const [enderecosSalvos,setEnderecosSalvos] = useState([]), [enderecoSalvo,setEnderecoSalvo] = useState("");
@@ -54,7 +56,7 @@ function Checkout() {
       if(auth && !user){sessao().then(u=>{if(ativo)trocar(u);}).catch(e=>{if(ativo)setErroCliente(e.message);});return;}
       clearTimeout(timer);
       const uid=user?.uid || null;if(uid===uidAnterior)return;uidAnterior=uid;const v=++versaoSessao.current;
-      setClientePronto(false);setErroCliente('');limparDadosDeOutraSessao(uid);setNome('');setTelefone('');setEndereco('');setNumero('');setBairro('');setCidade('');setUf('');setObservacao('');setEnderecosSalvos([]);setEnderecoSalvo('');setPedido(null);setUrl('');setErro('');
+      setClientePronto(false);setErroCliente('');limparDadosDeOutraSessao(uid);setNome('');setTelefone('');setEndereco('');setNumero('');setBairro('');setCidade('');setUf('');setUfTocada(false);setObservacao('');setEnderecosSalvos([]);setEnderecoSalvo('');setPedido(null);setUrl('');setErro('');setOcupado(false);
       const atual=()=>ativo && v===versaoSessao.current;
       aguardarLeitura(async()=>{
         const identidade=user || await sessao();if(!atual())return;
@@ -65,7 +67,7 @@ function Checkout() {
           catch(e){if(e.status!==404)throw e;}
           if(confirmado && atual()){
             tentativaKey.current=key;setPedido(confirmado);setClientePronto(true);
-            prepararFinalizacao(confirmado.id,identidade.uid).then(f=>{if(atual())setUrl(urlWhatsapp(f.url));}).catch(e=>{if(atual())setErro(e.message);});return;
+            setOcupado(true);prepararFinalizacao(confirmado.id,identidade.uid).then(f=>{if(atual())setUrl(urlWhatsapp(f.url));}).catch(e=>{if(atual())setErro(e.message);}).finally(()=>{if(atual())setOcupado(false);});return;
           }
         }
         const [perfil,lista]=await Promise.all([buscarPerfil(),listarEnderecos()]);
@@ -94,6 +96,7 @@ function Checkout() {
       }
       if (tentativa && tentativa.uid !== user.uid) throw new Error('Há uma finalização de outra sessão. Entre na conta original para retomá-la.');
       if (!tentativa?.dados && !tentativa?.pedido) {
+        if(tipoEntrega==='entrega')setUfTocada(true);
         const compra=compraDoCarrinho(itens,observacao);
         validarPreviaCompra({loja,itens:compra.itens,tipoEntrega,cliente:{nome,telefone},endereco:{rua:endereco,numero,bairro,cidade,uf},enderecoId:tipoEntrega==='entrega'?enderecoSalvo:null,forma:formaPagamento,observacao:compra.observacao});
         tentativa = {uid:user.uid,chave:tentativa?.chave || crypto.randomUUID(),dados:{itens:compra.itens.map(i => ({produtoId:i.id,quantidade:i.quantidade})),tipoEntrega,pagamento:{forma:formaPagamento},cliente:{nome,telefone},observacao:compra.observacao},endereco:tipoEntrega === 'entrega' ? {rua:endereco,numero,bairro,cidade,uf} : null};
@@ -279,9 +282,9 @@ function Checkout() {
                 {tipoEntrega ===
                   "entrega" && (
                   <div className="checkout-address" onChangeCapture={event => {if (event.target.id !== 'endereco-salvo') setEnderecoSalvo('');}}>
-                    {enderecosSalvos.length > 0 && <div className="checkout-field"><label htmlFor="endereco-salvo">Endereço cadastrado</label><select id="endereco-salvo" value={enderecoSalvo} onChange={event => {const id=event.target.value;setEnderecoSalvo(id);const salvo=enderecosSalvos.find(e => e.id===id);if(salvo){setEndereco(salvo.rua);setNumero(salvo.numero);setBairro(salvo.bairro);setCidade(salvo.cidade || '');setUf(salvo.uf || '');}}}><option value="">Novo endereço</option>{enderecosSalvos.map(e => <option key={e.id} value={e.id}>{e.apelido || e.rua}, {e.numero}</option>)}</select></div>}
+                    {enderecosSalvos.length > 0 && <div className="checkout-field"><label htmlFor="endereco-salvo">Endereço cadastrado</label><select id="endereco-salvo" value={enderecoSalvo} onChange={event => {const id=event.target.value;setEnderecoSalvo(id);const salvo=enderecosSalvos.find(e => e.id===id);if(salvo){setEndereco(salvo.rua);setNumero(salvo.numero);setBairro(salvo.bairro);setCidade(salvo.cidade || '');setUf((salvo.uf || '').toUpperCase());}}}><option value="">Novo endereço</option>{enderecosSalvos.map(e => <option key={e.id} value={e.id}>{e.apelido || e.rua}, {e.numero}</option>)}</select></div>}
 
-                    <div className="checkout-fields"><div className="checkout-field"><label htmlFor="cidade">Cidade</label><input id="cidade" value={cidade} onChange={e => setCidade(e.target.value)} /></div><div className="checkout-field"><label htmlFor="uf">UF</label><input id="uf" maxLength={2} value={uf} onChange={e => setUf(e.target.value.toUpperCase())} /></div></div>
+                    <div className="checkout-fields"><div className="checkout-field"><label htmlFor="cidade">Cidade</label><input id="cidade" value={cidade} onChange={e => setCidade(e.target.value)} /></div><div className="checkout-field"><div className="checkout-field-label"><label htmlFor="uf">UF</label><small id="uf-ajuda">(Estado — ex.: RS)</small></div><input id="uf" maxLength={2} minLength={2} placeholder="Ex.: RS" autoComplete="address-level1" autoCapitalize="characters" spellCheck={false} pattern={ufs.join('|')} value={uf} aria-invalid={ufInvalida || undefined} aria-describedby={ufInvalida?'uf-ajuda uf-erro':'uf-ajuda'} onBlur={()=>setUfTocada(true)} onChange={e => setUf(e.target.value.toUpperCase().replace(/[^A-Z]/g,'').slice(0,2))} />{ufInvalida && <p id="uf-erro" className="checkout-field-error">Informe uma sigla de estado válida, como RS.</p>}</div></div>
 
 
                     <div className="checkout-field">

@@ -1,0 +1,41 @@
+/* Estilos pertencem ao componente e acompanham o chunk da confirmação. */
+.checkout-confirmation-page { background:var(--bg-page,#f6f7f8); min-height:calc(100vh - 80px); }
+.checkout-confirmation-page .checkout-section { padding:clamp(24px,5vw,56px) 0 64px; }
+.checkout-confirmation {
+  width:100%; max-width:640px; min-width:0; margin:0 auto;
+  padding:clamp(20px,5vw,40px); border:1px solid var(--border,#e5e7eb);
+  border-radius:24px; background:#fff; color:var(--dark,#171717);
+  box-shadow:0 8px 32px rgba(15,23,42,.05); overflow-wrap:anywhere;
+}
+.checkout-confirmation-header { text-align:center; }
+.checkout-success-icon { display:grid; place-items:center; width:64px; height:64px; margin:0 auto 18px; border-radius:50%; background:#ecfdf3; color:#15803d; }
+.checkout-confirmation-header .eyebrow { display:block; color:#15803d; font-size:11px; font-weight:800; letter-spacing:1.5px; }
+.checkout-confirmation h1 { margin:10px 0 12px; font-size:clamp(25px,5vw,34px); font-weight:800; letter-spacing:-.8px; line-height:1.2; }
+.checkout-confirmation-header p,.checkout-confirmation-note { margin:0; color:#667085; font-size:14px; line-height:1.65; }
+.checkout-number-block { margin:26px 0 22px; text-align:center; }
+.checkout-number-block>span { color:#667085; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.3px; }
+.checkout-public-number { margin:6px 0 0; font-size:clamp(36px,10vw,52px); font-weight:800; line-height:1.1; letter-spacing:-1px; }
+.checkout-confirmation-total { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 16px; padding:18px; border-radius:14px; background:#fff7ed; }
+.checkout-confirmation-total span { font-size:14px; font-weight:600; color:#854d0e; }
+.checkout-confirmation-total strong { min-width:0; max-width:100%; font-size:clamp(24px,7vw,30px); line-height:1.2; color:#171717; }
+.checkout-confirmation-details { display:grid; gap:14px; margin:24px 0; padding:0; }
+.checkout-confirmation-details>div { display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px 16px; }
+.checkout-confirmation-details dt { color:#667085; font-size:13px; }
+.checkout-confirmation-details dd { max-width:100%; margin:0; color:#171717; font-size:14px; font-weight:600; }
+.checkout-confirmation-actions { display:grid; gap:10px; margin:24px 0 20px; }
+.checkout-confirmation-actions .button,.checkout-confirmation-actions .whatsapp-checkout-button {
+  display:flex; align-items:center; justify-content:center; gap:8px; width:100%; min-width:0; min-height:50px;
+  margin:0; padding:13px 16px; border:1px solid #dfe3e8; border-radius:12px;
+  background:#fff; color:#344054; font:inherit; font-size:14px; font-weight:700;
+  line-height:1.4; text-align:center; text-decoration:none; white-space:normal; cursor:pointer;
+}
+.checkout-confirmation-actions .whatsapp-checkout-button { border-color:#15803d; background:#15803d; color:#fff; }
+.checkout-confirmation-actions .checkout-new-order { background:#f8fafc; color:#475467; }
+.checkout-confirmation-actions :is(a,button):focus-visible { outline:3px solid var(--primary,#f97316); outline-offset:3px; }
+.checkout-confirmation-actions button:disabled { opacity:.65; cursor:wait; }
+.checkout-confirmation-actions .whatsapp-checkout-button:hover { transform:none; opacity:1; }
+.checkout-confirmation-note { text-align:center; font-size:12px; }
+@media (max-width:380px) {
+  .checkout-confirmation { border-radius:18px; }
+  .checkout-confirmation-details>div { flex-direction:column; }
+}

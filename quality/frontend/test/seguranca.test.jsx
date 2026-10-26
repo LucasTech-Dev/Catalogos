@@ -47,3 +47,12 @@ it('serviço SDK descarta leitura atrasada após troca de sessão',async()=>{
   expect(screen.getByRole('status').textContent).toBe('Conta B SDK');await act(async()=>resolver({nome:'Conta A privada'}));
   expect(screen.getByRole('status').textContent).toBe('Conta B SDK');expect(m.api).not.toHaveBeenCalled();
 });
+
+it('troca de conta durante preparo do WhatsApp não mantém botão ocupado nem confirmação anterior',async()=>{
+ const {buscarPedido,finalizarPedido}=await import('../../../frontend/src/services/pedidosConta');let liberar;
+ m.auth.currentUser={uid:'A'};m.sessao.mockResolvedValue({uid:'A'});localStorage.setItem('catalogos:checkout:loja:A',JSON.stringify({uid:'A',chave:'nonce-persistido',pedidoId:'pedido-A'}));
+ buscarPedido.mockResolvedValue({id:'pedido-A',numeroPedido:11,total:20,tipoEntrega:'retirada',pagamento:{forma:'pix',status:'pendente'}});finalizarPedido.mockImplementation(()=>new Promise(r=>{liberar=r;}));
+ render(<Checkout/>);await act(async()=>m.trocar({uid:'A'}));expect(screen.getByRole('button',{name:'Preparando WhatsApp...'}).disabled).toBe(true);
+ m.auth.currentUser={uid:'B'};m.sessao.mockResolvedValue({uid:'B'});await act(async()=>m.trocar({uid:'B'}));expect(screen.queryByText('#11')).toBeNull();expect(screen.getByText('Registrar pedido e preparar WhatsApp').disabled).toBe(false);
+ await act(async()=>liberar({url:'https://wa.me/5551995310123?text=conta-anterior'}));expect(screen.queryByRole('link',{name:'Abrir WhatsApp'})).toBeNull();expect(screen.getByLabelText('Nome').value).toBe('');
+});
