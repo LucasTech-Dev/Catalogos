@@ -1,5 +1,6 @@
 import './Produtos.css';
 import MaterialIcon from "../../components/ui/MaterialIcon";
+import ImagemCatalogo from "../../components/ui/ImagemCatalogo";
 import {notificar} from '../../lib/notificacoes';
 import {FeedbackAcao,confirmarAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
@@ -22,9 +23,10 @@ function Produtos() {
   async function alternar(produto){
     if(produtoOcupado)return;
     setProdutoOcupado(produto.id);setErro('');
+    const ativar=produto.ativo===false || produto.disponivel===false;
     try {
-      await admin.salvar('produtos',produto.id,{ativo:!produto.ativo});
-      notificar('sucesso',produto.ativo?'Produto desativado no catálogo.':'Produto ativado no catálogo.');
+      await admin.salvar('produtos',produto.id,ativar?{ativo:true,disponivel:true}:{ativo:false});
+      notificar('sucesso',ativar?'Produto ativado no catálogo.':'Produto desativado no catálogo.');
       await recurso.atualizar();
     } catch(e){setErro(e.message || 'Não foi possível atualizar o produto.');}
     finally {setProdutoOcupado(null);}
@@ -149,10 +151,10 @@ function Produtos() {
                 aria-busy={produtoOcupado===produto.id}
               >
 
-                {/* IMAGEM MOCK */}
+                {/* IMAGEM DO PRODUTO */}
 
                 <div className="admin-product-image">
-                  {produto.imagem ? <img src={produto.imagem} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/> : <MaterialIcon name="lunch_dining"/>}
+                  <ImagemCatalogo src={produto.imagem} alt={produto.nome} style={{width:"100%",height:"100%",objectFit:"cover"}}/>
                 </div>
 
                 {/* INFORMAÇÕES */}
@@ -209,7 +211,7 @@ function Produtos() {
                     type="button"
                     className="admin-product-toggle" disabled={Boolean(produtoOcupado)} onClick={()=>alternar(produto)}
                   >
-                    {produtoOcupado===produto.id ? "Salvando..." : produto.ativo ? "Desativar" : "Ativar"}
+                    {produtoOcupado===produto.id ? "Salvando..." : produto.ativo!==false && produto.disponivel!==false ? "Desativar" : "Ativar"}
                   </button>
 
                 </div>

@@ -1,10 +1,11 @@
+import {textoBemFormado} from '../lib/textoBemFormado.js';
 import {collection,doc,getDocFromServer,getDocsFromServer,runTransaction} from 'firebase/firestore';
 
 const falha=(message,status)=>Object.assign(new Error(message),{status});
 const identificar=id=>{if(typeof id!=='string' || !id || id.length>128 || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(id) || ['.','..'].includes(id))throw falha('Identificador inválido.',400);return id;};
 const selecionar=(d,campos)=>Object.fromEntries(campos.filter(k=>typeof d?.[k]==='string').map(k=>[k,d[k]]));
 const camposEndereco=['apelido','rua','numero','bairro','cidade','uf','complemento','cep'];
-function texto(v,n,obrigatorio=false,max=200){if(typeof v!=='string' || !v.isWellFormed() || v.length>max || (obrigatorio && !v.trim()) || /[\u0000-\u001f\u007f-\u009f]/u.test(v))throw falha(n+' inválido.',400);return v.trim();}
+function texto(v,n,obrigatorio=false,max=200){if(typeof v!=='string' || !textoBemFormado(v) || v.length>max || (obrigatorio && !v.trim()) || /[\u0000-\u001f\u007f-\u009f]/u.test(v))throw falha(n+' inválido.',400);return v.trim();}
 function campos(d,permitidos){if(!d || typeof d!=='object' || Array.isArray(d) || Object.keys(d).some(k=>!permitidos.includes(k)))throw falha('Campo não permitido nesta operação.',400);}
 export function validarPerfil(d){campos(d,['nome','telefone']);const nome=texto(d.nome,'Nome',true),telefone=texto(d.telefone,'Telefone',true,25),digitos=telefone.replace(/\D/g,'');if(!/^\+?[\d ()-]+$/.test(telefone) || digitos.length<10 || digitos.length>15 || /^0+$/.test(digitos))throw falha('Telefone inválido.',400);return {nome,telefone};}
 export function validarEndereco(d){campos(d,camposEndereco);const saida={};for(const k of ['rua','numero','bairro','cidade'])saida[k]=texto(d[k],k,true);saida.uf=texto(d.uf,'UF',true,2).toUpperCase();if(!'AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' ').includes(saida.uf))throw falha('UF inválida.',400);for(const k of ['apelido','complemento'])if(d[k]!==undefined)saida[k]=texto(d[k],k);if(d.cep!==undefined){saida.cep=texto(d.cep,'CEP',false,9);if(saida.cep && !/^\d{5}-?\d{3}$/.test(saida.cep))throw falha('CEP inválido.',400);}return saida;}

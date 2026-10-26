@@ -1,0 +1,265 @@
+{
+  "date": "2026-10-26",
+  "baseCommit": "50c47db21a0622ee2e2bb15ac43e72f84993ef52",
+  "unitTests": {
+    "passed": 301,
+    "files": 29,
+    "seconds": 131.14,
+    "environment": "checkout main integrado"
+  },
+  "afterImageReuse": {
+    "passed": 28,
+    "files": 2,
+    "seconds": 15.09
+  },
+  "numberGate": {
+    "status": "APROVADO",
+    "checks": 32,
+    "browser": {
+      "checks": 36,
+      "widths": [
+        320,
+        360,
+        390
+      ],
+      "engine": "Chrome com UA simulada; não WebKit/iPhone real",
+      "slowNetwork": true,
+      "offlineRecovery": true,
+      "delayedBootstrapRecovery": true,
+      "authBlockedPublicCatalog": true,
+      "syntheticBrowserOrders": 1,
+      "checkoutCssVerified": true,
+      "ufInvalidBlocked": true,
+      "newFlowNoAutomaticOrder": true,
+      "screenshots": [
+        "EVIDENCIAS_CHECKOUT_MOBILE/sucesso-android-320.png",
+        "EVIDENCIAS_CHECKOUT_MOBILE/sucesso-android-390.png"
+      ]
+    },
+    "concurrentNumbers": [
+      1,
+      2
+    ],
+    "oldRulesDenyNewContract": true,
+    "realFirebaseWrites": 0,
+    "realAccountsCreated": 0,
+    "realOrdersCreated": 0
+  },
+  "realFirebaseWrites": 0,
+  "rulesDeployment": false,
+  "files": [
+    {
+      "path": "frontend/src/pages/Checkout.jsx",
+      "sha256": "5c1130a7dbad3e05a484f6a4535e331535433ab15963c55462918c2e0401cb23"
+    },
+    {
+      "path": "frontend/src/pages/admin/Produtos.jsx",
+      "sha256": "03d973f910418dbf2ef3e9812fc41b3d8140b9ddebc51260146dac8d75ce1fcb"
+    },
+    {
+      "path": "frontend/src/components/admin/AdminGate.jsx",
+      "sha256": "2500be980dfd74f56f9783e025151543c6c58c51b94496ab80fb9d11d6b98ba5"
+    },
+    {
+      "path": "frontend/src/components/admin/AdminGate.css",
+      "sha256": "639d1a451e217e41c977e2043a68d1225e4db9212b92172f6f1c7aa637cfce88"
+    },
+    {
+      "path": "frontend/src/components/ui/BotaoGoogle.jsx",
+      "sha256": "bcf5fa14d1962f4b4c24f61114b0c20967842746cff7747baeb931f87636d293"
+    },
+    {
+      "path": "frontend/src/services/perfil.js",
+      "sha256": "720a6070c61f6e3235a5b397111ea30e9ade253cce2634b418729aeda955fe1f"
+    },
+    {
+      "path": "quality/frontend/test/admin.test.jsx",
+      "sha256": "3a360933f12d5cf6bb98075182f70c28c5a5491cd5f0d941783732efc3b0f1a4"
+    },
+    {
+      "path": "quality/frontend/test/compras.test.jsx",
+      "sha256": "759560671cf2e5461f3fdb9eecae2bd3637ad275cacbafdbc766856c69643c13"
+    },
+    {
+      "path": "quality/frontend/test/seguranca.test.jsx",
+      "sha256": "8316c3db760b5e8e9b86c48475a15b0d599ba7cc7ff32de0a2e1e1e95fa93b43"
+    },
+    {
+      "path": "quality/frontend/test/notificacoes.test.jsx",
+      "sha256": "40d624e0a81c7ceb461edecb0f9ff27bfec358dd8f64e3f0c8a61e3874589c82"
+    },
+    {
+      "path": "quality/frontend/test/adminAcessoVisual.test.jsx",
+      "sha256": "1b0daa8950ce6e397af76451edc3699c23d44054fac3f04205771a3cfb4d8e42"
+    },
+    {
+      "path": "quality/frontend/scripts/numero-publico-browser.mjs",
+      "sha256": "39351425652ef8b76dbb68ba05a164ddbbe0595feae02335a8b6c01762c1e889"
+    },
+    {
+      "path": "quality/frontend/scripts/numero-publico-emulator.mjs",
+      "sha256": "acb12a8aee31746283607763cc9376a31806e2cbb86bfb5e1c3feeae0c410fc1"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-catalogo-browser.js",
+      "sha256": "5322651018ff6aba5ee2c8ab3b9f34201f0e98fd2b6bc7da8120867c9c6a9cac"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-catalogo-emulator.js",
+      "sha256": "2103e2036f23fc62b722fff7a2d06903dd6f7451ec0abb2864d1d7cac7c279ad"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-gestao-browser.js",
+      "sha256": "ef3093489e07659b91fb88a727b1bdf0ec421270def22c84214bf3b44be6b563"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-gestao-emulator.js",
+      "sha256": "d76befd57735977ab405e2ee48d0a275a434a1e0a647b99c485c4ba193fc53b1"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-pedidos-browser.js",
+      "sha256": "910a9bdb709eb44e0f1b141ebca4671adcd7bdf62cf2e9313e02ebe9b5de6483"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-pedidos-emulator.js",
+      "sha256": "490133f182446672223f7bd584ffec020515d424a88267e88660b7769c46d7bb"
+    },
+    {
+      "path": "quality/frontend/scripts/validar-handoff-pages.cjs",
+      "sha256": "57ab805b956a1cdabe87d9efc86bcd24900818e20c49ad400e9078da5c68cefb"
+    },
+    {
+      "path": "quality/firebase/executar-handoff.cjs",
+      "sha256": "4079c1d3f8bb1f08e43a62ff2f4d9100eeb44b444432f5344e499800e204b02b"
+    },
+    {
+      "path": "frontend/package.json",
+      "sha256": "088250d92b371d2dec2830e58a361b2b9ea378f539bf3a5a1ac1d87178deedf0"
+    }
+  ],
+  "administrativeGate": {
+    "status": "APROVADO",
+    "catalogo": {
+      "sdk": 70,
+      "browser": 35
+    },
+    "configuracoes": {
+      "sdk": 84,
+      "browser": 31
+    },
+    "pedidos": {
+      "sdk": 154,
+      "browser": 34
+    }
+  },
+  "build": {
+    "mode": "homologacao",
+    "status": "APROVADO",
+    "seconds": 14.14
+  },
+  "sdkTotal": 340,
+  "browserTotal": 136,
+  "scanner": "APROVADO",
+  "publicacao": "AUTORIZADA_AGUARDANDO_ENVIO",
+  "administrativeSummaries": [
+    {
+      "adminCatalogoSdk": "aprovado",
+      "projectId": "demo-catalogos-admin006",
+      "checks": 70,
+      "pedido50": 50,
+      "total50": 532.25,
+      "B03": "desativacao_reversivel_exclusao_bloqueada",
+      "produtoExcluido": "desativacao_logica",
+      "express": false
+    },
+    {
+      "adminCatalogoNavegador": {
+        "checks": 35,
+        "build": "aprovado",
+        "saidas": 10,
+        "express": false,
+        "rotas": [
+          "/admin/produtos",
+          "/admin/produto/novo",
+          "/admin/categorias"
+        ],
+        "distAlterado": false
+      }
+    },
+    {
+      "admin006": "aprovado_local",
+      "sdkChecks": 70,
+      "navegador": {
+        "checks": 35,
+        "build": "aprovado",
+        "saidas": 10,
+        "express": false,
+        "rotas": [
+          "/admin/produtos",
+          "/admin/produto/novo",
+          "/admin/categorias"
+        ],
+        "distAlterado": false
+      },
+      "B03": "parcial_operacoes_perigosas_bloqueadas",
+      "lojaRealAlterada": false
+    },
+    {
+      "adminGestaoSdk": "aprovado_B04_em_etapas",
+      "checks": 84,
+      "pedido50": 50,
+      "express": false
+    },
+    {
+      "adminGestaoNavegador": {
+        "checks": 31,
+        "build": "aprovado",
+        "saidas": 10,
+        "express": false,
+        "distAlterado": false
+      }
+    },
+    {
+      "admin008": "local_B04_em_etapas",
+      "sdkChecks": 84,
+      "navegador": {
+        "checks": 31,
+        "build": "aprovado",
+        "saidas": 10,
+        "express": false,
+        "distAlterado": false
+      },
+      "express": false,
+      "lojaRealAlterada": false
+    },
+    {
+      "adminPedidosSdk": "aprovado",
+      "checks": 154
+    },
+    {
+      "adminPedidosNavegador": {
+        "checks": 34,
+        "build": "aprovado",
+        "saidas": 10,
+        "pedidoPersistidoNoEmulator": true,
+        "express": false,
+        "distAlterado": false
+      }
+    },
+    {
+      "admin007": "aprovado_local",
+      "sdkChecks": 154,
+      "navegador": {
+        "checks": 34,
+        "build": "aprovado",
+        "saidas": 10,
+        "pedidoPersistidoNoEmulator": true,
+        "express": false,
+        "distAlterado": false
+      },
+      "pedido50": 50,
+      "express": false,
+      "lojaRealAlterada": false
+    }
+  ]
+}

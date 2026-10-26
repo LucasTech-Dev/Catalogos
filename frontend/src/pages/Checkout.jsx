@@ -71,9 +71,15 @@ function Checkout() {
             // Um pedido confirmado não deve ser reaproveitado como se fosse uma nova compra.
             // O carrinho com itens indica nova intenção; só removemos o marcador local,
             // nunca o pedido antigo nem seus registros no Firestore.
-            if(itensAtuaisRef.current.length>0){
+            if((tentativa.pedidoId || tentativa.pedido?.id) && itensAtuaisRef.current.length>0){
               removerTentativa(key);
             }else{
+              // Resposta perdida: reconhecer o mesmo pedido e consumir o carrinho
+              // antes de permitir uma próxima compra com outro marcador.
+              if(!tentativa.pedidoId && !tentativa.pedido?.id){
+                limpar();
+                salvarTentativa(key,{...tentativa,pedido:confirmado});
+              }
               tentativaKey.current=key;setPedido(confirmado);setClientePronto(true);
               setOcupado(true);prepararFinalizacao(confirmado.id,identidade.uid).then(f=>{if(atual())setUrl(urlWhatsapp(f.url));}).catch(e=>{if(atual())setErro(e.message);}).finally(()=>{if(atual())setOcupado(false);});return;
             }

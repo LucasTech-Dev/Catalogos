@@ -1,0 +1,5 @@
+## Gate do handoff de26/10/2026
+
+`npm --prefix frontend run firebase:emulator:handoff` executa catálogo, gestão/configurações e pedidos em Auth/Firestore Emulator exclusivo (127.0.0.1:9198/8188), com Chrome e dados sintéticos. Aceita cenário único por `-- admin-catalogo`, `-- admin-gestao` ou `-- admin-pedidos`. Pré-requisitos: Node24, dependências frontend/backend existentes, firebase-tools global, `.tools-local/java21/bin/java`, `.tools-local/firebase/cloud-firestore-emulator-v1.22.0.jar` e Google Chrome. O runner recusa portas ocupadas e encerra seus próprios processos. Não usar em Emulator compartilhado. Backend/Admin SDK é somente harness de teste; não integra o frontend publicado.
+
+`CATALOGOS_HANDOFF_PAGES=AUTORIZADA npm --prefix frontend run test:online:handoff` navega somente páginas públicas, bloqueia login/mensagens/escritas e registra evidência sanitizada. Preserva recibo anterior por guarda explícita. Resultados e limites em `docs/ADAPTACAO_SERVERLESS/RELATORIO_REVISAO_HANDOFF_20261026.md`; Rules B-03 candidatas locais não equivalem à release real.

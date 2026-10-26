@@ -15,7 +15,7 @@ const appAdmin=admin.initializeApp({projectId:project}),seed=store.getFirestore(
 const rules=async file=>{const r=await fetch(`http://${host}/emulator/v1/projects/${project}:securityRules`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({rules:{files:[{name:'firestore.rules',content:fs.readFileSync(new URL(file,import.meta.url),'utf8')}]}})});assert.ok(r.ok,await r.text());};
 const deny=async fn=>{await assert.rejects(fn,e=>e.code==='permission-denied');checks++;};
 async function actor(label,anonymous=true){const app=initializeApp({projectId:project,apiKey:'fake-api-key'},label),db=getFirestore(app),auth=getAuth(app);connectFirestoreEmulator(db,'127.0.0.1',8188);connectAuthEmulator(auth,'http://'+authHost,{disableWarnings:true});if(anonymous)await signInAnonymously(auth);else await createUserWithEmailAndPassword(auth,label+'@example.invalid','Senha-sintetica-123!');const a={app,db,auth,uid:auth.currentUser.uid};actors.push(a);a.api=lojaId=>criarServicoPedidos({db,auth,sessao:async()=>auth.currentUser,lojaId});return a;}
-const shop={nome:'Loja sintética',ativo:true,whatsapp:'5551995310123',pagamentos:{pix:true},retirada:{habilitada:true},entrega:{habilitada:true,taxa:5},pedidoMinimo:0};
+const shop={nome:'Loja sintética',ativo:true,whatsapp:'5551995310123',pagamentos:{pix:true,cartao_debito:true},retirada:{habilitada:true},entrega:{habilitada:true,taxa:5},pedidoMinimo:0};
 const dados=(n=1,entrega=false)=>({itens:Array.from({length:n},(_,i)=>({produtoId:'p'+i,quantidade:1})),tipoEntrega:entrega?'entrega':'retirada',cliente:{nome:'Cliente sintético',telefone:'51999999999'},pagamento:{forma:'pix'},observacao:''});
 const read=(a,p)=>getDocFromServer(doc(a.db,p));
 try{
@@ -28,7 +28,7 @@ try{
  const a=await actor('anonimo'),b=await actor('cliente',false),c=await actor('admin',false),d=await actor('outro-admin',false);
  await seed.doc('usuarios/'+c.uid).set({role:'admin',ativo:true,lojaId:'a'});await seed.doc('usuarios/'+d.uid).set({role:'admin',ativo:true,lojaId:'b'});
  const results=await Promise.all([a.api('a').criarPedido(dados(),{chave:'simultaneo-anonimo-0001'}),b.api('a').criarPedido(dados(),{chave:'simultaneo-cliente-0001'})]);
- ok(new Set(results.map(p=>p.numeroPedido)).size===2,'números simultâneos distintos');ok(results.every(p=>[1,2].includes(p.numeroPedido)),'sequência inicia em 1 por loja');
+ ok(results.every(p=>p.pagamento.status==='pendente'),'pagamento inicial pendente');ok(new Set(results.map(p=>p.numeroPedido)).size===2,'números simultâneos distintos');ok(results.every(p=>[1,2].includes(p.numeroPedido)),'sequência inicia em 1 por loja');
  for(let i=0;i<2;i++){const p=results[i],actor=i?b:a;ok((await read(actor,`lojas/a/pedidos/${p.id}`)).data().numeroPedido===p.numeroPedido,'número persistido');ok((await read(actor,`lojas/a/numerosPedidos/${p.numeroPedido}`)).data().pedidoId===p.id,'reserva pertence ao pedido');}
  const repeat=await a.api('a').criarPedido(dados(),{chave:'simultaneo-anonimo-0001'});ok(repeat.id===results[0].id && repeat.numeroPedido===results[0].numeroPedido,'idempotência preserva número');ok((await seed.doc('lojas/a/contadores/pedidos').get()).data().ultimo===2,'repetir não consome sequência');
  const pb=await b.api('b').criarPedido(dados(),{chave:'mesma-chave-outra-loja-1'});ok(pb.numeroPedido===1,'sequência isolada por loja');
@@ -50,6 +50,7 @@ try{
  for(const f of falsos){lote.set(doc(a.db,'lojas/a/pedidos/'+f.id),{...original,numeroPedido:proximo,operacaoCompra:f.chave,criadoEm:serverTimestamp(),atualizadoEm:serverTimestamp()});lote.set(doc(a.db,'lojas/a/idempotencia/'+f.id),{clienteId:a.uid,lojaId:'a',pedidoId:f.id,assinatura:f.draft.assinatura});}
  lote.set(doc(a.db,'lojas/a/contadores/pedidos'),{ultimo:proximo});lote.set(doc(a.db,'lojas/a/numerosPedidos/'+proximo),{numeroPedido:proximo,pedidoId:falsos[0].id,clienteId:a.uid});await deny(()=>lote.commit());ok((await seed.doc('lojas/a/contadores/pedidos').get()).data().ultimo===ultimo,'ataque não avança contador');ok(!(await seed.doc('lojas/a/pedidos/'+falsos[0].id).get()).exists,'ataque não cria parcialmente');
  const browser=await verificarNumeroMobile({project,host,authHost,email:b.auth.currentUser.email,adminEmail:c.auth.currentUser.email,contarPedidos:async()=>(await seed.collection('lojas/a/pedidos').get()).size});
+ const cartao=await b.api('a').criarPedido({...dados(),pagamento:{forma:'cartao_debito'}},{chave:'cartao-nao-confirma-0001'});ok(cartao.pagamento.status==='pendente','débito não confirma pagamento');
  const antesContrato=(await seed.collection('lojas/a/pedidos').get()).size;
  await rules('../../fixtures/firestore-antes-numero-publico.rules');
  await assert.rejects(()=>a.api('a').criarPedido(dados(),{chave:'rules-publicadas-000001'}));checks++;ok((await seed.collection('lojas/a/pedidos').get()).size===antesContrato,'Rules anteriores não aceitam contrato novo nem criam pedido parcial');

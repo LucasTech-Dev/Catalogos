@@ -1,0 +1,159 @@
+{
+  "at": "2026-10-26T22:33:56.241Z",
+  "project": "bancorestaurante",
+  "shop": "loja-demo",
+  "mode": "GET_ONLY",
+  "realWrites": 0,
+  "products": [
+    {
+      "id": "bacon-burger",
+      "nome": "Bacon Burger",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "hamburgueres",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "imagem": ""
+    },
+    {
+      "id": "bacon-supreme",
+      "nome": "Bacon Supreme",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "hamburgueres",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "imagem": "https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "batata-da-casa",
+      "nome": "Batata da Casa",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "porcoes",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "imagem": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "batata-frita",
+      "nome": "Batata Frita",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "porcoes",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "imagem": ""
+    },
+    {
+      "id": "chicken-crispy",
+      "nome": "Chicken Crispy",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "hamburgueres",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "imagem": "https://images.unsplash.com/photo-1615297928064-24977384d0f8?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "classic-burger",
+      "nome": "Classic Burger",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "hamburgueres",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "imagem": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=80"
+    },
+    {
+      "id": "coca-cola-lata",
+      "nome": "Coca-Cola Lata",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "bebidas",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "imagem": ""
+    },
+    {
+      "id": "combo-classic",
+      "nome": "Combo Classic",
+      "ativo": true,
+      "disponivel": false,
+      "categoriaId": "combos",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "imagem": ""
+    },
+    {
+      "id": "guarana-lata",
+      "nome": "Guaraná Lata",
+      "ativo": true,
+      "disponivel": false,
+      "categoriaId": "bebidas",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "imagem": ""
+    },
+    {
+      "id": "onion-rings",
+      "nome": "Onion Rings",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "porcoes",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "imagem": "https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "refrigerante",
+      "nome": "Refrigerante",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "bebidas",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "imagem": "https://images.unsplash.com/photo-1629203849820-fdd70d49c38e?auto=format&fit=crop&w=800&q=80"
+    }
+  ],
+  "categories": [
+    {
+      "id": "TpNYReGeF47EZVQaMIOP",
+      "nome": "Sucos",
+      "ativo": true
+    },
+    {
+      "id": "bebidas",
+      "nome": "Bebidas",
+      "ativo": true
+    },
+    {
+      "id": "combos",
+      "nome": "Combos",
+      "ativo": true
+    },
+    {
+      "id": "hamburgueres",
+      "nome": "Hambúrgueres",
+      "ativo": true
+    },
+    {
+      "id": "porcoes",
+      "nome": "Porções",
+      "ativo": true
+    }
+  ],
+  "hoursType": "object",
+  "hourDayTypes": {
+    "quarta": "object",
+    "quinta": "object",
+    "segunda": "object",
+    "sexta": "object",
+    "domingo": "object",
+    "terca": "object",
+    "sabado": "object"
+  },
+  "ruleset": "projects/bancorestaurante/rulesets/d35b5c52-9df0-4f05-bf88-1bed923f3746",
+  "rulesSha256": "71ca854897cae61da43c880a9e6ced50fdc269a013f84d39fafec781bb661175",
+  "candidateSha256": "80d4a14ca316cd3ead0112d9ef9dca73c2e018da9f3da88cb04013f1db5fe147"
+}

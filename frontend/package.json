@@ -21,7 +21,9 @@
     "test:online:material": "node ../quality/frontend/scripts/validar-material-pages.cjs",
     "firebase:emulator:ingredientes": "node ../quality/firebase/executar-ingredientes.cjs",
     "test:online:ingredientes": "node ../quality/frontend/scripts/validar-ingredientes-pages.cjs",
-    "firebase:emulator:numero-publico": "node ../quality/firebase/executar-numero-publico.cjs"
+    "firebase:emulator:numero-publico": "node ../quality/firebase/executar-numero-publico.cjs",
+    "firebase:emulator:handoff": "node ../quality/firebase/executar-handoff.cjs",
+    "test:online:handoff": "node ../quality/frontend/scripts/validar-handoff-pages.cjs"
   },
   "dependencies": {
     "firebase": "^13.0.0",

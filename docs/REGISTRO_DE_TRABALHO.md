@@ -1,3 +1,15 @@
+# Revisão do handoff — validada; publicação autorizada — 26/10/2026
+
+A — EXECUÇÃO PELO CODEX: HANDOFF-C1–5 validados sobre main50c47db. Recuperação de checkout com resposta perdida preserva idempotência; nova compra não reutiliza pedido confirmado. Ativar produto restaura ativo/disponível; fallback de foto no painel. Melhorias locais anteriores de acesso administrativo e perfil Unicode preservadas/integradas.301 testes/29 arquivos na cópia de publicação,28 testes adicionais após reutilização da imagem,340 verificações SDK/Rules e136 Chrome aprovados; build homologacao14,14s e scanner aprovados. SDK/Chrome somente Emulator com dados sintéticos. Configurações/origem/projeção/reload e transições/financeiro/histórico/isolamento comprovados localmente. Repositório raiz sem commits e trabalho prévio preservados; checkout main separado e seleção explícita para publicação.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: HANDOFF-H1 atendida pela instrução de publicar ao final; envio normal main/Pages e verificação pública são a próxima ação desta mesma ordem. Sem nova confirmação. HANDOFF-H2 Rules B-03 não autorizado/não executado; fonte real71ca8548 permanece diferente da candidata80d4a14c testada. Nenhuma escrita de dados comerciais, conta/pedido real ou mensagem. Combo Classic/Guaraná estão ativos e indisponíveis em leituraGET atual; código corrigido não equivale a cadastro alterado. B-04 em etapas/fotos/aceite físico e comercial permanecem. Nove MVPs sem reabertura; nenhum novo plano ou backend hospedado.
+
+Próxima tarefa exata: concluir HANDOFF-C6 (publicação autorizada e evidência online); depois homologação comercial controlada depende de autorização específica para dados e identidade do proprietário. Exclusão de pedidos continua expressamente adiada. Nenhum reset/renumeração/migração por associação. Espelho externo ausente, não recriado. Fontes, testes, backups e evidências necessários preservados; sem limpeza importante pendente.
+
+Relatório: [revisão, arquivos, testes e limites](ADAPTACAO_SERVERLESS/RELATORIO_REVISAO_HANDOFF_20261026.md).
+
+---
+
 # Publicação do adendo administrativo autorizada — 25/10/2026
 
 A — Codex: instrução “publique” atende AD-PED-H1 para commit/push main LucasTech-Dev/Catalogos e deploy Pages catalogo-demo.80testes e188checks locais aprovados; integração seletiva, build e verificação pública em execução. Firebase/Rules/Auth/IAM/índices/dados preservados; nenhum pedido/conta real ou mensagem será criado. Scripts operacionais de homologação real e orquestração local permanecem locais. Fontes, regressões e capturas sintéticas compõem a release.

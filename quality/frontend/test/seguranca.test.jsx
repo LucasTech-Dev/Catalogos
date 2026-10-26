@@ -1,19 +1,19 @@
 import React from 'react';
 import {it,expect,vi,beforeEach,afterEach} from 'vitest';
 import {render,screen,act,cleanup,fireEvent} from '@testing-library/react';
-const m=vi.hoisted(()=>({api:vi.fn(),sessao:vi.fn(),auth:{currentUser:null},trocar:null}));
+const m=vi.hoisted(()=>({api:vi.fn(),sessao:vi.fn(),auth:{currentUser:null},trocar:null,itens:[]}));
 vi.mock('../../../frontend/src/lib/firebase',()=>({auth:m.auth,sessao:m.sessao}));
 vi.mock('../../../frontend/src/services/api',()=>({api:m.api,lojaId:'loja',publico:'/publico/lojas/loja',pedidos:'/lojas/loja/pedidos'}));
 vi.mock('../../../frontend/src/services/conta',()=>({buscarPerfil:()=>Promise.resolve({}),listarEnderecos:()=>Promise.resolve([]),salvarEndereco:vi.fn()}));
 vi.mock('../../../frontend/src/services/pedidosConta',()=>({criarPedido:(body,o)=>m.api('/lojas/loja/pedidos',{method:'POST',body,chave:o.chave}),buscarPedido:vi.fn(),recuperarPedido:vi.fn(),finalizarPedido:vi.fn()}));
 vi.mock('firebase/auth',()=>({onIdTokenChanged:vi.fn((auth,callback)=>{m.trocar=callback;return ()=>{};})}));
-vi.mock('../../../frontend/src/contexts/LojaContext',()=>({EstadoCatalogo:()=>null,useLoja:()=>({loja:{entrega:{habilitada:false,taxa:0},retirada:{habilitada:true},pagamentos:{pix:true}},itens:[{id:'produto',nome:'Produto',preco:20,quantidade:1,ativo:true}],subtotal:20,limpar:vi.fn()})}));
+vi.mock('../../../frontend/src/contexts/LojaContext',()=>({EstadoCatalogo:()=>null,useLoja:()=>({loja:{entrega:{habilitada:false,taxa:0},retirada:{habilitada:true},pagamentos:{pix:true}},itens:m.itens,subtotal:20,limpar:vi.fn()})}));
 import Checkout from '../../../frontend/src/pages/Checkout';
 import {useRecurso} from '../../../frontend/src/hooks/useRecurso';
 import {salvarTentativa,carregarTentativa,limparDadosDeOutraSessao} from '../../../frontend/src/lib/tentativaCheckout';
 import {validarFirebaseWeb} from '../../../frontend/src/lib/firebaseAmbiente';
 function Perfil({ler='/me'}){const {dados,carregando}=useRecurso(ler);return <output>{carregando?'carregando':dados?.nome || 'vazio'}</output>;}
-beforeEach(()=>{localStorage.clear();sessionStorage.clear();vi.clearAllMocks();});afterEach(cleanup);
+beforeEach(()=>{localStorage.clear();sessionStorage.clear();vi.clearAllMocks();m.itens=[{id:'produto',nome:'Produto',preco:20,quantidade:1,ativo:true}];});afterEach(cleanup);
 it('descarta resposta privada atrasada e limpa perfil ao trocar UID',async()=>{
   let resolver;m.api.mockImplementationOnce(()=>new Promise(r=>{resolver=r;})).mockResolvedValueOnce({nome:'Cliente B'});
   render(<Perfil/>);await act(async()=>m.trocar({uid:'A'}));await act(async()=>m.trocar({uid:'B'}));
@@ -49,7 +49,7 @@ it('serviço SDK descarta leitura atrasada após troca de sessão',async()=>{
 });
 
 it('troca de conta durante preparo do WhatsApp não mantém botão ocupado nem confirmação anterior',async()=>{
- const {buscarPedido,finalizarPedido}=await import('../../../frontend/src/services/pedidosConta');let liberar;
+ m.itens=[];const {buscarPedido,finalizarPedido}=await import('../../../frontend/src/services/pedidosConta');let liberar;
  m.auth.currentUser={uid:'A'};m.sessao.mockResolvedValue({uid:'A'});localStorage.setItem('catalogos:checkout:loja:A',JSON.stringify({uid:'A',chave:'nonce-persistido',pedidoId:'pedido-A'}));
  buscarPedido.mockResolvedValue({id:'pedido-A',numeroPedido:11,total:20,tipoEntrega:'retirada',pagamento:{forma:'pix',status:'pendente'}});finalizarPedido.mockImplementation(()=>new Promise(r=>{liberar=r;}));
  render(<Checkout/>);await act(async()=>m.trocar({uid:'A'}));expect(screen.getByRole('button',{name:'Preparando WhatsApp...'}).disabled).toBe(true);

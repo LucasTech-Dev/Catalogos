@@ -1,0 +1,31 @@
+/* Acabamento restrito ao acesso administrativo; componentes de conta compartilhados. */
+.admin-access-page{min-height:100vh;background:#f6f7f9;padding:40px 16px}
+.admin-access-page .login-container{width:100%;max-width:480px;margin:0 auto;padding:0}
+.admin-access-page .login-card{width:100%;padding:32px;border:1px solid #e4e7ec;border-radius:22px;background:#fff;box-shadow:0 8px 32px #10182808}
+.admin-access-page .login-header{margin-bottom:28px;text-align:center}
+.admin-access-icon{width:56px;height:56px;display:grid;place-items:center;margin:0 auto 20px;border-radius:16px;background:#fff4eb;color:#9a4d00}
+.admin-access-page .login-header h1{font-size:clamp(24px,5vw,30px);line-height:1.25;letter-spacing:-.5px}
+.admin-access-page .login-header p{font-size:14px;color:#667085;line-height:1.6;margin:12px auto 0}
+.admin-access-page .login-form{gap:20px}
+.admin-access-page .form-group{gap:8px}
+.admin-access-page .form-group input{height:50px;font-size:16px;border:1px solid #d0d5dd;border-radius:12px}
+.admin-access-page :is(.button,.admin-access-back){display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;width:100%;font-size:14px;border-radius:12px;text-decoration:none;font-weight:700;white-space:normal}
+.admin-access-page .button{cursor:pointer}
+.admin-access-page .button-secondary{background:#fff;border:1px solid #d0d5dd;color:#344054}
+.admin-access-page .google-login{margin:0}
+.admin-access-page .login-divider{margin:24px 0;color:#667085;font-size:12px}
+.admin-access-back{color:#475467;margin:14px 0 0}
+.admin-access-page :is(button,a):hover:not(:disabled){filter:brightness(.94)}
+.admin-access-page :is(button,a,input):focus-visible{outline:3px solid #fb923c;outline-offset:3px}
+.admin-access-page button:disabled{opacity:.6;cursor:wait}
+.admin-access-alert{display:flex;align-items:flex-start;gap:10px;padding:16px;margin-bottom:24px;border:1px solid #fecaca;border-radius:12px;background:#fff7f7;color:#b42318;font-size:14px;line-height:1.6;overflow-wrap:anywhere}
+.admin-access-alert>svg,.admin-access-info>svg{flex-shrink:0;margin-top:2px}
+.admin-access-alert>div{min-width:0;flex:1}
+.admin-access-alert p{margin:0}
+.admin-access-alert .button{margin-top:14px;background:white}
+.admin-access-info{display:flex;align-items:flex-start;gap:10px;margin-top:24px;padding:16px;border-radius:12px;background:#f8fafc;color:#667085;font-size:12px;line-height:1.65}
+.admin-access-info p{margin:0}
+.admin-access-spinner,.admin-access-page .google-login[aria-busy=true]::before{content:'';display:inline-block;width:17px;height:17px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:admin-access-turn .8s linear infinite;flex-shrink:0}
+@keyframes admin-access-turn{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.admin-access-spinner,.admin-access-page .google-login[aria-busy=true]::before{animation:none}}
+@media(max-width:480px){.admin-access-page{padding:24px 16px}.admin-access-page .login-card{padding:24px 20px;border-radius:18px}}
