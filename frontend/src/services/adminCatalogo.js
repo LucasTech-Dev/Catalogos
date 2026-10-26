@@ -4,7 +4,7 @@ import {CAMPOS_PUBLICOS,projetarRegistro,salvarComProjecao} from './projecaoPubl
 const falha=(message,status=400,code='ADMIN_CATALOGO_INVALIDO')=>Object.assign(new Error(message),{status,code});
 const id=v=>{if(typeof v!=='string' || !v || v.length>128 || !textoBemFormado(v) || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(v) || ['.','..'].includes(v))throw falha('Identificador inválido.');return v;};
 const tipoValido=n=>{if(!['produtos','categorias'].includes(n))throw falha('Operação fora do catálogo administrativo.');return n;};
-export const B03_BLOQUEADO='Desativar ou excluir categorias permanece bloqueado por segurança: a ausência de vínculos ainda não pode ser comprovada pelas Rules deste modelo. A categoria foi preservada.';
+export const B03_BLOQUEADO='Excluir categorias definitivamente permanece bloqueado: a ausência de produtos vinculados não pode ser comprovada pelas Rules. Use Desativar para ocultar a categoria do catálogo sem perder seus produtos.';
 function texto(v,n,max,obrigatorio=false,multilinha=false){if(typeof v!=='string' || !textoBemFormado(v) || v.length>max || obrigatorio && !v.trim() || /[\u007f-\u009f]/u.test(v) || (multilinha?/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/u:/[\u0000-\u001f]/u).test(v))throw falha(n+' inválido.');return v.trim();}
 function validar(tipo,d,novo){
  if(!d || typeof d!=='object' || Array.isArray(d) || !Object.keys(d).length || Object.keys(d).some(k=>!Object.hasOwn(CAMPOS_PUBLICOS[tipo],k)))throw falha('Campo não permitido nesta operação.');
@@ -61,7 +61,6 @@ export function criarAdminCatalogo({db,auth,sessaoExistente,lojaId,invalidar=()=
   }),
   salvar:(tipo,identificador,dados)=>executar(async({base,conferir})=>{
    tipoValido(tipo);const novo=!identificador,patch=validar(tipo,dados,novo);
-   if(tipo==='categorias' && !novo && patch.ativo===false)throw falha(B03_BLOQUEADO,409,'B03_BLOQUEADO');
    const destino=novo?doc(collection(base,tipo)):doc(base,tipo,id(identificador));conferir();
    // Analisar bloqueios previsíveis antes da transação. Uma categoria inativa
    // impede ativação do produto, inclusive se o próprio produto já existir.
