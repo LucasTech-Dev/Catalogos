@@ -1,3 +1,4 @@
+import './Produtos.css';
 import MaterialIcon from "../../components/ui/MaterialIcon";
 import {notificar} from '../../lib/notificacoes';
 import {FeedbackAcao,confirmarAcao} from '../../components/ui/ToastProvider';
@@ -15,10 +16,31 @@ function Produtos() {
 
   const recurso=useAdminLista('produtos',categoria==='Todas'?{}:{categoriaId:categoria});
   const categoriasRecurso=useAdminLista('categorias',{limite:100,contagem:'0'});
-  const [erro,setErro]=useState(''),[ocupado,setOcupado]=useState(false);
+  const [erro,setErro]=useState(''),[produtoOcupado,setProdutoOcupado]=useState(null);
   const produtos=recurso.itens.map(p=>({...p,categoria:categoriasRecurso.itens.find(c=>c.id===p.categoriaId)?.nome || (p.categoriaId ? 'Categoria cadastrada' : 'Sem categoria'),preco:moeda(p.preco)}));
   const categorias=[{id:'Todas',nome:'Todas'},...categoriasRecurso.itens,...(categoria!=='Todas' && !categoriasRecurso.itens.some(c=>c.id===categoria)?[{id:categoria,nome:categoriaNome || 'Categoria selecionada'}]:[])];
-  async function alternar(produto){if(ocupado)return;setOcupado(true);setErro('');try{await admin.salvar('produtos',produto.id,{ativo:!produto.ativo});notificar('sucesso',produto.ativo?'Produto desativado.':'Produto ativado.');await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}
+  async function alternar(produto){
+    if(produtoOcupado)return;
+    setProdutoOcupado(produto.id);setErro('');
+    try {
+      await admin.salvar('produtos',produto.id,{ativo:!produto.ativo});
+      notificar('sucesso',produto.ativo?'Produto desativado no catálogo.':'Produto ativado no catálogo.');
+      await recurso.atualizar();
+    } catch(e){setErro(e.message || 'Não foi possível atualizar o produto.');}
+    finally {setProdutoOcupado(null);}
+  }
+  async function remover(produto){
+    if(produtoOcupado)return;
+    if(!await confirmarAcao('Remover este produto do catálogo público? O registro e os pedidos anteriores serão preservados.','Remover do catálogo'))return;
+    setProdutoOcupado(produto.id);setErro('');
+    try {
+      // Exclusão lógica intencional: preserva produtos referenciados por pedidos históricos.
+      await admin.excluir('produtos',produto.id);
+      notificar('sucesso','Produto removido do catálogo. Histórico preservado.');
+      await recurso.atualizar();
+    } catch(e){setErro(e.message || 'Não foi possível remover o produto.');}
+    finally {setProdutoOcupado(null);}
+  }
   const produtosFiltrados = useMemo(() => {
     return produtos.filter((produto) => {
       const correspondeBusca =
@@ -98,7 +120,7 @@ function Produtos() {
 
         </section>
 
-        <AdminState recurso={recurso}/><AdminState recurso={categoriasRecurso}/>{erro && <FeedbackAcao mensagem={erro}/>}<AdminPaginacao recurso={recurso}/>{categoriasRecurso.temProximo && <button onClick={categoriasRecurso.proximo}>Mais categorias</button>}
+        <AdminState recurso={recurso}/><AdminState recurso={categoriasRecurso}/>{erro && <FeedbackAcao mensagem={erro}/>}<AdminPaginacao recurso={recurso}/>{categoriasRecurso.temProximo && <button type="button" className="admin-more-categories" onClick={categoriasRecurso.proximo}>Mais categorias</button>}
         {/* RESULTADOS */}
 
         <section className="admin-panel">
@@ -124,6 +146,7 @@ function Produtos() {
               <article
                 className="admin-product-row"
                 key={produto.id}
+                aria-busy={produtoOcupado===produto.id}
               >
 
                 {/* IMAGEM MOCK */}
@@ -179,15 +202,14 @@ function Produtos() {
                     className="admin-product-edit"
                   >
                     Editar
-                  </a><button disabled={ocupado} onClick={async()=>{if(!await confirmarAcao("Desativar este produto? Ele ficará preservado nos pedidos anteriores.","Remover do catálogo"))return;setOcupado(true);try{await admin.excluir("produtos",produto.id);notificar("sucesso","Produto removido do catálogo. Histórico preservado.");await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}}>Remover do catálogo</button>
+                  </a>
+                  <button type="button" className="admin-product-remove" disabled={Boolean(produtoOcupado)||!produto.ativo} onClick={()=>remover(produto)}>{produtoOcupado===produto.id?'Aguarde...':produto.ativo?'Remover do catálogo':'Removido'}</button>
 
                   <button
                     type="button"
-                    className="admin-product-toggle" disabled={ocupado} onClick={()=>alternar(produto)}
+                    className="admin-product-toggle" disabled={Boolean(produtoOcupado)} onClick={()=>alternar(produto)}
                   >
-                    {produto.ativo
-                      ? "Desativar"
-                      : "Ativar"}
+                    {produtoOcupado===produto.id ? "Salvando..." : produto.ativo ? "Desativar" : "Ativar"}
                   </button>
 
                 </div>
