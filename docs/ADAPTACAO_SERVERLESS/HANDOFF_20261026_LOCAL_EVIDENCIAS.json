@@ -160,7 +160,12 @@
   "sdkTotal": 340,
   "browserTotal": 136,
   "scanner": "APROVADO",
-  "publicacao": "AUTORIZADA_AGUARDANDO_ENVIO",
+  "publicacao": {
+    "status": "PUBLICADA_VERIFICADA",
+    "codeCommit": "55e9ba680cb6b00940b27b0789d744508f8b56bb",
+    "deploymentId": "71eb9050-9a14-41e6-8dfa-5aad6c7d9281",
+    "onlineChecks": 40
+  },
   "administrativeSummaries": [
     {
       "adminCatalogoSdk": "aprovado",

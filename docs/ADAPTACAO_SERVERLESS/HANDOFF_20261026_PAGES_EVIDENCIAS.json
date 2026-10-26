@@ -1,0 +1,180 @@
+{
+  "started": "2026-10-26T23:04:52.691Z",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "checks": [
+    {
+      "id": "nova-release",
+      "passed": true
+    },
+    {
+      "id": "produtos-publicos-320",
+      "passed": true
+    },
+    {
+      "id": "sem-transbordamento-320",
+      "passed": true
+    },
+    {
+      "id": "sem-timeout-320",
+      "passed": true
+    },
+    {
+      "id": "produtos-publicos-390",
+      "passed": true
+    },
+    {
+      "id": "sem-transbordamento-390",
+      "passed": true
+    },
+    {
+      "id": "sem-timeout-390",
+      "passed": true
+    },
+    {
+      "id": "produtos-publicos-360",
+      "passed": true
+    },
+    {
+      "id": "sem-transbordamento-360",
+      "passed": true
+    },
+    {
+      "id": "sem-timeout-360",
+      "passed": true
+    },
+    {
+      "id": "produtos-publicos-640",
+      "passed": true
+    },
+    {
+      "id": "sem-transbordamento-640",
+      "passed": true
+    },
+    {
+      "id": "sem-timeout-640",
+      "passed": true
+    },
+    {
+      "id": "produtos-publicos-980",
+      "passed": true
+    },
+    {
+      "id": "sem-transbordamento-980",
+      "passed": true
+    },
+    {
+      "id": "sem-timeout-980",
+      "passed": true
+    },
+    {
+      "id": "produtos-publicos-981",
+      "passed": true
+    },
+    {
+      "id": "sem-transbordamento-981",
+      "passed": true
+    },
+    {
+      "id": "sem-timeout-981",
+      "passed": true
+    },
+    {
+      "id": "produtos-publicos-1366",
+      "passed": true
+    },
+    {
+      "id": "sem-transbordamento-1366",
+      "passed": true
+    },
+    {
+      "id": "sem-timeout-1366",
+      "passed": true
+    },
+    {
+      "id": "produto-rede-lenta",
+      "passed": true
+    },
+    {
+      "id": "ingredientes-preservados",
+      "passed": true
+    },
+    {
+      "id": "observacoes-preservadas",
+      "passed": true
+    },
+    {
+      "id": "admin-google-protegido",
+      "passed": true
+    },
+    {
+      "id": "detalhe-admin-protegido",
+      "passed": true
+    },
+    {
+      "id": "contrato-numero-publicado",
+      "passed": true
+    },
+    {
+      "id": "confirmacao-publicada",
+      "passed": true
+    },
+    {
+      "id": "uf-ajuda-publicada",
+      "passed": true
+    },
+    {
+      "id": "confirmacao-visual-publicada",
+      "passed": true
+    },
+    {
+      "id": "css-confirmacao-publicado",
+      "passed": true
+    },
+    {
+      "id": "admin-acoes-publicadas",
+      "passed": true
+    },
+    {
+      "id": "historico-sem-id-comercial",
+      "passed": true
+    },
+    {
+      "id": "css-admin-publicado",
+      "passed": true
+    },
+    {
+      "id": "ativacao-disponibilidade-publicada",
+      "passed": true
+    },
+    {
+      "id": "categorias-bloqueio-explicito",
+      "passed": true
+    },
+    {
+      "id": "sdk-publico-lite-carregado",
+      "passed": true
+    },
+    {
+      "id": "sem-escrita-firestore",
+      "passed": true
+    },
+    {
+      "id": "sem-excecoes-js",
+      "passed": true
+    }
+  ],
+  "realAccountsCreated": 0,
+  "realOrdersCreated": 0,
+  "messagesSent": 0,
+  "personalLoginAutomated": false,
+  "physicalDeviceTest": false,
+  "entryAsset": "/assets/index-CBl7Vt4X.js",
+  "assetUrls": [
+    "https://catalogo-demo-cz1.pages.dev/assets/index-CBl7Vt4X.js",
+    "https://catalogo-demo-cz1.pages.dev/assets/App-BsC2ktNr.js",
+    "https://catalogo-demo-cz1.pages.dev/assets/ambienteAplicacao-Tc3k2VaQ.js",
+    "https://catalogo-demo-cz1.pages.dev/assets/firebasePublico-CMoM668u.js"
+  ],
+  "status": "APROVADO",
+  "finished": "2026-10-26T23:05:23.838Z"
+}

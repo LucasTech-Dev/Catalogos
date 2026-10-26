@@ -1,0 +1,203 @@
+{
+  "codeCommit": "55e9ba680cb6b00940b27b0789d744508f8b56bb",
+  "baseCommit": "50c47db21a0622ee2e2bb15ac43e72f84993ef52",
+  "project": "catalogo-demo",
+  "branch": "main",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "deploymentId": "71eb9050-9a14-41e6-8dfa-5aad6c7d9281",
+  "trigger": "github:push",
+  "status": "success",
+  "publishedAt": "2026-10-26T23:04:39.770799Z",
+  "realFirebaseWrites": 0,
+  "rulesDeployed": false,
+  "files": [
+    {
+      "path": "frontend/src/pages/Checkout.jsx",
+      "sha256": "5c1130a7dbad3e05a484f6a4535e331535433ab15963c55462918c2e0401cb23"
+    },
+    {
+      "path": "frontend/src/pages/admin/Produtos.jsx",
+      "sha256": "03d973f910418dbf2ef3e9812fc41b3d8140b9ddebc51260146dac8d75ce1fcb"
+    },
+    {
+      "path": "frontend/src/components/admin/AdminGate.jsx",
+      "sha256": "2500be980dfd74f56f9783e025151543c6c58c51b94496ab80fb9d11d6b98ba5"
+    },
+    {
+      "path": "frontend/src/components/admin/AdminGate.css",
+      "sha256": "639d1a451e217e41c977e2043a68d1225e4db9212b92172f6f1c7aa637cfce88"
+    },
+    {
+      "path": "frontend/src/components/ui/BotaoGoogle.jsx",
+      "sha256": "bcf5fa14d1962f4b4c24f61114b0c20967842746cff7747baeb931f87636d293"
+    },
+    {
+      "path": "frontend/src/services/perfil.js",
+      "sha256": "720a6070c61f6e3235a5b397111ea30e9ade253cce2634b418729aeda955fe1f"
+    },
+    {
+      "path": "quality/frontend/test/admin.test.jsx",
+      "sha256": "3a360933f12d5cf6bb98075182f70c28c5a5491cd5f0d941783732efc3b0f1a4"
+    },
+    {
+      "path": "quality/frontend/test/compras.test.jsx",
+      "sha256": "759560671cf2e5461f3fdb9eecae2bd3637ad275cacbafdbc766856c69643c13"
+    },
+    {
+      "path": "quality/frontend/test/seguranca.test.jsx",
+      "sha256": "8316c3db760b5e8e9b86c48475a15b0d599ba7cc7ff32de0a2e1e1e95fa93b43"
+    },
+    {
+      "path": "quality/frontend/test/notificacoes.test.jsx",
+      "sha256": "40d624e0a81c7ceb461edecb0f9ff27bfec358dd8f64e3f0c8a61e3874589c82"
+    },
+    {
+      "path": "quality/frontend/test/adminAcessoVisual.test.jsx",
+      "sha256": "1b0daa8950ce6e397af76451edc3699c23d44054fac3f04205771a3cfb4d8e42"
+    },
+    {
+      "path": "quality/frontend/scripts/numero-publico-browser.mjs",
+      "sha256": "39351425652ef8b76dbb68ba05a164ddbbe0595feae02335a8b6c01762c1e889"
+    },
+    {
+      "path": "quality/frontend/scripts/numero-publico-emulator.mjs",
+      "sha256": "acb12a8aee31746283607763cc9376a31806e2cbb86bfb5e1c3feeae0c410fc1"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-catalogo-browser.js",
+      "sha256": "5322651018ff6aba5ee2c8ab3b9f34201f0e98fd2b6bc7da8120867c9c6a9cac"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-catalogo-emulator.js",
+      "sha256": "2103e2036f23fc62b722fff7a2d06903dd6f7451ec0abb2864d1d7cac7c279ad"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-gestao-browser.js",
+      "sha256": "ef3093489e07659b91fb88a727b1bdf0ec421270def22c84214bf3b44be6b563"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-gestao-emulator.js",
+      "sha256": "d76befd57735977ab405e2ee48d0a275a434a1e0a647b99c485c4ba193fc53b1"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-pedidos-browser.js",
+      "sha256": "910a9bdb709eb44e0f1b141ebca4671adcd7bdf62cf2e9313e02ebe9b5de6483"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-pedidos-emulator.js",
+      "sha256": "490133f182446672223f7bd584ffec020515d424a88267e88660b7769c46d7bb"
+    },
+    {
+      "path": "quality/frontend/scripts/validar-handoff-pages.cjs",
+      "sha256": "57ab805b956a1cdabe87d9efc86bcd24900818e20c49ad400e9078da5c68cefb"
+    },
+    {
+      "path": "quality/firebase/executar-handoff.cjs",
+      "sha256": "4079c1d3f8bb1f08e43a62ff2f4d9100eeb44b444432f5344e499800e204b02b"
+    },
+    {
+      "path": "frontend/package.json",
+      "sha256": "088250d92b371d2dec2830e58a361b2b9ea378f539bf3a5a1ac1d87178deedf0"
+    },
+    {
+      "path": "docs/GUIA_MESTRE.md",
+      "sha256": "72cf5210d6c56762e49b161bb85ee19f07f4ff32efcb18ee5e5e93e4ebff26b6"
+    },
+    {
+      "path": "docs/REGISTRO_DE_TRABALHO.md",
+      "sha256": "e24d3dedcde933ad31c74c6766d279e917459137a10db0314235898a6be36ec2"
+    },
+    {
+      "path": "quality/README.md",
+      "sha256": "41b80a62fe2249b2741692ba70e857a2054f7d3365e9ca8759b33c73e24a0105"
+    },
+    {
+      "path": "docs/ADAPTACAO_SERVERLESS/RELATORIO_REVISAO_HANDOFF_20261026.md",
+      "sha256": "3bc01875781153f8541357f73413ee33cffe409c4a097b3a7cdda6081d2bffee"
+    },
+    {
+      "path": "docs/ADAPTACAO_SERVERLESS/HANDOFF_20261026_LOCAL_EVIDENCIAS.json",
+      "sha256": "d1057dfc3188f1d205041e433fb07114d5691189d844e0e8ff8b14805a710f93"
+    },
+    {
+      "path": "docs/ADAPTACAO_SERVERLESS/HANDOFF_20261026_LEITURA_EVIDENCIAS.json",
+      "sha256": "67c1310af7e499cb360924ab8e55d205e9346d259afbd0b06853b876863fc4a4"
+    }
+  ],
+  "localBuildAssets": [
+    {
+      "file": "_redirects",
+      "sha256": "6036983e5fc00f0169c9e939b1816ed771eee00e27f2fcc517b819041460b9ef"
+    },
+    {
+      "file": "assets/App-CIakODcm.js",
+      "sha256": "2eb26b69c7cec87550decbd465bbae96f311606e79ba088deb1b3a54a02f7d04"
+    },
+    {
+      "file": "assets/App-Uz8cietu.css",
+      "sha256": "7f4aa3a246e57802a3c99d92b39940d45becc1ca24ee482f38a9e2154a5232d3"
+    },
+    {
+      "file": "assets/DemoFixtures-B6Iqd7zM.js",
+      "sha256": "5d9efb2cfca41a341d06d2c17f701c12caa2dc6736eab4f68f750b1e5497e469"
+    },
+    {
+      "file": "assets/DemoFixtures-BjFhf-tf.css",
+      "sha256": "2b1a28b2ac0bad8fcd37074aee415dca3401bbbd8da52f1e644fa2faa72903b1"
+    },
+    {
+      "file": "assets/DemoPublica-Di2HWHNR.js",
+      "sha256": "769b0ce14bc50df703ab62c03e7285f7967923da666932c4a69a87e2dd096f4a"
+    },
+    {
+      "file": "assets/ambienteAplicacao-f9Oan94L.js",
+      "sha256": "601412360c1a1f135dc1bbb5fe85320db7e8725fa0046743007b4b0a99eab9b0"
+    },
+    {
+      "file": "assets/firebasePublico-hzL0Lexx.js",
+      "sha256": "657aaa70c2cd11471b0f38f75e3bf486cab3f927654eaf566af1c9980a0c318a"
+    },
+    {
+      "file": "assets/index-B_TY-drP.css",
+      "sha256": "777deb5ddbfddb0d8b2d9d89b4097ccd3ce60dfcba248e16fd5312cb2e7df8d2"
+    },
+    {
+      "file": "assets/index-DYU_QdHD.js",
+      "sha256": "ff8142c1c274619784fca42106295d29e3b28061c9cd961d6e880aa68ad96d19"
+    },
+    {
+      "file": "demo-produto.svg",
+      "sha256": "2e12a9c897ed3265824be80fcec3fa1e2d0ee86029b3c6163eada4461eecb183"
+    },
+    {
+      "file": "index.html",
+      "sha256": "534c904ce369eb2ec52079417047632dd69831e4d95856c53767cdd0c2d1d044"
+    },
+    {
+      "file": "licenses/material-symbols-LICENSE.txt",
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    }
+  ],
+  "deployedEntryAsset": "/assets/index-CBl7Vt4X.js",
+  "onlineChecks": 40,
+  "onlineStatus": "APROVADO",
+  "artifactNote": "Hashes localBuildAssets identificam somente o build local; o build do provedor usa suas variáveis públicas preservadas. Deploy Git/SHA e navegação pública identificam a versão servida.",
+  "syntheticScreenshots": [
+    {
+      "path": "docs/ADAPTACAO_SERVERLESS/EVIDENCIAS_ADMIN_PEDIDO/pedido-1366.png",
+      "sha256": "6dafba7df3a27dd88b3edc8f530ffb3bddc6b374f0bf83a605a7efa31fad2ca6"
+    },
+    {
+      "path": "docs/ADAPTACAO_SERVERLESS/EVIDENCIAS_ADMIN_PEDIDO/pedido-390.png",
+      "sha256": "5b763d212c8d930d0e2113b12db1be5b4fdd04a4f9df9dd6616d31b1e9a5938a"
+    },
+    {
+      "path": "docs/ADAPTACAO_SERVERLESS/EVIDENCIAS_CHECKOUT_MOBILE/sucesso-android-320.png",
+      "sha256": "584d5d1f25e1a65717ada531928097d0bdd763e92cf0c354ab40b1847509aec9"
+    },
+    {
+      "path": "docs/ADAPTACAO_SERVERLESS/EVIDENCIAS_CHECKOUT_MOBILE/sucesso-android-390.png",
+      "sha256": "24d00d9cd3da64d84559d8f7c74e0a46d942daf7e6e9851c0efb2ba5a5340fe9"
+    }
+  ]
+}
