@@ -24,6 +24,8 @@ function Checkout() {
   const ufInvalida=ufTocada && !ufs.includes(uf);
   const [erro,setErro] = useState(''), [ocupado,setOcupado] = useState(false), [pedido,setPedido] = useState(null), [url,setUrl] = useState('');
   const trava = useRef(false), tentativaKey = useRef(""), versaoSessao=useRef(0);
+  const itensAtuaisRef=useRef(itens);
+  itensAtuaisRef.current=itens;
   const [enderecosSalvos,setEnderecosSalvos] = useState([]), [enderecoSalvo,setEnderecoSalvo] = useState("");
 
   const [tipoEntrega, setTipoEntrega] =
@@ -66,8 +68,15 @@ function Checkout() {
           try{confirmado=tentativa.pedidoId || tentativa.pedido?.id?await buscarPedido(tentativa.pedidoId || tentativa.pedido.id,identidade.uid):await recuperarPedido(tentativa.chave,identidade.uid);}
           catch(e){if(e.status!==404)throw e;}
           if(confirmado && atual()){
-            tentativaKey.current=key;setPedido(confirmado);setClientePronto(true);
-            setOcupado(true);prepararFinalizacao(confirmado.id,identidade.uid).then(f=>{if(atual())setUrl(urlWhatsapp(f.url));}).catch(e=>{if(atual())setErro(e.message);}).finally(()=>{if(atual())setOcupado(false);});return;
+            // Um pedido confirmado não deve ser reaproveitado como se fosse uma nova compra.
+            // O carrinho com itens indica nova intenção; só removemos o marcador local,
+            // nunca o pedido antigo nem seus registros no Firestore.
+            if(itensAtuaisRef.current.length>0){
+              removerTentativa(key);
+            }else{
+              tentativaKey.current=key;setPedido(confirmado);setClientePronto(true);
+              setOcupado(true);prepararFinalizacao(confirmado.id,identidade.uid).then(f=>{if(atual())setUrl(urlWhatsapp(f.url));}).catch(e=>{if(atual())setErro(e.message);}).finally(()=>{if(atual())setOcupado(false);});return;
+            }
           }
         }
         const [perfil,lista]=await Promise.all([buscarPerfil(),listarEnderecos()]);
@@ -89,7 +98,15 @@ function Checkout() {
       key = `catalogos:checkout:${lojaId}:${user.uid}`;
       tentativaKey.current = key;
       let tentativa=carregarTentativa(key,user.uid);
-      if(tentativa?.pedido?.id || tentativa?.pedidoId)tentativa.pedido=await conferirResultado(buscarPedido(tentativa.pedido?.id || tentativa.pedidoId,uid));
+      if(tentativa?.pedido?.id || tentativa?.pedidoId){
+        if(itensAtuaisRef.current.length>0){
+          // Novo carrinho não pode reutilizar um pedido previamente finalizado.
+          removerTentativa(key);
+          tentativa=null;
+        }else{
+          tentativa.pedido=await conferirResultado(buscarPedido(tentativa.pedido?.id || tentativa.pedidoId,uid));
+        }
+      }
       if(tentativa && !tentativa.dados && !tentativa.pedido) {
         try{tentativa.pedido=await conferirResultado(recuperarPedido(tentativa.chave,uid));salvarTentativa(key,tentativa);}
         catch(e){if(e.status!==404)throw e;}
