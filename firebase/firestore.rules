@@ -47,7 +47,9 @@ service cloud.firestore {
     allow create, update: if admin(lojaId)
       && revisao_comercial(lojaId,'categorias',id)
       && datas_catalogo_validas()
-      && (resource == null || request.resource.data.get('ativo',true) == resource.data.get('ativo',true) || request.resource.data.get('ativo',true) == true)
+      // Desativação lógica de categoria é reversível: preserva produtos, histórico e origem.
+      // A leitura pública de produtos já exige categoria ativa, ocultando-os do catálogo.
+      && (request.resource.data.get('ativo',true) is bool)
       && (resource == null ? request.resource.data.keys().hasOnly(['criadoEm','atualizadoEm','nome', 'descricao', 'icone', 'ordem', 'ativo']) : request.resource.data.diff(resource.data).affectedKeys().hasOnly(['atualizadoEm','nome', 'descricao', 'icone', 'ordem', 'ativo']))
       && getAfter(/databases/$(database)/documents/catalogosPublicos/$(lojaId)/categorias/$(id)).data == projetar_categorias(request.resource.data);
     // Exclusão física fora desta ordem; preservar originais e projeções.
