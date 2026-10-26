@@ -1,7 +1,7 @@
 import './Categorias.css';
 import MaterialIcon from "../../components/ui/MaterialIcon";
 import {notificar} from '../../lib/notificacoes';
-import {FeedbackAcao} from '../../components/ui/ToastProvider';
+import {FeedbackAcao,confirmarAcao} from '../../components/ui/ToastProvider';
 import {B03_BLOQUEADO} from '../../services/adminCatalogo';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useState } from "react";
@@ -53,6 +53,20 @@ function Categorias() {
     } catch(e){setErro(e.message || 'Não foi possível ativar a categoria.');}
     finally{setOcupado(false);}
   }
+  async function desativarCategoria(categoria){
+    if(ocupado || !categoria.ativa)return;
+    const aviso=categoria.produtos>0
+      ? 'Desativar esta categoria também ocultará seus '+categoria.produtos+' produtos do catálogo público. Todos os registros continuarão salvos e poderão ser reativados.'
+      : 'Desativar esta categoria? Ela ficará oculta no catálogo público e poderá ser reativada.';
+    if(!await confirmarAcao(aviso,'Desativar categoria'))return;
+    setOcupado(true);setErro('');
+    try{
+      await admin.salvar('categorias',categoria.id,{ativo:false});
+      notificar('sucesso','Categoria desativada no banco. Dados preservados.');
+      await recurso.atualizar();
+    }catch(e){setErro(e.message || 'Não foi possível desativar a categoria.');}
+    finally{setOcupado(false);}
+  }
   return (<PageBoundary recursos={[recurso]}>
     <main className="admin-categories-page">
       <div className="admin-container">
@@ -73,7 +87,7 @@ function Categorias() {
         </section>
 
         <AdminState recurso={recurso}/>{erro && <FeedbackAcao mensagem={erro}/>}
-        <p className="admin-category-limitation" role="status">Criar, editar e ativar categorias estão disponíveis. Desativar e excluir permanecem indisponíveis enquanto a regra de segurança B-03 não permitir comprovar a ausência de produtos vinculados. Nenhuma categoria será apagada por engano.</p>
+        <p className="admin-category-limitation" role="status">Desativar oculta temporariamente a categoria e os produtos vinculados do catálogo, sem apagá-los. A função exige as Rules atualizadas no Firebase. A exclusão definitiva continua bloqueada para preservar vínculos e pedidos.</p>
         <AdminPaginacao recurso={recurso}/><section className="admin-categories-panel">
           {categorias.length > 0 ? (
             <div className="admin-categories-list">
@@ -122,7 +136,7 @@ function Categorias() {
                     </button>
 
                     {categoria.ativa
-                      ? <button type="button" disabled title={B03_BLOQUEADO}>Desativar</button>
+                      ? <button type="button" disabled={ocupado} onClick={()=>desativarCategoria(categoria)}>{ocupado?"Salvando...":"Desativar"}</button>
                       : <button type="button" disabled={ocupado} onClick={() => ativarCategoria(categoria)}>{ocupado?'Salvando...':'Ativar'}</button>}
                     <button type="button" className="admin-category-action-danger" disabled title={B03_BLOQUEADO}>Excluir</button>
                   </div>
