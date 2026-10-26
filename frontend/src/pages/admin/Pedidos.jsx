@@ -1,3 +1,4 @@
+import "./Pedidos.css";
 import {numeroPedido} from "../../lib/numeroPedido";
 import MaterialIcon from "../../components/ui/MaterialIcon";
 import {PageBoundary} from '../../components/ui/PageLoader';
@@ -13,7 +14,7 @@ function Pedidos() {
 
   const status=Object.keys(rotulosStatus).find(k=>rotulosStatus[k]===filtro);
   const recurso=useAdminLista('pedidos',{...(status?{status}:{}),...(numeroBusca?{numeroPedido:numeroBusca}:{})});
-  const filtros=['Todos',...Object.values(rotulosStatus)];
+  const filtros=['Todos',...Object.values(rotulosStatus)]; // Estados reais do Firestore; não simular aprovação/negação ainda inexistentes.
   const pedidosFiltrados=recurso.itens.filter(p=>numeroBusca || !busca.trim() || (numeroPedido(p)+' '+(p.cliente?.nome || '')).toLocaleLowerCase('pt-BR').includes(busca.replace(/^#/,'').trim().toLocaleLowerCase('pt-BR'))).map(p=>({...p,cliente:p.cliente?.nome || 'Cliente',horario:dataTexto(p.criadoEm),tipo:p.tipoEntrega,itens:`${p.itens?.length || 0} itens`,valor:moeda(p.total),status:rotulosStatus[p.status] || p.status,statusClass:classeStatus[p.status] || ''}));
   return (<PageBoundary recursos={[recurso]}>
     <main className="admin-orders-page">
@@ -34,7 +35,7 @@ function Pedidos() {
           </div>
         </section>
 
-        <form className="admin-order-search" onSubmit={e=>{e.preventDefault();const n=busca.replace(/^#/,'').trim();setNumeroBusca(/^[1-9][0-9]{0,8}$/.test(n)?Number(n):null);}}><label htmlFor="busca-admin-pedido">Buscar pedido</label><input id="busca-admin-pedido" type="search" value={busca} onChange={e=>{setBusca(e.target.value);if(!e.target.value.trim())setNumeroBusca(null);}} placeholder="Número do pedido ou cliente"/><button type="submit" className="button">Buscar</button><small>Número exato: pesquisa na loja. Nome: filtra os pedidos carregados.</small></form>
+        <form className="admin-order-search" onSubmit={e=>{e.preventDefault();const n=busca.replace(/^#/,'').trim();setNumeroBusca(/^[1-9][0-9]{0,8}$/.test(n)?Number(n):null);}}><label htmlFor="busca-admin-pedido">Buscar pedido</label><input id="busca-admin-pedido" type="search" value={busca} onChange={e=>{setBusca(e.target.value);if(!e.target.value.trim())setNumeroBusca(null);}} placeholder="Número do pedido ou cliente"/><button type="submit" className="admin-order-search-button">Buscar</button><small>Número exato: consulta a loja. Nome: filtra a página carregada. Pedidos históricos sem numeração permanecem acessíveis.</small></form>
         {/* FILTROS */}
         <section className="admin-order-filters">
           {filtros.map((item) => (
@@ -76,7 +77,7 @@ function Pedidos() {
               >
 
                 <div className="admin-order-number">
-                  #{numeroPedido(pedido)}
+                  {numeroPedido(pedido)==='Sem número'?'Pedido histórico sem número':`Pedido #${numeroPedido(pedido)}`}
                 </div>
 
                 <div className="admin-order-client">
