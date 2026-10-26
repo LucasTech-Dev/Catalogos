@@ -1,6 +1,8 @@
+import './Categorias.css';
 import MaterialIcon from "../../components/ui/MaterialIcon";
 import {notificar} from '../../lib/notificacoes';
-import {FeedbackAcao,confirmarAcao} from '../../components/ui/ToastProvider';
+import {FeedbackAcao} from '../../components/ui/ToastProvider';
+import {B03_BLOQUEADO} from '../../services/adminCatalogo';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useState } from "react";
 
@@ -26,7 +28,7 @@ function Categorias() {
   function abrirEdicao(categoria) {
     setCategoriaEditando(categoria);
     setNome(categoria.nome);
-    setDescricao(categoria.descricao);
+    setDescricao(categoria.descricao || '');
     setModalAberto(true);
   }
 
@@ -39,13 +41,18 @@ function Categorias() {
 
   async function salvarCategoria(event) {
     event.preventDefault();if(ocupado)return;setOcupado(true);setErro('');
-    try{await admin.salvar('categorias',categoriaEditando?.id,{nome:nome.trim(),descricao:descricao.trim()});notificar("sucesso",categoriaEditando?"Categoria atualizada.":"Categoria criada.");await recurso.atualizar();fecharModal();}catch(e){setErro(e.message);}finally{setOcupado(false);}
+    try{await admin.salvar('categorias',categoriaEditando?.id || null,{nome:nome.trim(),descricao:descricao.trim()});notificar('sucesso',categoriaEditando?'Categoria atualizada no banco.':'Categoria criada no banco.');await recurso.atualizar();fecharModal();}catch(e){setErro(e.message || 'Não foi possível salvar a categoria.');}finally{setOcupado(false);}
   }
-  async function alternarStatus(id) {
-    if(ocupado)return;setOcupado(true);setErro('');
-    try{const categoria=categorias.find(c=>c.id===id);await admin.salvar('categorias',id,{ativo:!categoria.ativa});notificar('sucesso',categoria.ativa?'Categoria desativada.':'Categoria ativada.');await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}
+  async function ativarCategoria(categoria) {
+    if(ocupado || categoria.ativa)return;
+    setOcupado(true);setErro('');
+    try {
+      await admin.salvar('categorias',categoria.id,{ativo:true});
+      notificar('sucesso','Categoria ativada no banco.');
+      await recurso.atualizar();
+    } catch(e){setErro(e.message || 'Não foi possível ativar a categoria.');}
+    finally{setOcupado(false);}
   }
-  async function excluir(id){if(ocupado || !await confirmarAcao('Excluir esta categoria? A exclusão só será permitida se não houver produtos vinculados.','Excluir categoria'))return;setOcupado(true);setErro('');try{await admin.excluir('categorias',id);notificar('sucesso','Categoria excluída.');await recurso.atualizar();}catch(e){setErro(e.message);}finally{setOcupado(false);}}
   return (<PageBoundary recursos={[recurso]}>
     <main className="admin-categories-page">
       <div className="admin-container">
@@ -59,19 +66,22 @@ function Categorias() {
           <button
             type="button"
             className="admin-primary-button"
-            onClick={abrirNovaCategoria}
+            disabled={ocupado} onClick={abrirNovaCategoria}
           >
             <MaterialIcon name="add"/> Nova categoria
           </button>
         </section>
 
-        <AdminState recurso={recurso}/>{erro && <FeedbackAcao mensagem={erro}/>}<AdminPaginacao recurso={recurso}/><section className="admin-categories-panel">
+        <AdminState recurso={recurso}/>{erro && <FeedbackAcao mensagem={erro}/>}
+        <p className="admin-category-limitation" role="status">Criar, editar e ativar categorias estão disponíveis. Desativar e excluir permanecem indisponíveis enquanto a regra de segurança B-03 não permitir comprovar a ausência de produtos vinculados. Nenhuma categoria será apagada por engano.</p>
+        <AdminPaginacao recurso={recurso}/><section className="admin-categories-panel">
           {categorias.length > 0 ? (
             <div className="admin-categories-list">
               {categorias.map((categoria) => (
                 <article
                   className="admin-category-row"
                   key={categoria.id}
+                  aria-busy={ocupado}
                 >
                   <div className="admin-category-icon">
                     <MaterialIcon name="menu"/>
@@ -106,17 +116,15 @@ function Categorias() {
                   <div className="admin-category-actions">
                     <button
                       type="button"
-                      onClick={() => abrirEdicao(categoria)}
+                      disabled={ocupado} onClick={() => abrirEdicao(categoria)}
                     >
                       Editar
                     </button>
 
-                    <button
-                      type="button"
-                      disabled={ocupado} onClick={() => alternarStatus(categoria.id)}
-                    >
-                      {categoria.ativa ? "Desativar" : "Ativar"}
-                    </button><button disabled={ocupado} onClick={()=>excluir(categoria.id)}>Excluir</button>
+                    {categoria.ativa
+                      ? <button type="button" disabled title={B03_BLOQUEADO}>Desativar</button>
+                      : <button type="button" disabled={ocupado} onClick={() => ativarCategoria(categoria)}>{ocupado?'Salvando...':'Ativar'}</button>}
+                    <button type="button" className="admin-category-action-danger" disabled title={B03_BLOQUEADO}>Excluir</button>
                   </div>
                 </article>
               ))}
@@ -161,7 +169,7 @@ function Categorias() {
               <button
                 type="button"
                 className="admin-modal-close"
-                onClick={()=>{fecharModal();notificar("info","Edição cancelada.");}}
+                disabled={ocupado} onClick={()=>{fecharModal();notificar("info","Edição cancelada.");}}
               >
                 <MaterialIcon name="close"/>
               </button>
@@ -175,6 +183,8 @@ function Categorias() {
 
                 <input
                   id="categoria-nome"
+                  required
+                  maxLength={200}
                   type="text"
                   value={nome}
                   onChange={(event) => setNome(event.target.value)}
@@ -189,6 +199,7 @@ function Categorias() {
 
                 <textarea
                   id="categoria-descricao"
+                  maxLength={2000}
                   value={descricao}
                   onChange={(event) =>
                     setDescricao(event.target.value)
@@ -211,9 +222,7 @@ function Categorias() {
                   disabled={ocupado} type="submit"
                   className="admin-primary-button"
                 >
-                  {categoriaEditando
-                    ? "Salvar alterações"
-                    : "Criar categoria"}
+                  {ocupado ? "Salvando..." : categoriaEditando ? "Salvar alterações" : "Criar categoria"}
                 </button>
               </div>
             </form>
