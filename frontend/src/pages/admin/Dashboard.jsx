@@ -1,3 +1,4 @@
+import "./Dashboard.css";
 import {numeroPedido} from "../../lib/numeroPedido";
 import MaterialIcon from "../../components/ui/MaterialIcon";
 import {atualizarComFeedback} from '../../lib/notificacoes';
@@ -39,7 +40,18 @@ function Dashboard() {
           </div>
         </section>
 
-        <AdminState recurso={recurso}/><form className="admin-products-controls" onSubmit={e=>{e.preventDefault();setPeriodo({inicio,fim});}}><label>De <input type="date" value={inicio} onChange={e=>setInicio(e.target.value)} required/></label><label>Até <input type="date" value={fim} onChange={e=>setFim(e.target.value)} required/></label><button className="admin-primary-button" disabled={recurso.carregando}>Consultar período</button><button type="button" onClick={()=>atualizarComFeedback(recurso)}>Atualizar</button></form>
+        <AdminState recurso={recurso}/>
+        <form className="admin-period-form" aria-label="Filtrar indicadores por período" onSubmit={e=>{e.preventDefault();if(inicio>fim)return;setPeriodo({inicio,fim});}}>
+          <label className="admin-period-field" htmlFor="dashboard-inicio">De
+            <input id="dashboard-inicio" type="date" value={inicio} max={fim} onChange={e=>setInicio(e.target.value)} required/>
+          </label>
+          <label className="admin-period-field" htmlFor="dashboard-fim">Até
+            <input id="dashboard-fim" type="date" value={fim} min={inicio} onChange={e=>setFim(e.target.value)} required/>
+          </label>
+          <button className="admin-period-action admin-period-action-primary" type="submit" disabled={recurso.carregando || inicio>fim}>{recurso.carregando?'Consultando...':'Consultar período'}</button>
+          <button className="admin-period-action" type="button" disabled={recurso.carregando} onClick={()=>atualizarComFeedback(recurso)}>{recurso.carregando?'Atualizando...':'Atualizar'}</button>
+        </form>
+        {inicio>fim && <p className="admin-period-error" role="alert">A data inicial deve ser anterior ou igual à data final.</p>}
         {/* ESTATÍSTICAS */}
         <section className="admin-stats">
 
