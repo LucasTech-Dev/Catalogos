@@ -1,12 +1,13 @@
+import {destinoConta} from '../../services/acessoConta';
 import React,{useRef,useState} from 'react';
 import {entrarGoogle} from '../../services/conta';
 import {FeedbackAcao} from './ToastProvider';
 import {notificarAoNavegar} from '../../lib/notificacoes';
-export default function BotaoGoogle({disabled=false,onBusyChange}) {
+export default function BotaoGoogle({disabled=false,onBusyChange,destino}) {
  const [ocupado,setOcupado]=useState(false),[erro,setErro]=useState(''),[conflito,setConflito]=useState(false);const trava=useRef(false);
  async function entrar(trocarConta=false){
   if(trava.current||disabled)return;trava.current=true;setOcupado(true);onBusyChange?.(true);setErro('');setConflito(false);
-  try{await entrarGoogle({trocarConta});notificarAoNavegar('Você entrou na sua conta.');window.location.assign('/perfil');}
+  try{await entrarGoogle({trocarConta});notificarAoNavegar('Você entrou na sua conta.');window.location.assign(destino || await destinoConta());}
   catch(e){setErro(e.message);setConflito(e.code==='conta/convidado-separado');}
   finally{trava.current=false;setOcupado(false);onBusyChange?.(false);}
  }

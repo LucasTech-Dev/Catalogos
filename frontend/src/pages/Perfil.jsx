@@ -1,3 +1,4 @@
+import {useAcessoConta} from '../hooks/useAcessoConta';
 import MaterialIcon from "../components/ui/MaterialIcon";
 import '../components/conta/areaCliente.css';
 import {notificarAoNavegar} from '../lib/notificacoes';
@@ -8,6 +9,7 @@ import React,{useState} from "react";
 import {useRecurso} from "../hooks/useRecurso";
 import {sair,buscarPerfil} from "../services/conta";
 function Perfil() {
+  const {administrador}=useAcessoConta();
   const [erroSaida,setErroSaida]=useState(''),[saindo,setSaindo]=useState(false);
   const recurso=useRecurso(buscarPerfil);
   const {dados,erro,carregando} = recurso;
@@ -24,7 +26,7 @@ function Perfil() {
 
           <div>
             <span className="eyebrow">
-              MINHA CONTA
+              {administrador?'CONTA ADMINISTRATIVA':'MINHA CONTA'}
             </span>
 
             <h1>
@@ -32,7 +34,7 @@ function Perfil() {
             </h1>
 
             <p>
-              Gerencie seus dados e acompanhe seus pedidos.
+              {administrador?'Administre o catálogo e os pedidos da sua loja.':'Gerencie seus dados e acompanhe seus pedidos.'}
             </p>
             <p>{dados?.email}</p>{dados?.telefone && <p>{dados.telefone}</p>}
           </div>
@@ -40,6 +42,7 @@ function Perfil() {
 
         {/* OPÇÕES DA CONTA */}
         <section className="profile-options">
+          {administrador && <a href="/admin" className="profile-option"><div className="profile-option-icon"><MaterialIcon name="storefront"/></div><div className="profile-option-content"><h2>Painel administrativo</h2><p>Gerencie produtos, pedidos e configurações da loja</p></div><span className="profile-option-arrow"><MaterialIcon name="arrow_forward"/></span></a>}
 
           <a
             href="/perfil/dados"

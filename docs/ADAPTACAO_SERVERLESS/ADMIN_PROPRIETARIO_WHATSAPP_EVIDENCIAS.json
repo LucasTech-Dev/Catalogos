@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-25",
+  "project": "bancorestaurante",
+  "lojaId": "loja-demo",
+  "accountMatched": true,
+  "uidConfirmedPrivately": true,
+  "document": "usuarios/{uid}",
+  "fields": {
+    "role": "admin",
+    "ativo": true,
+    "lojaId": "loja-demo"
+  },
+  "permissionWrites": 1,
+  "idempotentWrites": 0,
+  "latestReadPermissionCorrect": true,
+  "unitTestsPassed": 5,
+  "emulatorChecksPassed": 26,
+  "whatsapp": "5551995310123",
+  "publicPhoneReadPassed": true,
+  "messagesSent": 0,
+  "ordersCreated": 0,
+  "manualGoogleLoginConfirmed": true,
+  "manualAdminAcceptance": "pending: owner reports customer view; direct-route question pending",
+  "deploymentPerformed": false
+}

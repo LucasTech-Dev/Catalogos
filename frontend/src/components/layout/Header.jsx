@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 
 import {useLoja} from "../../contexts/LojaContext";
 
-import {useSessao} from '../../hooks/useSessao';
+import {useAcessoConta} from '../../hooks/useAcessoConta';
 
 function Header() {
-  const {usuario,carregando:sessaoPendente}=useSessao();
+  const {usuario,carregando:sessaoPendente,administrador}=useAcessoConta();
   const conectado=Boolean(usuario && !usuario.isAnonymous);
-  const contaUrl=conectado?'/perfil':'/login';
-  const contaTexto=sessaoPendente?'Verificando conta…':conectado?'Minha conta':'Entrar';
+  const contaUrl=administrador?'/admin':conectado?'/perfil':'/login';
+  const contaTexto=sessaoPendente?'Verificando conta…':administrador?'Painel administrativo':conectado?'Minha conta':'Entrar';
   const {loja,itens} = useLoja();
   const [menuOpen, setMenuOpen] = useState(false);
 

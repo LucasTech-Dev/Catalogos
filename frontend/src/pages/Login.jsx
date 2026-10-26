@@ -1,3 +1,4 @@
+import {destinoConta} from '../services/acessoConta';
 import MaterialIcon from "../components/ui/MaterialIcon";
 import BotaoGoogle from '../components/ui/BotaoGoogle';
 import {FeedbackAcao} from '../components/ui/ToastProvider';
@@ -11,7 +12,7 @@ function Login() {
   const [erro,setErro] = useState(''),[ocupado,setOcupado] = useState(false);
   async function handleSubmit(event,trocarConta=false) {
     event.preventDefault(); if (ocupado) return; setOcupado(true);setErro('');setConflito(null);
-    try {await entrar(event.target.querySelector('#email').value,event.target.querySelector('#password').value,...(trocarConta?[{trocarConta:true}]:[]));notificarAoNavegar('Você entrou na sua conta.');window.location.assign('/perfil');} catch(e) {setErro(e.message);if(e.code==='conta/convidado-separado')setConflito('email');} finally {setOcupado(false);}
+    try {await entrar(event.target.querySelector('#email').value,event.target.querySelector('#password').value,...(trocarConta?[{trocarConta:true}]:[]));notificarAoNavegar('Você entrou na sua conta.');window.location.assign(await destinoConta());} catch(e) {setErro(e.message);if(e.code==='conta/convidado-separado')setConflito('email');} finally {setOcupado(false);}
   }
   async function recuperarSenha(event){
     event.preventDefault();if(ocupado)return;const email=document.getElementById('email');if(!email.reportValidity())return;

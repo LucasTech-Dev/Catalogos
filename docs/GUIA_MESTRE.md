@@ -1,3 +1,11 @@
+# Navegação administrativa — publicação autorizada — 25/10/2026
+
+A — Codex: “suba, bota no ar” autoriza a correção do login por papel e dos acessos ao painel em main/Pages catalogo-demo. 53 testes e 115 verificações Emulator/Chrome aprovados, incluindo 320/390/1366px; Firebase preservado nesta publicação. Arquivos e limites: [relatório](ADAPTACAO_SERVERLESS/RELATORIO_ADMIN_PROPRIETARIO_WHATSAPP.md). Publicação em execução; não presumir sucesso.
+
+B — proprietário: conferir o painel na sessão Google pessoal após deploy. Ferramentas administrativas e planos completos permanecem no workspace local; release contém runtime, regressão de navegação e evidências sanitizadas. Sem conta/pedido/WhatsApp enviado por esta publicação.
+
+---
+
 # Ingredientes — dados aplicados; publicação do site em execução — 25/10/2026
 
 A — EXECUÇÃO PELO CODEX: ING-03, resposta atual “publique” após tabela revisável. Seislistas aplicadas em bancorestaurante/loja-demo com origem/projeção/revisão atômicas e precondições; demais campos/ClassicBurger/bebidas/doisinativos preservados. Cópia33documentos recuperável/restauraçãoEmulator111checks;43testes e buildintegrado7,65s aprovados. [Atos,evidências e limites](ADAPTACAO_SERVERLESS/RELATORIO_INGREDIENTES.md). Nenhuma alteraçãoRules/índices/Auth/IAM ou pedido/conta; contratos/noveMVPs mantidos.

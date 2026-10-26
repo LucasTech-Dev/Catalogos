@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-25",
+  "scope": "ADM-NAV-01",
+  "status": "APROVADO_LOCAL_AGUARDANDO_PUBLICACAO",
+  "unitTests": 53,
+  "testFiles": 3,
+  "emulatorSdkChecks": 84,
+  "emulatorBrowserChecks": 31,
+  "widths": [
+    320,
+    390,
+    1366
+  ],
+  "loginToAdminVerified": true,
+  "adminProfileAndMenuVerified": true,
+  "clientAndOtherStoreDenied": true,
+  "productionBuildSeconds": 7.96,
+  "publicIsolatedAdminRoute": {
+    "httpStatus": 200,
+    "path": "/admin",
+    "heading": "Acesso administrativo",
+    "profileAbsent": true,
+    "jsExceptions": 0
+  },
+  "realFirebaseWrites": 0,
+  "deployments": 0,
+  "manualOwnerAdminAcceptance": "pendente após publicação",
+  "removedTemporaryArtifacts": [
+    {
+      "path": "/tmp/catalogo-admin.html",
+      "sha256": "d911ae9bd276da67729450f9bfefd7a7610b0d36f578a85801755bd44a8924f0",
+      "purpose": "diagnóstico HTTP público concluído, resumo preservado"
+    },
+    {
+      "path": "/tmp/catalogo-admin-headers.txt",
+      "sha256": "173db64dc5c20c0c2bc5f7b369ba35cd9ef1f834a1c269824333b11d65dd0556",
+      "purpose": "diagnóstico HTTP público concluído, resumo preservado"
+    }
+  ]
+}
