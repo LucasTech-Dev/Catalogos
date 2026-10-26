@@ -15,9 +15,14 @@ function Configuracoes() {
   const recurso=useAdminRecurso(admin.loja),[erro,setErro]=useState(''),[ocupado,setOcupado]=useState(false);
   const vazio={nome:'',descricao:'',telefone:'',whatsapp:'',instagram:'',endereco:'',bairro:'',cidade:'',numero:'',uf:'',logo:'',imagem:'',corPrimaria:'#f97316',tempoMedio:'',horarios:{},retirada:true,entrega:false,taxaEntrega:'0',pedidoMinimo:'0',pix:false,dinheiro:false,cartao_credito:false,cartao_debito:false};
   const [config,setConfig]=useState(vazio);
+  const [diasEditados,setDiasEditados]=useState([]);
   function adaptar(dados) {const endereco=typeof dados.endereco==='string'?{rua:dados.endereco}:dados.endereco || {};return {...vazio,...dados,endereco:endereco.rua || endereco.logradouro || '',numero:endereco.numero || '',uf:endereco.uf || '',bairro:endereco.bairro || '',cidade:endereco.cidade || '',horarios:typeof dados.horarios==='object' && dados.horarios ? Object.fromEntries(Object.entries(dados.horarios).map(([dia,h])=>[dia==='terça'?'terca':dia==='sábado'?'sabado':dia,h])) : {},retirada:dados.retirada?.habilitada!==false,entrega:dados.entrega?.habilitada===true,taxaEntrega:String(dados.entrega?.taxa ?? 0),pedidoMinimo:String(dados.pedidoMinimo ?? 0),pix:dados.pagamentos?.pix===true,dinheiro:dados.pagamentos?.dinheiro===true,cartao_credito:dados.pagamentos?.cartao_credito===true || dados.pagamentos?.cartao===true,cartao_debito:dados.pagamentos?.cartao_debito===true || dados.pagamentos?.cartao===true};}
-  useLayoutEffect(()=>{if(recurso.dados)setConfig(adaptar(recurso.dados));},[recurso.dados]);
-  const horario=(dia,campo,valor)=>{setConfig(a=>({...a,horarios:{...a.horarios,[dia]:{...(typeof a.horarios[dia]==='object'?a.horarios[dia]:{fechado:true}),[campo]:valor}}}));setSalvo(false);};
+  useLayoutEffect(()=>{if(recurso.dados){setConfig(adaptar(recurso.dados));setDiasEditados([]);}},[recurso.dados]);
+  const horario=(dia,campo,valor)=>{
+    setConfig(a=>({...a,horarios:{...a.horarios,[dia]:{...(typeof a.horarios[dia]==='object'?a.horarios[dia]:{fechado:true}),[campo]:valor}}}));
+    setDiasEditados(a=>a.includes(dia)?a:[...a,dia]);
+    setSalvo(false);
+  };
   function alterarCampo(campo, valor) {
     setConfig((atual) => ({
       ...atual,
@@ -32,9 +37,18 @@ function Configuracoes() {
     try {
       const numero=v=>{if(String(v).trim()==='')throw new Error('Informe os valores monetários.');return Number(String(v).replace(',','.'));};
       const dados={nome:config.nome,descricao:config.descricao,telefone:config.telefone,whatsapp:config.whatsapp,instagram:config.instagram,endereco:{...Object.fromEntries(Object.entries(typeof recurso.dados?.endereco === "object" ? recurso.dados.endereco : {}).filter(([k])=>["cep","complemento"].includes(k))),rua:config.endereco,numero:config.numero,bairro:config.bairro,cidade:config.cidade,uf:config.uf},logo:config.logo || '',imagem:config.imagem || '',corPrimaria:config.corPrimaria,tempoMedio:config.tempoMedio || '',entrega:{habilitada:config.entrega,taxa:numero(config.taxaEntrega)},retirada:{habilitada:config.retirada},pedidoMinimo:numero(config.pedidoMinimo),pagamentos:Object.fromEntries(['pix','dinheiro','cartao_credito','cartao_debito'].map(f=>[f,config[f]]))};
-      if(Object.keys(config.horarios).length && Object.values(config.horarios).every(h=>h && typeof h==='object'))dados.horarios=config.horarios;
-      const salvo=await admin.configurar(dados);recurso.setDados(salvo);sessao?.atualizarLoja(salvo);setConfig(adaptar(salvo));setSalvo(salvo.salvamento?.atomico===false?'Horários e configurações salvos em etapas.':'Alterações salvas');
-    }catch(e){setErro(e.message);}finally{setOcupado(false);}
+      // A loja pode ter horários legados como texto. Enviar só dias editados:
+      // antes, se algum outro dia fosse texto, TODO o ajuste de horários era silenciosamente descartado.
+      if(diasEditados.length){
+        dados.horarios=Object.fromEntries(diasEditados.map(dia=>{
+          const h=config.horarios[dia];
+          if(!h || typeof h!=='object')throw new Error('Horário inválido para '+dia+'.');
+          if(h.fechado!==true && (!h.abertura || !h.fechamento || h.abertura===h.fechamento))throw new Error('Informe abertura e fechamento diferentes para '+dia+'.');
+          return [dia,h];
+        }));
+      }
+      const salvo=await admin.configurar(dados);recurso.setDados(salvo);sessao?.atualizarLoja(salvo);setConfig(adaptar(salvo));setDiasEditados([]);setSalvo(salvo.salvamento?.atomico===false?'Horários e configurações salvos em etapas.':'Alterações salvas');
+    }catch(e){setErro(e.message || 'Não foi possível salvar. Confira os dados e tente novamente.');}finally{setOcupado(false);}
   }
   return (<PageBoundary recursos={[recurso]}>
     <main className="admin-settings-page">
@@ -395,7 +409,7 @@ function Configuracoes() {
               disabled={ocupado || recurso.carregando || Boolean(recurso.erro)} type="submit"
               className="admin-primary-button"
             >
-              Salvar configurações
+              {ocupado ? 'Salvando configurações...' : 'Salvar configurações'}
             </button>
           </div>
         </form>
