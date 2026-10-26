@@ -10,7 +10,7 @@ export function projetarPedido(d,id) {
   p.id=id;p.cliente=d.cliente?campos(d.cliente,['nome','email','telefone']):null;p.endereco=endereco(d.endereco);
   p.pagamento=campos(d.pagamento,['forma','status','valor']);
   if(d.pagamento?.registroManual?.origem==='manual_estabelecimento')p.pagamento.origem='manual_estabelecimento';
-  p.itens=Array.isArray(d.itens)?d.itens.map(i=>campos(i,['produtoId','nome','precoUnitario','quantidade','subtotal'])):[];
+  p.itens=Array.isArray(d.itens)?d.itens.map(i=>campos(i,['produtoId','nome','precoUnitario','quantidade','subtotal','observacao'])):[];
   for(const k of ['criadoEm','atualizadoEm'])if(d[k]?.seconds!==undefined)p[k]={_seconds:d[k].seconds,_nanoseconds:d[k].nanoseconds};
   return p;
 }

@@ -1,0 +1,37 @@
+/* Detalhes administrativos: estilos locais carregados com a página. */
+.admin-order-details-page>.admin-container{display:block;width:min(1200px,100%);margin:0 auto;padding-inline:24px;min-width:0}
+.admin-order-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+.admin-order-toolbar a{display:inline-flex;align-items:center;gap:8px;color:#667085;text-decoration:none;font-size:14px}
+.admin-order-details-page :is(.admin-primary-button,.admin-secondary-button){display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:46px;max-width:100%;padding:12px 16px;border-radius:12px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:normal}
+.admin-order-details-page .admin-primary-button{background:var(--primary,#f97316);border-color:var(--primary,#f97316);color:#fff}
+.admin-order-details-page .admin-secondary-button{background:#fff;border:1px solid #d0d5dd;color:#344054}
+.admin-order-details-page button:hover:not(:disabled){filter:brightness(.96)}
+.admin-order-details-page button:disabled{opacity:.6;cursor:not-allowed}
+.admin-order-details-page :is(button,select,a):focus-visible{outline:3px solid #fb923c;outline-offset:3px}
+.admin-order-details-page .admin-order-details-header{align-items:center;flex-wrap:wrap;gap:16px}
+.admin-order-details-page .admin-order-details-header h1{font-size:clamp(26px,4vw,36px);overflow-wrap:anywhere}
+.admin-order-details-page .admin-order-details-grid{align-items:start;grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr)}
+.admin-order-details-page .admin-panel{margin:0;padding:24px;min-width:0;border:1px solid #e4e7ec;border-radius:18px;background:#fff;box-shadow:0 3px 14px #10182805}
+.admin-order-details-page .admin-panel-header{margin-bottom:20px}
+.admin-order-details-page .admin-panel h2{font-size:18px;margin:0}
+.admin-order-details-page .admin-order-details-main,.admin-order-details-page .admin-order-details-sidebar{min-width:0;gap:20px}
+.admin-order-details-page .admin-order-item{grid-template-columns:42px minmax(0,1fr) auto;gap:14px}
+.admin-order-details-page :is(.admin-order-item-info,.admin-address,.admin-detail-list dd){overflow-wrap:anywhere;min-width:0}
+.admin-order-details-page .admin-order-item-info p{line-height:1.5;white-space:pre-wrap}
+.admin-order-details-page .admin-order-note p{padding:0;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.admin-detail-list{display:grid;gap:16px;margin:0}
+.admin-detail-list>div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 12px}
+.admin-detail-list dt{color:#667085;font-size:13px}
+.admin-detail-list dd{margin:0;font-size:14px;font-weight:600;max-width:100%}
+.admin-detail-badge{display:inline-flex;padding:7px 11px;border-radius:9px;background:#fff3e5;color:#9a4d00;font-size:13px;font-weight:700;overflow-wrap:anywhere}
+.admin-detail-badge:is([data-payment=confirmado],[data-status=entregue],[data-status=pronto]){background:#ecfdf3;color:#166534}
+.admin-detail-badge:is([data-payment=recusado],[data-payment=cancelado],[data-status=cancelado],[data-status=pagamento_recusado]){background:#fef2f2;color:#b42318}
+.admin-order-details-page .admin-detail-help,.admin-order-details-page .admin-legacy-note{font-size:13px;line-height:1.65;color:#667085;margin:16px 0}
+.admin-financial-actions{display:grid;gap:10px;margin-top:16px}
+.admin-operational-panel label{display:block;font-size:14px;font-weight:600;margin-bottom:10px}
+.admin-order-details-page .admin-status-select{width:100%;min-width:0;min-height:46px;font-size:16px}
+.order-action-spinner{animation:order-action-turn .8s linear infinite}
+@keyframes order-action-turn{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.order-action-spinner{animation:none}}
+@media(max-width:850px){.admin-order-details-page .admin-order-details-grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:480px){.admin-order-details-page>.admin-container{padding-inline:16px}.admin-order-toolbar{align-items:stretch;flex-direction:column}.admin-order-details-page .admin-panel{padding:20px}.admin-order-details-page .admin-order-item{grid-template-columns:36px minmax(0,1fr)}.admin-order-details-page .admin-order-item>strong{grid-column:2}.admin-operational-panel button{width:100%}.admin-detail-list>div{flex-direction:column}}

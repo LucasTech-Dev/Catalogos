@@ -1,0 +1,16 @@
+{
+  "status": "APROVADO",
+  "sdkChecks": 154,
+  "browser": {
+    "checks": 34,
+    "build": "aprovado",
+    "saidas": 10,
+    "express": false,
+    "distAlterado": false,
+    "pedidoPersistidoNoEmulator": true
+  },
+  "realFirebaseWrites": 0,
+  "realAccountsCreated": 0,
+  "realOrdersCreated": 0,
+  "rulesChanged": false
+}

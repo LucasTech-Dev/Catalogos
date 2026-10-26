@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import http from 'node:http';
+import {mkdir,writeFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {build} from 'vite';
 const require=createRequire(import.meta.url),{chrome}=require('./lib/chrome.cjs');
@@ -26,17 +27,27 @@ export async function verificarAdminPedidosNavegador({projectId,host,authHost,lo
   await browser.evaluate('Array.from(document.querySelectorAll("button")).find(b=>b.textContent==="Entregue").click()');await browser.wait('document.querySelectorAll(".admin-order-row").length>0 && Array.from(document.querySelectorAll(".admin-order-status")).every(e=>e.textContent.includes("Entregue"))');checks++;
   await browser.navigate(base+'/admin/pedido?id='+compra.id);await browser.wait('document.body.textContent.includes("Confirmar pagamento")');ok(await browser.evaluate('document.body.textContent.includes("Compra navegador007")'),'detalhes do checkout no painel');
   await browser.evaluate('Array.from(document.querySelectorAll("button")).find(b=>b.textContent==="Confirmar pagamento").click()');await browser.wait('Boolean(document.querySelector("[role=dialog]"))');ok((await localizar()).pagamento.status==='pendente','modal exige confirmacao explicita');ok(await browser.evaluate('document.querySelector("[role=dialog]").textContent.includes("não comprova liquidação")'),'origem manual clara');
-  await browser.evaluate('Array.from(document.querySelectorAll("button")).find(b=>b.textContent==="Confirmar alteração financeira").click()');await browser.wait('document.querySelector("[role=status]")?.textContent.includes("Registro manual")');ok((await localizar()).pagamento.registroManual.origem==='manual_estabelecimento','registro financeiro manual persistido');
+  await browser.evaluate('Array.from(document.querySelectorAll("button")).find(b=>b.textContent==="Confirmar").click()');await browser.wait('document.querySelector("[role=status]")?.textContent.includes("Registro manual")');ok((await localizar()).pagamento.registroManual.origem==='manual_estabelecimento','registro financeiro manual persistido');
   for(const status of ['pagamento_confirmado','em_preparacao','pronto','entregue']){
    await browser.fill('.admin-status-select',status);await browser.evaluate('Array.from(document.querySelectorAll("button")).find(b=>b.textContent.includes("Salvar status")).click()');
-   await browser.wait(`document.querySelector('.admin-status-select')?.options[0]?.value===${JSON.stringify(status)} && document.querySelector('[role=status]')?.textContent==='Status atualizado.'`);checks++;
+   await browser.wait(`document.querySelector('.admin-status-select')?.options[0]?.value===${JSON.stringify(status)} && document.querySelector('[role=status]')?.textContent==='Status do pedido atualizado com sucesso!'`);checks++;
   }
   ok((await localizar()).status==='entregue','pedido entregue persistido');
+  await browser.click('.admin-order-toolbar button');await browser.wait('document.querySelector(".toast-card")?.textContent.includes("Pedido atualizado.")');checks++;
+  const pasta=new URL('../../../docs/ADAPTACAO_SERVERLESS/EVIDENCIAS_ADMIN_PEDIDO/',import.meta.url);await mkdir(pasta,{recursive:true});
+  for(const width of [320,360,390,1366]){
+   await browser.send('Emulation.setDeviceMetricsOverride',{width,height:960,deviceScaleFactor:1,mobile:width<600});await browser.pause(100);
+   ok(await browser.evaluate('document.documentElement.scrollWidth<=innerWidth+2'),'sem transbordamento '+width);
+   ok(await browser.evaluate('(()=>{const c=document.querySelector(".admin-order-details-page>.admin-container"),m=document.querySelector(".admin-order-details-main"),s=document.querySelector(".admin-order-details-sidebar");return getComputedStyle(c).display==="block" && (innerWidth<850?s.getBoundingClientRect().top>=m.getBoundingClientRect().bottom-2:s.getBoundingClientRect().left>m.getBoundingClientRect().left);})()'),'colunas organizadas '+width);
+   ok(await browser.evaluate('document.querySelector(".admin-order-toolbar button").getBoundingClientRect().height>=44'),'toque adequado '+width);
+   if([390,1366].includes(width))await browser.screenshot(new URL('pedido-'+width+'.png',pasta).pathname);
+  }
+
   await browser.send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});await browser.pause(200);ok(await browser.evaluate('document.documentElement.scrollWidth<=innerWidth+2'),'layout mobile preservado');
   await browser.click('.admin-logout-button');await login(emailCliente);await browser.wait('Boolean(document.querySelector("#admin-email")) && /acesso negado/i.test(document.body.textContent)');ok(!await browser.evaluate('Boolean(document.querySelector(".admin-order-items"))'),'cliente sem painel');
   await browser.navigate(base+'/perfil/pedido?id='+compra.id);await browser.wait('document.querySelector(".order-status-badge")?.getAttribute("data-status")==="entregue"');ok(await browser.evaluate('document.body.textContent.includes("confirmado")'),'cliente acompanha pagamento e andamento');
   await browser.navigate(base+'/admin/pedidos');await login(emailOutraLoja);await browser.wait('Boolean(document.querySelector("#admin-email")) && /acesso negado/i.test(document.body.textContent)');ok(!await browser.evaluate('Boolean(document.querySelector(".admin-order-row"))'),'admin outra loja sem painel');
   ok(!requests.some(u=>/127\.0\.0\.1:1\/|\/admin\/lojas\/|onrender\.com/.test(u)),'nenhuma dependencia Express');ok(browser.errors.length===0,'sem excecoes JS');
-  const recibo={checks,build:'aprovado',saidas:result.output.length,compraReal:true,express:false,distAlterado:false};console.log(JSON.stringify({adminPedidosNavegador:recibo}));return recibo;
+  const recibo={checks,build:'aprovado',saidas:result.output.length,pedidoPersistidoNoEmulator:true,express:false,distAlterado:false};await writeFile(new URL('../../../docs/ADAPTACAO_SERVERLESS/ADMIN_PEDIDO_BROWSER_EVIDENCIAS.json',import.meta.url),JSON.stringify({...recibo,physicalDevice:false,realFirebaseWrites:0},null,2)+'\n');console.log(JSON.stringify({adminPedidosNavegador:recibo}));return recibo;
  }catch(e){if(browser)console.error(JSON.stringify({checksAprovados:checks,path:await browser.evaluate('location.pathname'),alertas:await browser.evaluate('Array.from(document.querySelectorAll("[role=alert],[role=status]")).map(e=>e.textContent)'),excecoes:browser.errors}));throw e;}finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}
 }

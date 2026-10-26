@@ -1,0 +1,10 @@
+{
+  "checks": 34,
+  "build": "aprovado",
+  "saidas": 10,
+  "express": false,
+  "distAlterado": false,
+  "physicalDevice": false,
+  "realFirebaseWrites": 0,
+  "pedidoPersistidoNoEmulator": true
+}

@@ -1,3 +1,11 @@
+# Publicação do adendo administrativo autorizada — 25/10/2026
+
+A — Codex: instrução “publique” atende AD-PED-H1 para commit/push main LucasTech-Dev/Catalogos e deploy Pages catalogo-demo.80testes e188checks locais aprovados; integração seletiva, build e verificação pública em execução. Firebase/Rules/Auth/IAM/índices/dados preservados; nenhum pedido/conta real ou mensagem será criado. Scripts operacionais de homologação real e orquestração local permanecem locais. Fontes, regressões e capturas sintéticas compõem a release.
+
+B — proprietário: autorização atendida, sem intervenção indispensável. Julgamento físico da sessão pessoal permanece posterior; viewportChrome não comprova aparelho real. Histórico abaixo preservado.
+
+---
+
 # Checkout mobile final — validado; publicação autorizada — 25/10/2026
 
 A — Codex: CHECKOUT-MOBILE-02, UF com exemplo/siglas válidas/maiúsculas e preservação; confirmação com CSS próprio/card/ícone/total/botão verde; mensagemWhatsApp organizada; retomada de link ocupada e isolada por conta. Número comercial e confirmação exclusiva já existentes preservados.31testes +30checksSDK/RulesEmulator +36Chrome aprovados, capturas320/390inspecionadas e estilos verificados até1366px. Nenhuma alteraçãoFirebase/Rules/Auth/IAM/índice/preços/produtos/pedidos reais. Reporte: RELATORIO_CHECKOUT_MOBILE_FINAL.md na adaptação serverless. Contrato/matriz/noveMVPs e demais riscos preservados.

@@ -1,0 +1,69 @@
+{
+  "order": "ADENDO-ADMIN-PEDIDO",
+  "baseCommit": "7647d6b67608894b434323aa68aaaead5207b1f6",
+  "files": [
+    {
+      "path": "frontend/src/pages/admin/PedidoDetalhes.jsx",
+      "sha256": "2d5deb4ddcb82204c278a544a549bd9cf752f67d6667902a462495be9eedee73"
+    },
+    {
+      "path": "frontend/src/pages/admin/PedidoDetalhes.css",
+      "sha256": "36fb1bf317a9e8709b1d6498d208110a7c472b37920ba7d656cf46798cfc111f"
+    },
+    {
+      "path": "frontend/src/lib/numeroPedido.js",
+      "sha256": "e9205448862d5e54f720e52244dc079e8346dd7ac5fff508768fb3881aac379a"
+    },
+    {
+      "path": "frontend/src/services/pedidos.js",
+      "sha256": "588ca12fdeff764e186042ea0f67f011878a8ddb31d3764e95451d11ba80cfe2"
+    },
+    {
+      "path": "quality/frontend/test/adminPedidoDetalhes.test.jsx",
+      "sha256": "df23ada409fedba15d90e6e4cf92d64b37ba007a4940a3f541ea3346078f4ca7"
+    },
+    {
+      "path": "quality/frontend/test/admin.test.jsx",
+      "sha256": "bf8707b24fb5d8777f3ce6f1f3ce2fe7f9d5d6606c3d2722068060ef1755091d"
+    },
+    {
+      "path": "quality/frontend/test/numeroPublicoMobile.test.jsx",
+      "sha256": "b944c7223d24118ace760ba022d63b96f2fb7817496988233e1481516469463a"
+    },
+    {
+      "path": "quality/frontend/test/areaCliente.test.jsx",
+      "sha256": "0116f9540c703c1f0e8b3244656e16b024f6587645e01fb5fc8fb770874742de"
+    },
+    {
+      "path": "quality/frontend/test/pedidosSdk.test.js",
+      "sha256": "2e29a4ee453e6f488739df8e9b0b3d4443b6276647444d2b77d6c054d8ec880b"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-pedidos-browser.js",
+      "sha256": "cd1051e8887649fbfd1796a859a8592932f4f5993530e2d73ff5c6d23960e607"
+    },
+    {
+      "path": "quality/frontend/scripts/admin-pedidos-emulator.js",
+      "sha256": "490133f182446672223f7bd584ffec020515d424a88267e88660b7769c46d7bb"
+    },
+    {
+      "path": "quality/frontend/scripts/homologacao-real-011.mjs",
+      "sha256": "78a75f65e53212f33e2c3580056e0387a21b14cee1ca5b5d02321d1b7472b560"
+    },
+    {
+      "path": "quality/firebase/executar-admin-detalhes.cjs",
+      "sha256": "462051f3fece8b007638da05c928a56f79cd02a1a98ee63a14ae72d5517c3803"
+    }
+  ],
+  "rulesSha256": "71ca854897cae61da43c880a9e6ced50fdc269a013f84d39fafec781bb661175",
+  "realFirebaseWrites": 0,
+  "commitPushDeploy": false,
+  "sdkChecks": 154,
+  "browserChecks": 34,
+  "unitTests": 80,
+  "unitFiles": 7,
+  "physicalDevice": false,
+  "finalPageTests": 9,
+  "finalPageSeconds": 4.77,
+  "finalBuildSeconds": 9.48
+}
