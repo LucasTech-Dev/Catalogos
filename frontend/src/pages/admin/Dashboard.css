@@ -1,0 +1,114 @@
+/* Dashboard: controles de período independentes dos filtros de produtos. */
+.admin-dashboard .admin-period-form {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) minmax(160px, 1fr) auto auto;
+  align-items: end;
+  gap: 12px;
+  margin: 0 0 24px;
+  padding: 18px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, .04);
+}
+.admin-dashboard .admin-period-field {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  color: #475467;
+  font-size: 13px;
+  font-weight: 700;
+}
+.admin-dashboard .admin-period-field input {
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+  padding: 0 12px;
+  border: 1px solid #d0d5dd;
+  border-radius: 11px;
+  background: #fff;
+  color: #101828;
+  font: inherit;
+  font-size: 14px;
+  color-scheme: light;
+}
+.admin-dashboard .admin-period-field input:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+}
+.admin-dashboard .admin-period-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid #d0d5dd;
+  border-radius: 11px;
+  background: #fff;
+  color: #344054;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background .18s, border-color .18s, transform .18s;
+}
+.admin-dashboard .admin-period-action:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #98a2b3;
+}
+.admin-dashboard .admin-period-action-primary {
+  background: #171923;
+  border-color: #171923;
+  color: #fff;
+}
+.admin-dashboard .admin-period-action-primary:hover:not(:disabled) {
+  background: #303442;
+  border-color: #303442;
+}
+.admin-dashboard .admin-period-action:disabled {
+  cursor: wait;
+  opacity: .6;
+}
+.admin-dashboard .admin-period-action:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 3px;
+}
+.admin-dashboard .admin-period-error {
+  margin: -12px 0 20px;
+  color: #b42318;
+  font-size: 13px;
+}
+.admin-dashboard .admin-stat-card {
+  min-width: 0;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, .045);
+  transition: box-shadow .18s, transform .18s;
+}
+.admin-dashboard .admin-stat-card:hover {
+  box-shadow: 0 9px 22px rgba(15, 23, 42, .075);
+  transform: translateY(-2px);
+}
+.admin-dashboard .admin-stat-card h2 {
+  overflow-wrap: anywhere;
+}
+.admin-dashboard .admin-stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+@media (max-width: 1180px) {
+  .admin-dashboard .admin-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-dashboard .admin-period-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-dashboard .admin-period-action { width: 100%; }
+}
+@media (max-width: 680px) {
+  .admin-dashboard { padding: 24px 0 48px; }
+  .admin-dashboard .admin-container { width: min(100% - 24px, 1400px); }
+  .admin-dashboard .admin-page-header { align-items: start; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .admin-dashboard .admin-page-header h1 { font-size: clamp(28px, 8vw, 36px); }
+  .admin-dashboard .admin-period-form { grid-template-columns: minmax(0, 1fr); padding: 14px; }
+  .admin-dashboard .admin-stats { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .admin-dashboard .admin-stat-card { padding: 18px; }
+  .admin-dashboard .admin-dashboard-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .admin-dashboard .admin-stat-card, .admin-dashboard .admin-period-action { transition: none; }
+  .admin-dashboard .admin-stat-card:hover { transform: none; }
+}
