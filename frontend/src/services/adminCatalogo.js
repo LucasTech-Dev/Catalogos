@@ -63,6 +63,24 @@ export function criarAdminCatalogo({db,auth,sessaoExistente,lojaId,invalidar=()=
    tipoValido(tipo);const novo=!identificador,patch=validar(tipo,dados,novo);
    if(tipo==='categorias' && !novo && patch.ativo===false)throw falha(B03_BLOQUEADO,409,'B03_BLOQUEADO');
    const destino=novo?doc(collection(base,tipo)):doc(base,tipo,id(identificador));conferir();
+   // Analisar bloqueios previsíveis antes da transação. Uma categoria inativa
+   // impede ativação do produto, inclusive se o próprio produto já existir.
+   if(tipo==='produtos'){
+    const anterior=novo?null:await getDocFromServer(destino);
+    if(!novo && !anterior.exists())throw falha('Produto não encontrado.',404);
+    const atual={...(anterior?.data() || {}),...patch};
+    const categoriaId=atual.categoriaId;
+    if(atual.ativo!==false){
+      if(!categoriaId || typeof categoriaId!=='string')throw falha('Este produto está sem categoria válida. Edite e escolha uma categoria antes de ativar.',409,'PRODUTO_SEM_CATEGORIA');
+      const categoriaSnap=await getDocFromServer(doc(base,'categorias',id(categoriaId)));
+      if(!categoriaSnap.exists())throw falha('A categoria vinculada a este produto não existe. Edite e escolha uma categoria válida.',409,'PRODUTO_CATEGORIA_AUSENTE');
+      if(categoriaSnap.data().ativo===false)throw falha('A categoria "'+(categoriaSnap.data().nome || categoriaId)+'" está inativa. Ative a categoria primeiro ou edite o produto e escolha outra categoria ativa.',409,'PRODUTO_CATEGORIA_INATIVA');
+    }else if(categoriaId){
+      const categoriaSnap=await getDocFromServer(doc(base,'categorias',id(categoriaId)));
+      if(!categoriaSnap.exists())throw falha('A categoria vinculada não existe. Edite o produto e escolha uma categoria cadastrada.',409,'PRODUTO_CATEGORIA_AUSENTE');
+    }
+    conferir();
+   }
    await salvarComProjecao(db,lojaId,tipo,destino.id,patch,{modo:novo?'criar':'editar',conferir,registrarDatas:true});conferir();
    const salvo=await getDocFromServer(destino);if(!salvo.exists() || salvo.metadata.fromCache || salvo.metadata.hasPendingWrites)throw falha('Não foi possível confirmar a gravação.',503,'ADMIN_CATALOGO_INCERTO');
    return projetar(tipo,salvo);
