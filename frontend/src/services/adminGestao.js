@@ -1,15 +1,16 @@
+import {textoBemFormado} from '../lib/textoBemFormado.js';
 import {collection,doc,getDocFromServer,getDocsFromServer,getCountFromServer,getAggregateFromServer,sum,query,where,orderBy,documentId,startAfter,limit} from 'firebase/firestore';
 import {criarAdminCatalogo} from './adminCatalogo.js';
 import {salvarComProjecao} from './projecaoPublica.js';
 import {projetarPedido} from './pedidos.js';
 import {TRANSICOES_STATUS} from './adminPedidos.js';
 const falha=(message,status=400)=>Object.assign(new Error(message),{status});
-const id=v=>{if(typeof v!=='string' || !v || v.length>128 || !v.isWellFormed() || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(v) || ['.','..'].includes(v))throw falha('Identificador inválido.');return v;};
+const id=v=>{if(typeof v!=='string' || !v || v.length>128 || !textoBemFormado(v) || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(v) || ['.','..'].includes(v))throw falha('Identificador inválido.');return v;};
 const selecionar=(d,nomes)=>Object.fromEntries(nomes.filter(k=>typeof d?.[k]===({pedidoMinimo:'number',anonimo:'boolean',fechado:'boolean'}[k] || 'string') && (typeof d[k]!=='number' || Number.isFinite(d[k]))).map(k=>[k,d[k]]));
 const DIAS=['segunda','terca','quarta','quinta','sexta','sabado','domingo'];
 export const CAMPOS_LOJA=['nome','descricao','telefone','whatsapp','instagram','endereco','horarios','logo','imagem','corPrimaria','tempoMedio','pagamentos','entrega','retirada','pedidoMinimo'];
 function campos(d,permitidos){if(!d || typeof d!=='object' || Array.isArray(d) || Object.keys(d).some(k=>!permitidos.includes(k)))throw falha('Campo não permitido nesta operação.');}
-function texto(v,max=200,obrigatorio=false,multilinha=false){if(typeof v!=='string' || !v.isWellFormed() || v.length>max || obrigatorio && !v.trim() || /[\u007f-\u009f]/u.test(v) || (multilinha?/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/u:/[\u0000-\u001f]/u).test(v))throw falha('Texto inválido.');return v.trim();}
+function texto(v,max=200,obrigatorio=false,multilinha=false){if(typeof v!=='string' || !textoBemFormado(v) || v.length>max || obrigatorio && !v.trim() || /[\u007f-\u009f]/u.test(v) || (multilinha?/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/u:/[\u0000-\u001f]/u).test(v))throw falha('Texto inválido.');return v.trim();}
 function dinheiro(v){const c=v*100;if(typeof v!=='number' || !Number.isFinite(v) || v<0 || v>1000000 || Math.abs(c-Math.round(c))>Number.EPSILON*Math.max(1,Math.abs(c))*4)throw falha('Valor deve ter até duas casas decimais.');return Math.round(c)/100;}
 function booleano(v){if(typeof v!=='boolean')throw falha('Informe verdadeiro ou falso.');return v;}
 function telefone(v,opcional=false){const t=texto(v,25,!opcional),n=t.replace(/\D/g,'');if(opcional && !t)return t;if(!/^\+?[\d ()-]+$/.test(t) || n.length<10 || n.length>15 || /^0+$/.test(n))throw falha('Telefone inválido.');return t;}

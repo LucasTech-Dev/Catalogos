@@ -1,3 +1,4 @@
+import {numeroPedido} from "../lib/numeroPedido";
 import MaterialIcon from "../components/ui/MaterialIcon";
 import '../components/conta/areaCliente.css';
 import AtualizarPedidos from '../components/conta/AtualizarPedidos';
@@ -33,7 +34,7 @@ function PedidoDetalhes() {
               </span>
 
               <h1>
-                #{pedido.id}
+                #{numeroPedido(pedido)}
               </h1>
 
               <p>

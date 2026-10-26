@@ -1,3 +1,4 @@
+import {numeroPedido} from './numeroPedido.js';
 // Apresentação e filtro apenas dos pedidos que o serviço já carregou para a sessão.
 const estados={
  recebido:['Recebido','neutral'],pagamento_confirmado:['Pagamento confirmado','confirmed'],
@@ -14,10 +15,12 @@ export function dataPedido(pedido){
 }
 const normalizar=valor=>String(valor||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR').trim();
 export function filtrarPedidos(pedidos,consulta='',status=''){
+ const exato=/^#?([1-9][0-9]{0,8})$/.exec(String(consulta).trim())?.[1];
  const termos=normalizar(consulta).replace(/^#/,'').split(/\s+/).filter(Boolean);
  return pedidos.filter(p=>{
   if(status&&p.status!==status)return false;
-  const texto=normalizar([p.id,...(p.itens||[]).map(i=>i.nome),p.status,statusPedido(p.status).nome,dataPedido(p)].join(' '));
+  if(exato)return numeroPedido(p)===exato;
+  const texto=normalizar([numeroPedido(p),p.id,...(p.itens||[]).map(i=>i.nome),p.status,statusPedido(p.status).nome,dataPedido(p)].join(' '));
   return termos.every(termo=>texto.includes(termo));
  });
 }

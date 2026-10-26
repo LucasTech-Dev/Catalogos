@@ -1,3 +1,4 @@
+import {textoBemFormado} from '../lib/textoBemFormado.js';
 import {collection,doc,getDocFromServer,getDocsFromServer,query,where,orderBy,startAfter,limit,runTransaction,serverTimestamp} from 'firebase/firestore';
 import {criarAdminCatalogo} from './adminCatalogo.js';
 import {projetarPedido} from './pedidos.js';
@@ -5,7 +6,7 @@ import {projetarPedido} from './pedidos.js';
 export const TRANSICOES_STATUS={recebido:['pagamento_confirmado','cancelado','pagamento_recusado'],pagamento_confirmado:['em_preparacao','cancelado'],em_preparacao:['pronto','cancelado'],pronto:['saiu_para_entrega','entregue','cancelado'],saiu_para_entrega:['entregue'],entregue:[],cancelado:[],pagamento_recusado:[]};
 export const TRANSICOES_PAGAMENTO={pendente:['confirmado','recusado','cancelado'],confirmado:[],recusado:[],cancelado:[]};
 const erro=(message,status=400,code='ADMIN_PEDIDO_INVALIDO')=>Object.assign(new Error(message),{status,code});
-const id=v=>{if(typeof v!=='string' || !v || v.length>128 || !v.isWellFormed() || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(v) || ['.','..'].includes(v))throw erro('Identificador inválido.');return v;};
+const id=v=>{if(typeof v!=='string' || !v || v.length>128 || !textoBemFormado(v) || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(v) || ['.','..'].includes(v))throw erro('Identificador inválido.');return v;};
 export function criarAdminPedidos(contexto){
  const {db,auth,lojaId,invalidar=()=>{}}=contexto,gate=criarAdminCatalogo(contexto);
  async function executar(fn){
@@ -49,13 +50,13 @@ export function criarAdminPedidos(contexto){
   sessao:gate.sessao,
   buscar:identificador=>executar(({base})=>buscar(base,identificador)),
   listar:(opcoes={})=>executar(async({base})=>{
-   if(Object.keys(opcoes).some(k=>!['limite','cursor','status'].includes(k)))throw erro('Filtro inválido.');
+   if(Object.keys(opcoes).some(k=>!['limite','cursor','status','numeroPedido'].includes(k)))throw erro('Filtro inválido.');
    const n=Number(opcoes.limite || 25);if(!Number.isInteger(n) || n<1 || n>100)throw erro('Limite deve estar entre 1 e 100.');
    const c=collection(base,'pedidos'),f=[];
-   if(opcoes.status){if(!Object.hasOwn(TRANSICOES_STATUS,opcoes.status))throw erro('Status inválido.');f.push(where('status','==',opcoes.status));}
-   f.push(orderBy('criadoEm','desc'));
+   if(opcoes.status){if(!Object.hasOwn(TRANSICOES_STATUS,opcoes.status))throw erro('Status inválido.');if(opcoes.numeroPedido===undefined)f.push(where('status','==',opcoes.status));}
+   if(opcoes.numeroPedido!==undefined){if(!Number.isSafeInteger(opcoes.numeroPedido) || opcoes.numeroPedido<1 || opcoes.numeroPedido>999999999)throw erro('Número de pedido inválido.');f.push(where('numeroPedido','==',opcoes.numeroPedido));}else f.push(orderBy('criadoEm','desc'));
    if(opcoes.cursor){const cursor=await getDocFromServer(doc(c,id(opcoes.cursor)));if(!cursor.exists())throw erro('Cursor inválido.');f.push(startAfter(cursor));}
-   const docs=(await getDocsFromServer(query(c,...f,limit(n+1)))).docs,itens=docs.slice(0,n).map(projetar);
+   const docs=(await getDocsFromServer(query(c,...f,limit(n+1)))).docs,itens=docs.slice(0,n).map(projetar).filter(p=>!opcoes.status || p.status===opcoes.status);
    return {itens,proximoCursor:docs.length>n?itens.at(-1).id:null};
   }),
   status:(identificador,novo,esperado)=>alterar(identificador,'status',novo,esperado),

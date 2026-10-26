@@ -70,9 +70,15 @@ export function criarGravadorIncremental({db,auth,sessao,lojaId,bloqueio,projeta
     });
     if(terminou)break;
    }
-   await runTransaction(db,async tx=>{
-    const [s,pronto,loja]=await Promise.all([tx.get(tentativaRef),tx.get(pedidoRef),tx.get(doc(db,'catalogosPublicos',lojaId))]);conferir();
+   let ultimoLido;
+   const contadorRef=doc(db,'lojas',lojaId,'contadores','pedidos');
+   const concluir=()=>runTransaction(db,async tx=>{
+    const [s,pronto,loja,contador]=await Promise.all([tx.get(tentativaRef),tx.get(pedidoRef),tx.get(doc(db,'catalogosPublicos',lojaId)),tx.get(contadorRef)]);conferir();
     if(pronto.exists())return;
+    const ultimo=contador.exists()?contador.data().ultimo:0;ultimoLido=ultimo;
+    if(!Number.isSafeInteger(ultimo) || ultimo<0 || ultimo>=999999999)throw falha('Numeração de pedidos indisponível. Contate a loja.',503,'NUMERACAO_INDISPONIVEL');
+    const numeroPedido=ultimo+1;
+    const reservaRef=doc(db,'lojas',lojaId,'numerosPedidos',String(numeroPedido));
     const a=s.data(),d=a.dados,l=loja.data();let enderecoSnapshot=null;
     if(d.tipoEntrega==='entrega'){
      if(!id(d.enderecoId))throw falha('Informe um endereço completo.',400);
@@ -81,9 +87,21 @@ export function criarGravadorIncremental({db,auth,sessao,lojaId,bloqueio,projeta
     }
     conferir();const taxa=d.tipoEntrega==='entrega'?Math.round(Number(l?.entrega?.taxa)*100):0;
     const total=(a.centavos+taxa)/100;
-    tx.set(pedidoRef,{lojaId,clienteId:uid,enderecoId:d.enderecoId,endereco:enderecoSnapshot,itens:a.itens,subtotal:a.centavos/100,taxaEntrega:taxa/100,desconto:0,total,pagamento:{forma:d.pagamento.forma,status:'pendente',valor:total},observacao:d.observacao,tipoEntrega:d.tipoEntrega,status:'recebido',cliente:d.cliente,criadoEm:serverTimestamp(),atualizadoEm:serverTimestamp(),operacaoCompra:chave});
+    tx.set(pedidoRef,{numeroPedido,lojaId,clienteId:uid,enderecoId:d.enderecoId,endereco:enderecoSnapshot,itens:a.itens,subtotal:a.centavos/100,taxaEntrega:taxa/100,desconto:0,total,pagamento:{forma:d.pagamento.forma,status:'pendente',valor:total},observacao:d.observacao,tipoEntrega:d.tipoEntrega,status:'recebido',cliente:d.cliente,criadoEm:serverTimestamp(),atualizadoEm:serverTimestamp(),operacaoCompra:chave});
     tx.set(nonceRef,{clienteId:uid,lojaId,pedidoId:marcador,assinatura});
+    tx.set(contadorRef,{ultimo:numeroPedido});
+    tx.set(reservaRef,{numeroPedido,pedidoId:marcador,clienteId:uid});
    });
+   // Rules podem recusar a revisão vencida antes do retry nativo do SDK.
+   // Retentar somente quando outra compra comprovadamente avançou o contador.
+   for(let corrida=0;corrida<5;corrida++){
+    try{await concluir();break;}catch(e){
+     if(e.code!=='permission-denied' || corrida===4)throw e;
+     const pronto=await confirmado();if(pronto)return pronto;
+     const atual=await getDocFromServer(contadorRef);conferir();
+     if(!atual.exists() || !(atual.data().ultimo>ultimoLido))throw e;
+    }
+   }
   } catch(e) {
    // Não gerar outra chave nem repetir o envio após falha de transporte.
    // Consultar o marcador original; se a consulta falhar, resultado incerto.

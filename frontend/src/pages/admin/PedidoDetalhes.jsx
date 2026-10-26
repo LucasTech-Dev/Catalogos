@@ -1,3 +1,4 @@
+import {numeroPedido} from "../../lib/numeroPedido";
 import MaterialIcon from "../../components/ui/MaterialIcon";
 import {atualizarComFeedback,notificar} from '../../lib/notificacoes';
 import {FeedbackAcao} from '../../components/ui/ToastProvider';
@@ -36,7 +37,7 @@ function PedidoDetalhes() {
               PEDIDO
             </span>
 
-            <h1>#{pedido.id}</h1>
+            <h1>#{numeroPedido(pedido)}</h1>
 
             <p>
               Realizado em {pedido.data}

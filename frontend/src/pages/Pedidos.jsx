@@ -1,3 +1,4 @@
+import {numeroPedido} from "../lib/numeroPedido";
 import MaterialIcon from "../components/ui/MaterialIcon";
 import {PageBoundary} from '../components/ui/PageLoader';
 import React,{useMemo,useState} from 'react';
@@ -41,10 +42,10 @@ function Pedidos(){
     const estado=statusPedido(pedido.status),data=dataPedido(pedido);
     const unidades=pedido.itens.reduce((s,i)=>s+i.quantidade,0);
     return <article className="order-card" key={pedido.id}>
-     <div className="order-main"><div className="order-number"><span>Pedido</span><strong>#{pedido.id}</strong></div><div className="order-info">{data&&<span>{data}</span>}<span>{pedido.tipoEntrega==='retirada'?'Retirada':'Entrega'}</span><span>{unidades} {unidades===1?'item':'itens'}</span></div><p className="order-items-preview">{pedido.itens.map(i=>`${i.quantidade}× ${i.nome}`).join(' · ')}</p></div>
+     <div className="order-main"><div className="order-number"><span>Pedido</span><strong>#{numeroPedido(pedido)}</strong></div><div className="order-info">{data&&<span>{data}</span>}<span>{pedido.tipoEntrega==='retirada'?'Retirada':'Entrega'}</span><span>{unidades} {unidades===1?'item':'itens'}</span></div><p className="order-items-preview">{pedido.itens.map(i=>`${i.quantidade}× ${i.nome}`).join(' · ')}</p></div>
      <div className="order-status"><span data-status={pedido.status} className={'order-status-badge '+estado.classe}><span className="order-status-dot"/>{estado.nome}</span></div>
      <div className="order-total"><span>Total</span><strong>{moeda(pedido.total)}</strong></div>
-     <a href={'/perfil/pedido?id='+encodeURIComponent(pedido.id)} className="order-details-link" aria-label={'Ver pedido '+pedido.id}>Ver pedido<ArrowRight size={16} aria-hidden="true"/></a>
+     <a href={'/perfil/pedido?id='+encodeURIComponent(pedido.id)} className="order-details-link" aria-label={'Ver pedido '+numeroPedido(pedido)}>Ver pedido<ArrowRight size={16} aria-hidden="true"/></a>
     </article>;
    })}</section>}
   {dados.length>0&&<nav className="orders-bottom" aria-label="Continuar comprando"><a href="/cardapio" className="button button-secondary">Fazer novo pedido</a></nav>}

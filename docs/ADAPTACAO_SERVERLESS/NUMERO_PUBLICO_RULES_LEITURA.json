@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-26T00:31:33.059Z",
+  "project": "bancorestaurante",
+  "reads": 2,
+  "writes": 0,
+  "publishedRuleset": "projects/bancorestaurante/rulesets/bc43163b-f408-4868-9f11-e1b40362accd",
+  "beforeSha256": "75b901b55edca9273bee94932e212ea410178c351326b991aff565298687d2f8",
+  "publishedSha256": "c986a12087e4c2957743a11ee32e0257f0e0c741317346f7a7f2b14b3a2cba34",
+  "baselineMatchesPublished": false,
+  "baselineMatchesAfterLineEndingNormalization": true,
+  "totalReadOperationsThisTask": 4,
+  "difference": "única quebra de linha ao final do arquivo; conteúdo linha por linha idêntico"
+}

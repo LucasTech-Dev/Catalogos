@@ -1,0 +1,26 @@
+{
+  "status": "APROVADO",
+  "checks": 30,
+  "browser": {
+    "checks": 19,
+    "widths": [
+      320,
+      360,
+      390
+    ],
+    "engine": "Chrome com UA simulada; não WebKit/iPhone real",
+    "slowNetwork": true,
+    "offlineRecovery": true,
+    "delayedBootstrapRecovery": true,
+    "authBlockedPublicCatalog": true,
+    "syntheticBrowserOrders": 1
+  },
+  "concurrentNumbers": [
+    2,
+    1
+  ],
+  "oldRulesDenyNewContract": true,
+  "realFirebaseWrites": 0,
+  "realAccountsCreated": 0,
+  "realOrdersCreated": 0
+}

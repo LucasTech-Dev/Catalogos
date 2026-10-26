@@ -12,11 +12,11 @@ const catalogo={loja:{nome:'Loja A'},categorias:[{id:'cat',nome:'Lanches'},{id:'
 function Estado(){const c=useLoja();return <><output>{JSON.stringify({produtos:c.produtos.map(p=>({id:p.id,preco:p.preco})),itens:c.itens.map(p=>({id:p.id,quantidade:p.quantidade,ativo:p.ativo})),subtotal:c.subtotal,erro:c.erro})}</output><button onClick={()=>c.adicionar(c.produtos[0])}>Adicionar</button><button onClick={()=>c.alterarQuantidade('burger',99)}>Máximo</button><button onClick={()=>c.alterarQuantidade('burger',100)}>Excesso</button><button onClick={()=>c.removerItem('burger')}>Remover</button><button onClick={c.limpar}>Limpar</button></>;}
 const dados=()=>JSON.parse(screen.getByRole('status').textContent);
 beforeEach(()=>{vi.resetAllMocks();localStorage.clear();mocks.api.mockResolvedValue(catalogo);history.replaceState({},'', '/');});afterEach(cleanup);
-it('Etapa24: resposta antiga não sobrescreve catálogo atualizado',async()=>{
-  let antiga,nova;mocks.api.mockImplementationOnce(()=>new Promise(r=>{antiga=r;})).mockImplementationOnce(()=>new Promise(r=>{nova=r;}));
-  render(<LojaProvider><Estado/></LojaProvider>);await waitFor(()=>expect(antiga).toBeTypeOf('function'));fireEvent(window,new Event('focus'));await waitFor(()=>expect(nova).toBeTypeOf('function'));
-  await act(async()=>nova({...catalogo,produtos:[{...produto,preco:33}]}));expect(dados().subtotal).toBe(0);expect(dados().produtos[0].preco).toBe(33);
-  await act(async()=>antiga(catalogo));expect(dados().produtos[0].preco).toBe(33);
+it('compartilha leitura pendente entre focos e só inicia atualização após sua conclusão',async()=>{
+ let concluir;mocks.api.mockImplementationOnce(()=>new Promise(r=>{concluir=r;}));
+ render(<LojaProvider><Estado/></LojaProvider>);await waitFor(()=>expect(concluir).toBeTypeOf('function'));fireEvent(window,new Event('focus'));fireEvent(window,new Event('focus'));expect(mocks.api).toHaveBeenCalledTimes(1);
+ await act(async()=>concluir(catalogo));expect(dados().produtos[0].preco).toBe(produto.preco);
+ mocks.api.mockResolvedValue({...catalogo,produtos:[{...produto,preco:33}]});fireEvent(window,new Event('focus'));await waitFor(()=>expect(dados().produtos[0].preco).toBe(33));expect(mocks.api).toHaveBeenCalledTimes(2);
 });
 it('Etapa24: cache com null e duplicatas preserva apenas itens válidos',async()=>{
   localStorage.setItem('catalogos:carrinho:v2:loja-A:visitante',JSON.stringify({dono:'visitante',itens:[null,{id:'burger',quantidade:1},{id:'burger',quantidade:1},{id:'suco',quantidade:0},{id:'suco',quantidade:100},{id:'../privado',quantidade:1}]}));

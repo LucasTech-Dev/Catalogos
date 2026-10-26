@@ -6,7 +6,7 @@ const idValido=id=>{if(typeof id!=='string' || !id || id.length>128 || /[\/\\\u0
 const campos=(d,nomes)=>Object.fromEntries(nomes.filter(k=>d?.[k]!==undefined).map(k=>[k,d[k]]));
 const endereco=d=>d?campos(d,['id','apelido','rua','logradouro','numero','bairro','cidade','uf','complemento','cep']):null;
 export function projetarPedido(d,id) {
-  const p=campos(d,['lojaId','clienteId','enderecoId','observacao','tipoEntrega','status','subtotal','taxaEntrega','desconto','total']);
+  const p=campos(d,['numeroPedido','lojaId','clienteId','enderecoId','observacao','tipoEntrega','status','subtotal','taxaEntrega','desconto','total']);
   p.id=id;p.cliente=d.cliente?campos(d.cliente,['nome','email','telefone']):null;p.endereco=endereco(d.endereco);
   p.pagamento=campos(d.pagamento,['forma','status','valor']);
   if(d.pagamento?.registroManual?.origem==='manual_estabelecimento')p.pagamento.origem='manual_estabelecimento';

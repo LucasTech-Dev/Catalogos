@@ -26,14 +26,18 @@ export function LojaProvider({children}) {
     // Persistir antes de navegar; conferir a identidade atual também em ações atrasadas.
     exibirCarrinho(sessaoCarrinho.current.alterar(auth?.currentUser,atual=>typeof operacao==='function'?operacao(atual):operacao));
   }
-  const versao=useRef(0);
-  const atualizar = useCallback(async() => {
+  const versao=useRef(0),emCurso=useRef(null);
+  const atualizar = useCallback(() => {
+    if(emCurso.current)return emCurso.current;
+    const operacao=async()=>{
     const atual=++versao.current;setCarregando(true);setErro('');
     try {const resultado=await aguardarLeitura(()=>modoFixtures(import.meta.env)?api(publico + '/catalogo',{privado:false}):carregarCatalogo(lojaId));if(atual!==versao.current)return {ok:false,cancelado:true};setDados(modoOriginalDemo(import.meta.env)?adaptarCatalogoDemo(resultado):resultado);return {ok:true};}
     catch(e){if(atual===versao.current){if([403,404].includes(e.status))setDados(null);setErro(e.message);}return {ok:false,mensagem:e.message,erroPersistente:true};}
     finally{if(atual===versao.current)setCarregando(false);}
+    };
+    const promessa=operacao().finally(()=>{if(emCurso.current===promessa)emCurso.current=null;});emCurso.current=promessa;return promessa;
   }, []);
-  useEffect(() => {atualizar(); const foco = () => atualizar(); window.addEventListener('focus',foco); return () => {versao.current++;window.removeEventListener('focus',foco);};},[atualizar]);
+  useEffect(() => {atualizar(); const foco = () => atualizar(); window.addEventListener('focus',foco);window.addEventListener('online',foco); return () => {versao.current++;emCurso.current=null;window.removeEventListener('focus',foco);window.removeEventListener('online',foco);};},[atualizar]);
   useEffect(() => {
     if (/^#[0-9a-f]{6}$/i.test(dados?.loja?.corPrimaria || "")) document.documentElement.style.setProperty("--primary",dados.loja.corPrimaria);
     return () => document.documentElement.style.removeProperty("--primary");

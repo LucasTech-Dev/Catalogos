@@ -1,12 +1,16 @@
+import {textoBemFormado} from '../lib/textoBemFormado.js';
+import {aguardarLeitura} from '../lib/carregamento.js';
 import {collection, doc, getDocFromServer, getDocsFromServer, query, where} from 'firebase/firestore';
 
-const identificador=id=>typeof id==='string' && id.trim() && id.length<=128 && id.isWellFormed() && !/[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) && !['.','..'].includes(id);
+const identificador=id=>typeof id==='string' && id.trim() && id.length<=128 && textoBemFormado(id) && !/[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) && !['.','..'].includes(id);
 const falha=(message,status)=>Object.assign(new Error(message),{status});
 const campos=(dados,nomes)=>Object.fromEntries(nomes.filter(n=>dados[n]!==undefined).map(n=>[n,dados[n]]));
 
 // Mesmo DTO consumido por LojaContext; Firestore mantém os IDs originais.
 // Nunca faz fallback HTTP ou retorna cache de outra loja quando a leitura falha.
-async function lerCatalogo(firestore,lojaId) {
+const leituraPadrao={collection,doc,getDocFromServer,getDocsFromServer,query,where};
+async function lerCatalogo(firestore,lojaId,leitor) {
+  const {collection,doc,getDocFromServer,getDocsFromServer,query,where}=leitor;
   if(!identificador(lojaId))throw falha('Estabelecimento inválido.',400);
   if(!firestore)throw falha('Catálogo não configurado. Entre em contato com a loja.',503);
   try {
@@ -43,19 +47,19 @@ async function lerCatalogo(firestore,lojaId) {
 // Compartilha apenas leituras em andamento, por instância Firebase e loja.
 // Após sucesso ou falha, a próxima chamada volta ao servidor; não há cache de DTO.
 const leiturasEmCurso=new WeakMap();
-export async function consultarCatalogo(firestore,lojaId) {
+export async function consultarCatalogo(firestore,lojaId,leitor=leituraPadrao) {
   if(!identificador(lojaId))throw falha('Estabelecimento inválido.',400);
   if(!firestore)throw falha('Catálogo não configurado. Entre em contato com a loja.',503);
   let lojas=leiturasEmCurso.get(firestore);
   if(!lojas){lojas=new Map();leiturasEmCurso.set(firestore,lojas);}
   if(!lojas.has(lojaId)) {
-    const leitura=lerCatalogo(firestore,lojaId).finally(()=>lojas.delete(lojaId));
+    const leitura=aguardarLeitura(()=>lerCatalogo(firestore,lojaId,leitor)).finally(()=>lojas.delete(lojaId));
     lojas.set(lojaId,leitura);
   }
   return lojas.get(lojaId);
 }
 
 export async function carregarCatalogo(lojaId) {
-  const {db}=await import('../lib/firebase.js');
-  return consultarCatalogo(db,lojaId);
+  const {dbPublico,leituraPublica}=await import('../lib/firebasePublico.js');
+  return consultarCatalogo(dbPublico,lojaId,leituraPublica);
 }

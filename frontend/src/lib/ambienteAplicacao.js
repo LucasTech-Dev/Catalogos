@@ -1,5 +1,6 @@
+import {textoBemFormado} from './textoBemFormado.js';
 import {modoDemo,modoFixtures} from './runtimeDemo.js';
-const idValido=id=>typeof id==='string' && Boolean(id.trim()) && id.length<=128 && id.isWellFormed() && !/[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) && !['.','..'].includes(id);
+const idValido=id=>typeof id==='string' && Boolean(id.trim()) && id.length<=128 && textoBemFormado(id) && !/[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) && !['.','..'].includes(id);
 export function configuracaoAplicacao(env,hostname='localhost') {
   const demo=modoDemo(env);
   const modo=env.VITE_APP_ENV || 'development';

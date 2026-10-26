@@ -1,0 +1,154 @@
+{
+  "dateLocal": "2026-10-25",
+  "scope": "NUM-MOB-01",
+  "files": [
+    {
+      "path": "frontend/src/services/pedidoIncremental.js",
+      "sha256": "8353b2280104d896c209df4c82ec32f1e85e83e38f118c89cc4a41ed873e83e2"
+    },
+    {
+      "path": "frontend/src/services/pedidos.js",
+      "sha256": "c30c782075cae7f6ec3218f269e6f829d9393445b93e1357ca8c748157be4407"
+    },
+    {
+      "path": "frontend/src/services/adminPedidos.js",
+      "sha256": "b67185c1e3804c8f081a33562e2fc6769f24701c12533aa8ec36b5d16fa2169e"
+    },
+    {
+      "path": "frontend/src/services/catalogo.js",
+      "sha256": "77da74f4fd3bb81fea4bc89b0ea6607623485962eaf0e6297c005cbe4627cdcd"
+    },
+    {
+      "path": "frontend/src/services/adminCatalogo.js",
+      "sha256": "14f99c4f3e3ef509ed627cd62b469feaa70c81507aa93de8603b286855c4b053"
+    },
+    {
+      "path": "frontend/src/services/adminGestao.js",
+      "sha256": "c8d2d677c1f4233813090d20ca52aac5a43ecf508c6fdc6085c501c74ef0e127"
+    },
+    {
+      "path": "frontend/src/services/projecaoPublica.js",
+      "sha256": "b62726ec7b219a45d32fce17c362f484b1921719337f9d1bbae1f79ebccd4026"
+    },
+    {
+      "path": "frontend/src/lib/numeroPedido.js",
+      "sha256": "274719ea543e3209cb5df26d993abad83519db19b4716a1f9f7c4fda87f7a515"
+    },
+    {
+      "path": "frontend/src/lib/textoBemFormado.js",
+      "sha256": "975ddda37e586c3ca27aa6950a8773607177c5612ad9fcffa63d65c5d2a1ae6f"
+    },
+    {
+      "path": "frontend/src/lib/inicializacao.js",
+      "sha256": "06f89b07e00b867d24f870329e6a98966556b992db56a3a87776ba03897b07ee"
+    },
+    {
+      "path": "frontend/src/lib/firebasePublico.js",
+      "sha256": "a5f2bac5d31e6033fddb62a0954eab1577178438c5cf337eb741d9e232a81078"
+    },
+    {
+      "path": "frontend/src/lib/ambienteAplicacao.js",
+      "sha256": "a045baa50a548d4ddb0cbc8f3f4c19a0b4384d082d796feeae92346ebae1a4e2"
+    },
+    {
+      "path": "frontend/src/lib/compras.js",
+      "sha256": "0b27058a89311015858fab54c194aab7c741477bc25b4ef40f62616fd1fe5644"
+    },
+    {
+      "path": "frontend/src/lib/pedidosApresentacao.js",
+      "sha256": "10f8e40f2343eea754d6b50b49a71428fcdda730ec592254dcf617400347c540"
+    },
+    {
+      "path": "frontend/src/lib/whatsappPedido.js",
+      "sha256": "c59c0e71532484bbe295341d39dd38092bd29420d2ac77d1cbd6e023067b337d"
+    },
+    {
+      "path": "frontend/src/pages/Checkout.jsx",
+      "sha256": "ea57c1dd52a2998dd230df48038c38c4995a43d5b6216ecc17190955eadc74a5"
+    },
+    {
+      "path": "frontend/src/pages/Pedidos.jsx",
+      "sha256": "a805d372a5f45efb642f12fd9678dd1bfc2893d0c867eaaf17e8191737ce9c11"
+    },
+    {
+      "path": "frontend/src/pages/PedidoDetalhes.jsx",
+      "sha256": "e7266aaff8fa41e155624944f8891530ea3856462d73b3d057791cfc23335145"
+    },
+    {
+      "path": "frontend/src/pages/admin/Dashboard.jsx",
+      "sha256": "2cc92c1eb98f83e879770b4089ff02a7bd6203cd630634a0715a0634eb9db75e"
+    },
+    {
+      "path": "frontend/src/pages/admin/Pedidos.jsx",
+      "sha256": "90829f8713023cca9e2478d8dfb6d08782e2aae97b4be1052d8c524c17bb3d31"
+    },
+    {
+      "path": "frontend/src/pages/admin/PedidoDetalhes.jsx",
+      "sha256": "9d140b273f6930c95ac3c78110292d0a88778f375e78e015717fec2a89c7fc04"
+    },
+    {
+      "path": "frontend/src/components/conta/ConfirmacaoPedido.jsx",
+      "sha256": "37967b228bad7befce0b3b42b716289a189291eb5dc74c743151187bf52e64c5"
+    },
+    {
+      "path": "frontend/src/contexts/LojaContext.jsx",
+      "sha256": "ae153f9d116f933db3516e530acf136e899e9e12095bcde0ca274d15a48a01b7"
+    },
+    {
+      "path": "frontend/src/main.jsx",
+      "sha256": "d0ca29c1cb39fc44e3b6b2e1386879170930ebfaf30309ffd79de06a121e1e54"
+    },
+    {
+      "path": "frontend/src/styles.css",
+      "sha256": "d0db46346992fa52d5109766cef9eee36cf02e24951fc6e9f7627570c3785931"
+    },
+    {
+      "path": "frontend/package.json",
+      "sha256": "1aacb67082df4131af5f501a2e578eed5169506346fe0d0691f5f8dc3f03d9b7"
+    },
+    {
+      "path": "firebase/firestore.rules",
+      "sha256": "71ca854897cae61da43c880a9e6ced50fdc269a013f84d39fafec781bb661175"
+    },
+    {
+      "path": "quality/fixtures/firestore-antes-numero-publico.rules",
+      "sha256": "75b901b55edca9273bee94932e212ea410178c351326b991aff565298687d2f8"
+    },
+    {
+      "path": "quality/firebase/executar-numero-publico.cjs",
+      "sha256": "14582d395ba2f3a3aff0cccd8fdc20a4c56d9575999960598018537650e7d8f5"
+    },
+    {
+      "path": "quality/firebase/numero-publico-rules-readonly.cjs",
+      "sha256": "251eed48670e1b84c8607f37d2f28c04a56a107e31fd479e1ca9507f143f92fd"
+    },
+    {
+      "path": "quality/frontend/scripts/numero-publico-emulator.mjs",
+      "sha256": "59e80a40b297f4f9c6375e7fa98833f9d5766638f4a9a401fa3dda0529aeeba5"
+    },
+    {
+      "path": "quality/frontend/scripts/numero-publico-browser.mjs",
+      "sha256": "3af0f1dfda810559514683d34b824265d1018feab069b6378df05462c7be42f4"
+    },
+    {
+      "path": "quality/frontend/scripts/pedido-sincronizacao-emulator.js",
+      "sha256": "3fc92b2a1eb91f0c2eb195e4db7912569faf9047cbf9039f7aeeb483ac49895f"
+    },
+    {
+      "path": "quality/frontend/test/compras.test.jsx",
+      "sha256": "f47ecd4734538bb8184f21b0a70040ed7eec106e82a350a037efe92f485701e9"
+    },
+    {
+      "path": "quality/frontend/test/areaCliente.test.jsx",
+      "sha256": "2399cec5d8c62f1421136b261a24133cbc28f70d80d7965c10302d30e60ac666"
+    },
+    {
+      "path": "quality/frontend/test/catalogo.test.jsx",
+      "sha256": "bb7e5938c139ebaf046439c82962f1ff07dedc91f41a6438295d7cbd0b2982be"
+    },
+    {
+      "path": "quality/frontend/test/numeroPublicoMobile.test.jsx",
+      "sha256": "1f518f63fdafa048673dea45ac40730dd9fdd7061ae640f52f8fb1d65f3ad4dc"
+    }
+  ]
+}

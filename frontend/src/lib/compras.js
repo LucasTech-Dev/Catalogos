@@ -1,3 +1,4 @@
+import {textoBemFormado} from './textoBemFormado.js';
 export const moeda = value => Number(value || 0).toLocaleString('pt-BR', {style:'currency',currency:'BRL'});
 export const quantidadeValida = value => Number.isInteger(value) && value >= 1 && value <= 99;
 export const chaveItem = item => item.observacao ? JSON.stringify([item.id,item.observacao]) : item.id;
@@ -26,7 +27,7 @@ export function carregarCarrinho(value) {
     const ids=new Set(),resultado=[];
     for(const item of itens) {
       const id=item?.id;
-      if(typeof id!=='string' || !id.trim() || id.length>128 || !id.isWellFormed() || /[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) || ['.','..'].includes(id) || !quantidadeValida(item.quantidade) || (item.observacao!==undefined && (typeof item.observacao!=='string' || item.observacao.length>1000)) || ids.has(chaveItem(item)))continue;
+      if(typeof id!=='string' || !id.trim() || id.length>128 || !textoBemFormado(id) || /[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) || ['.','..'].includes(id) || !quantidadeValida(item.quantidade) || (item.observacao!==undefined && (typeof item.observacao!=='string' || item.observacao.length>1000)) || ids.has(chaveItem(item)))continue;
       ids.add(chaveItem(item));resultado.push({id,quantidade:item.quantidade,...(item.observacao?{observacao:item.observacao}:{})});
     }
     return resultado;

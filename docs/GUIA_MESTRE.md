@@ -1,3 +1,11 @@
+# Publicação NUM-MOB-01 autorizada e em preparação — 25/10/2026
+
+A — Codex: resposta “publique” atende NUM-H1 e NUM-H2 específicos apresentados imediatamente antes: Rules bancorestaurante + commit/push main LucasTech-Dev/Catalogos + Pages catalogo-demo. Rules novas compiladas/verificadas como versão inativa, sem trocar a release atual; anterior conferida com baseline e preservada em backup privado. 274 testes e155checks locais aprovados permanecem evidência; integração/build da cópia de publicação em execução. Nenhum pedido/conta real ou mensagem de teste será criado nesta publicação. Ativação das Rules e implantação serão coordenadas; nenhuma conclusão remota presumida.
+
+B — proprietário: autorizações atendidas; somente julgamento físico Safari/iPhone/WhatsApp permanece posterior. Sem intervenção técnica indispensável durante a execução autorizada. Relatório e evidências abaixo preservam o histórico da preparação.
+
+---
+
 # Navegação administrativa — publicação autorizada — 25/10/2026
 
 A — Codex: “suba, bota no ar” autoriza a correção do login por papel e dos acessos ao painel em main/Pages catalogo-demo. 53 testes e 115 verificações Emulator/Chrome aprovados, incluindo 320/390/1366px; Firebase preservado nesta publicação. Arquivos e limites: [relatório](ADAPTACAO_SERVERLESS/RELATORIO_ADMIN_PROPRIETARIO_WHATSAPP.md). Publicação em execução; não presumir sucesso.

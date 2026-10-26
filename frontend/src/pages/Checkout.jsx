@@ -1,3 +1,4 @@
+import ConfirmacaoPedido from '../components/conta/ConfirmacaoPedido';
 import {notificar} from '../lib/notificacoes';
 import {FeedbackAcao} from '../components/ui/ToastProvider';
 import {PageBoundary} from '../components/ui/PageLoader';
@@ -49,19 +50,34 @@ function Checkout() {
   useEffect(()=>{
     let ativo=true,uidAnterior;
     const timer=setTimeout(()=>{if(ativo)setErroCliente('Não foi possível verificar sua sessão. Tente novamente.');},LIMITE_LEITURA_MS);
-    function trocar(user){clearTimeout(timer);
+    function trocar(user){
+      if(auth && !user){sessao().then(u=>{if(ativo)trocar(u);}).catch(e=>{if(ativo)setErroCliente(e.message);});return;}
+      clearTimeout(timer);
       const uid=user?.uid || null;if(uid===uidAnterior)return;uidAnterior=uid;const v=++versaoSessao.current;
       setClientePronto(false);setErroCliente('');limparDadosDeOutraSessao(uid);setNome('');setTelefone('');setEndereco('');setNumero('');setBairro('');setCidade('');setUf('');setObservacao('');setEnderecosSalvos([]);setEnderecoSalvo('');setPedido(null);setUrl('');setErro('');
-      aguardarLeitura(()=>Promise.all([buscarPerfil(),listarEnderecos()])).then(([perfil,lista])=>{
-        if(!ativo || v!==versaoSessao.current)return;
-        setClientePronto(true);setNome(atual=>atual || perfil.nome || '');setTelefone(atual=>atual || perfil.telefone || '');setEnderecosSalvos(Array.isArray(lista)?lista:[]);
-      }).catch(e=>{if(ativo&&v===versaoSessao.current)setErroCliente(e.message);});
+      const atual=()=>ativo && v===versaoSessao.current;
+      aguardarLeitura(async()=>{
+        const identidade=user || await sessao();if(!atual())return;
+        const key=`catalogos:checkout:${lojaId}:${identidade.uid}`,tentativa=carregarTentativa(key,identidade.uid);
+        if(tentativa){
+          let confirmado;
+          try{confirmado=tentativa.pedidoId || tentativa.pedido?.id?await buscarPedido(tentativa.pedidoId || tentativa.pedido.id,identidade.uid):await recuperarPedido(tentativa.chave,identidade.uid);}
+          catch(e){if(e.status!==404)throw e;}
+          if(confirmado && atual()){
+            tentativaKey.current=key;setPedido(confirmado);setClientePronto(true);
+            prepararFinalizacao(confirmado.id,identidade.uid).then(f=>{if(atual())setUrl(urlWhatsapp(f.url));}).catch(e=>{if(atual())setErro(e.message);});return;
+          }
+        }
+        const [perfil,lista]=await Promise.all([buscarPerfil(),listarEnderecos()]);
+        if(!atual())return;
+        setClientePronto(true);setNome(n=>n || perfil.nome || '');setTelefone(n=>n || perfil.telefone || '');setEnderecosSalvos(Array.isArray(lista)?lista:[]);
+      }).catch(e=>{if(atual())setErroCliente(e.message);});
     }
     const cancelar=auth?onIdTokenChanged(auth,trocar):null;if(!auth)trocar(null);
     return()=>{clearTimeout(timer);ativo=false;versaoSessao.current++;cancelar?.();};
   },[tentativaCarga]);
   const finalizarPedido = async () => {
-    if (trava.current) return;
+    if (trava.current || pedido) return;
     trava.current = true; setOcupado(true); setErro('');
     let key,uid;let v=versaoSessao.current;
     try {
@@ -102,6 +118,13 @@ function Checkout() {
       if(v===versaoSessao.current)setErro(e.message);
     } finally {trava.current = false; setOcupado(false);}
   };
+
+  async function prepararWhatsappConfirmado(){
+    if(trava.current || !pedido)return;trava.current=true;setOcupado(true);setErro('');const v=versaoSessao.current;
+    try{const user=await sessao(),f=await prepararFinalizacao(pedido.id,user.uid);if(v===versaoSessao.current)setUrl(urlWhatsapp(f.url));}
+    catch(e){if(v===versaoSessao.current)setErro(e.message);}finally{trava.current=false;setOcupado(false);}
+  }
+  if(pedido)return <ConfirmacaoPedido pedido={pedido} url={url} erro={erro} ocupado={ocupado} onPreparar={prepararWhatsappConfirmado} onNovo={()=>{removerTentativa(tentativaKey.current);window.location.assign('/cardapio');}}/>;
 
   return (<PageBoundary loja={loja} recursos={[{...catalogo,pronto:catalogo.pronto ?? Boolean(loja)},{pronto:clientePronto,erro:erroCliente,atualizar:()=>setTentativaCarga(v=>v+1)}]}>
     <main className="checkout-page">
@@ -376,10 +399,6 @@ function Checkout() {
 
             <aside className="checkout-summary">
               {erro && <><FeedbackAcao mensagem={erro} persistente={erro===CRIACAO_BLOQUEADA}/>{erro!==CRIACAO_BLOQUEADA && <p>Em falhas de conexão, repita a finalização para retomar a mesma tentativa.</p>}</>}
-              {pedido && <p role="status">Pedido #{pedido.id} registrado. Total definitivo: {moeda(pedido.total)}. Pagamento: {pedido.pagamento.status}.</p>}
-              {url && <><a className="whatsapp-checkout-button" href={url} target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a><p>Envie a mensagem e aguarde a confirmação da loja. Se o WhatsApp estiver indisponível, seu pedido continua registrado.</p><button onClick={() => {removerTentativa(tentativaKey.current);window.location.assign('/cardapio');}}>Iniciar novo pedido</button></>}
-
-
               <div className="checkout-summary-header">
                 <span>
                   SEU PEDIDO

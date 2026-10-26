@@ -1,10 +1,11 @@
+import {textoBemFormado} from '../lib/textoBemFormado.js';
 import {collection,doc,getDocFromServer,getDocsFromServer,getCountFromServer,query,where,orderBy,documentId,startAfter,limit} from 'firebase/firestore';
 import {CAMPOS_PUBLICOS,projetarRegistro,salvarComProjecao} from './projecaoPublica.js';
 const falha=(message,status=400,code='ADMIN_CATALOGO_INVALIDO')=>Object.assign(new Error(message),{status,code});
-const id=v=>{if(typeof v!=='string' || !v || v.length>128 || !v.isWellFormed() || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(v) || ['.','..'].includes(v))throw falha('Identificador inválido.');return v;};
+const id=v=>{if(typeof v!=='string' || !v || v.length>128 || !textoBemFormado(v) || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(v) || ['.','..'].includes(v))throw falha('Identificador inválido.');return v;};
 const tipoValido=n=>{if(!['produtos','categorias'].includes(n))throw falha('Operação fora do catálogo administrativo.');return n;};
 export const B03_BLOQUEADO='Desativar ou excluir categorias permanece bloqueado por segurança: a ausência de vínculos ainda não pode ser comprovada pelas Rules deste modelo. A categoria foi preservada.';
-function texto(v,n,max,obrigatorio=false,multilinha=false){if(typeof v!=='string' || !v.isWellFormed() || v.length>max || obrigatorio && !v.trim() || /[\u007f-\u009f]/u.test(v) || (multilinha?/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/u:/[\u0000-\u001f]/u).test(v))throw falha(n+' inválido.');return v.trim();}
+function texto(v,n,max,obrigatorio=false,multilinha=false){if(typeof v!=='string' || !textoBemFormado(v) || v.length>max || obrigatorio && !v.trim() || /[\u007f-\u009f]/u.test(v) || (multilinha?/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/u:/[\u0000-\u001f]/u).test(v))throw falha(n+' inválido.');return v.trim();}
 function validar(tipo,d,novo){
  if(!d || typeof d!=='object' || Array.isArray(d) || !Object.keys(d).length || Object.keys(d).some(k=>!Object.hasOwn(CAMPOS_PUBLICOS[tipo],k)))throw falha('Campo não permitido nesta operação.');
  const r={...d};

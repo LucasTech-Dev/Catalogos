@@ -1,3 +1,4 @@
+import {textoBemFormado} from '../lib/textoBemFormado.js';
 import {doc, runTransaction,serverTimestamp} from 'firebase/firestore';
 
 // Contrato público explícito, inclusive folhas de mapas. Nunca copiar dados por spread.
@@ -67,7 +68,7 @@ export const CAMPOS_PUBLICOS = Object.freeze({
   }
 
 });
-const idValido=id=>typeof id==='string' && Boolean(id.trim()) && id.length<=128 && id.isWellFormed() && !/[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) && !['.','..'].includes(id);
+const idValido=id=>typeof id==='string' && Boolean(id.trim()) && id.length<=128 && textoBemFormado(id) && !/[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) && !['.','..'].includes(id);
 function selecionar(dados,modelo,caminho='') {
   const saida={};
   for(const [campo,padrao] of Object.entries(modelo)) {

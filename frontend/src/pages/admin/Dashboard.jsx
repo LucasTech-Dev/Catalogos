@@ -1,3 +1,4 @@
+import {numeroPedido} from "../../lib/numeroPedido";
 import MaterialIcon from "../../components/ui/MaterialIcon";
 import {atualizarComFeedback} from '../../lib/notificacoes';
 import {PageBoundary} from '../../components/ui/PageLoader';
@@ -85,7 +86,7 @@ function Dashboard() {
                   <div className="admin-order-main">
 
                     <div className="admin-order-id"><a href={`/admin/pedido?id=${encodeURIComponent(pedido.id)}`}>
-                      #{pedido.id}</a>
+                      #{numeroPedido(pedido)}</a>
                     </div>
 
                     <div>

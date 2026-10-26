@@ -1,0 +1,38 @@
+{
+  "dateLocal": "2026-10-25",
+  "status": "PRONTO_PARA_PUBLICAR_MEDIANTE_AUTORIZACOES",
+  "frontendTests": {
+    "passed": 274,
+    "files": 27,
+    "seconds": 120.01
+  },
+  "numberingEmulatorChecks": 30,
+  "mobileChromeChecks": 19,
+  "existingPricingIdempotencyRegressionChecks": 106,
+  "build": {
+    "mode": "homologacao",
+    "seconds": 13.36,
+    "passed": true,
+    "warning": "chunk App maior que500kB; sem otimização ampla fora do escopo"
+  },
+  "publishedRulesBaselineConfirmedIgnoringFinalNewline": true,
+  "rulesPublicationRequired": true,
+  "newFirestoreDocumentsPerConfirmedOrder": [
+    "reserva numerosPedidos/{N}",
+    "contador contadores/pedidos (criado uma vez, atualizado depois)"
+  ],
+  "realFirebaseWrites": 0,
+  "commitPushDeploy": false,
+  "physicalIOSOrWhatsAppTest": false,
+  "discardedArtifacts": [
+    {
+      "path": "/tmp/catalogo-numero-harness-base.cjs",
+      "sha256": "ff7298603c74d11783c71c6d7509c0c660937275d0ce94596dc0935edd629737",
+      "purpose": "cópia intermediária própria; harness definitivo preservado em quality/firebase/executar-numero-publico.cjs"
+    }
+  ],
+  "sensitiveScanner": {
+    "files": 37,
+    "result": "passed"
+  }
+}
