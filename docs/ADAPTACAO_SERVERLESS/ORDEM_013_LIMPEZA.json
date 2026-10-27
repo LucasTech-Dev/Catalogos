@@ -21,5 +21,108 @@
     "checkout-publicacao/.tools-local",
     "checkout-publicacao/backend/node_modules"
   ],
-  "linksObservacao": "Apenas links próprios para ferramentas/dependências locais, após build e testes integrados; alvos preservados."
+  "linksObservacao": "Apenas links próprios para ferramentas/dependências locais, após build e testes integrados; alvos preservados.",
+  "temporariosEncerrados": [
+    {
+      "arquivo": "/tmp/catalogo-ordem013-build.log",
+      "bytes": 1273,
+      "sha256": "90acda25d0a3dbdaabe01638ca617130e5a493a22b7bf2715a43a900410f50dd"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-docs.log",
+      "bytes": 241,
+      "sha256": "f4a8c5832c52004cb57b6fa501497fb21b1aeb9e8dc8da8a709f7aff5410f378"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-final.log",
+      "bytes": 5480,
+      "sha256": "552fe33edb338ce3af19973d9362ff8232b17e9ba94180e56640ee276416e327"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-final2.log",
+      "bytes": 1126,
+      "sha256": "3a235a5f2ad325f1b7491f79b540a7a720a316e657e9eea0b0a4b73df8d429c1"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-final3.log",
+      "bytes": 106834,
+      "sha256": "f8da2b077392009592c398aad026f0ce7acc61936d085592ce72ab61a54c2891"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-frontend-final.json",
+      "bytes": 100512,
+      "sha256": "c0ff52c7e6b0ee10e0b89b425da4afe7fb981b773f39200528ca33ac54ab6cb1"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-frontend-final.log",
+      "bytes": 304,
+      "sha256": "0dc64a5ea9e55dc8b6f026672dbc390ace35560d168af53ee85f9499ca2f734f"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-frontend.json",
+      "bytes": 99268,
+      "sha256": "12a5a958f7af0303e269480be658f361719754df2143176e2d87955c9956261f"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-frontend.log",
+      "bytes": 8539,
+      "sha256": "5405eff03ae200d60d0ea71e0a11685e9389edf2770fdcd44e68eaef5222379c"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-gestao-aprovacao.log",
+      "bytes": 62559,
+      "sha256": "542a6976e4026b751fbef3b754fc6f9dbcfad3716424b0a0372d452f3d4ab0ff"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-gestao-diagnostico.log",
+      "bytes": 16012,
+      "sha256": "ce65dc39d301c7303b9663eaeb183b48b5315464bd8841cf4f23278cf22c89bf"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-gestao-final.log",
+      "bytes": 15165,
+      "sha256": "44f66fe6122b6b1182de88fd12f2f4bb29235a73998fc504876e068fb5402f9c"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-gestao-layout.log",
+      "bytes": 15335,
+      "sha256": "7e5110fda5490ea08abc013b9fe2377637f738daa926b724524386b53d66cbdb"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-gestao-probe.log",
+      "bytes": 16126,
+      "sha256": "af19fae3e8aae682469eb7febcf24f4fedbaa2c32abb5cb2ee38a42451080c96"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-gestao-transporte.log",
+      "bytes": 15629,
+      "sha256": "1de475b97ae852051255c52ea95035558546af05fd9eda31c216308972d5fbbd"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-gestao.log",
+      "bytes": 15176,
+      "sha256": "c5d6aee18639ba75d4f87278306e0b7892db48a1f6edc4d3e308d9fb2930e519"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-integracao.log",
+      "bytes": 20010,
+      "sha256": "5876e6f3c038c32c95c41b80b56e62cc4319861cab6658c48a0df7684f0c145c"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-main-contratos.json",
+      "bytes": 6339,
+      "sha256": "a715af3d99d72138deded97c6a7d32cee21102e01fab7211157700d69c748f03"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-main-contratos.log",
+      "bytes": 305,
+      "sha256": "2f3d43aecff7f2c9d66c3be8c310c37fec09dccde0640d1d9e8aa6ffcb660c2f"
+    },
+    {
+      "arquivo": "/tmp/catalogo-ordem013-selecao.json",
+      "bytes": 1732,
+      "sha256": "3d45851ea843726f1c65db9763e00b88ac59457bd85b723bec3e866d30706464"
+    }
+  ],
+  "temporariosRecuperaveisPrivados": true
 }

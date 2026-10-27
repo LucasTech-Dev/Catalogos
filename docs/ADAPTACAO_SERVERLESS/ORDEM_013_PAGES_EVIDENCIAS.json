@@ -1,0 +1,14 @@
+{
+  "ordem": "013",
+  "project": "catalogo-demo",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "branch": "main",
+  "id": "3de58476-d266-42bf-90c1-ba040098419e",
+  "status": "success",
+  "endedOn": "2026-10-27T23:49:45.148647Z",
+  "sha": "e26cc5609e54e9d85b2dde8eee2ea0ea39018ada",
+  "root": "frontend",
+  "build": "npm run build -- --mode homologacao",
+  "output": "dist",
+  "realFirebaseWrites": 0
+}
