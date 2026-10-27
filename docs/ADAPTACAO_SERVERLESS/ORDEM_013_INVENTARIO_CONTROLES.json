@@ -1,0 +1,771 @@
+{
+  "ordem": "013",
+  "tipo": "Inventário de declarações JSX",
+  "arquivos": 18,
+  "total": 109,
+  "controles": [
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 83,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"admin-primary-button\" disabled={ocupado} onClick={abrirNovaCategoria} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 134,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" disabled={ocupado} onClick={() => abrirEdicao(categoria)} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 142,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" disabled={ocupado||!desativacaoHabilitada} title={!desativacaoHabilitada?\"Desativação aguarda atualização das permissões da loja.\":undefined} aria-busy={ocupado} onClick={()=>mudarAtivacao(categoria,false)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 143,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" disabled={ocupado} aria-busy={ocupado} onClick={() => mudarAtivacao(categoria,true)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 144,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"admin-category-action-danger\" disabled title={B03_BLOQUEADO}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 160,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"admin-primary-button\" onClick={abrirNovaCategoria} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 186,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"admin-modal-close\" aria-label=\"Fechar edição da categoria\" disabled={ocupado} onClick={()=>{if(fecharModal())notificar(\"info\",\"Edição cancelada.\");}} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 195,
+      "elemento": "form",
+      "declaracao": "<form aria-busy={ocupado} onSubmit={salvarCategoria}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 201,
+      "elemento": "input",
+      "declaracao": "<input id=\"categoria-nome\" required maxLength={200} type=\"text\" value={nome} onChange={(event) => setNome(event.target.value)} placeholder=\"Ex.: Hambúrgueres\" />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 217,
+      "elemento": "textarea",
+      "declaracao": "<textarea id=\"categoria-descricao\" maxLength={2000} value={descricao} onChange={(event) => setDescricao(event.target.value) } placeholder=\"Descreva brevemente a categoria\" rows=\"4\" />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 230,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" disabled={ocupado} className=\"admin-secondary-button\" onClick={()=>{if(fecharModal())notificar(\"info\",\"Edição cancelada.\");}} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "linha": 238,
+      "elemento": "button",
+      "declaracao": "<button disabled={ocupado} aria-busy={ocupado} type=\"submit\" className=\"admin-primary-button\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Clientes.jsx",
+      "linha": 49,
+      "elemento": "input",
+      "declaracao": "<input type=\"search\" aria-label=\"Buscar clientes nesta página\" value={busca} onChange={(event) => setBusca(event.target.value)} placeholder=\"Buscar nesta página por nome, e-mail ou telefone...\" />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Clientes.jsx",
+      "linha": 124,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" disabled={ocupado} aria-busy={ocupado} onClick={()=>abrir(cliente.id)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Clientes.jsx",
+      "linha": 145,
+      "elemento": "a",
+      "declaracao": "<a className=\"admin-secondary-button\" href={`/admin/pedidos?cliente=${encodeURIComponent(detalhe.id)}`}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Clientes.jsx",
+      "linha": 145,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" onClick={()=>setDetalhe(null)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 68,
+      "elemento": "form",
+      "declaracao": "<form aria-busy={ocupado} onSubmit={salvarConfiguracoes}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 85,
+      "elemento": "input",
+      "declaracao": "<input id=\"nome\" type=\"text\" value={config.nome} onChange={(event) => alterarCampo(\"nome\", event.target.value) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 98,
+      "elemento": "input",
+      "declaracao": "<input id=\"instagram\" type=\"text\" value={config.instagram} onChange={(event) => alterarCampo( \"instagram\", event.target.value ) } placeholder=\"@sualoja\" />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 115,
+      "elemento": "textarea",
+      "declaracao": "<textarea id=\"descricao\" rows=\"3\" value={config.descricao} onChange={(event) => alterarCampo( \"descricao\", event.target.value ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 147,
+      "elemento": "input",
+      "declaracao": "<input id=\"telefone\" type=\"text\" value={config.telefone} onChange={(event) => alterarCampo( \"telefone\", event.target.value ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 163,
+      "elemento": "input",
+      "declaracao": "<input id=\"whatsapp\" type=\"text\" value={config.whatsapp} onChange={(event) => alterarCampo( \"whatsapp\", event.target.value ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 179,
+      "elemento": "input",
+      "declaracao": "<input id=\"endereco\" type=\"text\" value={config.endereco} onChange={(event) => alterarCampo( \"endereco\", event.target.value ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 195,
+      "elemento": "input",
+      "declaracao": "<input id=\"bairro\" type=\"text\" value={config.bairro} onChange={(event) => alterarCampo( \"bairro\", event.target.value ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 211,
+      "elemento": "input",
+      "declaracao": "<input id=\"cidade\" type=\"text\" value={config.cidade} onChange={(event) => alterarCampo( \"cidade\", event.target.value ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 239,
+      "elemento": "input",
+      "declaracao": "<input type=\"checkbox\" checked={h?.fechado===false} onChange={e=>horario(dia,'fechado',!e.target.checked)}/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 239,
+      "elemento": "input",
+      "declaracao": "<input id={'abertura-'+dia} type=\"time\" value={h?.abertura || ''} onChange={e=>horario(dia,'abertura',e.target.value)}/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 239,
+      "elemento": "input",
+      "declaracao": "<input id={'fechamento-'+dia} type=\"time\" value={h?.fechamento || ''} onChange={e=>horario(dia,'fechamento',e.target.value)}/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 264,
+      "elemento": "input",
+      "declaracao": "<input type=\"checkbox\" checked={config.retirada} onChange={(event) => alterarCampo( \"retirada\", event.target.checked ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 284,
+      "elemento": "input",
+      "declaracao": "<input type=\"checkbox\" checked={config.entrega} onChange={(event) => alterarCampo( \"entrega\", event.target.checked ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 306,
+      "elemento": "input",
+      "declaracao": "<input id=\"taxaEntrega\" type=\"text\" value={config.taxaEntrega} onChange={(event) => alterarCampo( \"taxaEntrega\", event.target.value ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 328,
+      "elemento": "input",
+      "declaracao": "<input id=\"pedidoMinimo\" type=\"text\" value={config.pedidoMinimo} onChange={(event) => alterarCampo( \"pedidoMinimo\", event.target.value ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 366,
+      "elemento": "input",
+      "declaracao": "<input type=\"checkbox\" checked={config.pix} onChange={(event) => alterarCampo( \"pix\", event.target.checked ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 386,
+      "elemento": "input",
+      "declaracao": "<input type=\"checkbox\" checked={config.dinheiro} onChange={(event) => alterarCampo( \"dinheiro\", event.target.checked ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 398,
+      "elemento": "input",
+      "declaracao": "<input type=\"checkbox\" checked={config[forma]} onChange={e=>alterarCampo(forma,e.target.checked)}/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 402,
+      "elemento": "input",
+      "declaracao": "<input id={'loja-'+campo} value={config[campo] || ''} onChange={e=>alterarCampo(campo,e.target.value)}/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "linha": 409,
+      "elemento": "button",
+      "declaracao": "<button disabled={ocupado || recurso.carregando || Boolean(recurso.erro)} aria-busy={ocupado} type=\"submit\" className=\"admin-primary-button\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Dashboard.jsx",
+      "linha": 44,
+      "elemento": "form",
+      "declaracao": "<form className=\"admin-period-form\" aria-label=\"Filtrar indicadores por período\" onSubmit={e=>{e.preventDefault();if(inicio>fim)return;setPeriodo(anterior=>anterior.inicio===inicio&&anterior.fim===fim?anterior:{inicio,fim});}}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Dashboard.jsx",
+      "linha": 46,
+      "elemento": "input",
+      "declaracao": "<input id=\"dashboard-inicio\" type=\"date\" value={inicio} max={fim} onChange={e=>setInicio(e.target.value)} required/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Dashboard.jsx",
+      "linha": 49,
+      "elemento": "input",
+      "declaracao": "<input id=\"dashboard-fim\" type=\"date\" value={fim} min={inicio} onChange={e=>setFim(e.target.value)} required/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Dashboard.jsx",
+      "linha": 51,
+      "elemento": "button",
+      "declaracao": "<button className=\"admin-period-action admin-period-action-primary\" type=\"submit\" aria-busy={recurso.carregando} disabled={recurso.carregando || inicio>fim}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Dashboard.jsx",
+      "linha": 52,
+      "elemento": "button",
+      "declaracao": "<button className=\"admin-period-action\" type=\"button\" aria-busy={recurso.carregando} disabled={recurso.carregando} onClick={()=>atualizarComFeedback(recurso)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Dashboard.jsx",
+      "linha": 85,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/pedidos\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Dashboard.jsx",
+      "linha": 100,
+      "elemento": "a",
+      "declaracao": "<a href={`/admin/pedido?id=${encodeURIComponent(pedido.id)}`}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Dashboard.jsx",
+      "linha": 194,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/produto/novo\" className=\"admin-shortcut\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Dashboard.jsx",
+      "linha": 214,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/pedidos\" className=\"admin-shortcut\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Dashboard.jsx",
+      "linha": 234,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/configuracoes\" className=\"admin-shortcut\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/PedidoDetalhes.jsx",
+      "linha": 56,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/pedidos\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/PedidoDetalhes.jsx",
+      "linha": 69,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/pedidos\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/PedidoDetalhes.jsx",
+      "linha": 69,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"admin-secondary-button\" onClick={atualizar} disabled={ocupado} aria-busy={operacao==='leitura'}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/PedidoDetalhes.jsx",
+      "linha": 70,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"admin-secondary-button\" disabled={ocupado} onClick={atualizar}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/PedidoDetalhes.jsx",
+      "linha": 75,
+      "elemento": "select",
+      "declaracao": "<select id=\"status-operacional\" className=\"admin-status-select\" value={status} disabled={ocupado} onChange={e=>setStatus(e.target.value)} aria-describedby=\"status-operacional-ajuda\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/PedidoDetalhes.jsx",
+      "linha": 75,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"admin-primary-button\" disabled={ocupado||status===dados.status||!opcoes.includes(status)} aria-busy={operacao==='status'} onClick={()=>salvar('status',status)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/PedidoDetalhes.jsx",
+      "linha": 79,
+      "elemento": "button",
+      "declaracao": "<button key={novo} type=\"button\" className=\"admin-secondary-button\" disabled={ocupado} aria-busy={operacao==='pagamento'} onClick={()=>salvar('pagamento',novo)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Pedidos.jsx",
+      "linha": 58,
+      "elemento": "form",
+      "declaracao": "<form className=\"admin-order-search\" onSubmit={e=>{e.preventDefault();const n=busca.replace(/^#/,'').trim();setNumeroBusca(/^[1-9][0-9]{0,8}$/.test(n)?Number(n):null);}}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Pedidos.jsx",
+      "linha": 58,
+      "elemento": "input",
+      "declaracao": "<input id=\"busca-admin-pedido\" type=\"search\" value={busca} onChange={e=>{setBusca(e.target.value);if(!e.target.value.trim())setNumeroBusca(null);}} placeholder=\"Número do pedido ou cliente\"/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Pedidos.jsx",
+      "linha": 58,
+      "elemento": "button",
+      "declaracao": "<button type=\"submit\" disabled={recurso.carregando} aria-busy={recurso.carregando} className=\"admin-order-search-button\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Pedidos.jsx",
+      "linha": 59,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/pedidos\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Pedidos.jsx",
+      "linha": 62,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" key={item} className={ filtro === item ? \"admin-filter-button active\" : \"admin-filter-button\" } disabled={recurso.carregando} onClick={() => setFiltro(item)} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Pedidos.jsx",
+      "linha": 128,
+      "elemento": "a",
+      "declaracao": "<a href={`/admin/pedido?id=${pedido.id}`} className=\"admin-order-link\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 36,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/produtos\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 65,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/produtos\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 66,
+      "elemento": "form",
+      "declaracao": "<form aria-busy={ocupado} className=\"admin-product-form\" onSubmit={salvarProduto} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 93,
+      "elemento": "input",
+      "declaracao": "<input id=\"nome\" type=\"text\" value={produto.nome} onChange={(event) => atualizarCampo( \"nome\", event.target.value ) } placeholder=\"Ex.: Classic Burger\" required />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 115,
+      "elemento": "textarea",
+      "declaracao": "<textarea id=\"descricao\" rows=\"4\" value={produto.descricao} onChange={(event) => atualizarCampo( \"descricao\", event.target.value ) } placeholder=\"Descreva o produto...\" />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 135,
+      "elemento": "textarea",
+      "declaracao": "<textarea id=\"ingredientes\" rows={5} maxLength={10049} aria-describedby=\"ingredientes-ajuda ingredientes-limite\" value={ingredientesTexto} onChange={event => {setIngredientesTexto(event.target.value);setSalvo(false);}} placeholder={'Ex.:\\nBatata\\nÓleo vegetal\\nSal'} />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 155,
+      "elemento": "select",
+      "declaracao": "<select id=\"categoria\" value={produto.categoriaId} onChange={(event) => atualizarCampo( \"categoriaId\", event.target.value ) } required >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 179,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" onClick={categoriasRecurso.proximo}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 179,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" onClick={categoriasRecurso.anterior}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 193,
+      "elemento": "input",
+      "declaracao": "<input id=\"preco\" type=\"number\" step=\"0.01\" min=\"0\" value={produto.preco} onChange={(event) => atualizarCampo( \"preco\", event.target.value ) } placeholder=\"0,00\" required />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 260,
+      "elemento": "input",
+      "declaracao": "<input id=\"imagem-url\" type=\"url\" value={produto.imagem} onChange={e=>atualizarCampo('imagem',e.target.value)} placeholder=\"https://...\"/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 287,
+      "elemento": "input",
+      "declaracao": "<input type=\"checkbox\" checked={produto.ativo} onChange={(event) => atualizarCampo( \"ativo\", event.target.checked ) } />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 313,
+      "elemento": "input",
+      "declaracao": "<input type=\"checkbox\" checked={produto.disponivel} onChange={e=>atualizarCampo(\"disponivel\",e.target.checked)}/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 321,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/produtos\" aria-disabled={ocupado} onClick={e=>{if(acao.bloqueada()){e.preventDefault();return;}notificarAoNavegar(\"Edição cancelada.\");}} className=\"admin-secondary-button\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "linha": 328,
+      "elemento": "button",
+      "declaracao": "<button disabled={ocupado || recurso.carregando || Boolean(recurso.erro)} aria-busy={ocupado} type=\"submit\" className=\"admin-primary-button\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Produtos.jsx",
+      "linha": 83,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/produto/novo\" className=\"admin-primary-button\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Produtos.jsx",
+      "linha": 99,
+      "elemento": "input",
+      "declaracao": "<input type=\"text\" placeholder=\"Buscar produto nesta página...\" value={busca} onChange={(event) => setBusca(event.target.value)} />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Produtos.jsx",
+      "linha": 110,
+      "elemento": "select",
+      "declaracao": "<select value={categoria} onChange={(event) => {setCategoria(event.target.value);setCategoriaNome(event.target.selectedOptions[0]?.textContent || \"\");}} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Produtos.jsx",
+      "linha": 125,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" disabled={categoriasRecurso.carregando} className=\"admin-more-categories\" onClick={categoriasRecurso.anterior}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Produtos.jsx",
+      "linha": 125,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" disabled={categoriasRecurso.carregando} className=\"admin-more-categories\" onClick={categoriasRecurso.proximo}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Produtos.jsx",
+      "linha": 202,
+      "elemento": "a",
+      "declaracao": "<a href={`/admin/produto?id=${produto.id}`} className=\"admin-product-edit\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Produtos.jsx",
+      "linha": 208,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"admin-product-remove\" aria-busy={acao.ocupada(produto.id)} disabled={acao.ocupada(produto.id)||!produto.ativo} onClick={()=>remover(produto)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Produtos.jsx",
+      "linha": 210,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"admin-product-toggle\" aria-busy={acao.ocupada(produto.id)} disabled={acao.ocupada(produto.id)} onClick={()=>alternar(produto)} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminGate.jsx",
+      "linha": 45,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"button button-secondary\" disabled={ocupado} onClick={()=>window.dispatchEvent(new Event('focus'))}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminGate.jsx",
+      "linha": 46,
+      "elemento": "form",
+      "declaracao": "<form aria-busy={ocupado} className=\"login-form\" onSubmit={login}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminGate.jsx",
+      "linha": 46,
+      "elemento": "input",
+      "declaracao": "<input id=\"admin-email\" name=\"email\" type=\"email\" autoComplete=\"username\" placeholder=\"seuemail@email.com\" required disabled={ocupado}/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminGate.jsx",
+      "linha": 46,
+      "elemento": "button",
+      "declaracao": "<button type=\"submit\" className=\"button button-primary login-submit\" disabled={ocupado} aria-busy={ocupado}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminGate.jsx",
+      "linha": 49,
+      "elemento": "a",
+      "declaracao": "<a className=\"admin-access-back\" href=\"/\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminHeader.jsx",
+      "linha": 10,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"admin-menu-button\" aria-label={ sidebarOpen ? \"Fechar menu administrativo\" : \"Abrir menu administrativo\" } aria-expanded={sidebarOpen} onClick={onMenuClick} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminHeader.jsx",
+      "linha": 24,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin\" className=\"admin-store-identity\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminHeader.jsx",
+      "linha": 38,
+      "elemento": "a",
+      "declaracao": "<a href=\"/admin/configuracoes\" className=\"admin-icon-button\" aria-label=\"Configurações\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminHeader.jsx",
+      "linha": 46,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" onClick={() => sessao.sair()} className=\"admin-logout-button\" aria-label=\"Sair\" >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminLayout.jsx",
+      "linha": 28,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"admin-sidebar-backdrop\" aria-label=\"Fechar menu administrativo\" onClick={closeSidebar} />",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminSidebar.jsx",
+      "linha": 82,
+      "elemento": "a",
+      "declaracao": "<a key={item.href} href={item.href} className={ active ? \"admin-sidebar-link active\" : \"admin-sidebar-link\" } aria-current={active ? \"page\" : undefined} onClick={onNavigate} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminSidebar.jsx",
+      "linha": 100,
+      "elemento": "a",
+      "declaracao": "<a href=\"/login\" className=\"admin-sidebar-exit\" onClick={event => {event.preventDefault();onNavigate?.();sessao?.sair();}} >",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminState.jsx",
+      "linha": 3,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" disabled={recurso.carregando} aria-busy={recurso.carregando} onClick={()=>atualizarComFeedback(recurso)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminState.jsx",
+      "linha": 4,
+      "elemento": "button",
+      "declaracao": "<button className=\"admin-secondary-button\" disabled={!recurso.temAnterior || recurso.carregando} onClick={recurso.anterior}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminState.jsx",
+      "linha": 4,
+      "elemento": "button",
+      "declaracao": "<button className=\"admin-secondary-button\" aria-busy={recurso.carregando} disabled={recurso.carregando} onClick={()=>atualizarComFeedback(recurso)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminState.jsx",
+      "linha": 4,
+      "elemento": "button",
+      "declaracao": "<button className=\"admin-primary-button\" disabled={!recurso.temProximo || recurso.carregando} onClick={recurso.proximo}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/ui/ToastProvider.jsx",
+      "linha": 37,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"toast-close\" aria-label=\"Fechar notificação\" onClick={fechar}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/ui/ToastProvider.jsx",
+      "linha": 38,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"button button-secondary\" onClick={()=>decidir(false)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/ui/ToastProvider.jsx",
+      "linha": 38,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"button button-primary\" onClick={()=>decidir(true)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/ui/BotaoGoogle.jsx",
+      "linha": 14,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"button button-secondary google-login\" disabled={disabled||ocupado} aria-busy={ocupado} onClick={()=>entrar()}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/ui/BotaoGoogle.jsx",
+      "linha": 14,
+      "elemento": "a",
+      "declaracao": "<a href=\"/cadastro\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/ui/BotaoGoogle.jsx",
+      "linha": 14,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" disabled={disabled||ocupado} onClick={()=>entrar(true)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/ui/CampoSenha.jsx",
+      "linha": 5,
+      "elemento": "input",
+      "declaracao": "<input {...props} id={id} type={visivel?'text':'password'} autoComplete={autoComplete}/>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/ui/CampoSenha.jsx",
+      "linha": 5,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"password-toggle\" aria-label={visivel?'Ocultar senha':'Mostrar senha'} aria-controls={id} aria-pressed={visivel} onClick={()=>setVisivel(v=>!v)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/ui/PageLoader.jsx",
+      "linha": 17,
+      "elemento": "button",
+      "declaracao": "<button type=\"button\" className=\"button button-primary\" onClick={()=>atualizarComFeedback(falhou)}>",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    },
+    {
+      "arquivo": "frontend/src/components/ui/PageLoader.jsx",
+      "linha": 18,
+      "elemento": "a",
+      "declaracao": "<a href=\"/\">",
+      "verificacao": "Cruzar com matriz funcional e inventário DOM do Emulator; declaração não prova execução."
+    }
+  ]
+}

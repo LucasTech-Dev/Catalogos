@@ -1,0 +1,77 @@
+{
+  "ordem": "013",
+  "pastas": [
+    {
+      "pasta": ".agents",
+      "decisao": "Configuração privada local preservada",
+      "removida": false
+    },
+    {
+      "pasta": ".aws",
+      "decisao": "Configuração privada local preservada",
+      "removida": false
+    },
+    {
+      "pasta": ".codex",
+      "decisao": "Configuração privada local preservada",
+      "removida": false
+    },
+    {
+      "pasta": ".git",
+      "decisao": "Histórico local preservado; nenhuma limpeza",
+      "removida": false
+    },
+    {
+      "pasta": ".tools-local",
+      "decisao": "Java21/jar Firestore usados nas suítes; preservar",
+      "removida": false
+    },
+    {
+      "pasta": "backend",
+      "decisao": "AdminSDK/GoogleAuth de recuperação e ferramentas; contratos históricos e357 testes; preservar",
+      "removida": false
+    },
+    {
+      "pasta": "docs",
+      "decisao": "Documentação oficial/histórico/evidências; preservar",
+      "removida": false
+    },
+    {
+      "pasta": "firebase",
+      "decisao": "Rules/índices/configurações necessários; nenhuma publicação nesta ordem",
+      "removida": false
+    },
+    {
+      "pasta": "frontend",
+      "decisao": "Produto React/Vite e dependências de build/teste; preservar",
+      "removida": false
+    },
+    {
+      "pasta": "infra",
+      "decisao": "Scanner/testes/ferramentas e histórico não hospedado; preservar",
+      "removida": false
+    },
+    {
+      "pasta": "private-backups",
+      "decisao": "Recuperação privada e checkout main de publicação; nunca publicar nem excluir",
+      "removida": false
+    },
+    {
+      "pasta": "quality",
+      "decisao": "Regressões/Emulators/Chrome/documentação; preservar",
+      "removida": false
+    }
+  ],
+  "exclusoesDePastas": [],
+  "criterio": "Preservar arquivos exclusivos, fontes, ferramentas, dependências, histórico e recuperação. Registrar remoções de logs/temporários após preservar evidências.",
+  "arquivosRuntime": [
+    "Categorias.jsx",
+    "Clientes.jsx",
+    "Configuracoes.jsx",
+    "Dashboard.jsx",
+    "PedidoDetalhes.jsx",
+    "Pedidos.jsx",
+    "ProdutoForm.jsx",
+    "Produtos.jsx"
+  ]
+}

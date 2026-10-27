@@ -41,15 +41,15 @@ function Dashboard() {
         </section>
 
         <AdminState recurso={recurso}/>
-        <form className="admin-period-form" aria-label="Filtrar indicadores por período" onSubmit={e=>{e.preventDefault();if(inicio>fim)return;setPeriodo({inicio,fim});}}>
+        <form className="admin-period-form" aria-label="Filtrar indicadores por período" onSubmit={e=>{e.preventDefault();if(inicio>fim)return;setPeriodo(anterior=>anterior.inicio===inicio&&anterior.fim===fim?anterior:{inicio,fim});}}>
           <label className="admin-period-field" htmlFor="dashboard-inicio">De
             <input id="dashboard-inicio" type="date" value={inicio} max={fim} onChange={e=>setInicio(e.target.value)} required/>
           </label>
           <label className="admin-period-field" htmlFor="dashboard-fim">Até
             <input id="dashboard-fim" type="date" value={fim} min={inicio} onChange={e=>setFim(e.target.value)} required/>
           </label>
-          <button className="admin-period-action admin-period-action-primary" type="submit" disabled={recurso.carregando || inicio>fim}>{recurso.carregando?'Consultando...':'Consultar período'}</button>
-          <button className="admin-period-action" type="button" disabled={recurso.carregando} onClick={()=>atualizarComFeedback(recurso)}>{recurso.carregando?'Atualizando...':'Atualizar'}</button>
+          <button className="admin-period-action admin-period-action-primary" type="submit" aria-busy={recurso.carregando} disabled={recurso.carregando || inicio>fim}>{recurso.carregando?'Consultando...':'Consultar período'}</button>
+          <button className="admin-period-action" type="button" aria-busy={recurso.carregando} disabled={recurso.carregando} onClick={()=>atualizarComFeedback(recurso)}>{recurso.carregando?'Atualizando...':'Atualizar'}</button>
         </form>
         {inicio>fim && <p className="admin-period-error" role="alert">A data inicial deve ser anterior ou igual à data final.</p>}
         {/* ESTATÍSTICAS */}

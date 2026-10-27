@@ -59,9 +59,9 @@ export function criarAdminCatalogo({db,auth,sessaoExistente,lojaId,invalidar=()=
    if(tipo==='categorias' && opcoes.contagem!=='0')await Promise.all(itens.map(async c=>{c.produtos=(await getCountFromServer(query(collection(base,'produtos'),where('categoriaId','==',c.id)))).data().count;}));
    return {itens,proximoCursor:docs.length>n?itens.at(-1).id:null};
   }),
-  salvar:(tipo,identificador,dados)=>executar(async({base,conferir})=>{
+  salvar:(tipo,identificador,dados,criacaoId)=>executar(async({base,conferir})=>{
    tipoValido(tipo);const novo=!identificador,patch=validar(tipo,dados,novo);
-   const destino=novo?doc(collection(base,tipo)):doc(base,tipo,id(identificador));conferir();
+   const destino=novo?(criacaoId?doc(base,tipo,id(criacaoId)):doc(collection(base,tipo))):doc(base,tipo,id(identificador));conferir();
    // Analisar bloqueios previsíveis antes da transação. Uma categoria inativa
    // impede ativação do produto, inclusive se o próprio produto já existir.
    if(tipo==='produtos'){
@@ -80,7 +80,7 @@ export function criarAdminCatalogo({db,auth,sessaoExistente,lojaId,invalidar=()=
     }
     conferir();
    }
-   await salvarComProjecao(db,lojaId,tipo,destino.id,patch,{modo:novo?'criar':'editar',conferir,registrarDatas:true});conferir();
+   await salvarComProjecao(db,lojaId,tipo,destino.id,patch,{modo:novo?'criar':'editar',retomarCriacao:novo&&Boolean(criacaoId),conferir,registrarDatas:true});conferir();
    const salvo=await getDocFromServer(destino);if(!salvo.exists() || salvo.metadata.fromCache || salvo.metadata.hasPendingWrites)throw falha('Não foi possível confirmar a gravação.',503,'ADMIN_CATALOGO_INCERTO');
    return projetar(tipo,salvo);
   }),

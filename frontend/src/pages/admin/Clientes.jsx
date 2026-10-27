@@ -1,3 +1,5 @@
+import {useAdminAcao} from '../../hooks/useAdminAcao';
+import {useAdminModal} from '../../hooks/useAdminModal';
 import MaterialIcon from "../../components/ui/MaterialIcon";
 import {FeedbackAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
@@ -9,10 +11,11 @@ import {AdminState,AdminPaginacao} from "../../components/admin/AdminState";
 function Clientes() {
   const [busca, setBusca] = useState("");
 
-  const recurso=useAdminLista('clientes');
+  const recurso=useAdminLista('clientes'),acao=useAdminAcao();
   const clientes=recurso.itens.map(c=>({...c,nome:c.nome || (c.anonimo?'Convidado':'Cliente'),email:c.email || 'Não informado',pedidos:'—',totalGasto:'—',ultimoPedido:'—',status:c.anonimo?'Convidado':'Cliente'}));
   const [detalhe,setDetalhe]=useState(null),[erro,setErro]=useState(''),[ocupado,setOcupado]=useState(false);
-  async function abrir(id){if(ocupado)return;setOcupado(true);setErro('');try{setDetalhe(await admin.buscar('clientes',id));}catch(e){setErro(e.message);}finally{setOcupado(false);}}
+  async function abrir(id){if(!acao.iniciar())return;setOcupado(true);setErro('');try{const dados=await admin.buscar('clientes',id);if(acao.ativa())setDetalhe(dados);}catch(e){if(acao.ativa())setErro(e.message);}finally{acao.finalizar();if(acao.ativa())setOcupado(false);}}
+  const modalRef=useAdminModal(Boolean(detalhe),ocupado,()=>setDetalhe(null));
   const clientesFiltrados = useMemo(() => {
     const termo = busca.toLowerCase().trim();
 
@@ -44,7 +47,7 @@ function Clientes() {
               <span>⌕</span>
 
               <input
-                type="search"
+                type="search" aria-label="Buscar clientes nesta página"
                 value={busca}
                 onChange={(event) => setBusca(event.target.value)}
                 placeholder="Buscar nesta página por nome, e-mail ou telefone..."
@@ -119,7 +122,7 @@ function Clientes() {
 
                   <div className="admin-customer-actions">
                     <button type="button" disabled={ocupado} aria-busy={ocupado} onClick={()=>abrir(cliente.id)}>
-                      Ver cliente
+                      {ocupado?'Carregando...':'Ver cliente'}
                     </button>
                   </div>
                 </article>
@@ -139,7 +142,7 @@ function Clientes() {
           )}
         </section>
       </div>
-    {detalhe && <div className="admin-modal-overlay"><div className="admin-modal" role="dialog" aria-modal="true" aria-label="Dados do cliente"><h2>{detalhe.nome || "Convidado"}</h2><p>{detalhe.email || "E-mail não informado"}</p><p>{detalhe.telefone}</p><p>{detalhe.anonimo ? "Compra como convidado" : "Cliente"}</p><button onClick={()=>setDetalhe(null)}>Fechar</button></div></div>}
+    {detalhe && <div className="admin-modal-overlay"><div ref={modalRef} className="admin-modal" role="dialog" aria-modal="true" aria-label="Dados do cliente"><h2>{detalhe.nome || "Convidado"}</h2><p>{detalhe.email || "E-mail não informado"}</p><p>{detalhe.telefone}</p><p>{detalhe.anonimo ? "Compra como convidado" : "Cliente"}</p><a className="admin-secondary-button" href={`/admin/pedidos?cliente=${encodeURIComponent(detalhe.id)}`}>Ver pedidos deste cliente</a><button type="button" onClick={()=>setDetalhe(null)}>Fechar</button></div></div>}
     </main></PageBoundary>
   );
 }

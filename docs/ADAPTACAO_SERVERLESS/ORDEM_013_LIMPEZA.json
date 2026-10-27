@@ -1,0 +1,25 @@
+{
+  "ordem": "013",
+  "remocoes": [
+    {
+      "arquivo": "firestore-debug.log",
+      "bytes": 2116680,
+      "sha256": "841c50d7c6faa9bb5e47bb19a721f6aace3347706b83c5da989eedc89d02ec29",
+      "decisao": "Log antigo do Emulator sem consumidores em fontes/CI; cópia comprimida recuperável privada verificada antes da remoção",
+      "backupPrivadoPreservado": true
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/EVIDENCIAS_ORDEM_013/falha-layout.png",
+      "bytes": 58919,
+      "sha256": "ac6a88ee2c17057f15b90fa8b417bd43a8c804247694a8d3111d6b980c72040f",
+      "decisao": "Captura intermediária: diferença de15px era scrollbar. Substituída por matriz aprovada com clientWidth e três capturas sintéticas permanentes"
+    }
+  ],
+  "pastasRemovidas": [],
+  "backupHistoricoFontesDependenciasPreservados": true,
+  "linksTemporariosRemovidos": [
+    "checkout-publicacao/.tools-local",
+    "checkout-publicacao/backend/node_modules"
+  ],
+  "linksObservacao": "Apenas links próprios para ferramentas/dependências locais, após build e testes integrados; alvos preservados."
+}

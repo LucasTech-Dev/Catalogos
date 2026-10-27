@@ -1,5 +1,5 @@
 import {textoBemFormado} from '../lib/textoBemFormado.js';
-import {collection,doc,getDocFromServer,getDocsFromServer,query,where,orderBy,startAfter,limit,runTransaction,serverTimestamp} from 'firebase/firestore';
+import {collection,doc,getDocFromServer,getDocsFromServer,query,where,orderBy,documentId,startAfter,limit,runTransaction,serverTimestamp} from 'firebase/firestore';
 import {criarAdminCatalogo} from './adminCatalogo.js';
 import {projetarPedido} from './pedidos.js';
 // Contratos preservados de pedidoStatusService e pagamentoService (Express).
@@ -49,15 +49,20 @@ export function criarAdminPedidos(contexto){
  return {
   sessao:gate.sessao,
   buscar:identificador=>executar(({base})=>buscar(base,identificador)),
+  historico:identificador=>executar(async({base,conferir})=>{
+   id(identificador);conferir();
+   const docs=(await getDocsFromServer(query(collection(base,'pedidos',id(identificador),'historicoAdministrativo'),orderBy('revisao','desc'),limit(20)))).docs;
+   return docs.map(s=>{const d=s.data();return {tipo:d.tipo,anterior:d.anterior,novo:d.novo,revisao:d.revisao,criadoEm:d.criadoEm?.seconds!==undefined?{_seconds:d.criadoEm.seconds}:null};});
+  }),
   listar:(opcoes={})=>executar(async({base})=>{
-   if(Object.keys(opcoes).some(k=>!['limite','cursor','status','numeroPedido'].includes(k)))throw erro('Filtro inválido.');
+   if(Object.keys(opcoes).some(k=>!['limite','cursor','status','numeroPedido','clienteId'].includes(k)))throw erro('Filtro inválido.');
    const n=Number(opcoes.limite || 25);if(!Number.isInteger(n) || n<1 || n>100)throw erro('Limite deve estar entre 1 e 100.');
-   const c=collection(base,'pedidos'),f=[];
-   if(opcoes.status){if(!Object.hasOwn(TRANSICOES_STATUS,opcoes.status))throw erro('Status inválido.');if(opcoes.numeroPedido===undefined)f.push(where('status','==',opcoes.status));}
-   if(opcoes.numeroPedido!==undefined){if(!Number.isSafeInteger(opcoes.numeroPedido) || opcoes.numeroPedido<1 || opcoes.numeroPedido>999999999)throw erro('Número de pedido inválido.');f.push(where('numeroPedido','==',opcoes.numeroPedido));}else f.push(orderBy('criadoEm','desc'));
+   const c=collection(base,'pedidos'),f=[];if(opcoes.clienteId)f.push(where('clienteId','==',id(opcoes.clienteId)));
+   if(opcoes.status){if(!Object.hasOwn(TRANSICOES_STATUS,opcoes.status))throw erro('Status inválido.');if(opcoes.numeroPedido===undefined&&!opcoes.clienteId)f.push(where('status','==',opcoes.status));}
+   if(opcoes.numeroPedido!==undefined){if(!Number.isSafeInteger(opcoes.numeroPedido) || opcoes.numeroPedido<1 || opcoes.numeroPedido>999999999)throw erro('Número de pedido inválido.');f.push(where('numeroPedido','==',opcoes.numeroPedido));}else f.push(opcoes.clienteId?orderBy(documentId()):orderBy('criadoEm','desc'));
    if(opcoes.cursor){const cursor=await getDocFromServer(doc(c,id(opcoes.cursor)));if(!cursor.exists())throw erro('Cursor inválido.');f.push(startAfter(cursor));}
    const docs=(await getDocsFromServer(query(c,...f,limit(n+1)))).docs,itens=docs.slice(0,n).map(projetar).filter(p=>!opcoes.status || p.status===opcoes.status);
-   return {itens,proximoCursor:docs.length>n?itens.at(-1).id:null};
+   return {itens,proximoCursor:docs.length>n?docs[n-1].id:null};
   }),
   status:(identificador,novo,esperado)=>alterar(identificador,'status',novo,esperado),
   pagamento:(identificador,novo,esperado)=>alterar(identificador,'pagamento',novo,esperado)

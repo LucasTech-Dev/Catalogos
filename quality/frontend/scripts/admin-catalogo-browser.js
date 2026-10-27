@@ -5,14 +5,14 @@ import {build} from 'vite';
 const require=createRequire(import.meta.url),{chrome}=require('./lib/chrome.cjs');
 export async function verificarAdminCatalogoNavegador({projectId,host,authHost,lojaId,email,emailCliente,emailOutraLoja,categoriaId,localizar}){
  assert.match(projectId,/^demo-/);for(const h of [host,authHost])assert.match(h,/^(127\.0\.0\.1|localhost):\d+$/);
- const env={VITE_APP_ENV:'test',VITE_CATALOGOS_RUNTIME_MODE:'full',VITE_LOJA_ID:lojaId,VITE_FIREBASE_PROJECT_ID:projectId,VITE_FIREBASE_API_KEY:'fake-api-key',VITE_FIREBASE_APP_ID:'fake-app',VITE_FIREBASE_AUTH_DOMAIN:'localhost',VITE_FIREBASE_AUTH_EMULATOR_URL:'http://'+authHost,VITE_FIRESTORE_EMULATOR_HOST:host,VITE_API_URL:'http://127.0.0.1:1',MODE:'test',DEV:false,PROD:true,BASE_URL:'/'};
- const result=await build({root:new URL('../../../frontend/',import.meta.url).pathname,envFile:false,define:Object.fromEntries(Object.entries(env).map(([k,v])=>['import.meta.env.'+k,JSON.stringify(v)])),build:{write:false},logLevel:'error'});
+ const env={VITE_CATEGORIAS_DESATIVACAO:'true',VITE_APP_ENV:'test',VITE_CATALOGOS_RUNTIME_MODE:'full',VITE_LOJA_ID:lojaId,VITE_FIREBASE_PROJECT_ID:projectId,VITE_FIREBASE_API_KEY:'fake-api-key',VITE_FIREBASE_APP_ID:'fake-app',VITE_FIREBASE_AUTH_DOMAIN:'localhost',VITE_FIREBASE_AUTH_EMULATOR_URL:'http://'+authHost,VITE_FIRESTORE_EMULATOR_HOST:host,VITE_API_URL:'http://127.0.0.1:1',MODE:'test',DEV:false,PROD:true,BASE_URL:'/'};
+ const result=await build({root:new URL('../../../frontend/',import.meta.url).pathname,envFile:false,define:Object.fromEntries(Object.entries(env).map(([k,v])=>['import.meta.env.'+k,JSON.stringify(v)])),plugins:[{name:'quality-ciclo-emulator013',transform(code,id){if(id.endsWith('/lib/firebase.js'))return "import {terminate as encerrar013} from 'firebase/firestore';\n"+code+'\nglobalThis.__emulatorAntesNavegar=()=>encerrar013(db);';}}],build:{write:false},logLevel:'error'});
  const arquivos=new Map(result.output.map(o=>['/'+o.fileName,o.type==='asset'?o.source:o.code]));
  const server=http.createServer((req,res)=>{const p=new URL(req.url,'http://localhost').pathname;res.writeHead(200,{'Content-Type':p.endsWith('.js')?'application/javascript':p.endsWith('.css')?'text/css':'text/html'});res.end(arquivos.get(p) ?? arquivos.get('/index.html'));});
- let browser,checks=0;const ok=(v,m)=>{assert.ok(v,m);checks++;};
+ let browser,segundo,checks=0;const ok=(v,m)=>{assert.ok(v,m);checks++;};
  try{
   await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
-  browser=await chrome();const requests=[];browser.onEvent(m=>{if(m.method==='Network.requestWillBeSent')requests.push(m.params.request.url);if(m.method==='Page.javascriptDialogOpening')browser.send('Page.handleJavaScriptDialog',{accept:true});});await browser.send('Network.setBlockedURLs',{urls:['https://*']});
+  browser=await chrome({antesDeNavegar:true});const requests=[];browser.onEvent(m=>{if(m.method==='Network.requestWillBeSent')requests.push(m.params.request.url);if(m.method==='Page.javascriptDialogOpening')browser.send('Page.handleJavaScriptDialog',{accept:true});});await browser.send('Network.setBlockedURLs',{urls:['https://*']});
   async function login(conta){await browser.wait('Boolean(document.querySelector("#admin-email"))');await browser.fill('#admin-email',conta);await browser.fill('#admin-senha','Senha-local-teste-123!');await browser.click('.login-form button[type=submit]');}
   await browser.navigate(base+'/admin/produtos');await login(email);await browser.wait('document.querySelectorAll(".admin-product-row").length===25');checks++;
   ok(!await browser.evaluate('Boolean(document.querySelector("#admin-email"))'),'painel autenticado');
@@ -23,11 +23,27 @@ export async function verificarAdminCatalogoNavegador({projectId,host,authHost,l
   await browser.fill('#preco','16.90');await browser.click('button[type=submit]');await browser.wait('document.body.textContent.includes("Produto salvo.")');ok((await localizar('Produto navegador006')).preco===16.9,'edicao nao duplica produto');
   await browser.click('.admin-switch-row:last-child input');await browser.click('button[type=submit]');await browser.wait('document.body.textContent.includes("Produto salvo.")');ok((await localizar('Produto navegador006')).disponivel===false,'disponibilidade persistida');
   await browser.navigate(base+'/produto?id='+criado.id);await browser.wait('Boolean(document.querySelector(".add-to-cart-button"))');ok(await browser.evaluate('document.querySelector(".add-to-cart-button").disabled'),'consumidor nao compra indisponivel');ok(await browser.evaluate('document.body.textContent.includes("16,90")'),'preco alterado no site consumidor');
-  await browser.navigate(base+'/admin/produtos');await browser.wait('Array.from(document.querySelectorAll(".admin-product-row")).some(r=>r.textContent.includes("Produto navegador006"))');
+  await browser.navigate(base+'/admin/produtos');
+  for(let pagina=0;pagina<4;pagina++){
+   await browser.wait('document.querySelectorAll(".admin-product-row").length>0');
+   if(await browser.evaluate('Array.from(document.querySelectorAll(".admin-product-row")).some(r=>r.textContent.includes("Produto navegador006"))'))break;
+   const anterior=await browser.evaluate('document.querySelector(".admin-product-row").textContent');
+   await browser.evaluate('Array.from(document.querySelectorAll("button")).find(b=>b.textContent==="Próxima página").click()');
+   await browser.wait('document.querySelector(".admin-product-row")?.textContent!=='+JSON.stringify(anterior));
+  }
+  await browser.wait('Array.from(document.querySelectorAll(".admin-product-row")).some(r=>r.textContent.includes("Produto navegador006"))');
   async function acaoProduto(texto){await browser.evaluate(`(()=>{const row=Array.from(document.querySelectorAll('.admin-product-row')).find(r=>r.textContent.includes('Produto navegador006'));Array.from(row.querySelectorAll('button')).find(b=>b.textContent.trim()===${JSON.stringify(texto)}).click();})()`);}
   await acaoProduto('Ativar');await browser.wait('Array.from(document.querySelectorAll(".admin-product-row")).some(r=>r.textContent.includes("Produto navegador006") && r.textContent.includes("Desativar"))');let reativado=await localizar('Produto navegador006');ok(reativado.ativo && reativado.disponivel,'ativar recupera produto indisponível');
   await acaoProduto('Remover do catálogo');await browser.wait('Boolean(document.querySelector(".confirm-card"))');await browser.click('.confirm-card button:last-child');await browser.wait('Array.from(document.querySelectorAll(".admin-product-row")).some(r=>r.textContent.includes("Produto navegador006") && r.textContent.includes("Ativar"))');const removido=await localizar('Produto navegador006');ok(removido.ativo===false && removido.disponivel===false,'remoção lógica confirma ambos os campos');
   await acaoProduto('Ativar');await browser.wait('Array.from(document.querySelectorAll(".admin-product-row")).some(r=>r.textContent.includes("Produto navegador006") && r.textContent.includes("Desativar"))');reativado=await localizar('Produto navegador006');ok(reativado.ativo && reativado.disponivel,'reativar restaura registro removido');
+  // Duas janelas independentes usam a mesma conta e transações distintas.
+  segundo=await chrome({antesDeNavegar:true});await segundo.send('Network.setBlockedURLs',{urls:['https://*']});
+  await segundo.navigate(base+'/admin/produto?id='+criado.id);await segundo.wait('Boolean(document.querySelector("#admin-email"))');await segundo.fill('#admin-email',email);await segundo.fill('#admin-senha','Senha-local-teste-123!');await segundo.click('.login-form button[type=submit]');await segundo.wait('document.querySelector("#nome")?.value==="Produto navegador006"');
+  await browser.navigate(base+'/admin/produto?id='+criado.id);await browser.wait('document.querySelector("#nome")?.value==="Produto navegador006"');await browser.fill('#preco','17.10');await segundo.fill('#preco','18.20');
+  await Promise.all([browser.click('button[type=submit]'),segundo.click('button[type=submit]')]);
+  for(const janela of [browser,segundo])await janela.wait('document.body.textContent.includes("Produto salvo.") || Boolean(document.querySelector(".action-error"))');
+  const concorrente=await localizar('Produto navegador006');ok([17.1,18.2].includes(concorrente.preco)&&concorrente.preco===concorrente.precoPublico,'dois navegadores preservam origem/projeção sem perda de integridade');
+  await segundo.close();segundo=null;
   await browser.navigate(base+'/admin/categorias');await browser.wait('document.querySelectorAll(".admin-category-row").length>=3');checks++;
   await browser.click('.admin-page-header .admin-primary-button');await browser.fill('#categoria-nome','Categoria navegador006');await browser.fill('#categoria-descricao','Descrição preservada');await browser.click('.admin-modal button[type=submit]');await browser.wait('!document.querySelector(".admin-modal") && document.body.textContent.includes("Categoria navegador006")');checks++;
   async function acaoCategoria(texto){await browser.evaluate(`(()=>{const row=Array.from(document.querySelectorAll('.admin-category-row')).find(r=>r.textContent.includes('Categoria navegador006'));Array.from(row.querySelectorAll('button')).find(b=>b.textContent===${JSON.stringify(texto)}).click();})()`);}
@@ -42,5 +58,5 @@ export async function verificarAdminCatalogoNavegador({projectId,host,authHost,l
   await login(emailOutraLoja);await browser.wait('Boolean(document.querySelector("#admin-email")) && /não possui acesso administrativo/i.test(document.body.textContent)');ok(!await browser.evaluate('Boolean(document.querySelector(".admin-category-row"))'),'admin outra loja sem painel');
   ok(!requests.some(u=>/127\.0\.0\.1:1\/|\/admin\/lojas\/|onrender\.com/.test(u)),'nenhuma dependencia HTTP/Express nas rotas migradas');ok(browser.errors.length===0,'sem excecoes JS');
   const recibo={checks,build:'aprovado',saidas:result.output.length,express:false,rotas:['/admin/produtos','/admin/produto/novo','/admin/categorias'],distAlterado:false};console.log(JSON.stringify({adminCatalogoNavegador:recibo}));return recibo;
- }catch(e){if(browser)console.error(JSON.stringify({checksAprovados:checks,path:await browser.evaluate('location.pathname'),alertas:await browser.evaluate('Array.from(document.querySelectorAll("[role=alert]")).map(e=>e.textContent)'),excecoes:browser.errors}));throw e;}finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}
+ }catch(e){if(browser)console.error(JSON.stringify({checksAprovados:checks,path:await browser.evaluate('location.pathname'),alertas:await browser.evaluate('Array.from(document.querySelectorAll("[role=alert]")).map(e=>e.textContent)'),excecoes:browser.errors}));throw e;}finally{if(segundo)await segundo.close();if(browser)await browser.close();await new Promise(r=>server.close(r));}
 }

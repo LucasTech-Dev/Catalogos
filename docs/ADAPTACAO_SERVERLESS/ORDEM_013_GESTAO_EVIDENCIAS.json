@@ -1,0 +1,2027 @@
+{
+  "ordem": "013",
+  "status": "APROVADO",
+  "environment": "Emulator",
+  "realFirebaseWrites": 0,
+  "result": {
+    "admin008": "local_B04_em_etapas",
+    "sdkChecks": 84,
+    "navegador": {
+      "checks": 179,
+      "layout": {
+        "checks": 147,
+        "controls": [
+          {
+            "route": "/admin",
+            "mode": "default",
+            "elements": [
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Abrir menu administrativo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Loja navegador008Área administrativa",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Configurações",
+                "busy": false,
+                "disabled": false,
+                "count": 2
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Dashboard",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Produtos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Categorias",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Clientes",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "form",
+                "type": null,
+                "id": null,
+                "label": "Filtrar indicadores por período",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "date",
+                "id": "dashboard-inicio",
+                "label": "De",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "date",
+                "id": "dashboard-fim",
+                "label": "Até",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "submit",
+                "id": null,
+                "label": "Consultar período",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Atualizar",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Ver todos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "#5",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "#4",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "#3",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "#2",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "#1",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Novo produtoAdicione um produto ao catálogo.",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Ver pedidosAcompanhe os pedidos da loja.",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "ConfiguraçõesGerencie as configurações da loja.",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              }
+            ]
+          },
+          {
+            "route": "/admin/pedidos",
+            "mode": "default",
+            "elements": [
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Abrir menu administrativo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Loja navegador008Área administrativa",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Configurações",
+                "busy": false,
+                "disabled": false,
+                "count": 2
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Dashboard",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Produtos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Categorias",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Clientes",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "form",
+                "type": null,
+                "id": null,
+                "label": "",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "search",
+                "id": "busca-admin-pedido",
+                "label": "Buscar pedido",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "submit",
+                "id": null,
+                "label": "Buscar",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Todos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Recebido",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Pagamento confirmado",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Pagamento recusado",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Em preparação",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Pronto",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Saiu para entrega",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Entregue",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Cancelado",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Anterior",
+                "busy": false,
+                "disabled": true,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Atualizar",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Próxima página",
+                "busy": false,
+                "disabled": true,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Ver",
+                "busy": false,
+                "disabled": false,
+                "count": 6
+              }
+            ]
+          },
+          {
+            "route": "/admin/pedido",
+            "mode": "existing",
+            "elements": [
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Abrir menu administrativo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Loja navegador008Área administrativa",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Configurações",
+                "busy": false,
+                "disabled": false,
+                "count": 2
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Dashboard",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Produtos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Categorias",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Clientes",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Voltar para pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Atualizar pedido",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "select",
+                "type": null,
+                "id": "status-operacional",
+                "label": "Novo status operacional",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Salvar status",
+                "busy": true,
+                "disabled": true,
+                "count": 1
+              }
+            ]
+          },
+          {
+            "route": "/admin/produtos",
+            "mode": "default",
+            "elements": [
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Abrir menu administrativo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Loja navegador008Área administrativa",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Configurações",
+                "busy": false,
+                "disabled": false,
+                "count": 2
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Dashboard",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Produtos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Categorias",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Clientes",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Novo produto",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": null,
+                "label": "Buscar produto nesta página...",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "select",
+                "type": null,
+                "id": null,
+                "label": "",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Anterior",
+                "busy": false,
+                "disabled": true,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Atualizar",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Próxima página",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Editar",
+                "busy": false,
+                "disabled": false,
+                "count": 25
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Remover do catálogo",
+                "busy": true,
+                "disabled": false,
+                "count": 25
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Desativar",
+                "busy": true,
+                "disabled": false,
+                "count": 25
+              }
+            ]
+          },
+          {
+            "route": "/admin/produto/novo",
+            "mode": "default",
+            "elements": [
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Abrir menu administrativo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Loja navegador008Área administrativa",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Configurações",
+                "busy": false,
+                "disabled": false,
+                "count": 2
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Dashboard",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Produtos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Categorias",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Clientes",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Voltar para produtos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "form",
+                "type": null,
+                "id": null,
+                "label": "",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": "nome",
+                "label": "Nome do produto",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "textarea",
+                "type": null,
+                "id": "descricao",
+                "label": "Descrição",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "textarea",
+                "type": null,
+                "id": "ingredientes",
+                "label": "Ingredientes",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "select",
+                "type": null,
+                "id": "categoria",
+                "label": "Categoria",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "number",
+                "id": "preco",
+                "label": "Preço",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "url",
+                "id": "imagem-url",
+                "label": "URL da imagem",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "Produto ativoO produto ficará disponível no catálogo da loja.",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "Disponível para pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Cancelar",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "submit",
+                "id": null,
+                "label": "Criar produto",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              }
+            ]
+          },
+          {
+            "route": "/admin/produto",
+            "mode": "existing",
+            "elements": [
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Abrir menu administrativo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Loja navegador008Área administrativa",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Configurações",
+                "busy": false,
+                "disabled": false,
+                "count": 2
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Dashboard",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Produtos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Categorias",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Clientes",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Voltar para produtos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "form",
+                "type": null,
+                "id": null,
+                "label": "",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": "nome",
+                "label": "Nome do produto",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "textarea",
+                "type": null,
+                "id": "descricao",
+                "label": "Descrição",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "textarea",
+                "type": null,
+                "id": "ingredientes",
+                "label": "Ingredientes",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "select",
+                "type": null,
+                "id": "categoria",
+                "label": "Categoria",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "number",
+                "id": "preco",
+                "label": "Preço",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "url",
+                "id": "imagem-url",
+                "label": "URL da imagem",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "Produto ativoO produto ficará disponível no catálogo da loja.",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "Disponível para pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Cancelar",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "submit",
+                "id": null,
+                "label": "Salvar alterações",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              }
+            ]
+          },
+          {
+            "route": "/admin/categorias",
+            "mode": "default",
+            "elements": [
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Abrir menu administrativo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Loja navegador008Área administrativa",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Configurações",
+                "busy": false,
+                "disabled": false,
+                "count": 2
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Dashboard",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Produtos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Categorias",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Clientes",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Nova categoria",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Anterior",
+                "busy": false,
+                "disabled": true,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Atualizar",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Próxima página",
+                "busy": false,
+                "disabled": true,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Editar",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Desativar",
+                "busy": true,
+                "disabled": true,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Excluir",
+                "busy": false,
+                "disabled": true,
+                "count": 1
+              }
+            ]
+          },
+          {
+            "route": "/admin/clientes",
+            "mode": "default",
+            "elements": [
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Abrir menu administrativo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Loja navegador008Área administrativa",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Configurações",
+                "busy": false,
+                "disabled": false,
+                "count": 2
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Dashboard",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Produtos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Categorias",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Clientes",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Anterior",
+                "busy": false,
+                "disabled": true,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Atualizar",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": null,
+                "id": null,
+                "label": "Próxima página",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "search",
+                "id": null,
+                "label": "Buscar clientes nesta página",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Ver cliente",
+                "busy": true,
+                "disabled": false,
+                "count": 25
+              }
+            ]
+          },
+          {
+            "route": "/admin/configuracoes",
+            "mode": "default",
+            "elements": [
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Abrir menu administrativo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Loja navegador008Área administrativa",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Configurações",
+                "busy": false,
+                "disabled": false,
+                "count": 2
+              },
+              {
+                "element": "button",
+                "type": "button",
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Dashboard",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Pedidos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Produtos",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Categorias",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Clientes",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "a",
+                "type": null,
+                "id": null,
+                "label": "Sair",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "form",
+                "type": null,
+                "id": null,
+                "label": "",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": "nome",
+                "label": "Nome da loja",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": "instagram",
+                "label": "Instagram",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "textarea",
+                "type": null,
+                "id": "descricao",
+                "label": "Descrição",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": "telefone",
+                "label": "Telefone",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": "whatsapp",
+                "label": "WhatsApp",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": "endereco",
+                "label": "Endereço",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": "bairro",
+                "label": "Bairro",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": "cidade",
+                "label": "Cidade",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "segunda",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "abertura-segunda",
+                "label": "Abertura segunda",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "fechamento-segunda",
+                "label": "Fechamento segunda",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "terca",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "abertura-terca",
+                "label": "Abertura terca",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "fechamento-terca",
+                "label": "Fechamento terca",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "quarta",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "abertura-quarta",
+                "label": "Abertura quarta",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "fechamento-quarta",
+                "label": "Fechamento quarta",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "quinta",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "abertura-quinta",
+                "label": "Abertura quinta",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "fechamento-quinta",
+                "label": "Fechamento quinta",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "sexta",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "abertura-sexta",
+                "label": "Abertura sexta",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "fechamento-sexta",
+                "label": "Fechamento sexta",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "sabado",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "abertura-sabado",
+                "label": "Abertura sabado",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "fechamento-sabado",
+                "label": "Fechamento sabado",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "domingo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "abertura-domingo",
+                "label": "Abertura domingo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "time",
+                "id": "fechamento-domingo",
+                "label": "Fechamento domingo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "Retirada no localPermitir que o cliente retire o pedido.",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "EntregaPermitir pedidos para entrega.",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": "taxaEntrega",
+                "label": "Taxa de entrega",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "text",
+                "id": "pedidoMinimo",
+                "label": "Pedido mínimo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "PIXAceitar pagamento via PIX.",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "DinheiroAceitar pagamento em dinheiro.",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "Cartão de crédito",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": "checkbox",
+                "id": null,
+                "label": "Cartão de débito",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": null,
+                "id": "loja-numero",
+                "label": "Número",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": null,
+                "id": "loja-uf",
+                "label": "UF",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": null,
+                "id": "loja-logo",
+                "label": "URL do logo",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": null,
+                "id": "loja-imagem",
+                "label": "URL da imagem",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": null,
+                "id": "loja-corPrimaria",
+                "label": "Cor principal",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "input",
+                "type": null,
+                "id": "loja-tempoMedio",
+                "label": "Tempo médio",
+                "busy": false,
+                "disabled": false,
+                "count": 1
+              },
+              {
+                "element": "button",
+                "type": "submit",
+                "id": null,
+                "label": "Salvar configurações",
+                "busy": true,
+                "disabled": false,
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "routes": [
+          "/admin",
+          "/admin/pedidos",
+          "/admin/pedido",
+          "/admin/produtos",
+          "/admin/produto/novo",
+          "/admin/produto",
+          "/admin/categorias",
+          "/admin/clientes",
+          "/admin/configuracoes"
+        ],
+        "widths": [
+          320,
+          360,
+          390,
+          768,
+          980,
+          981,
+          1366,
+          1920
+        ],
+        "realDeviceTested": false,
+        "personalLoginAutomated": false
+      },
+      "build": "aprovado",
+      "saidas": 10,
+      "express": false,
+      "distAlterado": false
+    },
+    "express": false,
+    "lojaRealAlterada": false
+  }
+}

@@ -11,9 +11,10 @@ import {moeda} from "../../lib/compras";
 function Pedidos() {
   const [busca,setBusca]=useState(''),[numeroBusca,setNumeroBusca]=useState(null);
   const [filtro, setFiltro] = useState("Todos");
+  const clienteId=new URLSearchParams(window.location.search).get('cliente');
 
   const status=Object.keys(rotulosStatus).find(k=>rotulosStatus[k]===filtro);
-  const recurso=useAdminLista('pedidos',{...(status?{status}:{}),...(numeroBusca?{numeroPedido:numeroBusca}:{})});
+  const recurso=useAdminLista('pedidos',{...(clienteId?{clienteId}:{}),...(status?{status}:{}),...(numeroBusca?{numeroPedido:numeroBusca}:{})});
   // A listagem usa getDocsFromServer (não é listener em tempo real).
   // Atualizar ao retornar à aba e periodicamente enquanto o painel está visível.
   const atualizarRef=useRef(recurso.atualizar);
@@ -54,8 +55,8 @@ function Pedidos() {
           </div>
         </section>
 
-        <form className="admin-order-search" onSubmit={e=>{e.preventDefault();const n=busca.replace(/^#/,'').trim();setNumeroBusca(/^[1-9][0-9]{0,8}$/.test(n)?Number(n):null);}}><label htmlFor="busca-admin-pedido">Buscar pedido</label><input id="busca-admin-pedido" type="search" value={busca} onChange={e=>{setBusca(e.target.value);if(!e.target.value.trim())setNumeroBusca(null);}} placeholder="Número do pedido ou cliente"/><button type="submit" className="admin-order-search-button">Buscar</button><small>Os pedidos são consultados diretamente no Firestore. Esta lista se atualiza ao voltar à aba e enquanto permanecer aberta.</small></form>
-        {/* FILTROS */}
+        <form className="admin-order-search" onSubmit={e=>{e.preventDefault();const n=busca.replace(/^#/,'').trim();setNumeroBusca(/^[1-9][0-9]{0,8}$/.test(n)?Number(n):null);}}><label htmlFor="busca-admin-pedido">Buscar pedido</label><input id="busca-admin-pedido" type="search" value={busca} onChange={e=>{setBusca(e.target.value);if(!e.target.value.trim())setNumeroBusca(null);}} placeholder="Número do pedido ou cliente"/><button type="submit" disabled={recurso.carregando} aria-busy={recurso.carregando} className="admin-order-search-button">Buscar</button><small>Número consulta o Firestore; nome filtra os resultados desta página. Esta lista se atualiza ao voltar à aba e enquanto permanecer aberta.</small></form>
+        {clienteId&&<p>Pedidos do cliente selecionado. <a href="/admin/pedidos">Ver todos os clientes</a></p>}{/* FILTROS */}
         <section className="admin-order-filters">
           {filtros.map((item) => (
             <button
@@ -66,7 +67,7 @@ function Pedidos() {
                   ? "admin-filter-button active"
                   : "admin-filter-button"
               }
-              onClick={() => setFiltro(item)}
+              disabled={recurso.carregando} onClick={() => setFiltro(item)}
             >
               {item}
             </button>

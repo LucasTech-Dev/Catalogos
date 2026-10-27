@@ -116,7 +116,14 @@ export async function salvarComProjecao(db,lojaId,tipo,id,patch={},opcoes={}) {
     const controle=doc(db,`lojas/${lojaId}/controleCompra/versao`);
     const revisao=await tx.get(controle);
     opcoes.conferir?.();
-    if(opcoes.modo==='criar' && atual.exists())throw Object.assign(new Error('Identificador já utilizado.'),{status:409});
+    if(opcoes.modo==='criar' && atual.exists()){
+      if(!opcoes.retomarCriacao)throw Object.assign(new Error('Identificador já utilizado.'),{status:409});
+      const anterior=projetarRegistro(tipo,atual.data()),esperado=projetarRegistro(tipo,patch);
+      const canonico=v=>Array.isArray(v)?v.map(canonico):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonico(v[k])])):v;
+      const publicado=await tx.get(publico);opcoes.conferir?.();
+      if(JSON.stringify(canonico(anterior))!==JSON.stringify(canonico(esperado)) || !publicado.exists() || JSON.stringify(canonico(publicado.data()))!==JSON.stringify(canonico(esperado)))throw Object.assign(new Error('Esta criação já foi registrada com outros dados. Atualize a lista e abra o registro para editar.'),{status:409});
+      return anterior;
+    }
     if(opcoes.modo==='editar' && !atual.exists())throw Object.assign(new Error('Registro não encontrado.'),{status:404});
     const valores=opcoes.preparar?opcoes.preparar(atual.data(),patch):patch;
     const dados=mesclar(atual.exists()?atual.data():{},valores);

@@ -3,23 +3,24 @@ import {admin} from '../services/admin';
 import {aguardarLeitura} from '../lib/carregamento';
 export function useAdminRecurso(carregar) {
   const [dados,setDados]=useState(null),[erro,setErro]=useState(''),[carregando,setCarregando]=useState(true);
-  const origemAtual=useRef(carregar);
+  const origemAtual=useRef(carregar),carregarAtual=useRef(carregar);carregarAtual.current=carregar;
   const versao=useRef(0);
   const [pronto,setPronto]=useState(false),[origem,setOrigem]=useState(()=>carregar);
   const emCurso=useRef(null);
   const atualizar=useCallback(()=>{
-    if(emCurso.current?.origem===carregar && emCurso.current.versao===versao.current)return emCurso.current.promessa;
+    const fonte=carregarAtual.current;
+    if(emCurso.current?.origem===fonte && emCurso.current.versao===versao.current)return emCurso.current.promessa;
     const v=++versao.current;
-    if(origemAtual.current!==carregar){origemAtual.current=carregar;setDados(null);setPronto(false);}
-    setCarregando(true);setErro('');setOrigem(()=>carregar);
-    const promessa=aguardarLeitura(carregar).then(resposta=>{
+    if(origemAtual.current!==fonte){origemAtual.current=fonte;setDados(null);setPronto(false);}
+    setCarregando(true);setErro('');setOrigem(()=>fonte);
+    const promessa=aguardarLeitura(fonte).then(resposta=>{
       if(v===versao.current){setDados(resposta);setPronto(true);return {ok:true};}return {ok:false,cancelado:true};
     }).catch(e=>{
       if(v===versao.current){if([401,403].includes(e.status)||e.code==='SESSION_CHANGED'){setDados(null);setPronto(false);}setErro(e.message);return {ok:false,mensagem:e.message,erroPersistente:true};}return {ok:false,cancelado:true};
     }).finally(()=>{if(v===versao.current)setCarregando(false);if(emCurso.current?.versao===v)emCurso.current=null;});
-    emCurso.current={origem:carregar,versao:v,promessa};return promessa;
-  },[carregar]);
-  useEffect(()=>{atualizar();return()=>{versao.current++;};},[atualizar]);return {dados:origem===carregar?dados:null,setDados,erro:origem===carregar?erro:'',setErro,carregando:origem!==carregar||carregando,pronto:origem===carregar&&pronto,atualizar};
+    emCurso.current={origem:fonte,versao:v,promessa};return promessa;
+  },[]);
+  useEffect(()=>{atualizar();return()=>{versao.current++;};},[atualizar,carregar]);return {dados:origem===carregar?dados:null,setDados,erro:origem===carregar?erro:'',setErro,carregando:origem!==carregar||carregando,pronto:origem===carregar&&pronto,atualizar};
 }
 export function useAdminLista(nome,filtros={}) {
   const chave=JSON.stringify(filtros),[estado,setEstado]=useState({nome,chave,cursor:'',historico:[]});

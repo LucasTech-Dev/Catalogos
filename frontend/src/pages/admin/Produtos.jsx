@@ -1,4 +1,5 @@
 import './Produtos.css';
+import {useAdminAcao} from '../../hooks/useAdminAcao';
 import MaterialIcon from "../../components/ui/MaterialIcon";
 import ImagemCatalogo from "../../components/ui/ImagemCatalogo";
 import {notificar} from '../../lib/notificacoes';
@@ -17,31 +18,30 @@ function Produtos() {
 
   const recurso=useAdminLista('produtos',categoria==='Todas'?{}:{categoriaId:categoria});
   const categoriasRecurso=useAdminLista('categorias',{limite:100,contagem:'0'});
-  const [erro,setErro]=useState(''),[produtoOcupado,setProdutoOcupado]=useState(null);
+  const [erro,setErro]=useState(''),acao=useAdminAcao();
   const produtos=recurso.itens.map(p=>({...p,categoria:categoriasRecurso.itens.find(c=>c.id===p.categoriaId)?.nome || (p.categoriaId ? 'Categoria cadastrada' : 'Sem categoria'),preco:moeda(p.preco)}));
   const categorias=[{id:'Todas',nome:'Todas'},...categoriasRecurso.itens,...(categoria!=='Todas' && !categoriasRecurso.itens.some(c=>c.id===categoria)?[{id:categoria,nome:categoriaNome || 'Categoria selecionada'}]:[])];
   async function alternar(produto){
-    if(produtoOcupado)return;
-    setProdutoOcupado(produto.id);setErro('');
+    if(!acao.iniciar(produto.id))return;setErro('');
     const ativar=produto.ativo===false || produto.disponivel===false;
     try {
       await admin.salvar('produtos',produto.id,ativar?{ativo:true,disponivel:true}:{ativo:false});
-      notificar('sucesso',ativar?'Produto ativado no catálogo.':'Produto desativado no catálogo.');
+      if(!acao.ativa())return;notificar('sucesso',ativar?'Produto ativado no catálogo.':'Produto desativado no catálogo.');
       await recurso.atualizar();
-    } catch(e){setErro(e.message || 'Não foi possível atualizar o produto.');}
-    finally {setProdutoOcupado(null);}
+    } catch(e){if(acao.ativa())setErro(e.message || 'Não foi possível atualizar o produto.');}
+    finally {acao.finalizar(produto.id);}
   }
   async function remover(produto){
-    if(produtoOcupado)return;
-    if(!await confirmarAcao('Remover este produto do catálogo público? O registro e os pedidos anteriores serão preservados.','Remover do catálogo'))return;
-    setProdutoOcupado(produto.id);setErro('');
+    if(!acao.iniciar(produto.id))return;setErro('');
     try {
+      if(!await confirmarAcao('Remover este produto do catálogo público? O registro e os pedidos anteriores serão preservados.','Remover do catálogo'))return;
+      if(!acao.ativa())return;
       // Exclusão lógica intencional: preserva produtos referenciados por pedidos históricos.
       await admin.excluir('produtos',produto.id);
-      notificar('sucesso','Produto removido do catálogo. Histórico preservado.');
+      if(!acao.ativa())return;notificar('sucesso','Produto removido do catálogo. Histórico preservado.');
       await recurso.atualizar();
-    } catch(e){setErro(e.message || 'Não foi possível remover o produto.');}
-    finally {setProdutoOcupado(null);}
+    } catch(e){if(acao.ativa())setErro(e.message || 'Não foi possível remover o produto.');}
+    finally {acao.finalizar(produto.id);}
   }
   const produtosFiltrados = useMemo(() => {
     return produtos.filter((produto) => {
@@ -122,7 +122,7 @@ function Produtos() {
 
         </section>
 
-        <AdminState recurso={recurso}/><AdminState recurso={categoriasRecurso}/>{erro && <FeedbackAcao mensagem={erro}/>}<AdminPaginacao recurso={recurso}/>{categoriasRecurso.temProximo && <button type="button" className="admin-more-categories" onClick={categoriasRecurso.proximo}>Mais categorias</button>}
+        <AdminState recurso={recurso}/><AdminState recurso={categoriasRecurso}/>{erro && <FeedbackAcao mensagem={erro}/>}<AdminPaginacao recurso={recurso}/>{categoriasRecurso.temAnterior&&<button type="button" disabled={categoriasRecurso.carregando} className="admin-more-categories" onClick={categoriasRecurso.anterior}>Categorias anteriores</button>}{categoriasRecurso.temProximo && <button type="button" disabled={categoriasRecurso.carregando} className="admin-more-categories" onClick={categoriasRecurso.proximo}>Mais categorias</button>}
         {/* RESULTADOS */}
 
         <section className="admin-panel">
@@ -148,7 +148,7 @@ function Produtos() {
               <article
                 className="admin-product-row"
                 key={produto.id}
-                aria-busy={produtoOcupado===produto.id}
+                aria-busy={acao.ocupada(produto.id)}
               >
 
                 {/* IMAGEM DO PRODUTO */}
@@ -205,13 +205,13 @@ function Produtos() {
                   >
                     Editar
                   </a>
-                  <button type="button" className="admin-product-remove" disabled={Boolean(produtoOcupado)||!produto.ativo} onClick={()=>remover(produto)}>{produtoOcupado===produto.id?'Aguarde...':produto.ativo?'Remover do catálogo':'Removido'}</button>
+                  <button type="button" className="admin-product-remove" aria-busy={acao.ocupada(produto.id)} disabled={acao.ocupada(produto.id)||!produto.ativo} onClick={()=>remover(produto)}>{acao.ocupada(produto.id)?'Aguarde...':produto.ativo?'Remover do catálogo':'Removido'}</button>
 
                   <button
                     type="button"
-                    className="admin-product-toggle" disabled={Boolean(produtoOcupado)} onClick={()=>alternar(produto)}
+                    className="admin-product-toggle" aria-busy={acao.ocupada(produto.id)} disabled={acao.ocupada(produto.id)} onClick={()=>alternar(produto)}
                   >
-                    {produtoOcupado===produto.id ? "Salvando..." : produto.ativo!==false && produto.disponivel!==false ? "Desativar" : "Ativar"}
+                    {acao.ocupada(produto.id) ? "Salvando..." : produto.ativo!==false && produto.disponivel!==false ? "Desativar" : "Ativar"}
                   </button>
 
                 </div>

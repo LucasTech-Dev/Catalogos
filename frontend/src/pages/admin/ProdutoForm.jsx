@@ -1,9 +1,11 @@
+import {useAdminAcao} from '../../hooks/useAdminAcao';
+import {chaveCriacaoAdmin,limparCriacaoAdmin} from '../../lib/criacaoAdmin';
 import MaterialIcon from "../../components/ui/MaterialIcon";
 import {ingredientesDoTexto} from '../../lib/ingredientes';
 import {notificarAoNavegar} from '../../lib/notificacoes';
 import {FeedbackAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
-import React, { useState, useLayoutEffect, useCallback, useRef } from "react";
+import React, { useState, useLayoutEffect, useCallback } from "react";
 
 import {admin} from "../../services/admin";
 import {useAdminRecurso,useAdminLista} from "../../hooks/useAdmin";
@@ -14,15 +16,15 @@ function ProdutoForm() {
   const [idSalvo,setIdSalvo]=useState(produtoId || '');const editando=Boolean(idSalvo);
   const [produto,setProduto]=useState({nome:'',descricao:'',categoriaId:'',preco:'',ativo:true,disponivel:true,imagem:''});
   const [ingredientesTexto,setIngredientesTexto]=useState('');
-  const [erro,setErro]=useState(''),[salvo,setSalvo]=useState(false),[ocupado,setOcupado]=useState(false);const trava=useRef(false);
+  const [erro,setErro]=useState(''),[salvo,setSalvo]=useState(false),[ocupado,setOcupado]=useState(false);const acao=useAdminAcao();
   const carregar=useCallback(()=>produtoId?admin.buscar('produtos',produtoId):Promise.resolve(null),[produtoId]);
   const recurso=useAdminRecurso(carregar),categoriasRecurso=useAdminLista('categorias',{limite:100,contagem:'0'});const categorias=categoriasRecurso.itens;
   useLayoutEffect(()=>{if(recurso.dados)setProduto({...recurso.dados,preco:String(recurso.dados.preco),disponivel:recurso.dados.disponivel!==false});},[recurso.dados]);
   useLayoutEffect(()=>{if(recurso.dados)setIngredientesTexto((recurso.dados.ingredientes || []).join('\n'));},[recurso.dados]);
   const atualizarCampo=(campo,valor)=>{setProduto(a=>({...a,[campo]:valor}));setSalvo(false);};
   async function salvarProduto(event){
-    event.preventDefault();if(trava.current)return;trava.current=true;setOcupado(true);setErro('');setSalvo(false);
-    try {if(produto.preco==='')throw new Error('Informe o preço.');const dados={nome:produto.nome,descricao:produto.descricao,categoriaId:produto.categoriaId,preco:Number(produto.preco),ativo:produto.ativo,disponivel:produto.disponivel,imagem:produto.imagem,ingredientes:ingredientesDoTexto(ingredientesTexto)};const resultado=await admin.salvar('produtos',idSalvo || null,dados);setIdSalvo(resultado.id);setProduto({...resultado,preco:String(resultado.preco),disponivel:resultado.disponivel!==false});setIngredientesTexto((resultado.ingredientes || []).join('\n'));setSalvo(true);}catch(e){setErro(e.message);}finally{trava.current=false;setOcupado(false);}
+    event.preventDefault();if(!acao.iniciar())return;setOcupado(true);setErro('');setSalvo(false);
+    try {if(produto.preco==='')throw new Error('Informe o preço.');const dados={nome:produto.nome,descricao:produto.descricao,categoriaId:produto.categoriaId,preco:Number(produto.preco),ativo:produto.ativo,disponivel:produto.disponivel,imagem:produto.imagem,ingredientes:ingredientesDoTexto(ingredientesTexto)};const resultado=await admin.salvar('produtos',idSalvo || null,dados,...(!idSalvo?[chaveCriacaoAdmin('criacao')]:[]));if(!acao.ativa())return;limparCriacaoAdmin('criacao',resultado.id);setIdSalvo(resultado.id);setProduto({...resultado,preco:String(resultado.preco),disponivel:resultado.disponivel!==false});setIngredientesTexto((resultado.ingredientes || []).join('\n'));setSalvo(true);}catch(e){if(acao.ativa())setErro(e.message);}finally{acao.finalizar();if(acao.ativa())setOcupado(false);}
   }
   return (<PageBoundary recursos={[recurso,categoriasRecurso]}>
     <main className="admin-product-form-page">
@@ -64,7 +66,7 @@ function ProdutoForm() {
         <form aria-busy={ocupado}
           className="admin-product-form"
           onSubmit={salvarProduto}
-        >
+        ><fieldset className="admin-form-fields" disabled={ocupado}>
 
           {/* INFORMAÇÕES BÁSICAS */}
 
@@ -317,24 +319,24 @@ function ProdutoForm() {
           <div className="admin-product-form-actions">
 
             <a
-              href="/admin/produtos" onClick={()=>notificarAoNavegar("Edição cancelada.")}
+              href="/admin/produtos" aria-disabled={ocupado} onClick={e=>{if(acao.bloqueada()){e.preventDefault();return;}notificarAoNavegar("Edição cancelada.");}}
               className="admin-secondary-button"
             >
               Cancelar
             </a>
 
             <button
-              disabled={ocupado || recurso.carregando || Boolean(recurso.erro)} type="submit"
+              disabled={ocupado || recurso.carregando || Boolean(recurso.erro)} aria-busy={ocupado} type="submit"
               className="admin-primary-button"
             >
-              {editando
+              {ocupado ? "Salvando..." : editando
                 ? "Salvar alterações"
                 : "Criar produto"}
             </button>
 
           </div>
 
-        </form>
+        </fieldset></form>
 
       </div>
     </main></PageBoundary>

@@ -1,0 +1,294 @@
+{
+  "ordem": "013",
+  "status": "GATES_APROVADOS_PRE_PUBLICACAO",
+  "base": "b0d00c567f3fe057bfc2faa60760b5ce41a7db78",
+  "alvo": "LucasTech-Dev/Catalogos/main + Pages catalogo-demo",
+  "rulesChanged": false,
+  "realFirebaseWrites": 0,
+  "sdkChecks": 320,
+  "browserChecks": 249,
+  "frontendTests": 315,
+  "arquivos": [
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/CONTINUIDADE_CODEX.md",
+      "bytes": 1735,
+      "sha256": "b27bb61443e4c1ab9e8db935e2874a6c815a56cf3063509444538093c7bf2912"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/EVIDENCIAS_ORDEM_013/categorias-390.png",
+      "bytes": 43354,
+      "sha256": "dd3853632a342232c23e9e12522099123b93c40486d788683f52a8bc8d313291"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/EVIDENCIAS_ORDEM_013/configuracoes-1366.png",
+      "bytes": 83208,
+      "sha256": "976af18cdd178c0781d4f8e2e17e318e450d42f15b0e935ee5eac1fdf12c895a"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/EVIDENCIAS_ORDEM_013/dashboard-390.png",
+      "bytes": 41624,
+      "sha256": "fa07d2a7ae7103459ca36d6c0d5a8e50c2a2f66d2ef7e296e503a1ca128cc405"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/ORDEM_013_CATALOGO_EVIDENCIAS.json",
+      "bytes": 515,
+      "sha256": "8ce75df5affd7df0b4e9d4e94467fbf9ff044379b9ed11859a17b6069af6b13e"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/ORDEM_013_FIREBASE_LEITURA.json",
+      "bytes": 3703,
+      "sha256": "5117bb2dc7f782feb434c036f84218e333d65206865e77dc60f0c3a5217ed24f"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/ORDEM_013_GESTAO_EVIDENCIAS.json",
+      "bytes": 58839,
+      "sha256": "6816a21588f8ae6b3acbcdb1584ba513c9b6d5eb766b94588da32e8fffc72262"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/ORDEM_013_INVENTARIO_CONTROLES.json",
+      "bytes": 41972,
+      "sha256": "3c9c140b997655db4a8efb9107b83878de5cac6a2cfc6e42524f4cbf25ce79c2"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/ORDEM_013_INVENTARIO_ESTRUTURA.json",
+      "bytes": 2163,
+      "sha256": "30150625594de4e1a07ee1ac17f2aec5042faebe47de514dda95debf65986350"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/ORDEM_013_LIMPEZA.json",
+      "bytes": 1096,
+      "sha256": "5c0a1044f4e41f57e9434f1a905679e76d3a6feace00ae6f480d4c5dd6898917"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/ORDEM_013_PEDIDOS_EVIDENCIAS.json",
+      "bytes": 322,
+      "sha256": "f9238c9f203d911b42824b7ffdeb19cb3761c2e3ddc8940940cecfcb71da4dae"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/ORDEM_013_TESTES.json",
+      "bytes": 882,
+      "sha256": "864d522d4b89a3766abe7dc17c40c269ad2bb65bed29593cf891f63e5df8297b"
+    },
+    {
+      "arquivo": "docs/ADAPTACAO_SERVERLESS/RELATORIO_ORDEM_013.md",
+      "bytes": 23721,
+      "sha256": "630eb0f49d59b3a6e7e7802d72a5772e126b4a2299f0872ce5fa02a98d7f0145"
+    },
+    {
+      "arquivo": "docs/GUIA_MESTRE.md",
+      "bytes": 51236,
+      "sha256": "5b9da4e3a3982468704865e5527f3de78737675dbe14238ce881f9ef7438754f"
+    },
+    {
+      "arquivo": "docs/INDICE_GERAL_DOCUMENTACAO.md",
+      "bytes": 585,
+      "sha256": "5af3fe76e95eb2735bd6e3284b231b6e9796e6103a96cdb032947862279daf80"
+    },
+    {
+      "arquivo": "docs/REGISTRO_DE_TRABALHO.md",
+      "bytes": 51738,
+      "sha256": "d741874aa492a0e6182b6290575e85de33931216c2f9628dfa39bbf94af50829"
+    },
+    {
+      "arquivo": "frontend/.env.example",
+      "bytes": 948,
+      "sha256": "36c79c569347fade94f69f1ac50740aef5d6c44f35c6268e67aad3913d5f78aa"
+    },
+    {
+      "arquivo": "frontend/package.json",
+      "bytes": 2271,
+      "sha256": "7ec04d5d9236df23c40fcacb0826d2804f65ae3139f0e58ecf9c8b1a4f6d607e"
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminGate.jsx",
+      "bytes": 6985,
+      "sha256": "cd55e1f3ad952a99620556c069b95c514a5780038865dc6d9e6def306a613a99"
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminLayout.jsx",
+      "bytes": 1262,
+      "sha256": "612167aa22f413012971b1a1446730de6dfae073529c40f2869bb2b2c1549006"
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminPadrao.css",
+      "bytes": 3008,
+      "sha256": "249f7964d58928c3a315591961e9cb70d3ae1fdf826ff4687a1864b87df70719"
+    },
+    {
+      "arquivo": "frontend/src/components/admin/AdminState.jsx",
+      "bytes": 960,
+      "sha256": "42ca216f29952e6bc1b4512527d081b722016b947f460bbbea45d92a1e7ea283"
+    },
+    {
+      "arquivo": "frontend/src/components/ui/ToastProvider.jsx",
+      "bytes": 4650,
+      "sha256": "6dd76a98533b592377e070b61d96e212b2a404ca077061d7d76cd0a9b69dd48d"
+    },
+    {
+      "arquivo": "frontend/src/hooks/useAdmin.js",
+      "bytes": 2679,
+      "sha256": "f8f594b331cbb1bb3f95ddb94d398322525b4f41c6d4d17eca30760435282064"
+    },
+    {
+      "arquivo": "frontend/src/hooks/useAdminAcao.js",
+      "bytes": 857,
+      "sha256": "6fec045e6d2d2cf1763d40b4bff61e7506b41b5761eeb5bcc2da888545289349"
+    },
+    {
+      "arquivo": "frontend/src/hooks/useAdminModal.js",
+      "bytes": 1195,
+      "sha256": "29037628b343e723923894b23c29eba5224f9ac2da5df44aeb7fdcb7d0ab6569"
+    },
+    {
+      "arquivo": "frontend/src/lib/criacaoAdmin.js",
+      "bytes": 681,
+      "sha256": "f024be9fa68ebab2fb87a4aaa4b32e9377e9751895019a873fa82dec618f928d"
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Categorias.jsx",
+      "bytes": 10635,
+      "sha256": "adb81a76f8f67e16150d5c77c61a06fef9106d955dc26a16c5f08f091257895c"
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Clientes.jsx",
+      "bytes": 6333,
+      "sha256": "c9bd81b46e1fb23d904f06e95a847b2c30ec564463849994d4137f9b5001ab35"
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Configuracoes.jsx",
+      "bytes": 17959,
+      "sha256": "8f8ecce1defb53bf246f98d3a40e6fac37834a4317aa7c9cba1005869507ccf9"
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Dashboard.jsx",
+      "bytes": 9387,
+      "sha256": "34c259654b6ba060cc7b7b86b0b37f6794a5dfecfc2bade048c92e9e77ff0a41"
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/PedidoDetalhes.jsx",
+      "bytes": 11653,
+      "sha256": "4b9777b4c783db17f8f210ad06b7df6b00bf9440ee442d549f90fc02c4b77dac"
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Pedidos.jsx",
+      "bytes": 6749,
+      "sha256": "0315feb8f9abcc5bcd044780ce029a52a939887f39f33c23e69f9f18865875c0"
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/ProdutoForm.jsx",
+      "bytes": 12465,
+      "sha256": "9eb0522f44edef7b6faa3dc8f3323911d81282f12ede682ca0df8963de5b5178"
+    },
+    {
+      "arquivo": "frontend/src/pages/admin/Produtos.jsx",
+      "bytes": 8913,
+      "sha256": "bde113d09eab4d376d96d55c51440fa2dfbb3a57cbfd65e15ce1972e4b143512"
+    },
+    {
+      "arquivo": "frontend/src/services/admin.js",
+      "bytes": 2021,
+      "sha256": "754768355405575f277e82b2fb77967bc277047fd1b37d60788f95f0450fd8d9"
+    },
+    {
+      "arquivo": "frontend/src/services/adminCatalogo.js",
+      "bytes": 9414,
+      "sha256": "f668051e5ff419f6a5d1d3e3650a64986b28b6b8d9fdf27961a73821571a27b5"
+    },
+    {
+      "arquivo": "frontend/src/services/adminPedidos.js",
+      "bytes": 7211,
+      "sha256": "0dfebe74bae4a5050c5befd12310750971525e3cc4eb70849ac9fe259b4042dc"
+    },
+    {
+      "arquivo": "frontend/src/services/projecaoPublica.js",
+      "bytes": 6916,
+      "sha256": "63aa0bb22bd5e613fd477c3101b5cbb8d70728a81008f9034c2580e9747914ba"
+    },
+    {
+      "arquivo": "quality/docs/documentacao.cjs",
+      "bytes": 849,
+      "sha256": "88d7259f2e2f2edb9cd66ba0bc20debf5e7c6fc4df47d25dfddc73d30b801448"
+    },
+    {
+      "arquivo": "quality/docs/ordem013-inventario.cjs",
+      "bytes": 3214,
+      "sha256": "1cd9aff8f588c73150b4ff8a54a19f63487db67be48cb5fa32643169b7487dc8"
+    },
+    {
+      "arquivo": "quality/firebase/executar-ordem013.cjs",
+      "bytes": 1997,
+      "sha256": "4079c1d3f8bb1f08e43a62ff2f4d9100eeb44b444432f5344e499800e204b02b"
+    },
+    {
+      "arquivo": "quality/firebase/ordem013-readonly.cjs",
+      "bytes": 2950,
+      "sha256": "78d6bd3f6b8ad25e814a1cfc5c37a171eafb6eef55cf54919a026817f5a56b46"
+    },
+    {
+      "arquivo": "quality/firebase/regras-ordem013.cjs",
+      "bytes": 1060,
+      "sha256": "9fc0cb7e6a418c742925bec25a81d3e67a172c8de91a14b3547d736637254287"
+    },
+    {
+      "arquivo": "quality/frontend/scripts/admin-catalogo-browser.js",
+      "bytes": 12416,
+      "sha256": "5649c29b82685715e088d99cde3d51ff037360460952c0bbe04fe14503506fce"
+    },
+    {
+      "arquivo": "quality/frontend/scripts/admin-catalogo-emulator.js",
+      "bytes": 15354,
+      "sha256": "24af1f1518711c88b843307e74934eae6778c931a8c64c29d46dc00dd2c71562"
+    },
+    {
+      "arquivo": "quality/frontend/scripts/admin-gestao-browser.js",
+      "bytes": 10685,
+      "sha256": "d56536a1138444510237a10ae0777ec8e4d9278f3981f1870ec1d83da626ba17"
+    },
+    {
+      "arquivo": "quality/frontend/scripts/admin-gestao-emulator.js",
+      "bytes": 14387,
+      "sha256": "f408fa32d2d6fcc01b53cb1fca634aaadd44c1a35ba000164066297336a39a5a"
+    },
+    {
+      "arquivo": "quality/frontend/scripts/admin-pedidos-browser.js",
+      "bytes": 9863,
+      "sha256": "a1a4c74783f550c472bca121718298258a4e2afa05262cc14b9c02118d4ea0b6"
+    },
+    {
+      "arquivo": "quality/frontend/scripts/admin-pedidos-emulator.js",
+      "bytes": 16061,
+      "sha256": "65537380820fec25bb915f3fba174c0b09220cbba08875d81f53362f2e6e41b3"
+    },
+    {
+      "arquivo": "quality/frontend/scripts/lib/admin-audit.cjs",
+      "bytes": 4260,
+      "sha256": "d96cc7d1fd34ae05715c74c12fed9415d0ce21feacc139198c50f47b48963418"
+    },
+    {
+      "arquivo": "quality/frontend/scripts/lib/chrome.cjs",
+      "bytes": 4654,
+      "sha256": "61a0e58fc0c06b056c289a313a311d90d0e583ffe1ece951400a879170dcf64a"
+    },
+    {
+      "arquivo": "quality/frontend/scripts/ordem013-publico.cjs",
+      "bytes": 3334,
+      "sha256": "6cbb154401acd426a4cc18809413db7c3414c67c977b2cd67914e8f4a50cc0e0"
+    },
+    {
+      "arquivo": "quality/frontend/test/admin.test.jsx",
+      "bytes": 22021,
+      "sha256": "0c4077d45de7f4653b558a64491dae7a3df32a0b59043fbabf4ee8fb281b0198"
+    },
+    {
+      "arquivo": "quality/frontend/test/adminPedidoDetalhes.test.jsx",
+      "bytes": 7888,
+      "sha256": "fa3579336409ab0388e40ef55c9d771f9ca4f9b443d2ce87b46fa032566b54f0"
+    },
+    {
+      "arquivo": "quality/frontend/test/ordem013.test.jsx",
+      "bytes": 9137,
+      "sha256": "8c48aa7cbb29a4b0dd54ff43909bf149c789d0fe4369ec830134193038d68fe6"
+    }
+  ],
+  "nota": "Manifesto registra seleção anterior a si próprio e ao recibo pós-deploy; commits Git identificam árvore completa."
+}

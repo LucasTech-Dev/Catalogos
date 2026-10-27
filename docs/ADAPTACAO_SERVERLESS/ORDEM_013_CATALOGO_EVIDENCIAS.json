@@ -1,0 +1,24 @@
+{
+  "ordem": "013",
+  "status": "APROVADO",
+  "environment": "Emulator",
+  "realFirebaseWrites": 0,
+  "result": {
+    "admin006": "aprovado_local",
+    "sdkChecks": 77,
+    "navegador": {
+      "checks": 36,
+      "build": "aprovado",
+      "saidas": 10,
+      "express": false,
+      "rotas": [
+        "/admin/produtos",
+        "/admin/produto/novo",
+        "/admin/categorias"
+      ],
+      "distAlterado": false
+    },
+    "B03": "parcial_operacoes_perigosas_bloqueadas",
+    "lojaRealAlterada": false
+  }
+}

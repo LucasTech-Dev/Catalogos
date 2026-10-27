@@ -40,8 +40,8 @@ export function ToastProvider({children}) {
 }
 // Mantém feedback inline útil ao reutilizar uma tela sem o provider da aplicação.
 export function FeedbackAcao({mensagem,tipo='erro',persistente=false}) {
- const global=useContext(Context);
- useEffect(()=>{if(global&&mensagem&&!persistente)notificar(tipo,mensagem);},[global,mensagem,tipo,persistente]);
- if(!mensagem||global&&!persistente)return null;
- return <p role={tipo==='erro'?'alert':'status'}>{textoSeguro(mensagem,persistente?1000:240)}</p>;
+ const global=useContext(Context),manter=persistente||tipo==='erro';
+ useEffect(()=>{if(global&&mensagem&&!manter)notificar(tipo,mensagem);},[global,mensagem,tipo,manter]);
+ if(!mensagem||global&&!manter)return null;
+ return <p className={tipo==='erro'?'action-error':'action-feedback'} role={tipo==='erro'?'alert':'status'}>{textoSeguro(mensagem,persistente?1000:240)}</p>;
 }

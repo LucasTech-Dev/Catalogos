@@ -1,0 +1,37 @@
+/* Padrão administrativo compartilhado; sem interferir no catálogo público. */
+.admin-layout { --admin-header-height: calc(72px + env(safe-area-inset-top, 0px)); }
+.admin-topbar { box-sizing:border-box; height:var(--admin-header-height); }
+.admin-sidebar { top:var(--admin-header-height); }
+.admin-layout-content { padding-top:var(--admin-header-height); }
+.admin-sidebar-backdrop { top:var(--admin-header-height); }
+.admin-layout .admin-form-fields { min-width:0; margin:0; padding:0; border:0; }
+.admin-layout input,.admin-layout select,.admin-layout textarea { max-width:100%; min-width:0; box-sizing:border-box; }
+.admin-layout button { touch-action:manipulation; }
+.admin-layout button:disabled { cursor:not-allowed; }
+.admin-layout :is(button,a,input,select,textarea):focus-visible { outline:3px solid #c2410c; outline-offset:3px; }
+.admin-layout :is(.admin-primary-button,.admin-secondary-button,.admin-category-actions button,.admin-product-actions button,.admin-customer-actions button) { min-height:44px; }
+.admin-layout main:not(.admin-order-details-page) button[aria-busy="true"] { display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+.admin-layout main:not(.admin-order-details-page) button[aria-busy="true"]::before { content:""; width:14px; height:14px; flex-shrink:0; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:admin-working .8s linear infinite; }
+.admin-layout .action-error { background:#fff1f2; border:1px solid #fecdd3; border-radius:10px; color:#9f1239; padding:12px 14px; overflow-wrap:anywhere; }
+.admin-layout .admin-modal-overlay { box-sizing:border-box; padding:20px; overflow-y:auto; z-index:1100; }
+.admin-layout .admin-modal { box-sizing:border-box; width:min(640px,100%); max-height:calc(100dvh - 40px); overflow-y:auto; overflow-wrap:anywhere; }
+.admin-layout .admin-customer-main { min-width:0; overflow-wrap:anywhere; }
+.admin-layout .admin-customer-actions button { white-space:normal; }
+.admin-order-history { padding-left:22px; }
+.admin-order-history li { margin-block:12px; overflow-wrap:anywhere; }
+.admin-order-history span { display:block; color:#4b5563; font-size:.875rem; margin-top:4px; }
+@keyframes admin-working { to { transform:rotate(360deg); } }
+@media(max-width:640px) {
+ .admin-layout { --admin-header-height:calc(64px + env(safe-area-inset-top, 0px)); }
+ .admin-layout .admin-modal-overlay { padding:12px; }
+ .admin-layout .admin-modal { max-height:calc(100dvh - 24px); }
+ .admin-layout :is(.admin-settings-grid,.admin-form-row) { min-width:0; }
+ .admin-layout .admin-topbar :is(button,a) { min-height:44px; min-width:44px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .admin-layout *, .admin-layout *::before { animation:none!important; transition:none!important; }
+}
+
+.admin-layout .admin-product-form > .admin-form-fields { display:flex; flex-direction:column; gap:24px; }
+
+@media(max-width:980px) { .admin-layout .admin-sidebar:not(.admin-sidebar-open) { visibility:hidden; } }

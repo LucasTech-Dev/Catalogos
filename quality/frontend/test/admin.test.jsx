@@ -2,7 +2,7 @@ import {ToastProvider} from '../../../frontend/src/components/ui/ToastProvider';
 import React from 'react';
 import {it,describe,expect,vi,beforeEach,afterEach} from 'vitest';
 import {render,screen,fireEvent,waitFor,cleanup,act} from '@testing-library/react';
-const m=vi.hoisted(()=>({auth:{currentUser:null},listener:null,entrar:vi.fn(),sair:vi.fn(),admin:Object.fromEntries(['sessao','loja','dashboard','listar','buscar','salvar','excluir','configurar','status','pagamento'].map(k=>[k,vi.fn()]))}));
+const m=vi.hoisted(()=>({auth:{currentUser:null},listener:null,entrar:vi.fn(),sair:vi.fn(),admin:Object.fromEntries(['sessao','loja','dashboard','listar','buscar','salvar','excluir','configurar','status','pagamento','historicoPedido'].map(k=>[k,vi.fn()]))}));
 vi.mock('../../../frontend/src/lib/firebase',()=>({auth:m.auth}));
 vi.mock('firebase/auth',()=>({onIdTokenChanged:(auth,callback)=>{m.listener=callback;queueMicrotask(()=>callback(auth.currentUser));return ()=>{m.listener=null;};}}));
 vi.mock('../../../frontend/src/services/conta',()=>({entrar:m.entrar,sair:m.sair}));
@@ -20,7 +20,7 @@ import {moeda} from '../../../frontend/src/lib/compras';
 const sessao={uid:'adm',email:'adm@teste.local',role:'admin',lojaId:'loja-demo',loja:{id:'loja-demo',nome:'Loja real'}};
 const cat={id:'cat',nome:'Categoria real',ativo:true,produtos:1};
 const produto={id:'produto',nome:'Produto real',descricao:'Descrição real',categoriaId:'cat',preco:18.5,ativo:true,disponivel:true,imagem:''};
-beforeEach(()=>{vi.resetAllMocks();m.auth.currentUser=null;window.history.replaceState({},'', '/admin');m.admin.sessao.mockResolvedValue(sessao);m.admin.listar.mockImplementation(async nome=>({itens:nome==='categorias'?[cat]:nome==='produtos'?[produto]:[],proximoCursor:null}));});
+beforeEach(()=>{vi.stubEnv('VITE_CATEGORIAS_DESATIVACAO','true');vi.resetAllMocks();m.admin.historicoPedido.mockResolvedValue([]);m.auth.currentUser=null;window.history.replaceState({},'', '/admin');m.admin.sessao.mockResolvedValue(sessao);m.admin.listar.mockImplementation(async nome=>({itens:nome==='categorias'?[cat]:nome==='produtos'?[produto]:[],proximoCursor:null}));});
 afterEach(()=>{cleanup();vi.restoreAllMocks();});
 function Conteudo(){const sessao=useAdminSessao();return <><p>Conteúdo protegido</p><button onClick={sessao.sair}>Sair do painel</button></>;}
 describe('acesso administrativo',()=>{
@@ -111,7 +111,7 @@ it('revalidar ao voltar à janela preserva formulário de sessão autorizada',as
 });
 
 it('ação administrativa só notifica sucesso após a gravação; GET inicial fica silencioso',async()=>{let resolver; m.admin.listar.mockImplementation(async nome=>({itens:nome==='categorias'?[cat]:[produto],proximoCursor:null}));m.admin.salvar.mockImplementation(()=>new Promise(r=>{resolver=r;}));render(<ToastProvider><Produtos/></ToastProvider>);await screen.findByText('Produto real');expect(document.querySelector('.toast-card')).toBeNull();fireEvent.click(screen.getByText('Desativar'));expect(document.querySelector('.toast-card')).toBeNull();await act(async()=>resolver({...produto,ativo:false}));await screen.findByText('Produto desativado no catálogo.');expect(document.querySelectorAll('.toast-card')).toHaveLength(1);});
-it('desativação de categoria aguarda confirmação; recusa não anuncia sucesso',async()=>{m.admin.listar.mockResolvedValue({itens:[cat],proximoCursor:null});render(<ToastProvider><Categorias/></ToastProvider>);await screen.findByText('Categoria real');fireEvent.click(screen.getByText('Desativar'));await screen.findByRole('dialog');expect(m.admin.excluir).not.toHaveBeenCalled();fireEvent.click(screen.getByText('Cancelar'));expect(m.admin.excluir).not.toHaveBeenCalled();fireEvent.click(screen.getByText('Desativar'));await screen.findByRole('dialog');m.admin.salvar.mockRejectedValue(new Error('Acesso negado.'));fireEvent.click(screen.getByText('Confirmar'));await screen.findByText('Acesso negado.');expect(document.querySelectorAll('.toast-card')).toHaveLength(1);expect(screen.getAllByText('Acesso negado.')).toHaveLength(1);});
+it('desativação de categoria aguarda confirmação; recusa não anuncia sucesso',async()=>{m.admin.listar.mockResolvedValue({itens:[cat],proximoCursor:null});render(<ToastProvider><Categorias/></ToastProvider>);await screen.findByText('Categoria real');fireEvent.click(screen.getByText('Desativar'));await screen.findByRole('dialog');expect(m.admin.excluir).not.toHaveBeenCalled();fireEvent.click(screen.getByText('Cancelar'));expect(m.admin.excluir).not.toHaveBeenCalled();fireEvent.click(await screen.findByRole('button',{name:'Desativar'}));await screen.findByRole('dialog');m.admin.salvar.mockRejectedValue(new Error('Acesso negado.'));fireEvent.click(screen.getByText('Confirmar'));await screen.findByText('Acesso negado.');expect(document.querySelectorAll('.toast-card')).toHaveLength(0);expect(screen.getAllByText('Acesso negado.')).toHaveLength(1);});
 
 it('salva dia editado mesmo com outros horários legados e preserva formulário na recusa',async()=>{
  const dados={nome:'Loja real',horarios:{segunda:'10:00 às 22:00',terca:'Fechado'},pagamentos:{pix:true}};
@@ -138,4 +138,14 @@ it('painel atualiza só enquanto visível, mantém filtro e encerra polling ao d
   await act(async()=>{fireEvent(window,new Event('focus'));});expect(m.admin.listar).toHaveBeenCalledTimes(3);
   view.unmount();await vi.advanceTimersByTimeAsync(45000);expect(m.admin.listar).toHaveBeenCalledTimes(3);
  }finally{vi.useRealTimers();}
+});
+
+it('verificações simultâneas da mesma sessão compartilham a consulta e não reabrem o painel durante logout',async()=>{
+ let resolverConsulta,resolverSaida;
+ m.auth.currentUser={uid:'adm',isAnonymous:false};render(<AdminGate><Conteudo/></AdminGate>);await screen.findByText('Conteúdo protegido');
+ m.admin.sessao.mockImplementation(()=>new Promise(r=>{resolverConsulta=r;}));m.sair.mockImplementation(()=>new Promise(r=>{resolverSaida=r;}));
+ act(()=>{fireEvent(window,new Event('focus'));fireEvent(window,new Event('focus'));fireEvent(window,new Event('focus'));});expect(m.admin.sessao).toHaveBeenCalledTimes(2);
+ const b=screen.getByText('Sair do painel');act(()=>{fireEvent.click(b);fireEvent.click(b);});expect(m.sair).toHaveBeenCalledTimes(1);expect(screen.queryByText('Conteúdo protegido')).toBeNull();
+ await act(async()=>resolverConsulta(sessao));expect(screen.queryByText('Conteúdo protegido')).toBeNull();
+ await act(async()=>{m.auth.currentUser=null;m.listener(null);resolverSaida();});await screen.findByRole('button',{name:'Entrar no painel'});
 });

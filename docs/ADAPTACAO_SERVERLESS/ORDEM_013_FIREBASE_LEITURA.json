@@ -1,0 +1,159 @@
+{
+  "at": "2026-10-27T00:55:42.054Z",
+  "project": "bancorestaurante",
+  "shop": "loja-demo",
+  "mode": "GET_ONLY",
+  "realWrites": 0,
+  "products": [
+    {
+      "id": "bacon-burger",
+      "nome": "Bacon Burger",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "hamburgueres",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "possuiImagem": false
+    },
+    {
+      "id": "bacon-supreme",
+      "nome": "Bacon Supreme",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "hamburgueres",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "possuiImagem": true
+    },
+    {
+      "id": "batata-da-casa",
+      "nome": "Batata da Casa",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "porcoes",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "possuiImagem": true
+    },
+    {
+      "id": "batata-frita",
+      "nome": "Batata Frita",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "porcoes",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "possuiImagem": false
+    },
+    {
+      "id": "chicken-crispy",
+      "nome": "Chicken Crispy",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "hamburgueres",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "possuiImagem": true
+    },
+    {
+      "id": "classic-burger",
+      "nome": "Classic Burger",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "hamburgueres",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "possuiImagem": true
+    },
+    {
+      "id": "coca-cola-lata",
+      "nome": "Coca-Cola Lata",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "bebidas",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "possuiImagem": false
+    },
+    {
+      "id": "combo-classic",
+      "nome": "Combo Classic",
+      "ativo": true,
+      "disponivel": false,
+      "categoriaId": "combos",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "possuiImagem": false
+    },
+    {
+      "id": "guarana-lata",
+      "nome": "Guaraná Lata",
+      "ativo": true,
+      "disponivel": false,
+      "categoriaId": "bebidas",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "possuiImagem": false
+    },
+    {
+      "id": "onion-rings",
+      "nome": "Onion Rings",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "porcoes",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "possuiImagem": true
+    },
+    {
+      "id": "refrigerante",
+      "nome": "Refrigerante",
+      "ativo": true,
+      "disponivel": true,
+      "categoriaId": "bebidas",
+      "categoriaAtiva": true,
+      "precoValido": true,
+      "possuiImagem": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "TpNYReGeF47EZVQaMIOP",
+      "nome": "Sucos",
+      "ativo": true
+    },
+    {
+      "id": "bebidas",
+      "nome": "Bebidas",
+      "ativo": true
+    },
+    {
+      "id": "combos",
+      "nome": "Combos",
+      "ativo": true
+    },
+    {
+      "id": "hamburgueres",
+      "nome": "Hambúrgueres",
+      "ativo": true
+    },
+    {
+      "id": "porcoes",
+      "nome": "Porções",
+      "ativo": true
+    }
+  ],
+  "hoursType": "object",
+  "hourDayTypes": {
+    "quinta": "object",
+    "domingo": "object",
+    "segunda": "object",
+    "sexta": "object",
+    "quarta": "object",
+    "sabado": "object",
+    "terca": "object"
+  },
+  "ruleset": "projects/bancorestaurante/rulesets/d35b5c52-9df0-4f05-bf88-1bed923f3746",
+  "rulesSha256": "71ca854897cae61da43c880a9e6ced50fdc269a013f84d39fafec781bb661175",
+  "candidateSha256": "80d4a14ca316cd3ead0112d9ef9dca73c2e018da9f3da88cb04013f1db5fe147"
+}

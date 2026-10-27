@@ -23,7 +23,9 @@
     "test:online:ingredientes": "node ../quality/frontend/scripts/validar-ingredientes-pages.cjs",
     "firebase:emulator:numero-publico": "node ../quality/firebase/executar-numero-publico.cjs",
     "firebase:emulator:handoff": "node ../quality/firebase/executar-handoff.cjs",
-    "test:online:handoff": "node ../quality/frontend/scripts/validar-handoff-pages.cjs"
+    "test:online:handoff": "node ../quality/frontend/scripts/validar-handoff-pages.cjs",
+    "firebase:emulator:ordem013": "node ../quality/firebase/executar-ordem013.cjs",
+    "test:online:ordem013": "node ../quality/frontend/scripts/ordem013-publico.cjs"
   },
   "dependencies": {
     "firebase": "^13.0.0",

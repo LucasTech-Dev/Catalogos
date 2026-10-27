@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import './AdminPadrao.css';
+import React, { useState,useEffect } from "react";
 
 import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
@@ -6,7 +7,8 @@ import AdminSidebar from "./AdminSidebar";
 function AdminLayout({ children, currentPath }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const closeSidebar = () => setSidebarOpen(false);
+  const closeSidebar = () => {setSidebarOpen(false);document.querySelector('.admin-menu-button')?.focus();};
+  useEffect(()=>{if(!sidebarOpen)return;const esc=e=>{if(e.key==='Escape'){e.preventDefault();closeSidebar();}};document.addEventListener('keydown',esc);return()=>document.removeEventListener('keydown',esc);},[sidebarOpen]);
   const toggleSidebar = () => setSidebarOpen((open) => !open);
 
   return (

@@ -1,3 +1,4 @@
+import {useAdminAcao} from '../../hooks/useAdminAcao';
 import {FeedbackAcao} from '../../components/ui/ToastProvider';
 import {PageBoundary} from '../../components/ui/PageLoader';
 import React, { useState, useLayoutEffect } from "react";
@@ -9,7 +10,7 @@ import {useAdminSessao} from "../../components/admin/AdminGate";
 import {horariosTexto} from "../../lib/compras";
 const dias=["segunda","terca","quarta","quinta","sexta","sabado","domingo"];
 function Configuracoes() {
-  const sessao=useAdminSessao();
+  const sessao=useAdminSessao(),acao=useAdminAcao();
   const [salvo, setSalvo] = useState(false);
 
   const recurso=useAdminRecurso(admin.loja),[erro,setErro]=useState(''),[ocupado,setOcupado]=useState(false);
@@ -33,7 +34,7 @@ function Configuracoes() {
   }
 
   async function salvarConfiguracoes(event) {
-    event.preventDefault();if(ocupado)return;setOcupado(true);setErro('');setSalvo(false);
+    event.preventDefault();if(!acao.iniciar())return;setOcupado(true);setErro('');setSalvo(false);
     try {
       const numero=v=>{if(String(v).trim()==='')throw new Error('Informe os valores monetários.');return Number(String(v).replace(',','.'));};
       const dados={nome:config.nome,descricao:config.descricao,telefone:config.telefone,whatsapp:config.whatsapp,instagram:config.instagram,endereco:{...Object.fromEntries(Object.entries(typeof recurso.dados?.endereco === "object" ? recurso.dados.endereco : {}).filter(([k])=>["cep","complemento"].includes(k))),rua:config.endereco,numero:config.numero,bairro:config.bairro,cidade:config.cidade,uf:config.uf},logo:config.logo || '',imagem:config.imagem || '',corPrimaria:config.corPrimaria,tempoMedio:config.tempoMedio || '',entrega:{habilitada:config.entrega,taxa:numero(config.taxaEntrega)},retirada:{habilitada:config.retirada},pedidoMinimo:numero(config.pedidoMinimo),pagamentos:Object.fromEntries(['pix','dinheiro','cartao_credito','cartao_debito'].map(f=>[f,config[f]]))};
@@ -47,8 +48,8 @@ function Configuracoes() {
           return [dia,h];
         }));
       }
-      const salvo=await admin.configurar(dados);recurso.setDados(salvo);sessao?.atualizarLoja(salvo);setConfig(adaptar(salvo));setDiasEditados([]);setSalvo(salvo.salvamento?.atomico===false?'Horários e configurações salvos em etapas.':'Alterações salvas');
-    }catch(e){setErro(e.message || 'Não foi possível salvar. Confira os dados e tente novamente.');}finally{setOcupado(false);}
+      const salvo=await admin.configurar(dados);if(!acao.ativa())return;recurso.setDados(salvo);sessao?.atualizarLoja(salvo);setConfig(adaptar(salvo));setDiasEditados([]);setSalvo(salvo.salvamento?.atomico===false?'Horários e configurações salvos em etapas.':'Alterações salvas');
+    }catch(e){if(acao.ativa())setErro(e.message || 'Não foi possível salvar. Confira os dados e tente novamente.');}finally{acao.finalizar();if(acao.ativa())setOcupado(false);}
   }
   return (<PageBoundary recursos={[recurso]}>
     <main className="admin-settings-page">
@@ -64,7 +65,7 @@ function Configuracoes() {
           </div>
         </section>
 
-        <AdminState recurso={recurso}/>{erro && <FeedbackAcao mensagem={erro} persistente={erro.startsWith("Salvamento em etapas")}/>}<form aria-busy={ocupado} onSubmit={salvarConfiguracoes}>
+        <AdminState recurso={recurso}/>{erro && <FeedbackAcao mensagem={erro} persistente={erro.startsWith("Salvamento em etapas")}/>}<form aria-busy={ocupado} onSubmit={salvarConfiguracoes}><fieldset className="admin-form-fields" disabled={ocupado}>
           {/* IDENTIDADE */}
           <section className="admin-settings-section">
             <div className="admin-settings-section-header">
@@ -235,7 +236,7 @@ function Configuracoes() {
               </div>
             </div>
 
-            {typeof recurso.dados?.horarios === "string" && <p>Horários atuais: {horariosTexto(recurso.dados.horarios)}</p>}<div className="admin-settings-grid">{dias.map(dia=>{const h=typeof config.horarios[dia]==='object'?config.horarios[dia]:{fechado:true};return <div className="admin-form-group" key={dia}><label><input type="checkbox" checked={h?.fechado===false} onChange={e=>horario(dia,'fechado',!e.target.checked)}/>{dia}</label><label htmlFor={'abertura-'+dia}>Abertura {dia}</label><input id={'abertura-'+dia} type="time" value={h?.abertura || ''} onChange={e=>horario(dia,'abertura',e.target.value)}/><label htmlFor={'fechamento-'+dia}>Fechamento {dia}</label><input id={'fechamento-'+dia} type="time" value={h?.fechamento || ''} onChange={e=>horario(dia,'fechamento',e.target.value)}/></div>;})}</div>
+            {typeof recurso.dados?.horarios === "string" && <p>Horários atuais: {horariosTexto(recurso.dados.horarios)}</p>}<div className="admin-settings-grid">{dias.map(dia=>{const h=typeof config.horarios[dia]==='object'?config.horarios[dia]:{fechado:true};return <div className="admin-form-group" key={dia}><label><input type="checkbox" checked={h?.fechado===false} onChange={e=>horario(dia,'fechado',!e.target.checked)}/>{dia}</label>{typeof config.horarios[dia]==='string'&&<p>Horário atual: {config.horarios[dia]}. Ative e preencha os campos para substituir.</p>}<label htmlFor={'abertura-'+dia}>Abertura {dia}</label><input id={'abertura-'+dia} type="time" value={h?.abertura || ''} onChange={e=>horario(dia,'abertura',e.target.value)}/><label htmlFor={'fechamento-'+dia}>Fechamento {dia}</label><input id={'fechamento-'+dia} type="time" value={h?.fechamento || ''} onChange={e=>horario(dia,'fechamento',e.target.value)}/></div>;})}</div>
           </section>
 
           {/* ENTREGA */}
@@ -406,13 +407,13 @@ function Configuracoes() {
             )}
 
             <button
-              disabled={ocupado || recurso.carregando || Boolean(recurso.erro)} type="submit"
+              disabled={ocupado || recurso.carregando || Boolean(recurso.erro)} aria-busy={ocupado} type="submit"
               className="admin-primary-button"
             >
               {ocupado ? 'Salvando configurações...' : 'Salvar configurações'}
             </button>
           </div>
-        </form>
+        </fieldset></form>
       </div>
     </main></PageBoundary>
   );

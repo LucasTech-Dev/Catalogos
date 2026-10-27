@@ -23,20 +23,32 @@ const ref=(ator,path)=>doc(ator.db,path),orig=id=>`lojas/${L}/produtos/${id}`,pu
 const novo=(nome,categoriaId)=>({nome,descricao:'Descrição\nem duas linhas',categoriaId,preco:10.25,ativo:true,disponivel:true,ingredientes:['Ingrediente'],imagem:''});
 const pedido=itens=>({itens,tipoEntrega:'retirada',cliente:{nome:'Cliente sintético',telefone:'51999999999'},pagamento:{forma:'pix'},observacao:'Teste006'});
 try {
- await carregar(await readFile(new URL('../../../firebase/firestore.rules',import.meta.url),'utf8'));
+ const leitura=JSON.parse(await readFile(new URL('../../../docs/ADAPTACAO_SERVERLESS/ORDEM_013_FIREBASE_LEITURA.json',import.meta.url),'utf8'));
+ const {candidata,publicadas}=createRequire(import.meta.url)('../../firebase/regras-ordem013.cjs').contratosCategoria(await readFile(new URL('../../../firebase/firestore.rules',import.meta.url),'utf8'),leitura.rulesSha256);
+ await carregar(candidata);
  a=await ator('admin');b=await ator('admin',B);c=await ator('cliente');
  const loja={nome:'Loja admin sintética',ativo:true,entrega:{habilitada:true,taxa:5},retirada:{habilitada:true},pagamentos:{pix:true},whatsapp:'51999999999'};
  for(const lojaId of [L,B]){await seed.doc('lojas/'+lojaId).set(loja);await seed.doc('catalogosPublicos/'+lojaId).set(projetarRegistro('loja',loja));}
  await setDoc(ref(a,ctrl),{revisao:0,alteracao:null});
  ok((await a.api.sessao()).lojaId===L,'sessao SDK loja');
  for(const x of [b,c]){await assert.rejects(()=>x.api.sessao(),e=>e.status===403);checks++;await negar(()=>setDoc(ref(x,'usuarios/'+x.uid),{role:'admin',ativo:true,lojaId:L}));}
- cat=await a.api.salvar('categorias',null,{nome:'Categoria principal',descricao:'Descrição',ordem:1});
+ const categoriaDados={nome:'Categoria principal',descricao:'Descrição',ordem:1};
+ cat=await a.api.salvar('categorias',null,categoriaDados,'intencao-categoria013');
+ const revisaoCriacao=(await getDocFromServer(ref(a,ctrl))).data().revisao;
+ const retomadas=await Promise.all([a.api.salvar('categorias',null,categoriaDados,'intencao-categoria013'),a.api.salvar('categorias',null,categoriaDados,'intencao-categoria013')]);
+ ok(retomadas.every(c=>c.id===cat.id),'retomada concorrente da criação não duplica');
+ ok((await getDocFromServer(ref(a,ctrl))).data().revisao===revisaoCriacao,'retomada não incrementa revisão comercial');
+ await assert.rejects(()=>a.api.salvar('categorias',null,{...categoriaDados,nome:'Outra intenção'},'intencao-categoria013'),e=>e.status===409);checks++;
+
  ok(cat.ativo && cat.atualizadoEm._seconds>0,'categoria criada com confirmacao e data');
  const vazia=await a.api.salvar('categorias',null,{nome:'Categoria vazia'});
  const inativa=await a.api.salvar('categorias',null,{nome:'Categoria inativa',ativo:false});
  ok((await a.api.salvar('categorias',inativa.id,{ativo:true})).ativo,'reativacao segura');
  ok((await a.api.salvar('categorias',cat.id,{nome:'Categoria editada',icone:'x'})).nome==='Categoria editada','editar categoria');
- produto=await a.api.salvar('produtos',null,novo('Produto principal',cat.id));
+ produto=await a.api.salvar('produtos',null,novo('Produto principal',cat.id),'intencao-produto013');
+ const retomado=await a.api.salvar('produtos',null,novo('Produto principal',cat.id),'intencao-produto013');
+ ok(retomado.id===produto.id,'produto confirmado após resposta perdida mantém ID');
+
  ok(produto.criadoEm._seconds>0 && produto.atualizadoEm._seconds>0,'datas do produto');
  ok((await a.api.buscar('produtos',produto.id)).id===produto.id,'detalhe SDK');
  const antes=(await getDocFromServer(ref(a,ctrl))).data().revisao;
@@ -62,6 +74,9 @@ try {
  const removido=await a.api.excluir('produtos',produto.id);ok(removido.ativo===false && removido.disponivel===false,'DELETE produto logico');
  ok((await seed.doc(orig(produto.id)).get()).exists,'produto nunca apagado');await negar(()=>deleteDoc(ref(a,orig(produto.id))));
  await a.api.salvar('produtos',produto.id,{ativo:true,disponivel:true});
+ ok(require('node:crypto').createHash('sha256').update(publicadas).digest('hex')===leitura.rulesSha256,'contrato publicado exato conferido antes do negativo B03');
+ await carregar(publicadas);await assert.rejects(()=>a.api.salvar('categorias',cat.id,{ativo:false}),e=>e.status===409);checks++;
+ ok((await seed.doc('lojas/'+L+'/categorias/'+cat.id).get()).data().ativo===true,'Rules publicadas recusam desativação sem escrita parcial');await carregar(candidata);
  // B-03: desativação reversível candidata local; exclusão física continua negada.
  for(const t of [cat,vazia]){
   await a.api.salvar('categorias',t.id,{ativo:false});
@@ -97,6 +112,6 @@ try {
  await assert.rejects(()=>a.api.salvar('produtos','inexistente',{nome:'Nao criar'}),e=>e.status===404);checks++;
  const compra50=await clienteServico.criarPedido(pedido(ids.map(produtoId=>({produtoId,quantidade:1}))),{chave:`pedido50-aposadmin-${run}`});ok(compra50.itens.length===50 && compra50.total===Number((atual.preco+49*10.25).toFixed(2)),'pedido50 apos alteracoes administrativas');
  console.log(JSON.stringify({adminCatalogoSdk:'aprovado',projectId,checks,pedido50:compra50.itens.length,total50:compra50.total,B03:'desativacao_reversivel_exclusao_bloqueada',produtoExcluido:'desativacao_logica',express:false}));
- const navegador=await verificarAdminCatalogoNavegador({projectId,host,authHost,lojaId:L,email:a.email,emailCliente:c.email,emailOutraLoja:b.email,categoriaId:cat.id,localizar:async nome=>{const q=await seed.collection(`lojas/${L}/produtos`).where('nome','==',nome).get();assert.equal(q.size,1);return {id:q.docs[0].id,...q.docs[0].data()};}});
+ const navegador=await verificarAdminCatalogoNavegador({projectId,host,authHost,lojaId:L,email:a.email,emailCliente:c.email,emailOutraLoja:b.email,categoriaId:cat.id,localizar:async nome=>{const q=await seed.collection(`lojas/${L}/produtos`).where('nome','==',nome).get();assert.equal(q.size,1);return {id:q.docs[0].id,...q.docs[0].data(),precoPublico:(await seed.doc(pub(q.docs[0].id)).get()).data().preco};}});
  console.log(JSON.stringify({admin006:'aprovado_local',sdkChecks:checks,navegador,B03:'parcial_operacoes_perigosas_bloqueadas',lojaRealAlterada:false}));
 }finally{await carregar("rules_version = '2'; service cloud.firestore { match /databases/{db}/documents { match /{d=**} { allow read, write: if false; } } }");for(const x of atores){await signOut(x.auth);await terminate(x.db);await deleteApp(x.app);}await seed.terminate();await admin.deleteApp(appAdmin);}

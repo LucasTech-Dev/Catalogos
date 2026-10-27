@@ -1,0 +1,34 @@
+{
+  "ordem": "013",
+  "status": "APROVADO",
+  "frontend": {
+    "passed": 315,
+    "failed": 0,
+    "files": 30,
+    "seconds": 233.05,
+    "environment": "cópia JS; frontend/src e27 arquivos de teste idênticos ao checkout main; três arquivos adaptados para fixtures históricas publicados validados separadamente na main"
+  },
+  "backendHistorical": {
+    "passed": 357,
+    "environment": "cópia JS local, sem hospedagem"
+  },
+  "infraHistorical": {
+    "passed": 13,
+    "environment": "cópia JS local"
+  },
+  "build": {
+    "checkout": "main integrado",
+    "mode": "homologacao",
+    "seconds": 28.04,
+    "status": "APROVADO",
+    "warning": "Chunk App acima de500kB; não bloqueante, sem dependências novas"
+  },
+  "realFirebaseWrites": 0,
+  "realOrdersCreated": 0,
+  "mainContractTests": {
+    "passed": 17,
+    "failed": 0,
+    "files": 3,
+    "seconds": 20.56
+  }
+}

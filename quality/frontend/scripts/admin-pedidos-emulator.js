@@ -56,6 +56,9 @@ try{
 
  ok(d.total===500 && d.itens[0].precoUnitario===10,'valores historicos preservados apos operacao');
  const hist=await getDocsFromServer(collection(a.db,path(compra.id)+'/historicoAdministrativo'));ok(hist.size===6,'historico atomicamente registrado');
+ const publicoHistorico=await a.api.historico(compra.id);ok(publicoHistorico.length===6&&publicoHistorico[0].revisao===6&&!JSON.stringify(publicoHistorico).includes(a.uid),'histórico projetado ordenado sem identidade administrativa');
+ for(const x of [b,c]){await assert.rejects(()=>x.api.historico(compra.id),e=>e.status===403);checks++;}
+
  await negar(()=>updateDoc(hist.docs[0].ref,{novo:'falso'}));await negar(()=>deleteDoc(hist.docs[0].ref));await negar(()=>getDocsFromServer(collection(c.db,path(compra.id)+'/historicoAdministrativo')));
  // Matriz inteira: todas as arestas válidas e todos os saltos inválidos pelas Rules reais.
  for(const atual of Object.keys(TRANSICOES_STATUS))for(const novo of Object.keys(TRANSICOES_STATUS)){
@@ -104,8 +107,12 @@ try{
  ok(vistos.length===new Set(vistos.map(p=>p.id)).size && vistos.filter(p=>p.id.startsWith('paginado')).length===28,'paginacao sem perdas/duplicatas');
  ok(vistos.every((p,i)=>!i || vistos[i-1].criadoEm._seconds>=p.criadoEm._seconds),'ordenacao desc preservada');
  ok((await a.api.listar({status:'entregue'})).itens.every(p=>p.status==='entregue'),'filtro status');
- for(const options of [{limite:101},{status:'inventado'},{clienteId:c.uid},{cursor:'inexistente'}]){await assert.rejects(()=>a.api.listar(options),e=>e.status===400);checks++;}
+ for(const options of [{limite:101},{status:'inventado'},{clienteId:'fora/do-contrato'},{cursor:'inexistente'}]){await assert.rejects(()=>a.api.listar(options),e=>e.status===400);checks++;}
  await assert.rejects(()=>a.api.buscar('ausente'),e=>e.status===404);checks++;
+ const doCliente=[];let cursorCliente;
+ do{const p=await a.api.listar({clienteId:c.uid,limite:7,...(cursorCliente?{cursor:cursorCliente}:{})});doCliente.push(...p.itens);cursorCliente=p.proximoCursor;}while(cursorCliente);
+ ok(doCliente.length===vistos.filter(p=>p.clienteId===c.uid).length&&new Set(doCliente.map(p=>p.id)).size===doCliente.length,'filtro por cliente percorre todas as páginas sem duplicatas');
+ ok((await a.api.listar({clienteId:'sem-pedidos013'})).itens.length===0,'histórico vazio de um cliente não inclui terceiros');
  // Endereço legado autorizado conforme serviço original.
  await seed.doc(`lojas/${L}/clientes/${c.uid}/enderecos/legado`).set({rua:'Rua sintética',numero:'1'});
  await seed.doc(path('legado')).set({...basePedido(c.uid),enderecoId:'legado'});
@@ -117,6 +124,6 @@ try{
  await seed.doc('usuarios/'+a.uid).update({ativo:true});
  console.log(JSON.stringify({adminPedidosSdk:"aprovado",checks}));
  const navegador=await verificarAdminPedidosNavegador({projectId,host,authHost,lojaId:L,email:a.email,emailCliente:c.email,emailOutraLoja:b.email,produtoId:ids[0],preparar:async uid=>seed.doc('usuarios/'+uid).set({role:'cliente',ativo:true,lojaId:L}),localizar:async()=>{const q=await seed.collection(`lojas/${L}/pedidos`).where('observacao','==','Compra navegador007').get();assert.equal(q.size,1);return {id:q.docs[0].id,...q.docs[0].data()};}});
- await writeFile(new URL('../../../docs/ADAPTACAO_SERVERLESS/ADMIN_PEDIDO_EMULATOR_EVIDENCIAS.json',import.meta.url),JSON.stringify({status:'APROVADO',sdkChecks:checks,browser:navegador,realFirebaseWrites:0,realAccountsCreated:0,realOrdersCreated:0,rulesChanged:false},null,2)+'\n');
+ await writeFile(new URL('../../../docs/ADAPTACAO_SERVERLESS/ORDEM_013_PEDIDOS_EVIDENCIAS.json',import.meta.url),JSON.stringify({status:'APROVADO',sdkChecks:checks,browser:navegador,realFirebaseWrites:0,realAccountsCreated:0,realOrdersCreated:0,rulesChanged:false},null,2)+'\n');
  console.log(JSON.stringify({admin007:'aprovado_local',sdkChecks:checks,navegador,pedido50:compra.itens.length,express:false,lojaRealAlterada:false}));
 }finally{await carregar("rules_version = '2'; service cloud.firestore { match /databases/{db}/documents { match /{d=**} { allow read, write: if false; } } }");for(const x of atores){await signOut(x.auth);await terminate(x.db);await deleteApp(x.app);}await seed.terminate();await admin.deleteApp(appAdmin);}

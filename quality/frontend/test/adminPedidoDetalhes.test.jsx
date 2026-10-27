@@ -1,14 +1,14 @@
 import React from 'react';
 import {it,expect,vi,beforeEach,afterEach} from 'vitest';
 import {render,screen,fireEvent,waitFor,cleanup,act} from '@testing-library/react';
-const m=vi.hoisted(()=>({buscar:vi.fn(),status:vi.fn(),pagamento:vi.fn()}));
+const m=vi.hoisted(()=>({buscar:vi.fn(),status:vi.fn(),pagamento:vi.fn(),historicoPedido:vi.fn()}));
 vi.mock('../../../frontend/src/services/admin',()=>({admin:m,rotulosStatus:{recebido:'Recebido',cancelado:'Cancelado',em_preparacao:'Em preparação',pronto:'Pronto'},dataTexto:()=> '25/10/2026'}));
 import PedidoDetalhes from '../../../frontend/src/pages/admin/PedidoDetalhes';
 import {ToastProvider} from '../../../frontend/src/components/ui/ToastProvider';
 const base={id:'tecnico-privado',numeroPedido:12,revisaoAdministrativa:0,status:'em_preparacao',transicoesStatus:['pronto','cancelado'],transicoesPagamento:['confirmado','recusado'],tipoEntrega:'entrega',cliente:{nome:'Cliente A'},endereco:{rua:'Rua teste',numero:'3',cidade:'Cidade',uf:'RS'},pagamento:{forma:'pix',status:'pendente'},itens:[{nome:'Produto histórico',quantidade:2,precoUnitario:10,subtotal:20,observacao:'Sem cebola'}],subtotal:20,taxaEntrega:5,desconto:2,total:23};
 const deferred=()=>{let resolve,reject;const promise=new Promise((a,b)=>{resolve=a;reject=b;});return {promise,resolve,reject};};
 async function abrir(p=base){m.buscar.mockResolvedValue(p);render(<ToastProvider><PedidoDetalhes/></ToastProvider>);await screen.findByRole('heading',{name:p.numeroPedido?'Pedido #12':'Pedido sem número'});}
-beforeEach(()=>{vi.resetAllMocks();history.replaceState({},'', '/admin/pedido?id=tecnico-privado');});
+beforeEach(()=>{vi.resetAllMocks();m.historicoPedido.mockResolvedValue([]);history.replaceState({},'', '/admin/pedido?id=tecnico-privado');});
 afterEach(cleanup);
 it('releitura bloqueia cliques duplicados e aguarda antes do sucesso sem gravar',async()=>{
  await abrir();const d=deferred();m.buscar.mockReturnValue(d.promise);const b=screen.getByRole('button',{name:'Atualizar pedido'});fireEvent.click(b);fireEvent.click(b);expect(b.disabled).toBe(true);expect(screen.queryByText('Pedido atualizado.')).toBeNull();expect(m.buscar).toHaveBeenCalledTimes(2);await act(async()=>d.resolve({...base,status:'pronto'}));await screen.findByText('Pedido atualizado.');expect(m.status).not.toHaveBeenCalled();expect(m.pagamento).not.toHaveBeenCalled();expect(screen.getByRole('combobox').value).toBe('pronto');
