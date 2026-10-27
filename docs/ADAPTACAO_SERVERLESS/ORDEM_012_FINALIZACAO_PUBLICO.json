@@ -1,7 +1,7 @@
 {
   "order": "012-finalizacao",
   "status": "APROVADO",
-  "at": "2026-10-27T00:29:21.631Z",
+  "at": "2026-10-27T00:33:17.482Z",
   "checks": [
     "catalogo-publico-390",
     "sem-transbordamento-390",

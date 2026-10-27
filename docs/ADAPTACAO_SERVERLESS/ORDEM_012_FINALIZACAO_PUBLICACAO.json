@@ -1,6 +1,6 @@
 {
   "order": "012-finalizacao",
-  "phase": "VALIDATED_READY_TO_PUBLISH",
+  "phase": "PUBLISHED_AND_VERIFIED",
   "at": "2026-10-27T00:31:42.472806+00:00",
   "repository": "LucasTech-Dev/Catalogos",
   "branch": "main",
@@ -51,5 +51,20 @@
     "docs/REGISTRO_DE_TRABALHO.md": "9c17841b31815cd5203b44dc55ad439461b4877f1a843825ec56b984bf5e38f7",
     "docs/ADAPTACAO_SERVERLESS/PENDENCIA_LIMPEZA_PEDIDOS_RETOMAR_EM_CASA.md": "18cf32e2bbe309f0b081358e4c2493e93f1ea67b94cae5a1fb045d4ca6fd6eb0",
     "docs/ADAPTACAO_SERVERLESS/RELATORIO_ORDEM_012_LIMPEZA.md": "f4db43c0b2b012472e31ccc88cc06e6ccfa63b7421435fe7f98e0a7b35e2352b"
-  }
+  },
+  "commit": "1fb998441cb2f0a5ba6623f23143ffd8b945361a",
+  "deployment": {
+    "id": "eba3d4c6-f00d-4998-84de-1fc8205fd6ed",
+    "status": "success",
+    "endedOn": "2026-10-27T00:32:30.211403Z",
+    "trigger": "GitHub main automático"
+  },
+  "postDeploymentPublicChecks": {
+    "passed": 10,
+    "at": "2026-10-27T00:33:17.482Z",
+    "realFirebaseWrites": 0
+  },
+  "backupsIntegrityAndPermissionsRechecked": true,
+  "cleanupPending": false,
+  "documentaryClosureCommitFollows": true
 }
