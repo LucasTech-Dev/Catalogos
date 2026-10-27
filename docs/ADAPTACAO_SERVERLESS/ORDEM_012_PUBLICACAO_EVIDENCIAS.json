@@ -1,6 +1,6 @@
 {
   "order": "012",
-  "phase": "pre-publication",
+  "phase": "PUBLISHED_AND_VERIFIED",
   "at": "2026-10-27T00:21:01.898383+00:00",
   "authorization": "Instrução expressa do proprietário para publicar main e Cloudflare",
   "repository": "LucasTech-Dev/Catalogos",
@@ -58,5 +58,24 @@
     "docs/GUIA_MESTRE.md": "d77e4d771d681824c3901f8773cfb8325822fd6870acf450d3b961a12ad3ec7a",
     "docs/REGISTRO_DE_TRABALHO.md": "dec8de70403d5792baf8227a13aa08644b21504e0f6ad8434e66c9b1929dc6c0",
     "docs/ADAPTACAO_SERVERLESS/PENDENCIA_LIMPEZA_PEDIDOS_RETOMAR_EM_CASA.md": "e24c3fc9ce81b7e2b6991e914258f6ee8f803d5b3b82a1e35faeeb6d1725386f"
-  }
+  },
+  "commit": "16302429f3bc85b1e876cd69b88073d1283120ff",
+  "deployment": {
+    "id": "630928da-8b6b-432d-9a9a-f548aaa3cf63",
+    "status": "success",
+    "endedOn": "2026-10-27T00:21:50.328955Z",
+    "trigger": "GitHub main automático"
+  },
+  "publicChecks": {
+    "passed": 9,
+    "failed": 0,
+    "at": "2026-10-27T00:22:19.520Z",
+    "receipt": "ORDEM_012_PUBLICACAO_PUBLICO_EVIDENCIAS.json",
+    "realFirebaseWrites": 0
+  },
+  "limitations": [
+    "Verificação urllib HTTP recebeu403; navegação Chrome efetiva aprovada após deploy.",
+    "Provas não incluem sessão pessoal ou checkout real.",
+    "Manifesto files contém hashes da integração inicial1630242; documentação de fechamento é posterior."
+  ]
 }

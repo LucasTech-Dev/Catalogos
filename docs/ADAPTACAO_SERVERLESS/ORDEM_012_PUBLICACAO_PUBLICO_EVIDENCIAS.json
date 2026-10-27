@@ -1,0 +1,26 @@
+{
+  "order": "012",
+  "status": "APROVADO",
+  "at": "2026-10-27T00:22:19.520Z",
+  "checks": [
+    "catalogo-publico-390",
+    "sem-transbordamento-390",
+    "catalogo-publico-1366",
+    "sem-transbordamento-1366",
+    "carrinho-local-funciona",
+    "painel-protegido-login-preservado",
+    "entrada-google-preservada",
+    "nenhuma-escrita-firestore",
+    "sem-excecoes-js"
+  ],
+  "realAccountsCreated": 0,
+  "realOrdersCreated": 0,
+  "realFirebaseWrites": 0,
+  "personalLoginAutomated": false,
+  "checkoutRealTested": false,
+  "widths": [
+    390,
+    1366
+  ],
+  "privateDataCaptured": false
+}

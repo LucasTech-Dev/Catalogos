@@ -1,3 +1,11 @@
+# Ordem012 — publicada na main e Cloudflare — 26/10/2026
+
+A — EXECUÇÃO PELO CODEX: commit1630242/main enviado; Pages catalogo-demo/630928da success às21:21:50 Brasília, disparo automático. Build homologacao9,61s, três testes de preservação, sintaxe das oito ferramentas, scanner393arquivos sem achados e documentação aprovados. Nove verificações Chrome públicas aprovadas após deploy às21:22:19, catálogo390/1366px, carrinho local, login protegido/Google e nenhuma escrita Firebase. Tentativa HTTP via urllib recebeu403, sem invalidar navegação Chrome efetiva; não é prova de checkout autenticado. Runtime preservado; documentação final publicada em commit posterior sem mudança funcional. Relatório e recibos ORDEM_012_PUBLICACAO*.json na adaptação serverless.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: publicação autorizada atendida.012-H1/H2 continuam pendentes; contador3/próximo#4,18 contas incertas e dois outros administradores preservados. Nenhuma nova exclusão, reset, Rules/IAM/Auth ou compra real nesta publicação. Backup privado ignorado, sem segredos no Git; guias históricos integrais continuam locais, espelho externo ausente. Sem limpeza importante pendente. Próxima tarefa exata: responder fatos012-H1/H2; depois revalidar estado antes de eventual adendo, sem repetir exclusões concluídas.012-H3 sessão pessoal/aceite posterior.
+
+---
+
 # Publicação da Ordem012 autorizada — 26/10/2026
 
 A — EXECUÇÃO PELO CODEX: instrução expressa “publique tudo na main ... cloudflare” autoriza commit/push main LucasTech-Dev/Catalogos e publicação Pages catalogo-demo. Integração seletiva das oito ferramentas/testes, seis evidências sanitizadas, relatório e registros da etapa; fontes runtime mantidos. Backup/exportações/manifesto privado e credenciais excluídos. Build, testes da seleção, varredura e verificação pública fazem parte desta publicação. Nenhuma execução de limpeza, reset, Rules, IAM ou Auth é incluída neste ato.
