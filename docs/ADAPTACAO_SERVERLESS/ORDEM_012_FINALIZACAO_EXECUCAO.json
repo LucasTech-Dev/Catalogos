@@ -1,0 +1,20 @@
+{
+  "order": "012-finalizacao",
+  "status": "APROVADO",
+  "at": "2026-10-27T00:31:21.107Z",
+  "manifestSha256": "703aa295bbae1b9a0ea04c45f125aaf5103401e9cbfa28d6c11c7d51e8a4df7e",
+  "anonymousDeleted": 18,
+  "remainingAuth": 3,
+  "administratorsPreserved": 3,
+  "documents": 39,
+  "protectedDocumentsUnchanged": 38,
+  "orders": 0,
+  "customerProfiles": 0,
+  "customerAccounts": 0,
+  "counter": 0,
+  "nextOrder": 1,
+  "productsCategoriesPricesImagesSettingsUnchanged": true,
+  "rulesAuthConfigIndexesUnchanged": true,
+  "realTestOrdersCreated": 0,
+  "privateBackupPreserved": true
+}

@@ -1,3 +1,41 @@
+# Ordem012 — resultado final da limpeza — 26/10/2026
+
+Estado: LIMPEZA E REINÍCIO CONCLUÍDOS, com resultado real verificado. Publicação posterior expressamente autorizada pelo proprietário em preparação. As entradas abaixo deste adendo são evidência histórica; pendências012-H1/H2 nelas citadas foram atendidas pela confirmação posterior: todos os pedidos antigos eram testes, sem compromissos comerciais externos, e os18 anônimos estão incluídos desde que não compartilhados. Não houve repetição das64 exclusões Firestore/sete Auth anteriores.
+
+## A — EXECUÇÃO PELO CODEX — adendo final
+
+1. Inventário novo somente leitura:39 documentos e21Auth, exatamente o estado após a primeira limpeza; nenhuma conta/pedido/referência nova. Um banco Firestore, uma webApp inalterada, nenhum aplicativo Android/iOS, outra loja ou referência aos18anônimos nos documentos recursivos. Os18 não têm provedores/e-mail/telefone/claims ou privilégios. A API Auth não fornece loja de origem para anônimo sem vínculo; delimitação usa a confirmação expressa do proprietário, confronto com inventário anterior, ausência de referências e consumidores verificados. Não é prova universal sobre integrações externas desconhecidas. Nenhum indício concreto de outro consumidor apareceu.
+2. Backup adicional privado private-backups/ordem012-finalizacao-20261026, diretório700/arquivos600, sem sobrescrever private-backups/ordem012-20261026. Snapshot39documentos/21Auth, hashes, configurações, manifesto e journal privados; integridade conferida antes da execução. ManifestoSHA256703aa295bbae1b9a0ea04c45f125aaf5103401e9cbfa28d6c11c7d51e8a4df7e: somente18Auth e atualização do contador, zero documentos para excluir. Todos os backups permanecem fora do Git.
+3. Restauração e reversão em Emulator:170checks aprovados com39documentos/21identidades/2hashes de senha. Os18anônimos foram excluídos e reimportados, mantendo UIDs. Login administrativo com conta sintética e gate real do produto, negação ao cliente, cadastro e persistência de perfil, novo login cliente, bloqueio de numeração, tentativa direta de reset negada, concorrência#1/#2, pagamento pendente e idempotência aprovados. CreateTime/updateTime do servidor e sessões/tokens antigos não são restauráveis pela importação. Nenhum dado sintético foi gravado em produção.
+4. Execução real:18Auth removidos individualmente com journal, após revalidar identidades, preservando três administradores. Contador técnico temporariamente pausado no limite das Rules existentes; nenhuma Rules foi alterada. Após comprovar novamente ausência de pedidos/pedidos_legado/clientes/idempotências/reservas e igualdade dos38documentos protegidos, contador reiniciado para0 em2026-10-27T00:28:45.504961Z (26/10 às21:28:45 Brasília). Leitura final00:28:57.595Z confirma somente três administradores,39documentos, zero pedidos/perfis/contasclientes e próximo número1. Produtos/categorias/imagens/preços/configurações/projeções/revisão comercial e permissões preservados. Rules/configuraçãoAuth/índices conferidos iguais; IAM não foi alterado.
+5. Dez checks Chrome públicos aprovados: catálogo390/1366px sem transbordamento, carrinho apenas local, formulário de cadastro presente, admin protegido com entradaGoogle e nenhuma escritaFirestore/exceçãoJS. Endpoints de criaçãoAuth/Firestore e mensagens bloqueados no navegador efêmero. Cadastro/login/checkout integrado testados no Emulator; não foi feito login pessoal em produção nem uma compra/cadastro real só para testar, preservando a base limpa. Esses limites não equivalem a homologação comercial pessoal.
+
+| Recurso | Resultado real final |
+| --- | --- |
+| Pedidos antigos e seus históricos | Zero restantes;64documentos da primeira execução não foram excluídos novamente |
+| Perfis/endereços/contas antigas de clientes | Zero restantes |
+| Contas Auth | Três administradores preservados;25clientes/anônimos removidos no total (7+18) |
+| Contador | ultimo=0; próximo pedido válido será#1 |
+| Catálogo e demais documentos protegidos |38 documentos iguais; contador é o39º documento |
+| Recuperação | Dois backups privados preservados;319checks da primeira fase e170novos deste adendo, sem somar como nova execução única |
+
+## B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO
+
+012-H1 e012-H2 atendidas pela confirmação expressa, sem pedir autorização repetida. Identificação dos dois outros administradores e eventual exclusão são operações separadas, fora desta ordem.012-H3 (sessão pessoal/aceite comercial/primeira compra real) não foi automatizada; continua como uso/julgamento do proprietário, sem pendência técnica para a limpeza. Não é necessário criar pedido para comprovar contador0: leitura real e ensaio transacional no Emulator são evidências distintas. Uma próxima compra normal consumirá#1 e deixará a base de pedidos legitimamente não vazia.
+
+## Arquivos e validação deste adendo
+
+- quality/firebase/ordem012-finalizar.cjs: modos --prepare (somente leitura/backup), --apply (18UIDs exatos + contador, variável explícita de autorização) e --verify (leitura final). Precondições de versão do contador, hashes, recuperação, comparação integral de documentos/identidades/configurações, janela temporária de bloqueio, journal privado e liberação em erro. Não roda em CI/build nem exclui administradores/documentos comerciais.
+- quality/frontend/scripts/ordem012-finalizacao-emulator.mjs e quality/firebase/executar-ordem012-finalizacao-emulator.cjs: ensaio local exclusivo, restauração/reversão dos18alvos e fluxos reais do serviço com identidades sintéticas.
+- quality/frontend/scripts/ordem012-publico-readonly.cjs: --finalization grava recibo distinto e confere também formulário de cadastro; provas anteriores preservadas.
+- ORDEM_012_FINALIZACAO_PREPARO/EMULATOR/EXECUCAO/PUBLICO.json: evidências sanitizadas da preparação,170checks, leitura real e10checks públicos. Nenhuma identidade privada, hash de senha ou chave foi publicada.
+
+Comandos executados: node quality/firebase/ordem012-finalizar.cjs --prepare; node quality/firebase/executar-ordem012-finalizacao-emulator.cjs; node --test --test-isolation=none --test-reporter=spec quality/firebase/test/ordem012-core.test.cjs (3/3); execução --apply com CATALOGOS_ORDEM012_FINALIZAR preenchida no ambiente; node quality/frontend/scripts/ordem012-publico-readonly.cjs --finalization. A mensagem PERMISSION_DENIED do Emulator é o caso negativo esperado de reset direto pelo cliente, seguido de aprovação dos170checks. Nenhuma falha real na exclusão/reset. Tempo técnico desta retomada sem cronômetro integral; journal registra horários reais, sem inventar tempo. Nenhum novo plano/MVP ou mudança runtime. Publicação autorizada será registrada no fechamento abaixo.
+
+---
+
+# Histórico preservado da execução e publicação anteriores
+
 # Ordem012 — limpeza controlada de dados de teste
 
 Estado: LIMPEZA DELIMITADA EXECUTADA E VERIFICADA; ORDEM012 AINDA PENDENTE de classificação das18 contas e confirmação para reiniciar em#1. Não declarada concluída integralmente.

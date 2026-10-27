@@ -1,0 +1,55 @@
+{
+  "order": "012-finalizacao",
+  "phase": "VALIDATED_READY_TO_PUBLISH",
+  "at": "2026-10-27T00:31:42.472806+00:00",
+  "repository": "LucasTech-Dev/Catalogos",
+  "branch": "main",
+  "pagesProject": "catalogo-demo",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "baseCommit": "b04be378f367551dfe826bd2bfb0515ffc8f2438",
+  "authorization": "Proprietário: finalizar Ordem012 e quando acabar publique",
+  "checks": {
+    "emulator": 170,
+    "policy": 3,
+    "publicReadonly": 10,
+    "build": {
+      "status": "APROVADO",
+      "seconds": 8.69,
+      "mode": "homologacao"
+    },
+    "secretScan": {
+      "files": 398,
+      "findings": 0,
+      "privateAuthValuesInSelectedFiles": 0
+    },
+    "docsLocal": 1931,
+    "docsRelease": "APROVADO",
+    "runtimeUnchanged": true
+  },
+  "state": {
+    "orders": 0,
+    "customerProfiles": 0,
+    "customerAccounts": 0,
+    "administrators": 3,
+    "counter": 0,
+    "nextOrder": 1,
+    "protectedDocumentsUnchanged": 38
+  },
+  "privateBackupsPreserved": true,
+  "personalProductionLoginAutomated": false,
+  "productionTestOrdersCreated": 0,
+  "filesAtIntegration": {
+    "quality/firebase/ordem012-finalizar.cjs": "e0f017059a2fed253ce484912b17d91be9e8be4ea1bc6f150a9ebc5b645c890c",
+    "quality/firebase/executar-ordem012-finalizacao-emulator.cjs": "e6a99ade3fb57b27394854ed4e4be5c8d1735b45495f973d1fc24392a987d771",
+    "quality/frontend/scripts/ordem012-finalizacao-emulator.mjs": "9a6d0e33f51dc8d87cc3dc8a043c0a7078dbd48d5ff97435bfd07b9466b2d477",
+    "quality/frontend/scripts/ordem012-publico-readonly.cjs": "0578532b797e5925c776985299add76b44b51cc7dbfb10c6523aeeb7756156cd",
+    "docs/ADAPTACAO_SERVERLESS/ORDEM_012_FINALIZACAO_PUBLICO.json": "4486ec534d920e42277087b3a74fbe24a1bb5b3cb41c27c1b102295deb9a6c0a",
+    "docs/ADAPTACAO_SERVERLESS/ORDEM_012_FINALIZACAO_EXECUCAO.json": "33679e1b13f5f4b305c8a25157185ef9b152a3171ea5842659020083c55db5ac",
+    "docs/ADAPTACAO_SERVERLESS/ORDEM_012_FINALIZACAO_PREPARO.json": "825358f85386d30ab43d487118caf62ccb20cfe098d97c3a87fc72f4a8a11f8f",
+    "docs/ADAPTACAO_SERVERLESS/ORDEM_012_FINALIZACAO_EMULATOR.json": "e9ccca05a34f9c6a96d4a5770cb6b9036922883f3f1285950e9643a859a4bad5",
+    "docs/GUIA_MESTRE.md": "61e44123696c1988701cf99cc124f8d50083de517fd51766fb9badaf6bd2d892",
+    "docs/REGISTRO_DE_TRABALHO.md": "9c17841b31815cd5203b44dc55ad439461b4877f1a843825ec56b984bf5e38f7",
+    "docs/ADAPTACAO_SERVERLESS/PENDENCIA_LIMPEZA_PEDIDOS_RETOMAR_EM_CASA.md": "18cf32e2bbe309f0b081358e4c2493e93f1ea67b94cae5a1fb045d4ca6fd6eb0",
+    "docs/ADAPTACAO_SERVERLESS/RELATORIO_ORDEM_012_LIMPEZA.md": "f4db43c0b2b012472e31ccc88cc06e6ccfa63b7421435fe7f98e0a7b35e2352b"
+  }
+}

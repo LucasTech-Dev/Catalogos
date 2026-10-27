@@ -1,0 +1,20 @@
+{
+  "order": "012-finalizacao",
+  "phase": "PREPARED",
+  "at": "2026-10-27T00:26:31.930Z",
+  "documents": 39,
+  "authUsers": 21,
+  "anonymousTargets": 18,
+  "administratorsPreserved": 3,
+  "manifestSha256": "703aa295bbae1b9a0ea04c45f125aaf5103401e9cbfa28d6c11c7d51e8a4df7e",
+  "consumerChecks": {
+    "firestoreDatabases": 1,
+    "webApps": 1,
+    "androidApps": 0,
+    "iosApps": 0,
+    "otherShops": 0,
+    "anonymousReferences": 0
+  },
+  "realWrites": 0,
+  "privateBackup": "private-backups/ordem012-finalizacao-20261026"
+}

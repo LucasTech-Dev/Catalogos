@@ -1,0 +1,24 @@
+{
+  "order": "012-finalizacao",
+  "manifestSha256": "703aa295bbae1b9a0ea04c45f125aaf5103401e9cbfa28d6c11c7d51e8a4df7e",
+  "anonymousDeletedAndRestored": 18,
+  "adminLoginTested": "synthetic Emulator only",
+  "customerSignupProfileLoginTested": true,
+  "status": "APROVADO",
+  "at": "2026-10-27T00:27:43.900Z",
+  "project": "demo-ordem012",
+  "checks": 170,
+  "documentsRestored": 39,
+  "authUsersRestored": 21,
+  "passwordHashesRestored": 2,
+  "restoreAfterDeletion": true,
+  "publishedRulesSha256": "71ca854897cae61da43c880a9e6ced50fdc269a013f84d39fafec781bb661175",
+  "counterLock": 999999999,
+  "newConcurrentNumbers": [
+    1,
+    2
+  ],
+  "remoteWrites": 0,
+  "systemDocumentTimesRestored": false,
+  "liveSessionsRestored": false
+}
