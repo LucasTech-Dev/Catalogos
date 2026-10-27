@@ -1,0 +1,62 @@
+{
+  "order": "012",
+  "phase": "pre-publication",
+  "at": "2026-10-27T00:21:01.898383+00:00",
+  "authorization": "Instrução expressa do proprietário para publicar main e Cloudflare",
+  "repository": "LucasTech-Dev/Catalogos",
+  "branch": "main",
+  "pagesProject": "catalogo-demo",
+  "url": "https://catalogo-demo-cz1.pages.dev",
+  "baseCommit": "c46fa4e8f88abdaeb812420e4cdeda91fe25361b",
+  "tests": {
+    "policy": {
+      "passed": 3,
+      "failed": 0
+    },
+    "build": {
+      "mode": "homologacao",
+      "status": "APROVADO",
+      "seconds": 9.61,
+      "warning": "chunk superior a500kB já existente"
+    },
+    "secretScan": {
+      "files": 393,
+      "findings": 0,
+      "method": "mesmos padrões do scanner oficial; listagem Git separada após spawnSync EPERM no sandbox"
+    },
+    "documentationLocal": {
+      "status": "APROVADO",
+      "documents": 1925
+    },
+    "documentationRelease": "APROVADO",
+    "runtimeSourceMatchesLocalIgnoringEmptyGitkeep": true
+  },
+  "realFirebaseWritesInPublication": 0,
+  "privateBackupsPublished": false,
+  "pending": [
+    "012-H1: compromissos externos/numeração",
+    "012-H2: classificação18anônimos",
+    "012-H3: sessão pessoal/aceite"
+  ],
+  "counterLastKnown": 3,
+  "files": {
+    "quality/firebase/ordem012-inventario.cjs": "060f319315a6a892fbd243d153e94657f5b33e4975ebcce87969a0f2b5887a87",
+    "quality/firebase/ordem012-executar.cjs": "0c817da85abfdcaf79c7da3feb703f37bf44cf4bce7511f7f35718e6760a85a9",
+    "quality/firebase/ordem012-preparar.cjs": "4869a1d31b7a9ffbaabe5269763decbb977dcbad3560cd6eaab57203a9a371c5",
+    "quality/firebase/ordem012-core.cjs": "552864a6191640e2b9cf892c407747c2a1e1eda051f4239978220ed0701f3db0",
+    "quality/firebase/executar-ordem012-emulator.cjs": "2d9aeceeee4f29af8ccb2cf6f6871c3c3a4890e2630c042e1189bf4f52b2c0a6",
+    "quality/firebase/test/ordem012-core.test.cjs": "6677978b744cef8b084d922df691a610c1f5adcc5a6afdd4ec9e6aeb51bc7755",
+    "quality/frontend/scripts/ordem012-emulator.mjs": "97db7c4d3b019600b9a3253ed63aad8a9628c62ad3e13309ed9b54933c5b61d8",
+    "quality/frontend/scripts/ordem012-publico-readonly.cjs": "3e6e5dcfd025f965da656cf9796f413749759288873a15913ae4fb9c220888d5",
+    "docs/ADAPTACAO_SERVERLESS/ORDEM_012_MANIFESTO_EVIDENCIAS.json": "4f262faa25d8d403b1d22127fa72da8b61bf632fc588898dc9be214cef9c4a5a",
+    "docs/ADAPTACAO_SERVERLESS/ORDEM_012_PUBLICO_EVIDENCIAS.json": "475cf98ad361dc867138d551602e6f0fa6aedd0969e2ec72ab291fce3aa8f4f8",
+    "docs/ADAPTACAO_SERVERLESS/ORDEM_012_EXECUCAO_EVIDENCIAS.json": "a2bffcb0c015a5b9a98bbbc55b22824a0d9409b9003e15eefb16a5a73976fd63",
+    "docs/ADAPTACAO_SERVERLESS/ORDEM_012_ENCERRAMENTO_EVIDENCIAS.json": "9fb97a8c46ba94c7994a4401562af15a66f55c70cd31ee70247c7d8f7e474840",
+    "docs/ADAPTACAO_SERVERLESS/ORDEM_012_EMULATOR_EVIDENCIAS.json": "93f1fc189714d426ff80413b7b41d546e1f5ad42f06d9d5b2e3ce68b3054dd71",
+    "docs/ADAPTACAO_SERVERLESS/ORDEM_012_INVENTARIO_EVIDENCIAS.json": "069b72820a43f0a1a480000be0d6002e2569b4c8e524ce41f909cf1ed396c84f",
+    "docs/ADAPTACAO_SERVERLESS/RELATORIO_ORDEM_012_LIMPEZA.md": "c1d058b67a5ecd6ca3fafa8d0d19e7dd2b1baa53728e4544aca0eeda98eb0fe7",
+    "docs/GUIA_MESTRE.md": "d77e4d771d681824c3901f8773cfb8325822fd6870acf450d3b961a12ad3ec7a",
+    "docs/REGISTRO_DE_TRABALHO.md": "dec8de70403d5792baf8227a13aa08644b21504e0f6ad8434e66c9b1929dc6c0",
+    "docs/ADAPTACAO_SERVERLESS/PENDENCIA_LIMPEZA_PEDIDOS_RETOMAR_EM_CASA.md": "e24c3fc9ce81b7e2b6991e914258f6ee8f803d5b3b82a1e35faeeb6d1725386f"
+  }
+}

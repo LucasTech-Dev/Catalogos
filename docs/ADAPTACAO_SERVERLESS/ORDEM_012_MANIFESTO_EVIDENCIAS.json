@@ -1,0 +1,29 @@
+{
+  "order": "012",
+  "phase": "MANIFESTO_PREPARADO",
+  "at": "2026-10-26T23:27:35.435Z",
+  "project": "bancorestaurante",
+  "shop": "loja-demo",
+  "documentDeletes": 64,
+  "counts": {
+    "clientes": 21,
+    "pedidos": 23,
+    "idempotencia": 7,
+    "numerosPedidos": 3,
+    "pedidos_legado": 8,
+    "usuarios": 2
+  },
+  "authDeletes": 7,
+  "authPreservedExceptions": {
+    "origem_nao_comprovada": 18,
+    "administrativa_ou_tecnica": 2
+  },
+  "adminUidSha256": "613bb07930f3824ed226981e2a9baa4aca4e72061f8fc171d9b7e8a71d48bcb7",
+  "manifestSha256": "57027a570d8e144c435555a781f9a47dbe983d141374416019a913c4e491c19d",
+  "backupLocation": "private-backups/ordem012-20261026",
+  "counterBefore": {
+    "ultimo": 3
+  },
+  "counterResetAuthorizedButExternalReferencesPending": true,
+  "realWrites": 0
+}

@@ -1,0 +1,20 @@
+{
+  "order": "012",
+  "status": "APROVADO",
+  "at": "2026-10-26T23:25:57.428Z",
+  "project": "demo-ordem012",
+  "checks": 319,
+  "documentsRestored": 103,
+  "authUsersRestored": 28,
+  "passwordHashesRestored": 6,
+  "restoreAfterDeletion": true,
+  "publishedRulesSha256": "71ca854897cae61da43c880a9e6ced50fdc269a013f84d39fafec781bb661175",
+  "counterLock": 999999999,
+  "newConcurrentNumbers": [
+    1,
+    2
+  ],
+  "remoteWrites": 0,
+  "systemDocumentTimesRestored": false,
+  "liveSessionsRestored": false
+}

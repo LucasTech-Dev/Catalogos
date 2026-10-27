@@ -1,0 +1,34 @@
+{
+  "order": "012",
+  "status": "LIMPEZA_DELIMITADA_EXECUTADA_PENDENCIAS_PRESERVADAS",
+  "at": "2026-10-27T00:10:18.039Z",
+  "project": "bancorestaurante",
+  "shop": "loja-demo",
+  "firestoreDocumentsDeleted": 64,
+  "orderDocumentsDeleted": 22,
+  "clientProfilesDeleted": 8,
+  "authUsersDeleted": 7,
+  "authExceptions": {
+    "origem_nao_comprovada": 18,
+    "administrativa_ou_tecnica": 2
+  },
+  "adminUidSha256": "613bb07930f3824ed226981e2a9baa4aca4e72061f8fc171d9b7e8a71d48bcb7",
+  "counter": 3,
+  "counterResetToOne": false,
+  "pendingFacts": {
+    "resetToOne": "aguardando declaração sobre compromissos externos",
+    "orphanAuth": "18 contas sem vínculo preservadas; aguarda classificação"
+  },
+  "backupLocation": "private-backups/ordem012-20261026",
+  "manifestSha256": "57027a570d8e144c435555a781f9a47dbe983d141374416019a913c4e491c19d",
+  "commercialConfigWrites": 0,
+  "rulesWrites": 0,
+  "iamWrites": 0,
+  "finalDocuments": 39,
+  "finalAuthUsers": 21,
+  "liveOrders": 0,
+  "liveClientProfiles": 0,
+  "protectedDocumentsChecked": 38,
+  "adminVerified": true,
+  "preservationConfirmed": true
+}

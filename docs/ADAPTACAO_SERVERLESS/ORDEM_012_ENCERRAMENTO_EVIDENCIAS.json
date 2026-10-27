@@ -1,0 +1,164 @@
+{
+  "order": "012",
+  "backupDirectory": "private-backups/ordem012-20261026",
+  "outsidePublishedGitCheckout": true,
+  "privateDirectoryMode": "0700",
+  "privateFileMode": "0600",
+  "documents": 103,
+  "authUsers": 28,
+  "checksumsVerifiedAfterDeletion": true,
+  "files": {
+    "auth-config.json": {
+      "bytes": 3593,
+      "sha256": "4d573b44f5587f007918b82227ac881195cff4d7cc61897fea351095849099d6"
+    },
+    "auth-users.json": {
+      "bytes": 10938,
+      "sha256": "bcbd489b705760bff9b377bbad600926c0bb5520cd386ae7998459e7d05db7e3"
+    },
+    "firestore.json": {
+      "bytes": 164411,
+      "sha256": "7f8b778719b9f595b910c336f1212b121f1839cb74c712404ade45ebfc0d6d0c"
+    },
+    "inventory-private.json": {
+      "bytes": 21228,
+      "sha256": "38fb8a044889d419490fec2c77aa75dbbdb0104a96af2c2ede0641d5b105c2de"
+    },
+    "preservation-config.json": {
+      "bytes": 41628,
+      "sha256": "b20ef4ed92fd4cf210b044d8e8c2fb2ec550898f394a453550a926fe245a456e"
+    }
+  },
+  "adminUidSha256": "613bb07930f3824ed226981e2a9baa4aca4e72061f8fc171d9b7e8a71d48bcb7",
+  "retainedAuth": {
+    "ownerAdministrators": 1,
+    "otherAdministrators": 2,
+    "unclassifiedAnonymous": 18
+  },
+  "journalEvents": [
+    {
+      "stage": "counter-lock",
+      "at": "2026-10-26T23:31:05.232314Z"
+    },
+    {
+      "stage": "counter-release-after-interruption",
+      "at": "2026-10-27T00:01:43.161Z"
+    },
+    {
+      "stage": "counter-lock",
+      "at": "2026-10-27T00:09:22.734419Z"
+    },
+    {
+      "stage": "firestore-delete",
+      "documents": 64,
+      "at": "2026-10-27T00:09:43.936907Z"
+    },
+    {
+      "stage": "auth-delete",
+      "uidSha256": "f9094e9e0839f506c403cb59be16a7a600a1b8e37707fcd7cfcdab9515fd895b",
+      "at": "2026-10-27T00:09:45.286Z"
+    },
+    {
+      "stage": "auth-delete",
+      "uidSha256": "f45c11cc1f0f889290ed96f5e22d8f5c50969bea090f7080e69bd28a27c001b6",
+      "at": "2026-10-27T00:09:46.627Z"
+    },
+    {
+      "stage": "auth-delete",
+      "uidSha256": "35d4e79839422b639705a94d1781fd3aef3f9f6677dedba3e5fa207476bc92e5",
+      "at": "2026-10-27T00:09:48.020Z"
+    },
+    {
+      "stage": "auth-delete",
+      "uidSha256": "89c445a01ecbf230d5f831a11fe80a8d466077d16c6fa38fd01eb0700365d4f0",
+      "at": "2026-10-27T00:09:49.451Z"
+    },
+    {
+      "stage": "auth-delete",
+      "uidSha256": "64ca70dff7c14a5fd98e651e194e0055e6de4da785df5600525f929198f11ab4",
+      "at": "2026-10-27T00:09:51.004Z"
+    },
+    {
+      "stage": "auth-delete",
+      "uidSha256": "2cacfdc468d9b07150ad455a3d19efb52b6e08a76bd6d7296f42e66fbb820d5d",
+      "at": "2026-10-27T00:09:52.606Z"
+    },
+    {
+      "stage": "auth-delete",
+      "uidSha256": "635a8f71b821bfc6089c599f3e05f19752a136591088dc53932febf48c03fa1b",
+      "at": "2026-10-27T00:09:54.265Z"
+    },
+    {
+      "stage": "counter-release-preserving-sequence",
+      "at": "2026-10-27T00:10:06.114372Z"
+    }
+  ],
+  "final": {
+    "order": "012",
+    "status": "LIMPEZA_DELIMITADA_EXECUTADA_PENDENCIAS_PRESERVADAS",
+    "at": "2026-10-27T00:10:18.039Z",
+    "project": "bancorestaurante",
+    "shop": "loja-demo",
+    "firestoreDocumentsDeleted": 64,
+    "orderDocumentsDeleted": 22,
+    "clientProfilesDeleted": 8,
+    "authUsersDeleted": 7,
+    "authExceptions": {
+      "origem_nao_comprovada": 18,
+      "administrativa_ou_tecnica": 2
+    },
+    "adminUidSha256": "613bb07930f3824ed226981e2a9baa4aca4e72061f8fc171d9b7e8a71d48bcb7",
+    "counter": 3,
+    "counterResetToOne": false,
+    "pendingFacts": {
+      "resetToOne": "aguardando declaração sobre compromissos externos",
+      "orphanAuth": "18 contas sem vínculo preservadas; aguarda classificação"
+    },
+    "backupLocation": "private-backups/ordem012-20261026",
+    "manifestSha256": "57027a570d8e144c435555a781f9a47dbe983d141374416019a913c4e491c19d",
+    "commercialConfigWrites": 0,
+    "rulesWrites": 0,
+    "iamWrites": 0,
+    "finalDocuments": 39,
+    "finalAuthUsers": 21,
+    "liveOrders": 0,
+    "liveClientProfiles": 0,
+    "protectedDocumentsChecked": 38,
+    "adminVerified": true,
+    "preservationConfirmed": true
+  },
+  "publicValidation": {
+    "order": "012",
+    "status": "APROVADO",
+    "at": "2026-10-27T00:10:54.007Z",
+    "checks": [
+      "catalogo-publico-390",
+      "sem-transbordamento-390",
+      "catalogo-publico-1366",
+      "sem-transbordamento-1366",
+      "carrinho-local-funciona",
+      "painel-protegido-login-preservado",
+      "entrada-google-preservada",
+      "nenhuma-escrita-firestore",
+      "sem-excecoes-js"
+    ],
+    "realAccountsCreated": 0,
+    "realOrdersCreated": 0,
+    "realFirebaseWrites": 0,
+    "personalLoginAutomated": false,
+    "checkoutRealTested": false,
+    "widths": [
+      390,
+      1366
+    ],
+    "privateDataCaptured": false
+  },
+  "localCleanup": {
+    "temporaryLogsRemoved": 9,
+    "backupsAndExecutableTestsPreserved": true,
+    "sensitivePatternFiles": 0,
+    "filesScanned": 15,
+    "runtimeMatchesPublishedCheckout": true,
+    "commitPushDeployPerformed": false
+  }
+}

@@ -1,3 +1,14 @@
+# Ordem012 — limpeza delimitada executada; pendências preservadas — 26/10/2026
+
+A — EXECUÇÃO PELO CODEX:012-C1–7 no manifesto concluídos tecnicamente com verificação real.64 documentos removidos (14 pedidos principais,8 legados,9 históricos,8 perfis,13 endereços/tentativas,7 idempotências,3 reservas,2 usuarios de clientes), sete contas Auth de clientes removidas. Leitura21:10:18 Brasília:zero pedidos/zero perfis,39 documentos/21Auth restantes;38 documentos protegidos idênticos. Administrador proprietário Google/UID/permissões e outros dois administradores preservados. Backup103documentos/28Auth com recuperação319checks, três testes de seleção e nove verificações públicas aprovados. Catálogo, produtos/categorias/configurações/projeções/revisão comercial/Rules/índices/IAM/código runtime/Cloudflare mantidos. Sem conta/pedido real de teste, commit/push/deploy.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO:012-H1 (números/compromissos externos) e012-H2 (18 anônimos sem vínculo) continuam sem resposta. Contador restabelecido em3; próxima compra seria#4, NÃO#1. As18 contas incertas e dois administradores continuam preservados; não declarar Ordem012 integralmente concluída. Próxima tarefa exata: obter fatos012-H1/H2 e revalidar imediatamente antes de qualquer reset/limpeza complementar; não repetir64/sete já excluídos.012-H3 sessão pessoal/primeira compra pelo proprietário após definir numeração. NoveMVPs e demais riscos preservados. Backup privado fora do checkout publicado e ignorado; espelho externo ausente. Sem limpeza importante pendente.
+
+Relatório: [Ordem012: resultado real, backup e pendências](RELATORIO_ORDEM_012_LIMPEZA.md).
+
+
+---
+
 # PENDÊNCIA — Limpeza dos pedidos antigos e numeração comercial (retomar em casa)
 
 **Registrado em:** 26/10/2026  

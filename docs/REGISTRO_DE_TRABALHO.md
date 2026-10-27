@@ -1,3 +1,22 @@
+# Publicação da Ordem012 autorizada — 26/10/2026
+
+A — EXECUÇÃO PELO CODEX: instrução expressa “publique tudo na main ... cloudflare” autoriza commit/push main LucasTech-Dev/Catalogos e publicação Pages catalogo-demo. Integração seletiva das oito ferramentas/testes, seis evidências sanitizadas, relatório e registros da etapa; fontes runtime mantidos. Backup/exportações/manifesto privado e credenciais excluídos. Build, testes da seleção, varredura e verificação pública fazem parte desta publicação. Nenhuma execução de limpeza, reset, Rules, IAM ou Auth é incluída neste ato.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: autorização de publicação atendida, sem nova confirmação indispensável.012-H1/H2 continuam pendentes; contador3 (próxima compra#4),18 contas de origem incerta e dois outros administradores preservados. Julgamento pessoal012-H3 permanece posterior. Documentação integral histórica e espelhos locais não são copiados em massa para a release; relatório/evidências/registro corrente publicados preservam a continuidade. Próxima ação técnica: conferir mesmo commit main no Pages e navegação pública sem gravações.
+
+---
+
+# Ordem012 — limpeza delimitada executada; pendências preservadas — 26/10/2026
+
+A — EXECUÇÃO PELO CODEX:012-C1–7 no manifesto concluídos tecnicamente com verificação real.64 documentos removidos (14 pedidos principais,8 legados,9 históricos,8 perfis,13 endereços/tentativas,7 idempotências,3 reservas,2 usuarios de clientes), sete contas Auth de clientes removidas. Leitura21:10:18 Brasília:zero pedidos/zero perfis,39 documentos/21Auth restantes;38 documentos protegidos idênticos. Administrador proprietário Google/UID/permissões e outros dois administradores preservados. Backup103documentos/28Auth com recuperação319checks, três testes de seleção e nove verificações públicas aprovados. Catálogo, produtos/categorias/configurações/projeções/revisão comercial/Rules/índices/IAM/código runtime/Cloudflare mantidos. Sem conta/pedido real de teste, commit/push/deploy.
+
+B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO:012-H1 (números/compromissos externos) e012-H2 (18 anônimos sem vínculo) continuam sem resposta. Contador restabelecido em3; próxima compra seria#4, NÃO#1. As18 contas incertas e dois administradores continuam preservados; não declarar Ordem012 integralmente concluída. Próxima tarefa exata: obter fatos012-H1/H2 e revalidar imediatamente antes de qualquer reset/limpeza complementar; não repetir64/sete já excluídos.012-H3 sessão pessoal/primeira compra pelo proprietário após definir numeração. NoveMVPs e demais riscos preservados. Backup privado fora do checkout publicado e ignorado; espelho externo ausente. Sem limpeza importante pendente.
+
+Relatório: [Ordem012: resultado real, backup e pendências](ADAPTACAO_SERVERLESS/RELATORIO_ORDEM_012_LIMPEZA.md).
+
+
+---
+
 # Handoff de26/10 — correções publicadas e verificadas
 
 A — EXECUÇÃO PELO CODEX: HANDOFF-C1–6 concluídas no escopo técnico autorizado. Main55e9ba6/Pages71eb9050, disparo automático e sucesso às20:04:39 Brasília;40 verificações públicas aprovadas.301 testes integrados,28 verificações unitárias adicionais de painel/imagens,340 checks SDK/Rules e136 Chrome locais, build14,14s e scanner aprovados. Checkout preserva idempotência na resposta perdida e separa nova compra; ativação restaura ativo/disponível; fallback de foto e melhorias locais de acesso/perfil preservados. Navegação pública não substitui gravação comercial. Recibos, arquivos, limites, falhas/correções e rollback no relatório.

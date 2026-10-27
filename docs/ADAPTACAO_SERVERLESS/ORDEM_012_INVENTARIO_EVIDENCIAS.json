@@ -1,0 +1,33 @@
+{
+  "phase": "INVENTARIO_BACKUP_LEITURA",
+  "complete": true,
+  "project": "bancorestaurante",
+  "shop": "loja-demo",
+  "documents": 103,
+  "authUsers": 28,
+  "adminVerified": true,
+  "otherAdmins": 2,
+  "rootCounts": {
+    "catalogosPublicos": 17,
+    "lojas": 81,
+    "usuarios": 5
+  },
+  "shopCounts": {
+    "categorias": 5,
+    "clientes": 21,
+    "contadores": 1,
+    "controleCompra": 1,
+    "idempotencia": 7,
+    "numerosPedidos": 3,
+    "pedidos": 23,
+    "pedidos_legado": 8,
+    "produtos": 11
+  },
+  "authExclusiveCandidates": 7,
+  "authUnclassified": 20,
+  "passwordUsers": 6,
+  "hashConfigAvailable": true,
+  "webApps": 1,
+  "privateBackup": "private-backups/ordem012-20261026",
+  "realWrites": 0
+}
