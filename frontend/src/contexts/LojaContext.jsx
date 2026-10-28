@@ -53,8 +53,32 @@ export function LojaProvider({children}) {
     notificar('sucesso','Produto adicionado ao carrinho.');return true;
   }
   function alterarQuantidade(id,q){const item=carrinho.find(i=>chaveItem(i)===id);if(!item)return;if(!quantidadeValida(q)||item.quantidade===q){notificar('aviso','A quantidade deve ficar entre 1 e 99.');return;}setCarrinho(a=>alterarCarrinho(a,item.id,q,item.observacao));notificar('sucesso','Quantidade atualizada.');}
+  function alterarObservacao(id,observacao){
+    if(typeof observacao!=='string' || observacao.length>1000)return false;
+    const item=carrinho.find(i=>chaveItem(i)===id);
+    if(!item)return false;
+    if(item.observacao===observacao)return true;
+    const chaveNova=chaveItem({id:item.id,observacao});
+    const destino=carrinho.find(i=>chaveItem(i)===chaveNova && chaveItem(i)!==id);
+    if(destino && !quantidadeValida(destino.quantidade+item.quantidade)){
+      notificar('aviso','A soma das quantidades ultrapassaria 99 unidades.');return false;
+    }
+    setCarrinho(atuais=>{
+      const atual=atuais.find(i=>chaveItem(i)===id);
+      if(!atual)return atuais;
+      const outras=atuais.filter(i=>chaveItem(i)!==id);
+      const existente=outras.find(i=>chaveItem(i)===chaveNova);
+      if(existente){
+        if(!quantidadeValida(existente.quantidade+atual.quantidade))return atuais;
+        return outras.map(i=>chaveItem(i)===chaveNova?{...i,quantidade:i.quantidade+atual.quantidade}:i);
+      }
+      return atuais.map(i=>chaveItem(i)===id?{...i,observacao}:i);
+    });
+    notificar('sucesso','Observação do produto atualizada.');
+    return true;
+  }
   function removerItem(id){if(!carrinho.some(i=>chaveItem(i)===id))return;setCarrinho(a=>a.filter(i=>chaveItem(i)!==id));notificar('sucesso','Produto removido do carrinho.');}
-  return <Context.Provider value={{loja:dados?.loja,categorias:dados?.categorias || [],produtos,itens,erro,carregando,pronto:Boolean(dados),atualizar,adicionar,alterarQuantidade,removerItem,limpar:() => setCarrinho([]),subtotal:Number(itens.reduce((s,i) => s + Number((i.preco*i.quantidade).toFixed(2)),0).toFixed(2))}}>{children}</Context.Provider>;
+  return <Context.Provider value={{loja:dados?.loja,categorias:dados?.categorias || [],produtos,itens,erro,carregando,pronto:Boolean(dados),atualizar,adicionar,alterarQuantidade,alterarObservacao,removerItem,limpar:() => setCarrinho([]),subtotal:Number(itens.reduce((s,i) => s + Number((i.preco*i.quantidade).toFixed(2)),0).toFixed(2))}}>{children}</Context.Provider>;
 }
 export const useLoja = () => useContext(Context);
 export function EstadoCatalogo() {
