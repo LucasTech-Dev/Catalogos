@@ -1,4 +1,5 @@
 import ConfirmacaoPedido from '../components/conta/ConfirmacaoPedido';
+import ObservacaoItem from '../components/ui/ObservacaoItem';
 import {notificar} from '../lib/notificacoes';
 import {FeedbackAcao} from '../components/ui/ToastProvider';
 import {PageBoundary} from '../components/ui/PageLoader';
@@ -18,7 +19,7 @@ import {moeda,urlWhatsapp,compraDoCarrinho} from '../lib/compras';
 const ufs='AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' ');
 function Checkout() {
   const catalogo=useLoja();
-  const {loja,itens,subtotal,limpar,carregando:carregandoCatalogo,erro:erroCatalogo} = catalogo;
+  const {loja,itens,subtotal,limpar,alterarQuantidade,alterarObservacao,removerItem,carregando:carregandoCatalogo,erro:erroCatalogo} = catalogo;
   const [clientePronto,setClientePronto]=useState(false),[erroCliente,setErroCliente]=useState(''),[tentativaCarga,setTentativaCarga]=useState(0);
   const [cidade,setCidade] = useState(''), [uf,setUf] = useState(''), [ufTocada,setUfTocada]=useState(false);
   const ufInvalida=ufTocada && !ufs.includes(uf);
@@ -427,13 +428,26 @@ function Checkout() {
               {erro && <><FeedbackAcao mensagem={erro} persistente={erro===CRIACAO_BLOQUEADA}/>{erro!==CRIACAO_BLOQUEADA && <p>Em falhas de conexão, repita a finalização para retomar a mesma tentativa.</p>}</>}
               <div className="checkout-summary-header">
                 <span>
-                  SEU PEDIDO
+                  REVISE SEU PEDIDO
                 </span>
 
                 <strong>{itensExibidos.length} itens</strong>
               </div>
 
-              {itensExibidos.map(item => <div className="checkout-product" key={item.chave || item.id}><strong>{item.quantidade}x {item.nome}</strong><strong>{moeda(item.preco*item.quantidade)}</strong></div>)}
+              {itensExibidos.map(item => <div className="checkout-product checkout-product-card" key={item.chave || item.id}>
+                <div className="checkout-product-heading"><strong>{item.quantidade}x {item.nome}</strong><strong>{moeda(item.preco*item.quantidade)}</strong></div>
+                {item.observacao && <p className="checkout-product-current-note">Obs.: {item.observacao}</p>}
+                {!pedido && <ObservacaoItem item={item} onSalvar={alterarObservacao} compacto />}
+                {!pedido && <div className="checkout-product-actions">
+                  <div className="checkout-product-quantity" aria-label={`Quantidade de ${item.nome}`}>
+                    <button type="button" aria-label={`Diminuir quantidade de ${item.nome}`} disabled={ocupado || item.quantidade<=1} onClick={()=>alterarQuantidade(item.chave || item.id,item.quantidade-1)}>−</button>
+                    <span>{item.quantidade}</span>
+                    <button type="button" aria-label={`Aumentar quantidade de ${item.nome}`} disabled={ocupado || item.quantidade>=99} onClick={()=>alterarQuantidade(item.chave || item.id,item.quantidade+1)}>+</button>
+                  </div>
+                  <button type="button" className="checkout-product-remove" disabled={ocupado} onClick={()=>removerItem(item.chave || item.id)}>Remover</button>
+                </div>}
+              </div>)}
+              <p className="checkout-summary-hint">Você pode ajustar quantidades, remover itens e editar observações antes de registrar o pedido.</p>
               <div className="checkout-summary-divider" />
 
               <div className="checkout-summary-row">
