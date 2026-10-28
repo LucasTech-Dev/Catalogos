@@ -1,11 +1,13 @@
 import MaterialIcon from "./MaterialIcon";
 import React from "react";
 import ImagemCatalogo from "./ImagemCatalogo";
+import ObservacaoItem from "./ObservacaoItem";
 
 function CartItem({
   item,
   onQuantidadeChange,
   onRemover,
+  onObservacaoChange,
 }) {
   const subtotal =
     (item.preco + item.adicionaisTotal) *
@@ -39,12 +41,7 @@ function CartItem({
               </div>
             )}
 
-            {item.observacao && (
-              <p className="cart-item-note">
-                <strong>Obs.:</strong>{" "}
-                {item.observacao}
-              </p>
-            )}
+            <ObservacaoItem item={item} onSalvar={onObservacaoChange} />
           </div>
 
           <button
