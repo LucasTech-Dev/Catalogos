@@ -4,9 +4,11 @@ import ImagemCatalogo from "./ImagemCatalogo";
 
 import {moeda} from "../../lib/compras";
 function ProductCard({ produto }) {
+  const indisponivel = produto.ativo !== true || produto.disponivel === false;
   return (
-    <article className="product-card">
+    <article className={`product-card${indisponivel ? " product-card-unavailable" : ""}`}>
       <div className="product-image">
+        {indisponivel && <span className="product-unavailable-badge">Indisponível</span>}
         <ImagemCatalogo
           src={produto.imagem}
           alt={produto.nome}
@@ -21,7 +23,7 @@ function ProductCard({ produto }) {
         <div className="product-footer">
           <strong>{moeda(produto.preco)}</strong>
 
-          <a className="add-button" aria-label={produto.ativo === true && produto.disponivel !== false ? `Ver ${produto.nome}` : `${produto.nome} indisponível`} href={`/produto?id=${encodeURIComponent(produto.id)}`}>{produto.ativo === true && produto.disponivel !== false ? <MaterialIcon name="add"/> : <MaterialIcon name="remove"/>}</a>
+          {indisponivel ? <span className="add-button add-button-unavailable" role="status" aria-label={`${produto.nome} indisponível — não pode ser adicionado ao carrinho`} title="Produto indisponível"><MaterialIcon name="block"/></span> : <a className="add-button" aria-label={`Ver ${produto.nome}`} href={`/produto?id=${encodeURIComponent(produto.id)}`}><MaterialIcon name="add"/></a>}
         </div>
       </div>
     </article>
