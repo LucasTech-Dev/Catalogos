@@ -1,5 +1,7 @@
 # Documentação oficial da release JS
 
+- [Plano mestre de replicação comercial — 4 etapas Codex](PLANO_MESTRE_REPLICACAO_CATALOGO_CLIENTES.md)
+
 - [Guia Mestre](GUIA_MESTRE.md)
 - [Registro de Trabalho](REGISTRO_DE_TRABALHO.md)
 - [Continuidade Codex](ADAPTACAO_SERVERLESS/CONTINUIDADE_CODEX.md)
