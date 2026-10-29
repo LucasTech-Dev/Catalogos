@@ -32,7 +32,7 @@ it('recusa Firestore Emulator remoto, mistura de projetos e portas inválidas',(
   for(const patch of [{VITE_FIRESTORE_EMULATOR_HOST:'externo.example:8080'},{VITE_FIRESTORE_EMULATOR_HOST:'127.0.0.1:0'},{VITE_FIRESTORE_EMULATOR_HOST:'127.0.0.1:99999'},{VITE_FIREBASE_PROJECT_ID:'bancorestaurante'},{VITE_FIREBASE_AUTH_EMULATOR_URL:''}])expect(()=>validarFirebaseWeb({...local,...patch})).toThrow();
 });
 it('catálogo externo aceita configuração pública Firebase sem URL de Express',()=>{
-  const env={VITE_APP_ENV:'production',VITE_LOJA_ID:'cliente-b',VITE_FIREBASE_API_KEY:'fake-public',VITE_FIREBASE_AUTH_DOMAIN:'public.example',VITE_FIREBASE_PROJECT_ID:'projeto-exemplo',VITE_FIREBASE_EXPECTED_PROJECT_ID:'projeto-exemplo',VITE_FIREBASE_APP_ID:'app-publico'};
+  const env={VITE_LOJAS_POR_HOST:'{"localhost":"cliente-b"}',VITE_APP_ENV:'production',VITE_LOJA_ID:'cliente-b',VITE_FIREBASE_API_KEY:'fake-public',VITE_FIREBASE_AUTH_DOMAIN:'public.example',VITE_FIREBASE_PROJECT_ID:'projeto-exemplo',VITE_FIREBASE_EXPECTED_PROJECT_ID:'projeto-exemplo',VITE_FIREBASE_APP_ID:'app-publico'};
   expect(configuracaoAplicacao(env).lojaId).toBe('cliente-b');
   expect(()=>configuracaoAplicacao({...env,VITE_FIRESTORE_EMULATOR_HOST:'127.0.0.1:8080'})).toThrow();
 });

@@ -106,3 +106,19 @@ it('nova compra com carrinho descarta somente marcador de pedido já confirmado'
  render(<LojaProvider><Checkout/></LojaProvider>);await preencher();expect(screen.queryByText('#1024')).toBeNull();fireEvent.click(screen.getByText('Registrar pedido e preparar WhatsApp'));await screen.findByText('#1025');
  const criacoes=mocks.api.mock.calls.filter(([,o])=>o?.method==='POST');expect(criacoes).toHaveLength(1);expect(criacoes[0][1].chave).not.toBe('compra-anterior');expect(criacoes[0][1].body.pagamento).toEqual({forma:'pix'});
 });
+
+it('replicação: edição de observação une variantes sem alterar quantidade total ou preço',async()=>{
+ function Editar(){const c=useLoja();return <><button onClick={()=>{c.alterarObservacao(c.itens[0].chave,'sem sal');}}>Editar observação</button><output data-testid="variantes">{JSON.stringify(c.itens.map(i=>({quantidade:i.quantidade,observacao:i.observacao})))}</output></>;}
+ localStorage.setItem('catalogos:carrinho:v2:loja-demo:visitante',JSON.stringify({dono:'visitante',itens:[{id:'burger',quantidade:1,observacao:'molho separado'},{id:'burger',quantidade:2,observacao:'sem sal'}]}));
+ const view=render(<LojaProvider><Editar/></LojaProvider>);await waitFor(()=>expect(screen.getByTestId('variantes').textContent).toContain('molho separado'));
+ fireEvent.click(screen.getByText('Editar observação'));expect(JSON.parse(screen.getByTestId('variantes').textContent)).toEqual([{quantidade:3,observacao:'sem sal'}]);
+ view.unmount();render(<LojaProvider><Editar/></LojaProvider>);await waitFor(()=>expect(JSON.parse(screen.getByTestId('variantes').textContent)).toEqual([{quantidade:3,observacao:'sem sal'}]));
+});
+
+it('replicação: observação editada no checkout integra a compra persistida',async()=>{
+ carrinho();render(<LojaProvider><Checkout/></LojaProvider>);await preencher();
+ const campo=screen.getByRole('textbox',{name:'Observações de Burger real (opcional)'});
+ fireEvent.change(campo,{target:{value:'Sem sal'}});fireEvent.blur(campo);
+ fireEvent.click(screen.getByText('Registrar pedido e preparar WhatsApp'));await screen.findByRole('link',{name:'Abrir WhatsApp'});
+ const criacao=mocks.api.mock.calls.find(([,o])=>o?.chave);expect(criacao[1].body.observacao).toContain('Sem sal');
+});

@@ -5,5 +5,5 @@ export default {
  root,
  resolve:{dedupe:['react','react-dom','firebase','lucide-react','@testing-library/react']},
  server:{fs:{allow:[project]}},
- test:{environment:'jsdom',include:[path.relative(root,path.join(qualityDir,'test/**/*.test.{js,jsx}'))]}
+ test:{env:{VITE_LOJA_ID:'loja-demo'},environment:'jsdom',include:[path.relative(root,path.join(qualityDir,'test/**/*.test.{js,jsx}'))]}
 };

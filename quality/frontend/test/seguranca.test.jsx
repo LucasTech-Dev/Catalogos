@@ -22,11 +22,11 @@ it('descarta resposta privada atrasada e limpa perfil ao trocar UID',async()=>{
 it('mantém apenas nonce e referência no armazenamento permanente',()=>{
   const key='catalogos:checkout:loja:A',t={uid:'A',chave:'nonce',dados:{cliente:{nome:'Nome privado',telefone:'11999999999'}},endereco:{rua:'Rua privada'},pedido:{id:'pedido',total:20}};
   salvarTentativa(key,t);expect(JSON.parse(localStorage.getItem(key))).toEqual({uid:'A',chave:'nonce',pedidoId:'pedido'});expect(carregarTentativa(key,'A').dados.cliente.nome).toBe('Nome privado');
-  limparDadosDeOutraSessao('B');expect(sessionStorage.getItem(key)).toBeNull();expect(carregarTentativa(key,'A')).toEqual({uid:'A',chave:'nonce',pedidoId:'pedido'});expect(()=>carregarTentativa(key,'B')).toThrow();
+  limparDadosDeOutraSessao('B','loja');expect(sessionStorage.getItem(key)).toBeNull();expect(carregarTentativa(key,'A')).toEqual({uid:'A',chave:'nonce',pedidoId:'pedido'});expect(()=>carregarTentativa(key,'B')).toThrow();
 });
 it('remove dados pessoais de tentativas legadas após logout',()=>{
   const key='catalogos:checkout:loja:A';localStorage.setItem(key,JSON.stringify({uid:'A',chave:'nonce',dados:{telefone:'privado'},endereco:{rua:'privada'}}));
-  limparDadosDeOutraSessao(null);expect(localStorage.getItem(key)).not.toContain('privad');expect(sessionStorage.getItem(key)).toBeNull();
+  limparDadosDeOutraSessao(null,'loja');expect(localStorage.getItem(key)).not.toContain('privad');expect(sessionStorage.getItem(key)).toBeNull();
 });
 it('bloqueia configurações Web de emulação misturadas com projeto real',()=>{
   for(const env of [{VITE_FIREBASE_PROJECT_ID:'real',VITE_FIREBASE_AUTH_EMULATOR_URL:'http://localhost:9099'},{VITE_FIREBASE_PROJECT_ID:'demo-teste'},{VITE_FIREBASE_PROJECT_ID:'demo-teste',VITE_FIREBASE_AUTH_EMULATOR_URL:'https://externo.test'}])expect(()=>validarFirebaseWeb(env)).toThrow();

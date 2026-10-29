@@ -25,7 +25,14 @@
     "firebase:emulator:handoff": "node ../quality/firebase/executar-handoff.cjs",
     "test:online:handoff": "node ../quality/frontend/scripts/validar-handoff-pages.cjs",
     "firebase:emulator:ordem013": "node ../quality/firebase/executar-ordem013.cjs",
-    "test:online:ordem013": "node ../quality/frontend/scripts/ordem013-publico.cjs"
+    "test:online:ordem013": "node ../quality/frontend/scripts/ordem013-publico.cjs",
+    "test:visual:replicacao": "node --require ../quality/register.cjs ../quality/frontend/scripts/replicacao-visual.mjs",
+    "loja:planejar": "node --require ../quality/register.cjs ../quality/frontend/scripts/provisionar-loja.mjs planejar",
+    "loja:dry-run": "node --require ../quality/register.cjs ../quality/frontend/scripts/provisionar-loja.mjs dry-run",
+    "loja:aplicar:emulator": "node --require ../quality/register.cjs ../quality/frontend/scripts/provisionar-loja.mjs aplicar",
+    "firebase:emulator:provisionamento": "node ../quality/firebase/executar-provisionamento.cjs",
+    "firebase:emulator:servicos-multiloja": "node ../quality/firebase/executar-provisionamento.cjs --servicos",
+    "firebase:emulator:homologacao": "node ../quality/firebase/executar-provisionamento.cjs --homologacao"
   },
   "dependencies": {
     "firebase": "^13.0.0",
