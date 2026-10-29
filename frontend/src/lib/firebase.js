@@ -7,7 +7,7 @@ import {configuracaoAplicacao} from './ambienteAplicacao';
 import {modoDemo} from './runtimeDemo';
 const env = import.meta.env;
 const demonstracao=modoDemo(env);
-configuracaoAplicacao(env,window.location.hostname);
+const {lojaId}=configuracaoAplicacao(env,window.location.hostname);
 const emulatorUrl=validarFirebaseWeb(env);
 export const firebaseConfigurado = Boolean(!demonstracao && env.VITE_FIREBASE_API_KEY && env.VITE_FIREBASE_PROJECT_ID);
 if(firebaseConfigurado && env.VITE_FIREBASE_PROJECT_ID.startsWith('demo-') && !env.VITE_FIRESTORE_EMULATOR_HOST)throw new Error('Catálogo de teste exige Firestore Emulator local.');
@@ -23,7 +23,7 @@ if(db && env.VITE_FIRESTORE_EMULATOR_HOST) {
   connectFirestoreEmulator(db,host,Number(port));
 }
 // Limpeza também ao sair/trocar conta em páginas fora do checkout.
-if(auth)onIdTokenChanged(auth,user=>limparDadosDeOutraSessao(user?.uid || null));
+if(auth)onIdTokenChanged(auth,user=>limparDadosDeOutraSessao(user?.uid || null,lojaId));
 let entrando;
 export async function sessao() {
   if (!auth) throw new Error('Autenticação não configurada. Entre em contato com a loja.');

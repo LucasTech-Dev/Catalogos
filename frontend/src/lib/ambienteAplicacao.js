@@ -1,6 +1,7 @@
+import {identificadorValido} from './identificador.js';
 import {textoBemFormado} from './textoBemFormado.js';
 import {modoDemo,modoFixtures} from './runtimeDemo.js';
-const idValido=id=>typeof id==='string' && Boolean(id.trim()) && id.length<=128 && textoBemFormado(id) && !/[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) && !['.','..'].includes(id);
+const idValido=identificadorValido;
 export function configuracaoAplicacao(env,hostname='localhost') {
   const demo=modoDemo(env);
   const modo=env.VITE_APP_ENV || 'development';
@@ -31,13 +32,15 @@ export function configuracaoAplicacao(env,hostname='localhost') {
     const demoAutorizada=permitido==='bancorestaurante' && projetoDemoExistente===permitido;
     if(!permitido || (!dedicado && !demoAutorizada) || env.VITE_FIREBASE_PROJECT_ID!==permitido)throw new Error('Homologação Web exige projeto permitido e autorização explícitos.');
   }
-  let loja=env.VITE_LOJA_ID || 'loja-demo';
+  let loja=env.VITE_LOJA_ID;
+  const hostLocal=['localhost','127.0.0.1','[::1]'].includes(hostname.toLowerCase());
+  if(!env.VITE_LOJAS_POR_HOST && (externo || !hostLocal))throw new Error('Domínio exige mapa explícito de estabelecimentos.');
   if(env.VITE_LOJAS_POR_HOST) {
     let mapa;try{mapa=JSON.parse(env.VITE_LOJAS_POR_HOST);}catch{throw new Error('Mapa de lojas inválido.');}
     if(!mapa || Array.isArray(mapa) || typeof mapa!=='object' || Object.entries(mapa).some(([host,id])=>!/^([a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)*[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(host) || !idValido(id)))throw new Error('Mapa de lojas inválido.');
     if(!Object.hasOwn(mapa,hostname.toLowerCase()))throw new Error('Estabelecimento não configurado para este domínio.');
     loja=mapa[hostname.toLowerCase()];
-  } else if(externo && !env.VITE_LOJA_ID)throw new Error('Estabelecimento externo não configurado.');
+  } else if(!env.VITE_LOJA_ID)throw new Error('Estabelecimento não configurado. Informe VITE_LOJA_ID ou VITE_LOJAS_POR_HOST.');
   if(demo && (loja!=='loja-demo' || (env.VITE_LOJAS_POR_HOST && Object.values(JSON.parse(env.VITE_LOJAS_POR_HOST)).some(id=>id!=='loja-demo'))))throw new Error('Loja não autorizada nesta demonstração.');
   if(!idValido(loja))throw new Error('Identificador de loja inválido.');
   if(modo==='test' && !env.VITE_FIREBASE_PROJECT_ID?.startsWith('demo-'))throw new Error('Testes Web exigem projeto demo.');

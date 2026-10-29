@@ -1,8 +1,9 @@
+import {identificadorValido} from '../lib/identificador.js';
 import {criarGravadorIncremental} from './pedidoIncremental.js';
 import {collection,doc,getDocFromServer,getDocsFromServer,query,where} from 'firebase/firestore';
 import {mensagemPedido} from '../lib/whatsappPedido.js';
 const falha=(message,status,code)=>Object.assign(new Error(message),{status,code});
-const idValido=id=>{if(typeof id!=='string' || !id || id.length>128 || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(id) || ['.','..'].includes(id))throw falha('Identificador inválido.',400);return id;};
+const idValido=v=>{if(!identificadorValido(v))throw falha('Identificador inválido.',400);return v;};
 const campos=(d,nomes)=>Object.fromEntries(nomes.filter(k=>d?.[k]!==undefined).map(k=>[k,d[k]]));
 const endereco=d=>d?campos(d,['id','apelido','rua','logradouro','numero','bairro','cidade','uf','complemento','cep']):null;
 export function projetarPedido(d,id) {
@@ -22,7 +23,7 @@ export function criarServicoPedidos({db,auth,sessao,lojaId}) {
   async function executar(fn,expectedUid=auth?.currentUser?.uid){
     try {
       idValido(lojaId);if(!db)throw falha('Pedidos não configurados.',503);
-      const user=await sessao(),uid=user.uid;
+      const user=await sessao();if(!user?.uid)throw falha('Entre na sua conta para continuar.',401);const uid=user.uid;
       const conferir=()=>{if(auth.currentUser?.uid!==uid || expectedUid && expectedUid!==uid)throw falha('A sessão mudou. Entre novamente.',409,'SESSION_CHANGED');};
       conferir();const resultado=await fn({uid,conferir,base:doc(db,'lojas',lojaId)});conferir();return resultado;
     }catch(e){if(e.status)throw e;if(e.code==='permission-denied')throw falha('Acesso negado.',403);throw falha('Não foi possível consultar seus pedidos. Verifique sua conexão e tente novamente.',503);}

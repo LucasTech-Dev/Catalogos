@@ -29,7 +29,7 @@
   font-size: 15px;
 }
 .admin-orders-page .admin-order-search input:focus-visible {
-  outline: 2px solid #f97316;
+  outline: 2px solid var(--primary-text, var(--primary));
   outline-offset: 2px;
 }
 .admin-orders-page .admin-order-search button {
@@ -84,7 +84,7 @@
 }
 .admin-orders-page .admin-order-link:focus-visible,
 .admin-orders-page .admin-filter-button:focus-visible {
-  outline: 2px solid #f97316;
+  outline: 2px solid var(--primary-text, var(--primary));
   outline-offset: 2px;
 }
 @media (max-width: 1150px) {

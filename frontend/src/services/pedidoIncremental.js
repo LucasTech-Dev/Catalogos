@@ -1,15 +1,16 @@
+import {identificadorValido} from '../lib/identificador.js';
 import {doc,getDocFromServer,runTransaction,Timestamp,serverTimestamp} from 'firebase/firestore';
 import {validarPerfil,validarEndereco} from './perfil.js';
 const falha=(message,status=409,code='COMPRA_CONFLITO')=>Object.assign(new Error(message),{status,code});
 const canonico=v=>Array.isArray(v)?v.map(canonico):v && typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonico(v[k])])):v;
 const iguais=(a,b)=>JSON.stringify(canonico(a))===JSON.stringify(canonico(b));
 const hash=async s=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))).map(v=>v.toString(16).padStart(2,'0')).join('');
-const id=v=>typeof v==='string' && v.length>0 && v.length<=128 && !/[\/\\\u0000-\u001f\u007f]/.test(v) && !['.','..'].includes(v);
+const id=identificadorValido;
 // Integrado somente após o gate local; a ausência da revisão mantém a loja bloqueada.
 export function criarGravadorIncremental({db,auth,sessao,lojaId,bloqueio,projetar}) {
  const executar=async function criarPedido(dados,{chave,expectedUid,endereco}={}) {
   if(!db || !id(lojaId))throw falha(bloqueio,503,'PEDIDO_CRIACAO_BLOQUEADA');
-  const user=await sessao(),uid=user.uid;
+  const user=await sessao();if(!user?.uid)throw falha('Entre na sua conta para continuar.',401);const uid=user.uid;
   const conferir=()=>{if(auth.currentUser?.uid!==uid || expectedUid && expectedUid!==uid)throw falha('A sessão mudou. Entre novamente.',409,'SESSION_CHANGED');};
   conferir();
   if(typeof chave!=='string' || !/^[a-zA-Z0-9_-]{16,100}$/.test(chave))throw falha('Chave de tentativa inválida.',400);

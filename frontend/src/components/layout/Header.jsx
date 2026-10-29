@@ -1,3 +1,4 @@
+import ImagemCatalogo from "../ui/ImagemCatalogo";
 import MaterialIcon from "../ui/MaterialIcon";
 import React, { useEffect, useState } from "react";
 
@@ -48,7 +49,7 @@ function Header() {
         {/* Logo */}
         <a href="/" className="logo" onClick={closeMenu}>
           <span className="logo-mark" aria-hidden="true">
-            {loja?.logo ? <img src={loja.logo} alt="" style={{width:32,height:32,objectFit:"contain"}} /> : <MaterialIcon name="lunch_dining"/>}
+            {loja?.logo ? <ImagemCatalogo src={loja.logo} alt="" style={{width:32,height:32,objectFit:"contain"}} /> : <MaterialIcon name="lunch_dining"/>}
           </span>
 
           <span className="logo-text">

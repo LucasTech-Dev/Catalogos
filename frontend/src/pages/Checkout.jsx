@@ -14,7 +14,7 @@ import {CRIACAO_BLOQUEADA} from '../services/pedidos';
 import {calcularPrevia,validarPreviaCompra} from '../lib/previaCompra';
 import {auth,sessao} from '../lib/firebase';
 import {onIdTokenChanged} from 'firebase/auth';
-import {carregarTentativa,salvarTentativa,removerTentativa,limparDadosDeOutraSessao} from '../lib/tentativaCheckout';
+import {chaveTentativa,carregarTentativa,salvarTentativa,removerTentativa,limparDadosDeOutraSessao} from '../lib/tentativaCheckout';
 import {moeda,urlWhatsapp,compraDoCarrinho} from '../lib/compras';
 const ufs='AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' ');
 function Checkout() {
@@ -59,11 +59,11 @@ function Checkout() {
       if(auth && !user){sessao().then(u=>{if(ativo)trocar(u);}).catch(e=>{if(ativo)setErroCliente(e.message);});return;}
       clearTimeout(timer);
       const uid=user?.uid || null;if(uid===uidAnterior)return;uidAnterior=uid;const v=++versaoSessao.current;
-      setClientePronto(false);setErroCliente('');limparDadosDeOutraSessao(uid);setNome('');setTelefone('');setEndereco('');setNumero('');setBairro('');setCidade('');setUf('');setUfTocada(false);setObservacao('');setEnderecosSalvos([]);setEnderecoSalvo('');setPedido(null);setUrl('');setErro('');setOcupado(false);
+      setClientePronto(false);setErroCliente('');limparDadosDeOutraSessao(uid,lojaId);setNome('');setTelefone('');setEndereco('');setNumero('');setBairro('');setCidade('');setUf('');setUfTocada(false);setObservacao('');setEnderecosSalvos([]);setEnderecoSalvo('');setPedido(null);setUrl('');setErro('');setOcupado(false);
       const atual=()=>ativo && v===versaoSessao.current;
       aguardarLeitura(async()=>{
         const identidade=user || await sessao();if(!atual())return;
-        const key=`catalogos:checkout:${lojaId}:${identidade.uid}`,tentativa=carregarTentativa(key,identidade.uid);
+        const key=chaveTentativa(lojaId,identidade.uid),tentativa=carregarTentativa(key,identidade.uid);
         if(tentativa){
           let confirmado;
           try{confirmado=tentativa.pedidoId || tentativa.pedido?.id?await buscarPedido(tentativa.pedidoId || tentativa.pedido.id,identidade.uid):await recuperarPedido(tentativa.chave,identidade.uid);}
@@ -102,7 +102,7 @@ function Checkout() {
       const user = await sessao();
       uid=user.uid;v=versaoSessao.current;
       const conferirResultado=async(operacao)=>{const resultado=await operacao;if(v!==versaoSessao.current || (auth && auth.currentUser?.uid!==uid))throw Object.assign(new Error('A sessão mudou.'),{status:409});return resultado;};
-      key = `catalogos:checkout:${lojaId}:${user.uid}`;
+      key = chaveTentativa(lojaId,user.uid);
       tentativaKey.current = key;
       let tentativa=carregarTentativa(key,user.uid);
       if(tentativa?.pedido?.id || tentativa?.pedidoId){
@@ -437,7 +437,7 @@ function Checkout() {
               {itensExibidos.map(item => <div className="checkout-product checkout-product-card" key={item.chave || item.id}>
                 <div className="checkout-product-heading"><strong>{item.quantidade}x {item.nome}</strong><strong>{moeda(item.preco*item.quantidade)}</strong></div>
                 {item.observacao && <p className="checkout-product-current-note">Obs.: {item.observacao}</p>}
-                {!pedido && <ObservacaoItem item={item} onSalvar={alterarObservacao} compacto />}
+                {!pedido && <ObservacaoItem item={item} onSalvar={alterarObservacao} disabled={ocupado} compacto />}
                 {!pedido && <div className="checkout-product-actions">
                   <div className="checkout-product-quantity" aria-label={`Quantidade de ${item.nome}`}>
                     <button type="button" aria-label={`Diminuir quantidade de ${item.nome}`} disabled={ocupado || item.quantidade<=1} onClick={()=>alterarQuantidade(item.chave || item.id,item.quantidade-1)}>−</button>

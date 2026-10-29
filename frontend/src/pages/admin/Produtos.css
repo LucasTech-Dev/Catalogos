@@ -66,17 +66,17 @@
   transition: background .15s, border-color .15s;
 }
 .admin-products-page .admin-product-actions :is(a,button):hover:not(:disabled) {
-  background: #fff7ed;
+  background: var(--primary-soft, #fff7ed);
   border-color: #fb923c;
 }
 .admin-products-page .admin-product-actions .admin-product-remove {
   color: #9a3412;
   border-color: #fed7aa;
-  background: #fff7ed;
+  background: var(--primary-soft, #fff7ed);
 }
 .admin-products-page .admin-product-actions button:disabled { opacity: .6; cursor: wait; }
 .admin-products-page :is(a,button,input,select):focus-visible {
-  outline: 2px solid #f97316;
+  outline: 2px solid var(--primary-text, var(--primary));
   outline-offset: 2px;
 }
 .admin-products-page .admin-product-row[aria-busy="true"] { background: #fffbf5; }

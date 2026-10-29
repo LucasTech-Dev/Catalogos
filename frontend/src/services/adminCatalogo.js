@@ -1,8 +1,9 @@
+import {identificadorValido} from '../lib/identificador.js';
 import {textoBemFormado} from '../lib/textoBemFormado.js';
 import {collection,doc,getDocFromServer,getDocsFromServer,getCountFromServer,query,where,orderBy,documentId,startAfter,limit} from 'firebase/firestore';
 import {CAMPOS_PUBLICOS,projetarRegistro,salvarComProjecao} from './projecaoPublica.js';
 const falha=(message,status=400,code='ADMIN_CATALOGO_INVALIDO')=>Object.assign(new Error(message),{status,code});
-const id=v=>{if(typeof v!=='string' || !v || v.length>128 || !textoBemFormado(v) || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(v) || ['.','..'].includes(v))throw falha('Identificador inválido.');return v;};
+const id=v=>{if(!identificadorValido(v))throw falha('Identificador inválido.');return v;};
 const tipoValido=n=>{if(!['produtos','categorias'].includes(n))throw falha('Operação fora do catálogo administrativo.');return n;};
 export const B03_BLOQUEADO='Excluir categorias definitivamente permanece bloqueado: a ausência de produtos vinculados não pode ser comprovada pelas Rules. Use Desativar para ocultar a categoria do catálogo sem perder seus produtos.';
 function texto(v,n,max,obrigatorio=false,multilinha=false){if(typeof v!=='string' || !textoBemFormado(v) || v.length>max || obrigatorio && !v.trim() || /[\u007f-\u009f]/u.test(v) || (multilinha?/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/u:/[\u0000-\u001f]/u).test(v))throw falha(n+' inválido.');return v.trim();}
@@ -23,13 +24,33 @@ function validar(tipo,d,novo){
 }
 function projetar(tipo,s){const d=s.data(),r={id:s.id,...projetarRegistro(tipo,d)};for(const k of ['criadoEm','atualizadoEm'])if(d[k]?.seconds!==undefined)r[k]={_seconds:d[k].seconds,_nanoseconds:d[k].nanoseconds};return r;}
 export function criarAdminCatalogo({db,auth,sessaoExistente,lojaId,invalidar=()=>{}}){
+ const criacoesEmCurso=new Map();
+ const canonico=v=>Array.isArray(v)?v.map(canonico):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonico(v[k])])):v;
+ async function reunirCriacao(tipo,identificador,dados,criacaoId,executarCriacao){
+  if(identificador || !criacaoId)return executarCriacao();
+  id(lojaId);tipoValido(tipo);id(criacaoId);
+  const chave=JSON.stringify([auth?.currentUser?.uid,tipo,criacaoId]),assinatura=JSON.stringify(canonico(validar(tipo,dados,true)));
+  const atual=criacoesEmCurso.get(chave);
+  if(atual)return atual.assinatura===assinatura?atual.promessa:Promise.reject(falha('Já existe uma criação em andamento com outros dados.',409,'ADMIN_CRIACAO_CONFLITO'));
+  const promessa=executarCriacao().finally(()=>{if(criacoesEmCurso.get(chave)?.promessa===promessa)criacoesEmCurso.delete(chave);});
+  criacoesEmCurso.set(chave,{assinatura,promessa});return promessa;
+ }
+ const autoridadesEmCurso=new Map();
+ function lerAutoridade(uid){
+  if(!autoridadesEmCurso.has(uid)){
+   const leitura=getDocFromServer(doc(db,'usuarios',uid)).finally(()=>{if(autoridadesEmCurso.get(uid)===leitura)autoridadesEmCurso.delete(uid);});
+   autoridadesEmCurso.set(uid,leitura);
+  }
+  return autoridadesEmCurso.get(uid);
+ }
  async function executar(fn){
   try{
    id(lojaId);if(!db || !auth)throw falha('Administração não configurada.',503);
-   const user=await sessaoExistente(),uid=user.uid;
+   const user=await sessaoExistente();
+   if(!user || user.isAnonymous)throw falha('Entre com uma conta administrativa.',401);
+   const uid=id(user.uid);
    const conferir=()=>{if(auth.currentUser?.uid!==uid)throw falha('A sessão mudou. Entre novamente.',409,'SESSION_CHANGED');};conferir();
-   if(user.isAnonymous)throw falha('Entre com uma conta administrativa.',401);
-   const u=await getDocFromServer(doc(db,'usuarios',uid));conferir();const d=u.data();
+   const u=await lerAutoridade(uid);conferir();const d=u.data();
    if(!u.exists() || d.role!=='admin' || d.ativo!==true || d.lojaId!==lojaId)throw falha('Acesso negado.',403);
    const resultado=await fn({uid,conferir,base:doc(db,'lojas',lojaId)});conferir();return resultado;
   }catch(e){
@@ -59,7 +80,7 @@ export function criarAdminCatalogo({db,auth,sessaoExistente,lojaId,invalidar=()=
    if(tipo==='categorias' && opcoes.contagem!=='0')await Promise.all(itens.map(async c=>{c.produtos=(await getCountFromServer(query(collection(base,'produtos'),where('categoriaId','==',c.id)))).data().count;}));
    return {itens,proximoCursor:docs.length>n?itens.at(-1).id:null};
   }),
-  salvar:(tipo,identificador,dados,criacaoId)=>executar(async({base,conferir})=>{
+  salvar:(tipo,identificador,dados,criacaoId)=>reunirCriacao(tipo,identificador,dados,criacaoId,()=>executar(async({base,conferir})=>{
    tipoValido(tipo);const novo=!identificador,patch=validar(tipo,dados,novo);
    const destino=novo?(criacaoId?doc(base,tipo,id(criacaoId)):doc(collection(base,tipo))):doc(base,tipo,id(identificador));conferir();
    // Analisar bloqueios previsíveis antes da transação. Uma categoria inativa
@@ -83,7 +104,7 @@ export function criarAdminCatalogo({db,auth,sessaoExistente,lojaId,invalidar=()=
    await salvarComProjecao(db,lojaId,tipo,destino.id,patch,{modo:novo?'criar':'editar',retomarCriacao:novo&&Boolean(criacaoId),conferir,registrarDatas:true});conferir();
    const salvo=await getDocFromServer(destino);if(!salvo.exists() || salvo.metadata.fromCache || salvo.metadata.hasPendingWrites)throw falha('Não foi possível confirmar a gravação.',503,'ADMIN_CATALOGO_INCERTO');
    return projetar(tipo,salvo);
-  }),
+  })),
   excluir:(tipo,identificador)=>executar(async({base,conferir})=>{
    tipoValido(tipo);id(identificador);
    if(tipo==='categorias'){await buscarInterno(base,tipo,identificador);throw falha(B03_BLOQUEADO,409,'B03_BLOQUEADO');}

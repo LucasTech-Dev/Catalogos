@@ -1,3 +1,4 @@
+import ImagemCatalogo from "../ui/ImagemCatalogo";
 import React from "react";
 import { LogOut, Menu, Settings, Store, X } from "../ui/MaterialIcon";
 
@@ -23,7 +24,7 @@ function AdminHeader({ onMenuClick, sidebarOpen }) {
 
       <a href="/admin" className="admin-store-identity">
         <span className="admin-store-mark">
-          <Store size={18} />
+          {loja?.logo ? <ImagemCatalogo src={loja.logo} alt="" style={{width:24,height:24,objectFit:"contain"}}/> : <Store size={18} />}
         </span>
 
         <span>

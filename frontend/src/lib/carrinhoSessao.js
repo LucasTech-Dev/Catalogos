@@ -1,7 +1,9 @@
+import {identificadorValido} from './identificador.js';
 import {carregarCarrinho} from './compras';
 
 // O cache anterior não informa titularidade: permanece intacto, sem atribuição automática.
 export function criarCarrinhoSessao(storage,lojaId) {
+  if(!identificadorValido(lojaId))throw new Error('Identificador de loja inválido.');
   const base=`catalogos:carrinho:v2:${encodeURIComponent(lojaId)}:`;
   let identidade,atual=[];
   const visitante=base+'visitante';
