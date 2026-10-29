@@ -1,3 +1,5 @@
+> Continuidade: trabalho integrado somente em [pre-main](https://github.com/LucasTech-Dev/Catalogos/tree/pre-main); main intacta. [Recibo do merge](ADAPTACAO_SERVERLESS/ETAPA5_PRE_MAIN_MERGE.json).
+
 # Documentação oficial da release JS
 
 - [Consolidação da matriz — Etapa5, aguardando confirmação de publicação](RELATORIO_ETAPA_5_CONSOLIDACAO.md)

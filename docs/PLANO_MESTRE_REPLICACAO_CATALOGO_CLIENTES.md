@@ -1,3 +1,5 @@
+> Posição vigente: integração autorizada exclusivamente em pre-main; main e publicação proibidas nesta ordem. Nenhum ato de produção autorizado.
+
 > Posição vigente: Etapas1–4 concluídas tecnicamente; Etapa5 de consolidação/publicação autorizada em preparação. Commits locais autorizados; push/main, mapa público Cloudflare e deploy aguardam confirmação final do proprietário. Nenhum cliente real iniciado.
 
 # PLANO MESTRE — DEMO COMO MATRIZ COMERCIAL REUTILIZÁVEL
@@ -427,3 +429,10 @@ B — EXECUÇÃO MANUAL PELO PROPRIETÁRIO: E5-H1, confirmação final antes de 
 |5.6 Registro oficial | Registros locais atualizados; deployment pendente | Commit/deploy real somente quando confirmados |
 
 A Etapa5 só concluirá totalmente após main, deployment e verificação pública comprovados; preparação local não será rotulada como publicação. Não implantar cliente automaticamente.
+
+
+## Continuidade — branch pre-main
+
+A — CODEX: mainff42ee5 e pacote801c4d4 unidos por merge00af404 na branchpre-main, sem conflitos e sem mudanças de código adicionais. Push autorizado somente a refs/heads/pre-main; main deve permanecerff42ee5. Evidência em [recibo de integração](ADAPTACAO_SERVERLESS/ETAPA5_PRE_MAIN_MERGE.json).
+
+B — PROPRIETÁRIO: nenhuma nova confirmação para esse push já autorizado; main/produção continuam proibidas. Próxima ação: revisar/testar pre-main, sem publicação da Demo ou cliente real. Autorização anterior de preparar commits não equivale à autorização de atualizar main.

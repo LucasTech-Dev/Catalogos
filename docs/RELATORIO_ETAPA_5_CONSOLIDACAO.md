@@ -1,3 +1,5 @@
+> Ordem vigente: usuário autorizou enviar apenas pre-main e proibiu qualquer alteração em main. A preparação de publicação abaixo é histórico; E5-H1 não atendida.
+
 # Etapa 5 — Consolidação e publicação da matriz comercial
 
 Estado: ****consolidação local validada; commits locais preparados, aguardando confirmação final E5-H1****. Ordem do proprietário no anexo “ETAPA5 — CONSOLIDAÇÃO E PUBLICAÇÃO DA MATRIZ COMERCIAL”, de28/10/2026 America/Sao_Paulo. Não acrescenta funcionalidades. Continua o [plano mestre](PLANO_MESTRE_REPLICACAO_CATALOGO_CLIENTES.md), preservando as quatro etapas e a Demo. Datas dos recibos podem indicar29/10UTC.
@@ -87,3 +89,12 @@ Commits locais no checkout isolado:
 Limpeza: somente temporários próprios Etapa5 de comparação/configuração pública protegida/build-runner/logs locais em /tmp, após resumo nos recibos. Build /tmp/catalogo-etapa5-validado, checkout com commits, fontes/testes/fixtures/evidências/histórico/backups e dependências úteis preservados. Nenhuma pasta histórica ou conteúdo exclusivo removido. Scanner/diff/sintaxe/docs reconferidos após limpeza. Git raiz continua intacto/não rastreado; Git do checkout contém commits locais e deve ficar limpo. Espelho externo ausente, não recriado. Tempo técnico integral não cronometrado desde o primeiro comando; tempos de comandos medidos acima, espera humana0 até a solicitação E5-H1; espera futura é registrada separadamente.
 
 Próxima ação exata: confirmação final do proprietário para adicionar exclusivamente o mapa público preparado no ambiente production do Pages catalogo-demo, preservando demais variáveis, e enviar os commits revisados à main sem force. Em seguida conferir deployment success/SHA/domínio e executar a verificação pública bloqueando escritas/Auth. Não executar outra implantação, conta/pedido real, Rules/índices/IAM/Auth ou mudanças comerciais. Etapa5 permanece **aguardando publicação e homologação online**, não totalmente concluída.
+
+
+## Merge isolado em pre-main
+
+Main remota reconfirmadaff42ee5 e mantida intacta. Branchpre-main criada dessa main; merge --no-ff de consolidacao/matriz-comercial-etapa5 produziu00af404285e236871f86bd4ed46dd300c3a631a9, com paisff42ee5 e801c4d4. Sem conflitos e com árvore exatamente igual à versão validada. Nenhum código precisou ser alterado. Git tracking configurado exclusivamente para origin/pre-main no push.
+
+Cloudflare GET confirmou previewsnone e produção exclusivamente emmain; não mudar configurações nem publicar. Testes focados novos e revisão de scanner/docs/diff complementam as provas anteriores, sem relabelar379testes como nova execução. Não foi necessário novo build/suíte ampla porque o merge preservou a árvore validada. Somente registros desta ordem foram acrescentados depois do merge. Recibo ETAPA5_PRE_MAIN_MERGE.json identifica base, pais, árvore e validação. Main local e remota devem ser conferidas novamente após o push específico a pre-main.
+
+Sem temporários relevantes/limpeza importante pendente: log próprio resumido no recibo e removido, fontes/evidências/checkouts/backups/dependências preservados. Inventário integral da cópia original não foi reescrito por esta operação exclusiva de branch; checker pertinente à release e índice foram conferidos na pre-main. Espelho externo ausente continua sem alteração. Tempo dos testes é medido; não há cronometragem integral desta operação curta. Próxima ação é revisão/testes de pre-main, nunca merge automático em main.

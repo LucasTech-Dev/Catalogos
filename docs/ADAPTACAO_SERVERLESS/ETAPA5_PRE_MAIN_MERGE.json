@@ -1,0 +1,22 @@
+{
+  "status": "MERGE_VALIDADO",
+  "branch": "pre-main",
+  "mainAntes": "ff42ee55dd7fff0c4d26ea3826acbfc8596f424b",
+  "pacote": "801c4d405a8cb443cbfbc78b12f6b59df3722db1",
+  "merge": "00af404285e236871f86bd4ed46dd300c3a631a9",
+  "conflitos": 0,
+  "arvoreIgualAoPacoteValidado": true,
+  "pushAlvoExclusivo": "refs/heads/pre-main",
+  "cloudflarePreview": "none",
+  "mainPermitida": false,
+  "alteracoesFirebase": 0,
+  "alteracoesCloudflare": 0,
+  "deploys": 0,
+  "testesNovos": {
+    "aprovados": 49,
+    "arquivos": 3,
+    "tempoSegundos": 6.92
+  },
+  "scanner": "sem achados",
+  "docs": "aprovados"
+}
