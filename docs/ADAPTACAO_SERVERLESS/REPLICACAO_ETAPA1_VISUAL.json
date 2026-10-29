@@ -1,0 +1,107 @@
+{
+  "ambiente": "Chrome local, build em memória, rede HTTPS bloqueada; sem Firebase",
+  "layouts": [
+    {
+      "loja": "a",
+      "width": 320,
+      "rota": "/",
+      "ok": true
+    },
+    {
+      "loja": "a",
+      "width": 320,
+      "rota": "/admin",
+      "ok": true
+    },
+    {
+      "loja": "a",
+      "width": 390,
+      "rota": "/",
+      "ok": true
+    },
+    {
+      "loja": "a",
+      "width": 390,
+      "rota": "/admin",
+      "ok": true
+    },
+    {
+      "loja": "a",
+      "width": 768,
+      "rota": "/",
+      "ok": true
+    },
+    {
+      "loja": "a",
+      "width": 768,
+      "rota": "/admin",
+      "ok": true
+    },
+    {
+      "loja": "a",
+      "width": 1366,
+      "rota": "/",
+      "ok": true
+    },
+    {
+      "loja": "a",
+      "width": 1366,
+      "rota": "/admin",
+      "ok": true
+    },
+    {
+      "loja": "b",
+      "width": 320,
+      "rota": "/",
+      "ok": true
+    },
+    {
+      "loja": "b",
+      "width": 320,
+      "rota": "/admin",
+      "ok": true
+    },
+    {
+      "loja": "b",
+      "width": 390,
+      "rota": "/",
+      "ok": true
+    },
+    {
+      "loja": "b",
+      "width": 390,
+      "rota": "/admin",
+      "ok": true
+    },
+    {
+      "loja": "b",
+      "width": 768,
+      "rota": "/",
+      "ok": true
+    },
+    {
+      "loja": "b",
+      "width": 768,
+      "rota": "/admin",
+      "ok": true
+    },
+    {
+      "loja": "b",
+      "width": 1366,
+      "rota": "/",
+      "ok": true
+    },
+    {
+      "loja": "b",
+      "width": 1366,
+      "rota": "/admin",
+      "ok": true
+    }
+  ],
+  "checks": [
+    "16 layouts sem overflow e sem marca cruzada",
+    "títulos/cores por loja",
+    "menus mobile das duas lojas",
+    "zero exceções JavaScript"
+  ]
+}

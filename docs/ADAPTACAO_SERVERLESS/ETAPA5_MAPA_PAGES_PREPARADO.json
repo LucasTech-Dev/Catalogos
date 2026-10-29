@@ -1,0 +1,20 @@
+{
+  "status": "PREPARADO_NAO_APLICADO",
+  "alvo": "catalogo-demo/production",
+  "metodoFuturo": "PATCH",
+  "confirmacaoExigida": "E5-H1",
+  "alteracaoPublica": {
+    "deployment_configs": {
+      "production": {
+        "env_vars": {
+          "VITE_LOJAS_POR_HOST": {
+            "type": "plain_text",
+            "value": "{\"catalogo-demo-cz1.pages.dev\":\"loja-demo\"}"
+          }
+        }
+      }
+    }
+  },
+  "preservarDemaisVariaveis": true,
+  "firebaseMutations": 0
+}

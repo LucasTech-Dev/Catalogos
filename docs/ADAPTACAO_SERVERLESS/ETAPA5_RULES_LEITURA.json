@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-29T01:43:27.220Z",
+  "status": "APROVADO_GET_ONLY",
+  "project": "bancorestaurante",
+  "reads": 2,
+  "writes": 0,
+  "publishedSha256": "71ca854897cae61da43c880a9e6ced50fdc269a013f84d39fafec781bb661175",
+  "candidateSha256": "80d4a14ca316cd3ead0112d9ef9dca73c2e018da9f3da88cb04013f1db5fe147",
+  "equal": false
+}

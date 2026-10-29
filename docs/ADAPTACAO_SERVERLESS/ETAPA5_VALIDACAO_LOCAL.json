@@ -1,0 +1,61 @@
+{
+  "status": "APROVADO_LOCAL_AGUARDANDO_E5_H1",
+  "base": "ff42ee55dd7fff0c4d26ea3826acbfc8596f424b",
+  "react": {
+    "testes": 379,
+    "arquivos": 35,
+    "tempoSegundos": 320.25
+  },
+  "candidataRules": {
+    "sdk": 168,
+    "chrome": 32,
+    "tempoMs": 89140
+  },
+  "publicadasRules": {
+    "sdk": 99,
+    "tempoMs": 23706,
+    "b03": "bloqueada como esperado"
+  },
+  "provisionamento": {
+    "checks": 110,
+    "tempoMs": 24225
+  },
+  "b04": {
+    "checks": 91,
+    "atomicoSemana": false
+  },
+  "visual": {
+    "layouts": 16,
+    "lojas": 2,
+    "larguras": [
+      320,
+      390,
+      768,
+      1366
+    ]
+  },
+  "build": {
+    "status": "APROVADO",
+    "tempoMs": 39187,
+    "modoVite": "homologacao",
+    "APP_ENV": "homologacao",
+    "alvo": "bancorestaurante/loja-demo",
+    "mapaPublicoAdicionadoSomenteLocal": "{\"catalogo-demo-cz1.pages.dev\":\"loja-demo\"}",
+    "flagB03": false,
+    "configuracaoRemotaAlterada": false
+  },
+  "scanner": "sem achados",
+  "rootLocalPreservada": true,
+  "checkout": ".tools-local/etapa5-release",
+  "realFirebaseWrites": 0,
+  "realAuthAccounts": 0,
+  "pushes": 0,
+  "deploys": 0,
+  "publicado": false,
+  "mapaCloudflareAplicado": false,
+  "commitsLocais": [
+    "ec916e0",
+    "9a05d46"
+  ],
+  "documentacaoCommit": "HEAD final no checkout consolidacao/matriz-comercial-etapa5"
+}
