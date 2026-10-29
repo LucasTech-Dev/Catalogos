@@ -1,3 +1,4 @@
+import {identificadorValido} from '../lib/identificador.js';
 import {textoBemFormado} from '../lib/textoBemFormado.js';
 import {collection,doc,getDocFromServer,getDocsFromServer,query,where,orderBy,documentId,startAfter,limit,runTransaction,serverTimestamp} from 'firebase/firestore';
 import {criarAdminCatalogo} from './adminCatalogo.js';
@@ -6,7 +7,7 @@ import {projetarPedido} from './pedidos.js';
 export const TRANSICOES_STATUS={recebido:['pagamento_confirmado','cancelado','pagamento_recusado'],pagamento_confirmado:['em_preparacao','cancelado'],em_preparacao:['pronto','cancelado'],pronto:['saiu_para_entrega','entregue','cancelado'],saiu_para_entrega:['entregue'],entregue:[],cancelado:[],pagamento_recusado:[]};
 export const TRANSICOES_PAGAMENTO={pendente:['confirmado','recusado','cancelado'],confirmado:[],recusado:[],cancelado:[]};
 const erro=(message,status=400,code='ADMIN_PEDIDO_INVALIDO')=>Object.assign(new Error(message),{status,code});
-const id=v=>{if(typeof v!=='string' || !v || v.length>128 || !textoBemFormado(v) || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(v) || ['.','..'].includes(v))throw erro('Identificador inválido.');return v;};
+const id=v=>{if(!identificadorValido(v))throw erro('Identificador inválido.');return v;};
 export function criarAdminPedidos(contexto){
  const {db,auth,lojaId,invalidar=()=>{}}=contexto,gate=criarAdminCatalogo(contexto);
  async function executar(fn){

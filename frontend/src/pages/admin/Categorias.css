@@ -42,8 +42,8 @@
   cursor: pointer;
 }
 .admin-categories-page .admin-category-actions button:hover:not(:disabled) {
-  border-color: #f97316;
-  background: #fff7ed;
+  border-color: var(--primary-text, var(--primary));
+  background: var(--primary-soft, #fff7ed);
 }
 .admin-categories-page .admin-category-actions button:disabled {
   background: #f7f8fa;
@@ -52,7 +52,7 @@
 }
 .admin-categories-page .admin-category-actions :is(button):focus-visible,
 .admin-categories-page .admin-primary-button:focus-visible {
-  outline: 2px solid #f97316;
+  outline: 2px solid var(--primary-text, var(--primary));
   outline-offset: 2px;
 }
 .admin-categories-page .admin-category-actions .admin-category-action-danger {
@@ -64,7 +64,7 @@
   padding: 12px 16px;
   border: 1px solid #fed7aa;
   border-radius: 12px;
-  background: #fff7ed;
+  background: var(--primary-soft, #fff7ed);
   color: #9a3412;
   font-size: 13px;
   line-height: 1.5;

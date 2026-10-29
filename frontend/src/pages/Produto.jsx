@@ -28,7 +28,6 @@ function Produto() {
 
   if (!produto) return <CatalogoPronto><main className="product-page"><EstadoCatalogo />{!carregando && !erro && <p>Produto não encontrado.</p>}<a href="/cardapio">Ver cardápio</a></main></CatalogoPronto>;
   const total = (produto.preco + totalAdicionais) * quantidade;
-  const indisponivel = produto.ativo !== true || produto.disponivel === false;
 
   return (<CatalogoPronto>
     <main className="product-page">
@@ -50,7 +49,6 @@ function Produto() {
             </span>
 
             <h1>{produto.nome}</h1>
-            {indisponivel && <p className="product-detail-unavailable" role="status">Produto indisponível no momento</p>}
 
             <p className="product-detail-description">
               {produto.descricao}
@@ -127,10 +125,10 @@ function Produto() {
               <button
                 type="button"
                 className="add-to-cart-button"
-                disabled={indisponivel}
+                disabled={produto.ativo !== true || produto.disponivel === false}
                 onClick={() => {if(adicionar(produto, quantidade, observacao)!==false){notificarAoNavegar("Produto adicionado ao carrinho.");window.location.assign("/carrinho");}}}
               >
-                <span>{indisponivel ? "Produto indisponível" : "Adicionar ao carrinho"}</span>
+                <span>{produto.ativo === true && produto.disponivel !== false ? "Adicionar ao carrinho" : "Produto indisponível"}</span>
                 <strong>
                   R$ {total.toFixed(2).replace(".", ",")}
                 </strong>

@@ -33,7 +33,7 @@
   color-scheme: light;
 }
 .admin-dashboard .admin-period-field input:focus-visible {
-  outline: 2px solid #f97316;
+  outline: 2px solid var(--primary-text, var(--primary));
   outline-offset: 2px;
 }
 .admin-dashboard .admin-period-action {
@@ -70,7 +70,7 @@
   opacity: .6;
 }
 .admin-dashboard .admin-period-action:focus-visible {
-  outline: 2px solid #f97316;
+  outline: 2px solid var(--primary-text, var(--primary));
   outline-offset: 3px;
 }
 .admin-dashboard .admin-period-error {

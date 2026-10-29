@@ -1,0 +1,61 @@
+{
+  "versao": 1,
+  "ambiente": "emulator",
+  "projetoId": "demo-replicacao",
+  "lojaId": "loja-boreal",
+  "matrizVersao": "local-etapa1",
+  "administrador": {
+    "uid": "admin-sintetico-boreal",
+    "confirmado": true
+  },
+  "loja": {
+    "nome": "Cantina Boreal Sintética",
+    "descricao": "Configuração fictícia exclusiva do Emulator",
+    "whatsapp": "5551999990000",
+    "corPrimaria": "#f5d34e",
+    "endereco": {
+      "rua": "Rua Sintética",
+      "numero": "1",
+      "bairro": "Centro",
+      "cidade": "Cidade Fictícia",
+      "uf": "RS"
+    },
+    "horarios": {
+      "segunda": {
+        "fechado": true
+      },
+      "terca": {
+        "fechado": true
+      },
+      "quarta": {
+        "fechado": true
+      },
+      "quinta": {
+        "fechado": true
+      },
+      "sexta": {
+        "fechado": true
+      },
+      "sabado": {
+        "fechado": true
+      },
+      "domingo": {
+        "fechado": true
+      }
+    },
+    "pagamentos": {
+      "pix": false,
+      "dinheiro": true,
+      "cartao_credito": false,
+      "cartao_debito": false
+    },
+    "entrega": {
+      "habilitada": true,
+      "taxa": 7.5
+    },
+    "retirada": {
+      "habilitada": true
+    },
+    "pedidoMinimo": 0
+  }
+}

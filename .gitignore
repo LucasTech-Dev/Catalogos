@@ -65,3 +65,10 @@ private_key*.json
 [Ee]mail*senhas*.txt
 *[Ss]enhas*teste*.txt
 conta\ adm\ teste\ firebase.txt
+
+# Ferramentas e evidências privadas locais; nunca integram a release.
+.tools-local/
+private-backups/
+backups-privados/
+# Ignorar também links locais para dependências (não apenas diretórios).
+node_modules

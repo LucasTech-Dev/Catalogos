@@ -1,0 +1,415 @@
+{
+  "status": "APROVADO",
+  "project": "demo-replicacao",
+  "checks": [
+    {
+      "id": "cadastro duplicado simultâneo é bloqueado",
+      "aprovado": true
+    },
+    {
+      "id": "cadastro vincula anônimo sem duplicar UID",
+      "aprovado": true
+    },
+    {
+      "id": "logout confirmado",
+      "aprovado": true
+    },
+    {
+      "id": "novo login mantém conta e perfil",
+      "aprovado": true
+    },
+    {
+      "id": "troca de senha mantém UID",
+      "aprovado": true
+    },
+    {
+      "id": "recuperação de senha mantém conta existente",
+      "aprovado": true
+    },
+    {
+      "id": "Google sintético vincula e reutiliza conta",
+      "aprovado": true
+    },
+    {
+      "id": "gate admin isolado admin-a",
+      "aprovado": true
+    },
+    {
+      "id": "gate admin isolado admin-b",
+      "aprovado": true
+    },
+    {
+      "id": "gate admin isolado cliente-a",
+      "aprovado": true
+    },
+    {
+      "id": "gate admin isolado cliente-b",
+      "aprovado": true
+    },
+    {
+      "id": "gate admin isolado convidado",
+      "aprovado": true
+    },
+    {
+      "id": "usuário não autenticado não vê dados privados",
+      "aprovado": true
+    },
+    {
+      "id": "cliente não cria papel admin",
+      "aprovado": true
+    },
+    {
+      "id": "criação simultânea divergente é recusada loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "criação duplicada idempotente loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "criação simultânea divergente é recusada loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "criação duplicada idempotente loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "mesmo ID usa conteúdo e preço da própria loja",
+      "aprovado": true
+    },
+    {
+      "id": "produto exclusivo B não é comprado em A",
+      "aprovado": true
+    },
+    {
+      "id": "preço fornecido pelo cliente é recusado",
+      "aprovado": true
+    },
+    {
+      "id": "pagamento de B não habilitado em A é recusado",
+      "aprovado": true
+    },
+    {
+      "id": "produto indisponível não pode ser comprado",
+      "aprovado": true
+    },
+    {
+      "id": "mínimo da própria loja não pode ser ignorado",
+      "aprovado": true
+    },
+    {
+      "id": "mínimo A não alterou B",
+      "aprovado": true
+    },
+    {
+      "id": "falhas comerciais não consumiram #1",
+      "aprovado": true
+    },
+    {
+      "id": "edição de endereço não afeta B",
+      "aprovado": true
+    },
+    {
+      "id": "entrega habilitada somente em B não pode ser usada em A",
+      "aprovado": true
+    },
+    {
+      "id": "numeração #1 e valores independentes",
+      "aprovado": true
+    },
+    {
+      "id": "ambos pagamentos iniciam pendentes",
+      "aprovado": true
+    },
+    {
+      "id": "PIX somente na loja B usa configuração própria",
+      "aprovado": true
+    },
+    {
+      "id": "compras concorrentes recebem #2/#3",
+      "aprovado": true
+    },
+    {
+      "id": "anonimo tem histórico somente próprio",
+      "aprovado": true
+    },
+    {
+      "id": "cliente B tem histórico próprio",
+      "aprovado": true
+    },
+    {
+      "id": "resposta perdida é recuperada sem novo pedido",
+      "aprovado": true
+    },
+    {
+      "id": "repetição idempotente não consome sequência",
+      "aprovado": true
+    },
+    {
+      "id": "leitura offline falha com mensagem compreensível",
+      "aprovado": true
+    },
+    {
+      "id": "compra offline preserva intenção para retomada",
+      "aprovado": true
+    },
+    {
+      "id": "reconexão recupera o pedido original",
+      "aprovado": true
+    },
+    {
+      "id": "cliente vê status operacional e financeiro atuais",
+      "aprovado": true
+    },
+    {
+      "id": "admin B não foi afetado pelo pagamento A",
+      "aprovado": true
+    },
+    {
+      "id": "histórico registra operações da própria loja",
+      "aprovado": true
+    },
+    {
+      "id": "dashboard e financeiro são isolados",
+      "aprovado": true
+    },
+    {
+      "id": "pedidos recentes têm loja correta",
+      "aprovado": true
+    },
+    {
+      "id": "clientes administrativos são isolados",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-a/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-a/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido admin-a",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-b/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-b/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido admin-b",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-a/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-a/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido cliente-a",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-b/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-b/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido cliente-b",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada convidado/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada convidado/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada convidado/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada convidado/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada convidado/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada convidado/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido convidado",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada sem-login/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada sem-login/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada sem-login/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada sem-login/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada sem-login/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada sem-login/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido sem-login",
+      "aprovado": true
+    },
+    {
+      "id": "configurações A não alteram B",
+      "aprovado": true
+    },
+    {
+      "id": "WhatsApp usa número e identidade da própria loja",
+      "aprovado": true
+    },
+    {
+      "id": "edição de produto não muda snapshot do pedido",
+      "aprovado": true
+    },
+    {
+      "id": "edição de preço/ingredientes/imagem não afeta B",
+      "aprovado": true
+    },
+    {
+      "id": "remoção é lógica e histórico permanece",
+      "aprovado": true
+    },
+    {
+      "id": "B03 recusado sem contorno",
+      "aprovado": true
+    },
+    {
+      "id": "exclusão física de categoria continua bloqueada",
+      "aprovado": true
+    },
+    {
+      "id": "revogação não usa cache de permissão",
+      "aprovado": true
+    },
+    {
+      "id": "restabelecimento local revalida autoridade",
+      "aprovado": true
+    },
+    {
+      "id": "dashboard recusa pedido com lojaId inconsistente",
+      "aprovado": true
+    },
+    {
+      "id": "exclusão de endereço próprio mantém B",
+      "aprovado": true
+    },
+    {
+      "id": "Etapa2 continua recusando seed de loja em uso",
+      "aprovado": true
+    }
+  ],
+  "totalChecks": 99,
+  "tempoMs": 23706,
+  "b03": "desativacao-bloqueada-pelas-rules",
+  "primeirosNumeros": [
+    1,
+    1
+  ],
+  "rulesSha256": "71ca854897cae61da43c880a9e6ced50fdc269a013f84d39fafec781bb661175",
+  "indicesSha256": "a691f0010125926d8f8b505e8e026b25203e41cca1173fb74f1f062cca5718de",
+  "realFirebaseWrites": 0,
+  "realAuthAccounts": 0,
+  "realMessages": 0,
+  "deploys": 0
+}

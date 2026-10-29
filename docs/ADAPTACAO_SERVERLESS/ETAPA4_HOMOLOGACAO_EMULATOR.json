@@ -1,0 +1,764 @@
+{
+  "status": "APROVADO",
+  "project": "demo-replicacao",
+  "checks": [
+    {
+      "id": "cadastro duplicado simultâneo é bloqueado",
+      "aprovado": true
+    },
+    {
+      "id": "cadastro vincula anônimo sem duplicar UID",
+      "aprovado": true
+    },
+    {
+      "id": "logout confirmado",
+      "aprovado": true
+    },
+    {
+      "id": "novo login mantém conta e perfil",
+      "aprovado": true
+    },
+    {
+      "id": "troca de senha mantém UID",
+      "aprovado": true
+    },
+    {
+      "id": "recuperação de senha mantém conta existente",
+      "aprovado": true
+    },
+    {
+      "id": "Google sintético vincula e reutiliza conta",
+      "aprovado": true
+    },
+    {
+      "id": "gate admin isolado admin-a",
+      "aprovado": true
+    },
+    {
+      "id": "gate admin isolado admin-b",
+      "aprovado": true
+    },
+    {
+      "id": "gate admin isolado cliente-a",
+      "aprovado": true
+    },
+    {
+      "id": "gate admin isolado cliente-b",
+      "aprovado": true
+    },
+    {
+      "id": "gate admin isolado convidado",
+      "aprovado": true
+    },
+    {
+      "id": "usuário não autenticado não vê dados privados",
+      "aprovado": true
+    },
+    {
+      "id": "cliente não cria papel admin",
+      "aprovado": true
+    },
+    {
+      "id": "criação simultânea divergente é recusada loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "criação duplicada idempotente loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "criação simultânea divergente é recusada loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "criação duplicada idempotente loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "mesmo ID usa conteúdo e preço da própria loja",
+      "aprovado": true
+    },
+    {
+      "id": "produto exclusivo B não é comprado em A",
+      "aprovado": true
+    },
+    {
+      "id": "preço fornecido pelo cliente é recusado",
+      "aprovado": true
+    },
+    {
+      "id": "pagamento de B não habilitado em A é recusado",
+      "aprovado": true
+    },
+    {
+      "id": "produto indisponível não pode ser comprado",
+      "aprovado": true
+    },
+    {
+      "id": "mínimo da própria loja não pode ser ignorado",
+      "aprovado": true
+    },
+    {
+      "id": "mínimo A não alterou B",
+      "aprovado": true
+    },
+    {
+      "id": "falhas comerciais não consumiram #1",
+      "aprovado": true
+    },
+    {
+      "id": "edição de endereço não afeta B",
+      "aprovado": true
+    },
+    {
+      "id": "entrega habilitada somente em B não pode ser usada em A",
+      "aprovado": true
+    },
+    {
+      "id": "numeração #1 e valores independentes",
+      "aprovado": true
+    },
+    {
+      "id": "ambos pagamentos iniciam pendentes",
+      "aprovado": true
+    },
+    {
+      "id": "PIX somente na loja B usa configuração própria",
+      "aprovado": true
+    },
+    {
+      "id": "compras concorrentes recebem #2/#3",
+      "aprovado": true
+    },
+    {
+      "id": "anonimo tem histórico somente próprio",
+      "aprovado": true
+    },
+    {
+      "id": "cliente B tem histórico próprio",
+      "aprovado": true
+    },
+    {
+      "id": "resposta perdida é recuperada sem novo pedido",
+      "aprovado": true
+    },
+    {
+      "id": "repetição idempotente não consome sequência",
+      "aprovado": true
+    },
+    {
+      "id": "leitura offline falha com mensagem compreensível",
+      "aprovado": true
+    },
+    {
+      "id": "compra offline preserva intenção para retomada",
+      "aprovado": true
+    },
+    {
+      "id": "reconexão recupera o pedido original",
+      "aprovado": true
+    },
+    {
+      "id": "cliente vê status operacional e financeiro atuais",
+      "aprovado": true
+    },
+    {
+      "id": "admin B não foi afetado pelo pagamento A",
+      "aprovado": true
+    },
+    {
+      "id": "histórico registra operações da própria loja",
+      "aprovado": true
+    },
+    {
+      "id": "dashboard e financeiro são isolados",
+      "aprovado": true
+    },
+    {
+      "id": "pedidos recentes têm loja correta",
+      "aprovado": true
+    },
+    {
+      "id": "clientes administrativos são isolados",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-a/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-a/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido admin-a",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada admin-b/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada admin-b/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido admin-b",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-a/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-a/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-a/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido cliente-a",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-b/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada cliente-b/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada cliente-b/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido cliente-b",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada convidado/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada convidado/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada convidado/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada convidado/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada convidado/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada convidado/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido convidado",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada sem-login/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada sem-login/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada sem-login/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada sem-login/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "leitura privada cruzada sem-login/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "gravação cruzada sem-login/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido sem-login",
+      "aprovado": true
+    },
+    {
+      "id": "configurações A não alteram B",
+      "aprovado": true
+    },
+    {
+      "id": "WhatsApp usa número e identidade da própria loja",
+      "aprovado": true
+    },
+    {
+      "id": "edição de produto não muda snapshot do pedido",
+      "aprovado": true
+    },
+    {
+      "id": "edição de preço/ingredientes/imagem não afeta B",
+      "aprovado": true
+    },
+    {
+      "id": "remoção é lógica e histórico permanece",
+      "aprovado": true
+    },
+    {
+      "id": "categoria desativada oculta produtos",
+      "aprovado": true
+    },
+    {
+      "id": "exclusão física de categoria continua bloqueada",
+      "aprovado": true
+    },
+    {
+      "id": "revogação não usa cache de permissão",
+      "aprovado": true
+    },
+    {
+      "id": "restabelecimento local revalida autoridade",
+      "aprovado": true
+    },
+    {
+      "id": "dashboard recusa pedido com lojaId inconsistente",
+      "aprovado": true
+    },
+    {
+      "id": "exclusão de endereço próprio mantém B",
+      "aprovado": true
+    },
+    {
+      "id": "Etapa2 continua recusando seed de loja em uso",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera configuração admin-a",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera categoria admin-a",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera produto admin-a",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não reinicia contador admin-a",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não promove administrador admin-a",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera configuração admin-b",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera categoria admin-b",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera produto admin-b",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não reinicia contador admin-b",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não promove administrador admin-b",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera configuração cliente-a",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera categoria cliente-a",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera produto cliente-a",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não reinicia contador cliente-a",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não promove administrador cliente-a",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera configuração cliente-b",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera categoria cliente-b",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera produto cliente-b",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não reinicia contador cliente-b",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não promove administrador cliente-b",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera configuração convidado",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera categoria convidado",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera produto convidado",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não reinicia contador convidado",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não promove administrador convidado",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera configuração sem-login",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera categoria sem-login",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não altera produto sem-login",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não reinicia contador sem-login",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não promove administrador sem-login",
+      "aprovado": true
+    },
+    {
+      "id": "SDK lote coerente recusa categoria que existe somente em B",
+      "aprovado": true
+    },
+    {
+      "id": "categoria cruzada não muda produto/revisão",
+      "aprovado": true
+    },
+    {
+      "id": "SDK cliente não move pedido para outra loja loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "SDK cliente não adulterar itens/valor loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "SDK cliente não move pedido para outra loja loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "SDK cliente não adulterar itens/valor loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "SDK não exclui categoria fisicamente",
+      "aprovado": true
+    },
+    {
+      "id": "cliente não lê toda coleção de pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "anônimo não lê perfil de cliente registrado",
+      "aprovado": true
+    },
+    {
+      "id": "B03 produtos permanecem armazenados",
+      "aprovado": true
+    },
+    {
+      "id": "B03 catálogo público oculta categoria desativada",
+      "aprovado": true
+    },
+    {
+      "id": "B03 pedido histórico preserva snapshot",
+      "aprovado": true
+    },
+    {
+      "id": "B03 loja B mantém produto",
+      "aprovado": true
+    },
+    {
+      "id": "B03 reativação recupera visibilidade",
+      "aprovado": true
+    },
+    {
+      "id": "paginação de pedidos sem repetição loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "filtro status loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "busca por número loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "histórico cliente loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "pedidos por cliente loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "dashboard/agregações loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "clientes paginados loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "produtos filtrados/paginados loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "categorias e contagem loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "paginação de pedidos sem repetição loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "filtro status loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "busca por número loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "histórico cliente loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "pedidos por cliente loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "dashboard/agregações loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "clientes paginados loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "produtos filtrados/paginados loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "categorias e contagem loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "backup inclui pedido/histórico/idempotência/reserva",
+      "aprovado": true
+    },
+    {
+      "id": "backup preserva tipos de timestamp",
+      "aprovado": true
+    },
+    {
+      "id": "backup adulterado recusado sem escrita",
+      "aprovado": true
+    },
+    {
+      "id": "restauração interrompida antes do commit é vazia",
+      "aprovado": true
+    },
+    {
+      "id": "restauração confirmada por hash após resposta perdida",
+      "aprovado": true
+    },
+    {
+      "id": "repetição não sobrescreve dados restaurados",
+      "aprovado": true
+    },
+    {
+      "id": "backup não modifica loja original",
+      "aprovado": true
+    }
+  ],
+  "totalChecks": 168,
+  "tempoMs": 155434,
+  "b03": "desativacao-local-permitida",
+  "homologacao": {
+    "consultas": [
+      "adminPedidos.listar/paginacao",
+      "status/criadoEm desc",
+      "numeroPedido",
+      "clienteId/lojaId",
+      "clienteId/documentId",
+      "dashboard/status/data/sum/pagamento/disponibilidade",
+      "clientes/documentId",
+      "produtos/categoriaId/documentId",
+      "categorias/documentId/count",
+      "status/criadoEm asc/cursor"
+    ],
+    "backup": {
+      "documentos": 30,
+      "hash": "be9c88a3c757fc068809f86cea5ce02dda0c45b580dc141962c72c8b9ef8bd98",
+      "tiposFirestorePreservados": true,
+      "authExportado": false,
+      "restauracao": "projeto demo- separado, commit único, precondição exists:false"
+    },
+    "navegador": {
+      "mesmosFontesReact": true,
+      "servicosMockados": false,
+      "resultados": [
+        {
+          "loja": "loja-aurora",
+          "checks": [
+            "Home usa cor própria",
+            "logo/capa local carregada",
+            "cardápio sem produto da outra loja",
+            "login real e-mail no Emulator",
+            "produto/observação/carrinho persistidos",
+            "checkout grava pedido da loja com pagamento pendente",
+            "WhatsApp correto sem abrir/enviar mensagem",
+            "cliente visualiza histórico após compra",
+            "admin autorizado /admin",
+            "admin autorizado /admin/pedidos",
+            "admin autorizado /admin/produtos",
+            "admin autorizado /admin/categorias",
+            "admin autorizado /admin/clientes",
+            "admin autorizado /admin/configuracoes",
+            "configuração do painel persistiu no Emulator",
+            "zero exceções JavaScript"
+          ],
+          "numeroPedido": 4
+        },
+        {
+          "loja": "loja-boreal",
+          "checks": [
+            "Home usa cor própria",
+            "logo/capa local carregada",
+            "cardápio sem produto da outra loja",
+            "login real e-mail no Emulator",
+            "produto/observação/carrinho persistidos",
+            "checkout grava pedido da loja com pagamento pendente",
+            "WhatsApp correto sem abrir/enviar mensagem",
+            "cliente visualiza histórico após compra",
+            "admin autorizado /admin",
+            "admin autorizado /admin/pedidos",
+            "admin autorizado /admin/produtos",
+            "admin autorizado /admin/categorias",
+            "admin autorizado /admin/clientes",
+            "admin autorizado /admin/configuracoes",
+            "configuração do painel persistiu no Emulator",
+            "zero exceções JavaScript"
+          ],
+          "numeroPedido": 3
+        }
+      ],
+      "totalChecks": 32
+    },
+    "indicesProducaoVerificados": false
+  },
+  "primeirosNumeros": [
+    1,
+    1
+  ],
+  "rulesSha256": "80d4a14ca316cd3ead0112d9ef9dca73c2e018da9f3da88cb04013f1db5fe147",
+  "indicesSha256": "a691f0010125926d8f8b505e8e026b25203e41cca1173fb74f1f062cca5718de",
+  "realFirebaseWrites": 0,
+  "realAuthAccounts": 0,
+  "realMessages": 0,
+  "deploys": 0
+}

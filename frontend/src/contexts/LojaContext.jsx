@@ -1,3 +1,4 @@
+import {useIdentidadeLoja} from '../hooks/useIdentidadeLoja';
 import {notificar} from '../lib/notificacoes';
 import React, {createContext, useContext, useState, useEffect, useCallback, useRef} from 'react';
 import {api, publico, lojaId} from '../services/api';
@@ -38,10 +39,7 @@ export function LojaProvider({children}) {
     const promessa=operacao().finally(()=>{if(emCurso.current===promessa)emCurso.current=null;});emCurso.current=promessa;return promessa;
   }, []);
   useEffect(() => {atualizar(); const foco = () => atualizar(); window.addEventListener('focus',foco);window.addEventListener('online',foco); return () => {versao.current++;emCurso.current=null;window.removeEventListener('focus',foco);window.removeEventListener('online',foco);};},[atualizar]);
-  useEffect(() => {
-    if (/^#[0-9a-f]{6}$/i.test(dados?.loja?.corPrimaria || "")) document.documentElement.style.setProperty("--primary",dados.loja.corPrimaria);
-    return () => document.documentElement.style.removeProperty("--primary");
-  },[dados?.loja?.corPrimaria]);
+  const lojaVisual = useIdentidadeLoja(dados?.loja);
   const produtos = (dados?.produtos || []).map(p => ({...p, ingredientes:p.ingredientes || [], categoria:dados?.categorias.find(c => c.id === p.categoriaId)?.nome || '', adicionais:[], adicionaisTotal:0}));
   const itens = carrinho.map(i => ({...(produtos.find(p => p.id === i.id) || {id:i.id,nome:'Produto removido',preco:0,adicionais:[],adicionaisTotal:0}), quantidade:i.quantidade,observacao:i.observacao,chave:chaveItem(i)}));
   function adicionar(produto, quantidade = 1, observacao = '') {
@@ -78,7 +76,7 @@ export function LojaProvider({children}) {
     return true;
   }
   function removerItem(id){if(!carrinho.some(i=>chaveItem(i)===id))return;setCarrinho(a=>a.filter(i=>chaveItem(i)!==id));notificar('sucesso','Produto removido do carrinho.');}
-  return <Context.Provider value={{loja:dados?.loja,categorias:dados?.categorias || [],produtos,itens,erro,carregando,pronto:Boolean(dados),atualizar,adicionar,alterarQuantidade,alterarObservacao,removerItem,limpar:() => setCarrinho([]),subtotal:Number(itens.reduce((s,i) => s + Number((i.preco*i.quantidade).toFixed(2)),0).toFixed(2))}}>{children}</Context.Provider>;
+  return <Context.Provider value={{loja:dados?.loja ? lojaVisual : undefined,categorias:dados?.categorias || [],produtos,itens,erro,carregando,pronto:Boolean(dados),atualizar,adicionar,alterarQuantidade,alterarObservacao,removerItem,limpar:() => setCarrinho([]),subtotal:Number(itens.reduce((s,i) => s + Number((i.preco*i.quantidade).toFixed(2)),0).toFixed(2))}}>{children}</Context.Provider>;
 }
 export const useLoja = () => useContext(Context);
 export function EstadoCatalogo() {

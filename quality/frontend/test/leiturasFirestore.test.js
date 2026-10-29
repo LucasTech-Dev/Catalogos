@@ -92,3 +92,10 @@ describe('gate administrativo sem leitura redundante da loja',()=>{
   await expect(gate.autorizar()).rejects.toMatchObject({status:409});
  });
 });
+
+it('GETs simultâneos da autoridade são reunidos sem cache posterior nem compartilhamento entre lojas',async()=>{
+ const ctx=contexto(),gate=criarAdminCatalogo(ctx),espera=adiar();m.getDoc.mockReturnValueOnce(espera.promise);
+ const a=gate.autorizar(),b=gate.autorizar();await vi.waitFor(()=>expect(m.getDoc).toHaveBeenCalledTimes(1));espera.resolve(documento('admin',autoridade));await Promise.all([a,b]);
+ m.getDoc.mockResolvedValueOnce(documento('admin',{...autoridade,ativo:false}));await expect(gate.autorizar()).rejects.toMatchObject({status:403});expect(m.getDoc).toHaveBeenCalledTimes(2);
+ const outro=criarAdminCatalogo({...ctx,lojaId:'loja-b'});m.getDoc.mockResolvedValueOnce(documento('admin',autoridade));await expect(outro.autorizar()).rejects.toMatchObject({status:403});expect(m.getDoc).toHaveBeenCalledTimes(3);
+});

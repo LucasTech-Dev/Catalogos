@@ -1,5 +1,11 @@
 # Documentação oficial da release JS
 
+- [Consolidação da matriz — Etapa5, aguardando confirmação de publicação](RELATORIO_ETAPA_5_CONSOLIDACAO.md)
+- [Guia de implantação e checklist comercial de16itens](GUIA_IMPLANTACAO_NOVA_LOJA.md)
+- [Provisionamento de lojas — Emulator](PROVISIONAMENTO_LOJAS.md)
+- [Serviços JS — Etapa3](RELATORIO_ETAPA_3_SERVICOS_JS.md)
+- [Homologação local — Etapa4](RELATORIO_ETAPA_4_HOMOLOGACAO.md)
+
 - [Plano mestre de replicação comercial — 4 etapas Codex](PLANO_MESTRE_REPLICACAO_CATALOGO_CLIENTES.md)
 
 - [Guia Mestre](GUIA_MESTRE.md)

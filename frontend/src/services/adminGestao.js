@@ -1,3 +1,4 @@
+import {identificadorValido} from '../lib/identificador.js';
 import {textoBemFormado} from '../lib/textoBemFormado.js';
 import {collection,doc,getDocFromServer,getDocsFromServer,getCountFromServer,getAggregateFromServer,sum,query,where,orderBy,documentId,startAfter,limit} from 'firebase/firestore';
 import {criarAdminCatalogo} from './adminCatalogo.js';
@@ -5,7 +6,7 @@ import {salvarComProjecao} from './projecaoPublica.js';
 import {projetarPedido} from './pedidos.js';
 import {TRANSICOES_STATUS} from './adminPedidos.js';
 const falha=(message,status=400)=>Object.assign(new Error(message),{status});
-const id=v=>{if(typeof v!=='string' || !v || v.length>128 || !textoBemFormado(v) || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(v) || ['.','..'].includes(v))throw falha('Identificador inválido.');return v;};
+const id=v=>{if(!identificadorValido(v))throw falha('Identificador inválido.');return v;};
 const selecionar=(d,nomes)=>Object.fromEntries(nomes.filter(k=>typeof d?.[k]===({pedidoMinimo:'number',anonimo:'boolean',fechado:'boolean'}[k] || 'string') && (typeof d[k]!=='number' || Number.isFinite(d[k]))).map(k=>[k,d[k]]));
 const DIAS=['segunda','terca','quarta','quinta','sexta','sabado','domingo'];
 export const CAMPOS_LOJA=['nome','descricao','telefone','whatsapp','instagram','endereco','horarios','logo','imagem','corPrimaria','tempoMedio','pagamentos','entrega','retirada','pedidoMinimo'];
@@ -95,7 +96,7 @@ export function criarAdminGestao(contexto){
     getAggregateFromServer(query(pedidos,where('pagamento.status','==','confirmado'),where('status','!=','cancelado'),orderBy('criadoEm'),orderBy('status')),{valor:sum('total')}),
     Promise.all(Object.keys(TRANSICOES_STATUS).map(async status=>[status,await contar(query(pedidos,where('status','==',status)))])),contar(produtos),contar(query(produtos,where('ativo','==',true))),contar(query(produtos,where('ativo','==',true),where('disponivel','==',false))),getDocsFromServer(query(pedidos,orderBy('criadoEm','desc'),limit(5)))
    ]);
-   return {periodo:{inicio:p.inicio,fim:p.fim,fuso:'America/Sao_Paulo'},pedidos:quantidade,porStatus:Object.fromEntries(porStatus),valorPedidos:totais.data().valor || 0,valorPagamentosConfirmados:financeiro.data().valor || 0,produtos:{disponiveis:ativos-indisponiveis,indisponiveis:totalProdutos-(ativos-indisponiveis)},recentes:recentes.docs.map(s=>projetarPedido(s.data(),s.id)),criterio:'Pedidos criados no período. Pagamentos confirmados manualmente, excluindo pedidos cancelados; não representa liquidação de gateway.'};
+   return {periodo:{inicio:p.inicio,fim:p.fim,fuso:'America/Sao_Paulo'},pedidos:quantidade,porStatus:Object.fromEntries(porStatus),valorPedidos:totais.data().valor || 0,valorPagamentosConfirmados:financeiro.data().valor || 0,produtos:{disponiveis:ativos-indisponiveis,indisponiveis:totalProdutos-(ativos-indisponiveis)},recentes:recentes.docs.map(s=>{if(s.data().lojaId!==lojaId)throw falha('Pedido fora do estabelecimento solicitado.',409);return projetarPedido(s.data(),s.id);}),criterio:'Pedidos criados no período. Pagamentos confirmados manualmente, excluindo pedidos cancelados; não representa liquidação de gateway.'};
   })
  };
 }

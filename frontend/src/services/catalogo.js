@@ -1,8 +1,9 @@
+import {identificadorValido} from '../lib/identificador.js';
 import {textoBemFormado} from '../lib/textoBemFormado.js';
 import {aguardarLeitura} from '../lib/carregamento.js';
 import {collection, doc, getDocFromServer, getDocsFromServer, query, where} from 'firebase/firestore';
 
-const identificador=id=>typeof id==='string' && id.trim() && id.length<=128 && textoBemFormado(id) && !/[\/\\\u0000-\u001f\u007f-\u009f]/.test(id) && !['.','..'].includes(id);
+const identificador=identificadorValido;
 const falha=(message,status)=>Object.assign(new Error(message),{status});
 const campos=(dados,nomes)=>Object.fromEntries(nomes.filter(n=>dados[n]!==undefined).map(n=>[n,dados[n]]));
 

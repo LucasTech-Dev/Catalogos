@@ -1,8 +1,9 @@
+import {identificadorValido} from '../lib/identificador.js';
 import {textoBemFormado} from '../lib/textoBemFormado.js';
 import {collection,doc,getDocFromServer,getDocsFromServer,runTransaction} from 'firebase/firestore';
 
 const falha=(message,status)=>Object.assign(new Error(message),{status});
-const identificar=id=>{if(typeof id!=='string' || !id || id.length>128 || /[\/\\\u0000-\u001f\u007f-\u009f]/u.test(id) || ['.','..'].includes(id))throw falha('Identificador inválido.',400);return id;};
+const identificar=v=>{if(!identificadorValido(v))throw falha('Identificador inválido.',400);return v;};
 const selecionar=(d,campos)=>Object.fromEntries(campos.filter(k=>typeof d?.[k]==='string').map(k=>[k,d[k]]));
 const camposEndereco=['apelido','rua','numero','bairro','cidade','uf','complemento','cep'];
 function texto(v,n,obrigatorio=false,max=200){if(typeof v!=='string' || !textoBemFormado(v) || v.length>max || (obrigatorio && !v.trim()) || /[\u0000-\u001f\u007f-\u009f]/u.test(v))throw falha(n+' inválido.',400);return v.trim();}
@@ -16,7 +17,7 @@ export function criarServicoPerfil({db,auth,sessao,lojaId}) {
   async function executar(operacao,expectedUid=auth?.currentUser?.uid){
     try {
       identificar(lojaId);if(!db)throw falha('Conta não configurada.',503);
-      const user=await sessao(),uid=user.uid;
+      const user=await sessao();if(!user?.uid)throw falha('Entre na sua conta para continuar.',401);const uid=user.uid;
       const conferir=()=>{if(auth.currentUser?.uid!==uid || expectedUid && expectedUid!==uid)throw falha('A sessão mudou. Confira seus dados e tente novamente.',409);};
       conferir();const ref=doc(db,'lojas',lojaId,'clientes',uid);
       const resultado=await operacao({user,ref,conferir});conferir();return resultado;

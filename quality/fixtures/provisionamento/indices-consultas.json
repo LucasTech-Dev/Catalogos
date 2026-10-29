@@ -1,0 +1,363 @@
+{
+  "versao": 1,
+  "arquivoIndices": "firebase/firestore.indexes.json",
+  "sha256": "a691f0010125926d8f8b505e8e026b25203e41cca1173fb74f1f062cca5718de",
+  "escopo": "COLLECTION; nenhum collectionGroup global ou índice por ID de loja",
+  "indices": [
+    {
+      "id": 1,
+      "collectionGroup": "pedidos",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "criadoEm",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "collectionGroup": "pedidos",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "criadoEm",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "collectionGroup": "pedidos",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "pagamento.status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "criadoEm",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "collectionGroup": "produtos",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "categoriaId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "ativo",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "collectionGroup": "pedidos",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "criadoEm",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "total",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "collectionGroup": "pedidos",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "pagamento.status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "criadoEm",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "total",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "collectionGroup": "produtos",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "ativo",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "disponivel",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "collectionGroup": "produtos",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "ativo",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "categoriaId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "preco",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "consultas": [
+    {
+      "id": "catalogo-categorias",
+      "servico": "catalogo.js",
+      "colecao": "catalogosPublicos/{L}/categorias",
+      "filtros": [
+        "ativo == true"
+      ],
+      "ordenacao": [],
+      "indicesCompostos": [],
+      "observacao": "Índice automático simples."
+    },
+    {
+      "id": "catalogo-produtos",
+      "servico": "catalogo.js",
+      "colecao": "catalogosPublicos/{L}/produtos",
+      "filtros": [
+        "ativo == true",
+        "categoriaId == categoria",
+        "0 <= preco <= 1000000"
+      ],
+      "ordenacao": [
+        "preco ASC"
+      ],
+      "indicesCompostos": [
+        8
+      ],
+      "observacao": ""
+    },
+    {
+      "id": "historico-cliente",
+      "servico": "pedidos.js",
+      "colecao": "lojas/{L}/pedidos",
+      "filtros": [
+        "clienteId == UID",
+        "lojaId == L"
+      ],
+      "ordenacao": [],
+      "indicesCompostos": [],
+      "observacao": "Combinação de igualdades: index merging automático; sem ordenação no servidor."
+    },
+    {
+      "id": "pedidos-admin",
+      "servico": "adminPedidos.js",
+      "colecao": "lojas/{L}/pedidos",
+      "filtros": [
+        "status opcional"
+      ],
+      "ordenacao": [
+        "criadoEm DESC"
+      ],
+      "indicesCompostos": [
+        2
+      ],
+      "observacao": "limit(n+1), cursor DocumentSnapshot via startAfter. Sem status: automático criadoEm DESC."
+    },
+    {
+      "id": "pedido-numero",
+      "servico": "adminPedidos.js",
+      "colecao": "lojas/{L}/pedidos",
+      "filtros": [
+        "numeroPedido == N"
+      ],
+      "ordenacao": [],
+      "indicesCompostos": [],
+      "observacao": ""
+    },
+    {
+      "id": "pedidos-cliente-admin",
+      "servico": "adminPedidos.js",
+      "colecao": "lojas/{L}/pedidos",
+      "filtros": [
+        "clienteId == UID"
+      ],
+      "ordenacao": [
+        "__name__ ASC"
+      ],
+      "indicesCompostos": [],
+      "observacao": "status adicional é filtrado pelo serviço após consulta; não acrescentar outro composto."
+    },
+    {
+      "id": "historico-admin",
+      "servico": "adminPedidos.js",
+      "colecao": "lojas/{L}/pedidos/{P}/historicoAdministrativo",
+      "filtros": [],
+      "ordenacao": [
+        "revisao DESC"
+      ],
+      "indicesCompostos": [],
+      "observacao": ""
+    },
+    {
+      "id": "produtos-admin",
+      "servico": "adminCatalogo.js",
+      "colecao": "lojas/{L}/produtos",
+      "filtros": [
+        "categoriaId opcional"
+      ],
+      "ordenacao": [
+        "__name__ ASC"
+      ],
+      "indicesCompostos": [],
+      "observacao": "limit(n+1), startAfter por ID; automático categoriaId/__name__."
+    },
+    {
+      "id": "categorias-admin",
+      "servico": "adminCatalogo.js",
+      "colecao": "lojas/{L}/categorias",
+      "filtros": [],
+      "ordenacao": [
+        "__name__ ASC"
+      ],
+      "indicesCompostos": [],
+      "observacao": "Paginação; count produtos por categoriaId usa automático."
+    },
+    {
+      "id": "clientes-admin",
+      "servico": "adminGestao.js",
+      "colecao": "lojas/{L}/clientes",
+      "filtros": [],
+      "ordenacao": [
+        "__name__ ASC"
+      ],
+      "indicesCompostos": [],
+      "observacao": "limit(n+1) e startAfter DocumentSnapshot."
+    },
+    {
+      "id": "enderecos",
+      "servico": "perfil.js",
+      "colecao": "lojas/{L}/clientes/{UID}/enderecos",
+      "filtros": [],
+      "ordenacao": [],
+      "indicesCompostos": [],
+      "observacao": ""
+    },
+    {
+      "id": "dashboard-periodo",
+      "servico": "adminGestao.js",
+      "colecao": "lojas/{L}/pedidos",
+      "filtros": [
+        "criadoEm >= inicio",
+        "criadoEm < fim"
+      ],
+      "ordenacao": [
+        "criadoEm ASC"
+      ],
+      "indicesCompostos": [
+        5
+      ],
+      "observacao": "count usa índice automático; sum(total) usa composto5."
+    },
+    {
+      "id": "dashboard-status",
+      "servico": "adminGestao.js",
+      "colecao": "lojas/{L}/pedidos",
+      "filtros": [
+        "status == S",
+        "criadoEm >= inicio",
+        "criadoEm < fim"
+      ],
+      "ordenacao": [
+        "criadoEm ASC"
+      ],
+      "indicesCompostos": [
+        1
+      ],
+      "observacao": ""
+    },
+    {
+      "id": "dashboard-financeiro",
+      "servico": "adminGestao.js",
+      "colecao": "lojas/{L}/pedidos",
+      "filtros": [
+        "pagamento.status == confirmado",
+        "criadoEm >= inicio",
+        "criadoEm < fim",
+        "status != cancelado"
+      ],
+      "ordenacao": [
+        "criadoEm ASC",
+        "status ASC"
+      ],
+      "indicesCompostos": [
+        6
+      ],
+      "observacao": "sum(total); composto3 preservado para consultas sem sum."
+    },
+    {
+      "id": "dashboard-produtos",
+      "servico": "adminGestao.js",
+      "colecao": "lojas/{L}/produtos",
+      "filtros": [
+        "ativo == true",
+        "disponivel == false"
+      ],
+      "ordenacao": [],
+      "indicesCompostos": [
+        7
+      ],
+      "observacao": "count; só ativo usa automático."
+    },
+    {
+      "id": "dashboard-recentes",
+      "servico": "adminGestao.js",
+      "colecao": "lojas/{L}/pedidos",
+      "filtros": [
+        "criadoEm >= inicio",
+        "criadoEm < fim"
+      ],
+      "ordenacao": [
+        "criadoEm DESC"
+      ],
+      "indicesCompostos": [],
+      "observacao": "limit5; automático criadoEm DESC."
+    }
+  ],
+  "indice4": "Preservado: categoriaId/ativo, consultas de igualdade podem usar index merging.",
+  "limite": "Emulator não comprova existência/prontidão de índices em produção. Conferir READY e executar todas as consultas no projeto de destino após autorização; erro missing-index bloqueia entrega.",
+  "fieldOverrides": []
+}

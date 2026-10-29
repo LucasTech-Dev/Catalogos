@@ -1,0 +1,10 @@
+{
+  "status": "APROVADO",
+  "tempoMs": 39187,
+  "modoVite": "homologacao",
+  "APP_ENV": "homologacao",
+  "alvo": "bancorestaurante/loja-demo",
+  "mapaPublicoAdicionadoSomenteLocal": "{\"catalogo-demo-cz1.pages.dev\":\"loja-demo\"}",
+  "flagB03": false,
+  "configuracaoRemotaAlterada": false
+}

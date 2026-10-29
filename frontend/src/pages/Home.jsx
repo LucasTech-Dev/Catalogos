@@ -17,8 +17,7 @@ function Home() {
             <span className="eyebrow">{loja?.nome || "CATÁLOGO"}</span>
 
             <h1>
-              O sabor que
-              <span> você estava esperando.</span>
+              {loja?.tituloInicio || <>O sabor que<span> você estava esperando.</span></>}
             </h1>
 
             <p>{loja?.descricao}</p><EstadoCatalogo />
@@ -39,8 +38,8 @@ function Home() {
           <div className="hero-image">
             <div className="hero-image-card">
               <ImagemCatalogo
-                src={destaque?.imagem || loja?.imagem}
-                alt={destaque?.nome || loja?.nome}
+                src={loja?.imagem || destaque?.imagem}
+                alt={loja?.imagem ? loja?.nome : destaque?.nome || loja?.nome}
               />
             </div>
 
@@ -89,7 +88,7 @@ function Home() {
 
           <div className="products-grid">
             {produtos.map((produto) => (
-              <article className="product-card" key={produto.nome}>
+              <article className={`product-card${produto.ativo !== true || produto.disponivel === false ? " product-card-unavailable" : ""}`} key={produto.id}>
                 <div className="product-image">
                   <ImagemCatalogo src={produto.imagem} alt={produto.nome} />
                 </div>
@@ -102,7 +101,7 @@ function Home() {
                   <div className="product-footer">
                     <strong>{moeda(produto.preco)}</strong>
 
-                    <button className="add-button" type="button" aria-label={`Ver ${produto.nome}`} onClick={() => window.location.assign(`/produto?id=${encodeURIComponent(produto.id)}`)}>
+                    <button className="add-button" type="button" disabled={produto.ativo !== true || produto.disponivel === false} aria-label={produto.ativo !== true || produto.disponivel === false ? `${produto.nome} indisponível` : `Ver ${produto.nome}`} onClick={() => window.location.assign(`/produto?id=${encodeURIComponent(produto.id)}`)}>
                       <MaterialIcon name="add"/>
                     </button>
                   </div>
@@ -118,8 +117,8 @@ function Home() {
         <div className="container about-grid">
           <div className="about-image">
             <ImagemCatalogo
-              src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1000&q=80"
-              alt="Interior de uma lancheria"
+              src={loja?.imagemSobre || loja?.imagem}
+              alt={loja?.nome || "Estabelecimento"}
             />
           </div>
 
@@ -136,7 +135,7 @@ function Home() {
         <div className="container">
           <span className="eyebrow">FICOU COM FOME?</span>
 
-          <h2>Seu próximo lanche está a poucos cliques.</h2>
+          <h2>{loja?.chamadaFinal || "Seu próximo lanche está a poucos cliques."}</h2>
 
           <a href="#cardapio" className="button button-light">
             Começar pedido

@@ -1,3 +1,4 @@
+import {useIdentidadeLoja} from '../../hooks/useIdentidadeLoja';
 import MaterialIcon from '../ui/MaterialIcon';
 import './AdminGate.css';
 import {notificar} from '../../lib/notificacoes';
@@ -21,6 +22,7 @@ export const useAdminSessao=()=>useContext(Context);
 function AdminGate({children}) {
   const travaSaida=useRef(false);
   const [sessao,setSessao]=useState(null),[erro,setErro]=useState(''),[carregando,setCarregando]=useState(true),[ocupado,setOcupado]=useState(false),[recuperavel,setRecuperavel]=useState(false);
+  const lojaVisual = useIdentidadeLoja(sessao?.loja);
   const uidAutorizado=useRef(null),loginSolicitado=useRef(false),travaLogin=useRef(false);
   useEffect(()=>{
     let ativo=true,versao=0,consulta=null;
@@ -39,7 +41,7 @@ function AdminGate({children}) {
   },[]);
   async function login(event) {event.preventDefault();if(travaLogin.current||ocupado)return;travaLogin.current=true;setOcupado(true);setErro('');setRecuperavel(false);loginSolicitado.current=true;try{const form=new FormData(event.target);await entrar(form.get('email'),form.get('senha'),...(auth?.currentUser?.isAnonymous?[{trocarConta:true}]:[]));}catch(e){loginSolicitado.current=false;const aviso=avisoAcesso(e,true);setErro(aviso.mensagem);setRecuperavel(false);}finally{travaLogin.current=false;setOcupado(false);}}
   if(carregando)return <PageLoader/>;
-  if(sessao)return <Context.Provider value={{...sessao,atualizarLoja:loja=>setSessao(atual=>atual && atual.uid===sessao.uid ? {...atual,loja:{id:loja.id,nome:loja.nome}} : atual),sair:async()=>{if(travaSaida.current)return;travaSaida.current=true;setOcupado(true);uidAutorizado.current=null;setSessao(null);try{await sair();notificar('sucesso','Você saiu da sua conta.');}catch(e){setErro('Não foi possível sair. Tente novamente.');}finally{travaSaida.current=false;setOcupado(false);}}}}>{children}</Context.Provider>;
+  if(sessao)return <Context.Provider value={{...sessao,loja:lojaVisual,atualizarLoja:loja=>setSessao(atual=>atual && atual.uid===sessao.uid ? {...atual,loja:{id:loja.id,nome:loja.nome}} : atual),sair:async()=>{if(travaSaida.current)return;travaSaida.current=true;setOcupado(true);uidAutorizado.current=null;setSessao(null);try{await sair();notificar('sucesso','Você saiu da sua conta.');}catch(e){setErro('Não foi possível sair. Tente novamente.');}finally{travaSaida.current=false;setOcupado(false);}}}}>{children}</Context.Provider>;
   return <main className="login-page admin-access-page"><div className="login-container"><section className="login-card" aria-labelledby="admin-access-title">
     <header className="login-header"><div className="admin-access-icon"><MaterialIcon name="storefront" size={28}/></div><h1 id="admin-access-title">Acesso administrativo</h1><p>Entre com uma conta autorizada para esta loja</p></header>
     {erro&&<div className="admin-access-alert" role="alert"><MaterialIcon name="error" size={20}/><div><p>{erro}</p>{recuperavel&&<button type="button" className="button button-secondary" disabled={ocupado} onClick={()=>window.dispatchEvent(new Event('focus'))}>Tentar novamente</button>}</div></div>}

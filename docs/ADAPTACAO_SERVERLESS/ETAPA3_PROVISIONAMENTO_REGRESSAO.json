@@ -1,0 +1,444 @@
+{
+  "status": "APROVADO",
+  "projetoId": "demo-replicacao",
+  "ambiente": "Emulators exclusivos; dados e identidades sintéticos",
+  "checks": [
+    {
+      "id": "UID sem vínculo não administra",
+      "aprovado": true
+    },
+    {
+      "id": "cliente não cria próprio privilégio",
+      "aprovado": true
+    },
+    {
+      "id": "bootstrap recusa conta anônima",
+      "aprovado": true
+    },
+    {
+      "id": "bootstrap recusa UID inexistente",
+      "aprovado": true
+    },
+    {
+      "id": "dry-run novo mostra cinco caminhos",
+      "aprovado": true
+    },
+    {
+      "id": "dry-run não gravou lojas/loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "dry-run não gravou catalogosPublicos/loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "dry-run não gravou lojas/loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "dry-run não gravou lojas/loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "dry-run não gravou usuarios/1vUGogcDcKS8FY4zw2bGyt3X1f9Z",
+      "aprovado": true
+    },
+    {
+      "id": "Aurora criada atomicamente",
+      "aprovado": true
+    },
+    {
+      "id": "Boreal criada atomicamente",
+      "aprovado": true
+    },
+    {
+      "id": "repetição intacta não grava",
+      "aprovado": true
+    },
+    {
+      "id": "admin Aurora usa loja correta",
+      "aprovado": true
+    },
+    {
+      "id": "admin Boreal usa loja correta",
+      "aprovado": true
+    },
+    {
+      "id": "catálogo vazio loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "contador inicial zero loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "revisão inicial zero loja-aurora",
+      "aprovado": true
+    },
+    {
+      "id": "coleção inicialmente vazia loja-aurora/produtos",
+      "aprovado": true
+    },
+    {
+      "id": "coleção inicialmente vazia loja-aurora/categorias",
+      "aprovado": true
+    },
+    {
+      "id": "coleção inicialmente vazia loja-aurora/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "coleção inicialmente vazia loja-aurora/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "catálogo vazio loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "contador inicial zero loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "revisão inicial zero loja-boreal",
+      "aprovado": true
+    },
+    {
+      "id": "coleção inicialmente vazia loja-boreal/produtos",
+      "aprovado": true
+    },
+    {
+      "id": "coleção inicialmente vazia loja-boreal/categorias",
+      "aprovado": true
+    },
+    {
+      "id": "coleção inicialmente vazia loja-boreal/clientes",
+      "aprovado": true
+    },
+    {
+      "id": "coleção inicialmente vazia loja-boreal/pedidos",
+      "aprovado": true
+    },
+    {
+      "id": "configuração privada isolada 0",
+      "aprovado": true
+    },
+    {
+      "id": "alteração cruzada negada 0",
+      "aprovado": true
+    },
+    {
+      "id": "configuração privada isolada 1",
+      "aprovado": true
+    },
+    {
+      "id": "alteração cruzada negada 1",
+      "aprovado": true
+    },
+    {
+      "id": "configuração privada isolada 2",
+      "aprovado": true
+    },
+    {
+      "id": "alteração cruzada negada 2",
+      "aprovado": true
+    },
+    {
+      "id": "configuração privada isolada 3",
+      "aprovado": true
+    },
+    {
+      "id": "alteração cruzada negada 3",
+      "aprovado": true
+    },
+    {
+      "id": "configuração privada isolada 4",
+      "aprovado": true
+    },
+    {
+      "id": "alteração cruzada negada 4",
+      "aprovado": true
+    },
+    {
+      "id": "serviço admin A recusa loja B",
+      "aprovado": true
+    },
+    {
+      "id": "admin não muda seu vínculo",
+      "aprovado": true
+    },
+    {
+      "id": "manifesto divergente preserva destino",
+      "aprovado": true
+    },
+    {
+      "id": "não reatribui admin de outra loja",
+      "aprovado": true
+    },
+    {
+      "id": "subcoleção órfã impede seed",
+      "aprovado": true
+    },
+    {
+      "id": "histórico órfão preservado",
+      "aprovado": true
+    },
+    {
+      "id": "documento vazio existente impede seed",
+      "aprovado": true
+    },
+    {
+      "id": "documento vazio existente preservado",
+      "aprovado": true
+    },
+    {
+      "id": "falha anterior gera resultado incerto",
+      "aprovado": true
+    },
+    {
+      "id": "falha não criou lojas",
+      "aprovado": true
+    },
+    {
+      "id": "falha não criou catalogosPublicos",
+      "aprovado": true
+    },
+    {
+      "id": "falha não criou lojas",
+      "aprovado": true
+    },
+    {
+      "id": "falha não criou lojas",
+      "aprovado": true
+    },
+    {
+      "id": "falha não criou usuarios",
+      "aprovado": true
+    },
+    {
+      "id": "retomada após falha cria uma vez",
+      "aprovado": true
+    },
+    {
+      "id": "resposta perdida não anuncia sucesso",
+      "aprovado": true
+    },
+    {
+      "id": "dry-run recupera confirmação após resposta perdida",
+      "aprovado": true
+    },
+    {
+      "id": "repetir resposta perdida não duplica",
+      "aprovado": true
+    },
+    {
+      "id": "precondição impede sobrescrita concorrente",
+      "aprovado": true
+    },
+    {
+      "id": "escrita concorrente preservada",
+      "aprovado": true
+    },
+    {
+      "id": "commit recusado não criou lojas",
+      "aprovado": true
+    },
+    {
+      "id": "commit recusado não criou catalogosPublicos",
+      "aprovado": true
+    },
+    {
+      "id": "commit recusado não criou lojas",
+      "aprovado": true
+    },
+    {
+      "id": "commit recusado não criou usuarios",
+      "aprovado": true
+    },
+    {
+      "id": "configuração atualiza projeção",
+      "aprovado": true
+    },
+    {
+      "id": "configuração incrementa revisão",
+      "aprovado": true
+    },
+    {
+      "id": "endereço privado cruzado 2",
+      "aprovado": true
+    },
+    {
+      "id": "endereço cruzado não pode ser alterado 2",
+      "aprovado": true
+    },
+    {
+      "id": "endereço privado cruzado 3",
+      "aprovado": true
+    },
+    {
+      "id": "endereço cruzado não pode ser alterado 3",
+      "aprovado": true
+    },
+    {
+      "id": "endereço privado cruzado 0",
+      "aprovado": true
+    },
+    {
+      "id": "endereço cruzado não pode ser alterado 0",
+      "aprovado": true
+    },
+    {
+      "id": "endereço privado cruzado 1",
+      "aprovado": true
+    },
+    {
+      "id": "endereço cruzado não pode ser alterado 1",
+      "aprovado": true
+    },
+    {
+      "id": "perfil privado cruzado 2",
+      "aprovado": true
+    },
+    {
+      "id": "perfil cruzado não pode ser alterado 2",
+      "aprovado": true
+    },
+    {
+      "id": "perfil privado cruzado 3",
+      "aprovado": true
+    },
+    {
+      "id": "perfil cruzado não pode ser alterado 3",
+      "aprovado": true
+    },
+    {
+      "id": "perfil privado cruzado 0",
+      "aprovado": true
+    },
+    {
+      "id": "perfil cruzado não pode ser alterado 0",
+      "aprovado": true
+    },
+    {
+      "id": "perfil privado cruzado 1",
+      "aprovado": true
+    },
+    {
+      "id": "perfil cruzado não pode ser alterado 1",
+      "aprovado": true
+    },
+    {
+      "id": "primeiro pedido #1 independente",
+      "aprovado": true
+    },
+    {
+      "id": "preços próprios por loja",
+      "aprovado": true
+    },
+    {
+      "id": "pagamento continua manual pendente",
+      "aprovado": true
+    },
+    {
+      "id": "idempotência não consome número",
+      "aprovado": true
+    },
+    {
+      "id": "concorrência produz #2 e #3",
+      "aprovado": true
+    },
+    {
+      "id": "contador B permanece 1",
+      "aprovado": true
+    },
+    {
+      "id": "pedido privado cruzado 2",
+      "aprovado": true
+    },
+    {
+      "id": "pedido cruzado não pode ser alterado 2",
+      "aprovado": true
+    },
+    {
+      "id": "pedido privado cruzado 3",
+      "aprovado": true
+    },
+    {
+      "id": "pedido cruzado não pode ser alterado 3",
+      "aprovado": true
+    },
+    {
+      "id": "pedido privado cruzado 0",
+      "aprovado": true
+    },
+    {
+      "id": "pedido cruzado não pode ser alterado 0",
+      "aprovado": true
+    },
+    {
+      "id": "pedido privado cruzado 1",
+      "aprovado": true
+    },
+    {
+      "id": "pedido cruzado não pode ser alterado 1",
+      "aprovado": true
+    },
+    {
+      "id": "pedido privado cruzado 4",
+      "aprovado": true
+    },
+    {
+      "id": "pedido cruzado não pode ser alterado 4",
+      "aprovado": true
+    },
+    {
+      "id": "registro financeiro permanece manual",
+      "aprovado": true
+    },
+    {
+      "id": "histórico administrativo criado pela operação",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido 1",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido 2",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido 3",
+      "aprovado": true
+    },
+    {
+      "id": "histórico privado protegido 4",
+      "aprovado": true
+    },
+    {
+      "id": "cliente não reinicia contador",
+      "aprovado": true
+    },
+    {
+      "id": "seed não reinicia loja em uso",
+      "aprovado": true
+    },
+    {
+      "id": "contador A permanece 3",
+      "aprovado": true
+    }
+  ],
+  "totalChecks": 106,
+  "lojasIniciais": 2,
+  "documentosPorLoja": 5,
+  "primeirosNumeros": [
+    1,
+    1
+  ],
+  "tempoMs": 21358,
+  "rulesSha256": "80d4a14ca316cd3ead0112d9ef9dca73c2e018da9f3da88cb04013f1db5fe147",
+  "indicesSha256": "a691f0010125926d8f8b505e8e026b25203e41cca1173fb74f1f062cca5718de",
+  "realFirebaseWrites": 0,
+  "realAuthAccounts": 0,
+  "realDeploys": 0
+}

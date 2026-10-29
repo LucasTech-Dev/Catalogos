@@ -1,0 +1,443 @@
+// Ordem 003: somente Emulator. Publicação e dados reais exigem outra autorização.
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  function admin_usuario(lojaId) {
+    let u=get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data;
+    return u.role == 'admin' && u.ativo == true && u.lojaId == lojaId;
+  }
+  function admin(lojaId) {
+    return request.auth != null && request.auth.token.firebase.sign_in_provider != 'anonymous' && admin_usuario(lojaId);
+  }
+  function aberta(lojaId) { return get(/databases/$(database)/documents/catalogosPublicos/$(lojaId)).data.ativo == true; }
+  function dia_publico(s) { return s is string ? s : (s.get('fechado',false) == true ? 'Fechado' : [s.get('abertura',''),s.get('fechamento','')].removeAll(['']).join(' às ').replace('^$','Consulte a loja')); }
+  function textos_publicos(l) { let n=l.size(); return l is list && n <= 50 && (n <= 0 || l[0] is string) && (n <= 1 || l[1] is string) && (n <= 2 || l[2] is string) && (n <= 3 || l[3] is string) && (n <= 4 || l[4] is string) && (n <= 5 || l[5] is string) && (n <= 6 || l[6] is string) && (n <= 7 || l[7] is string) && (n <= 8 || l[8] is string) && (n <= 9 || l[9] is string) && (n <= 10 || l[10] is string) && (n <= 11 || l[11] is string) && (n <= 12 || l[12] is string) && (n <= 13 || l[13] is string) && (n <= 14 || l[14] is string) && (n <= 15 || l[15] is string) && (n <= 16 || l[16] is string) && (n <= 17 || l[17] is string) && (n <= 18 || l[18] is string) && (n <= 19 || l[19] is string) && (n <= 20 || l[20] is string) && (n <= 21 || l[21] is string) && (n <= 22 || l[22] is string) && (n <= 23 || l[23] is string) && (n <= 24 || l[24] is string) && (n <= 25 || l[25] is string) && (n <= 26 || l[26] is string) && (n <= 27 || l[27] is string) && (n <= 28 || l[28] is string) && (n <= 29 || l[29] is string) && (n <= 30 || l[30] is string) && (n <= 31 || l[31] is string) && (n <= 32 || l[32] is string) && (n <= 33 || l[33] is string) && (n <= 34 || l[34] is string) && (n <= 35 || l[35] is string) && (n <= 36 || l[36] is string) && (n <= 37 || l[37] is string) && (n <= 38 || l[38] is string) && (n <= 39 || l[39] is string) && (n <= 40 || l[40] is string) && (n <= 41 || l[41] is string) && (n <= 42 || l[42] is string) && (n <= 43 || l[43] is string) && (n <= 44 || l[44] is string) && (n <= 45 || l[45] is string) && (n <= 46 || l[46] is string) && (n <= 47 || l[47] is string) && (n <= 48 || l[48] is string) && (n <= 49 || l[49] is string); }
+  function projetar_loja_endereco(s) { return s is string ? s : {"rua": s.get("rua", ""), "logradouro": s.get("logradouro", ""), "numero": s.get("numero", ""), "bairro": s.get("bairro", ""), "cidade": s.get("cidade", ""), "uf": s.get("uf", ""), "complemento": s.get("complemento", ""), "cep": s.get("cep", "")}; }
+  function validar_loja_endereco(p) { return (p is string && p.size() <= 1000) || (p.rua.matches('[^\\x00-\\x1f\\x7f-\\x9f]{0,200}') && p.logradouro.matches('[^\\x00-\\x1f\\x7f-\\x9f]{0,200}') && p.numero.matches('[^\\x00-\\x1f\\x7f-\\x9f]{0,200}') && p.bairro.matches('[^\\x00-\\x1f\\x7f-\\x9f]{0,200}') && p.cidade.matches('[^\\x00-\\x1f\\x7f-\\x9f]{0,200}') && p.uf is string && (p.uf == '' || p.uf.matches('AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO')) && p.complemento.matches('[^\\x00-\\x1f\\x7f-\\x9f]{0,200}') && p.cep is string && (p.cep == '' || p.cep.matches('[0-9]{5}-?[0-9]{3}'))); }
+  function projetar_loja_horarios(s) { return s is string ? s : {"segunda": dia_publico(s.get("segunda", "")), "terca": dia_publico(s.get("terca", s.get("terça", ''))), "quarta": dia_publico(s.get("quarta", "")), "quinta": dia_publico(s.get("quinta", "")), "sexta": dia_publico(s.get("sexta", "")), "sabado": dia_publico(s.get("sabado", s.get("sábado", ''))), "domingo": dia_publico(s.get("domingo", ""))}; }
+  function validar_loja_horarios(p) { return p is string || (p.segunda is string && p.terca is string && p.quarta is string && p.quinta is string && p.sexta is string && p.sabado is string && p.domingo is string); }
+  function projetar_loja_pagamentos(s) { return {"pix": s.get("pix", false), "dinheiro": s.get("dinheiro", false), "cartao": s.get("cartao", false), "cartao_credito": s.get("cartao_credito", false), "cartao_debito": s.get("cartao_debito", false)}; }
+  function validar_loja_pagamentos(p) { return p.values().toSet().hasOnly([true,false]) && p.values().hasAny([true]); }
+  function projetar_loja_entrega(s) { return {"habilitada": s.get("habilitada", false), "taxa": s.get("taxa", 0)}; }
+  function validar_loja_entrega(p) { return p.habilitada is bool && dinheiro_config(p.taxa); }
+  function projetar_loja_retirada(s) { return {"habilitada": s.get("habilitada", true)}; }
+  function validar_loja_retirada(p) { return p.habilitada is bool; }
+  function projetar_loja(s) { return {"nome": s.get("nome", ""), "descricao": s.get("descricao", ""), "telefone": s.get("telefone", ""), "whatsapp": s.get("whatsapp", ""), "logo": s.get("logo", ""), "imagem": s.get("imagem", ""), "corPrimaria": s.get("corPrimaria", ""), "tempoMedio": s.get("tempoMedio", ""), "instagram": s.get("instagram", ""), "ativo": s.get("ativo", true), "endereco": projetar_loja_endereco(s.get("endereco", {})), "horarios": projetar_loja_horarios(s.get("horarios", s.get('horarioFuncionamento', {}))), "pagamentos": projetar_loja_pagamentos(s.get("pagamentos", {})), "entrega": {'habilitada':s.get('entrega',{}).get('habilitada',false), 'taxa':s.get('entrega',{}).get('taxa',s.get('taxaEntrega',0))}, "retirada": projetar_loja_retirada(s.get("retirada", {})), "pedidoMinimo": s.get("pedidoMinimo", 0)}; }
+  function validar_loja(p) { let v0=p.nome; let v1=p.descricao; let v2=p.whatsapp; let v3=p.corPrimaria; let v4=p.entrega; let v5=p.retirada; return v0.matches('[^\\x00-\\x1f\\x7f-\\x9f]{1,200}') && v0.matches('.*[^ ].*') && v1 is string && v1.size() <= 2000 && telefone_loja(p.telefone,true) && (v2 == (resource == null ? '' : resource.data.get('whatsapp','')) || telefone_loja(v2,false)) && url_loja(p.logo) && url_loja(p.imagem) && v3 is string && (v3 == (resource == null ? '' : resource.data.get('corPrimaria','')) || v3.matches('#[0-9a-fA-F]{6}')) && p.tempoMedio.matches('[^\\x00-\\x1f\\x7f-\\x9f]{0,200}') && p.instagram.matches('[^\\x00-\\x1f\\x7f-\\x9f]{0,200}') && p.ativo is bool && validar_loja_endereco(p.endereco) && validar_loja_horarios(p.horarios) && validar_loja_pagamentos(p.pagamentos) && validar_loja_entrega(v4) && validar_loja_retirada(v5) && dinheiro_config(p.pedidoMinimo) && (v4.habilitada || v5.habilitada); }
+  function projetar_categorias(s) { return {"nome": s.get("nome", ""), "descricao": s.get("descricao", ""), "icone": s.get("icone", ""), "ordem": s.get("ordem", 0), "ativo": s.get("ativo", true)}; }
+  function validar_categorias(p) { return p["nome"] is string && p["descricao"] is string && p["icone"] is string && p["ordem"] is number && p["ordem"] >= 0 && p["ordem"] <= 1000000 && p["ativo"] is bool; }
+  function projetar_produtos(s) { return {"nome": s.get("nome", ""), "descricao": s.get("descricao", ""), "categoriaId": s.get("categoriaId", ""), "preco": s.preco, "ativo": s.get("ativo", true), "disponivel": s.get("disponivel", true), "imagem": s.get("imagem", ""), "ingredientes": s.get("ingredientes", [])}; }
+  function validar_produtos(p) { return p["nome"] is string && p["descricao"] is string && p["categoriaId"] is string && p["preco"] is number && p["preco"] >= 0 && p["preco"] <= 1000000 && p["ativo"] is bool && p["disponivel"] is bool && p["imagem"] is string && textos_publicos(p["ingredientes"]); }
+  match /lojas/{lojaId} {
+    allow read: if admin(lojaId);
+    allow create, update: if admin(lojaId)
+      && loja_comercial_valida()
+      && revisao_comercial(lojaId,'loja','loja')
+      && (resource == null ? request.resource.data.keys().hasOnly(['nome', 'descricao', 'telefone', 'whatsapp', 'logo', 'imagem', 'corPrimaria', 'tempoMedio', 'instagram', 'ativo', 'endereco', 'horarios', 'pagamentos', 'entrega', 'retirada', 'pedidoMinimo']) : request.resource.data.diff(resource.data).affectedKeys().hasOnly(['nome', 'descricao', 'telefone', 'whatsapp', 'logo', 'imagem', 'corPrimaria', 'tempoMedio', 'instagram', 'ativo', 'endereco', 'horarios', 'pagamentos', 'entrega', 'retirada', 'pedidoMinimo']))
+      && loja_origem_canonica(lojaId);
+    // Exclusão física fora desta ordem; preservar originais e projeções.
+  }
+  match /catalogosPublicos/{lojaId} {
+    allow get: if !exists(/databases/$(database)/documents/catalogosPublicos/$(lojaId)) || resource.data.ativo == true;
+    allow create, update: if admin(lojaId) && loja_publica_canonica(lojaId);
+    // Exclusão física fora desta ordem; preservar originais e projeções.
+  }
+  match /lojas/{lojaId}/categorias/{id} {
+    allow read: if admin(lojaId);
+    allow create, update: if admin(lojaId)
+      && revisao_comercial(lojaId,'categorias',id)
+      && datas_catalogo_validas()
+      && (resource == null || request.resource.data.get('ativo',true) == resource.data.get('ativo',true) || request.resource.data.get('ativo',true) == true)
+      && (resource == null ? request.resource.data.keys().hasOnly(['criadoEm','atualizadoEm','nome', 'descricao', 'icone', 'ordem', 'ativo']) : request.resource.data.diff(resource.data).affectedKeys().hasOnly(['atualizadoEm','nome', 'descricao', 'icone', 'ordem', 'ativo']))
+      && getAfter(/databases/$(database)/documents/catalogosPublicos/$(lojaId)/categorias/$(id)).data == projetar_categorias(request.resource.data);
+    // Exclusão física fora desta ordem; preservar originais e projeções.
+  }
+  match /catalogosPublicos/{lojaId}/categorias/{id} {
+    allow read: if aberta(lojaId) && resource.data.ativo == true;
+    allow create, update: if admin(lojaId) && validar_categorias(request.resource.data)
+      && request.resource.data == projetar_categorias(getAfter(/databases/$(database)/documents/lojas/$(lojaId)/categorias/$(id)).data);
+    // Exclusão física fora desta ordem; preservar originais e projeções.
+  }
+  match /lojas/{lojaId}/produtos/{id} {
+    allow read: if admin(lojaId);
+    allow create, update: if admin(lojaId)
+      && revisao_comercial(lojaId,'produtos',id)
+      && datas_catalogo_validas()
+      && categoria_produto_valida(lojaId,request.resource.data)
+      && dinheiro_compra(request.resource.data.preco)
+      && (resource == null ? request.resource.data.keys().hasOnly(['criadoEm','atualizadoEm','nome', 'descricao', 'categoriaId', 'preco', 'ativo', 'disponivel', 'imagem', 'ingredientes']) : request.resource.data.diff(resource.data).affectedKeys().hasOnly(['atualizadoEm','nome', 'descricao', 'categoriaId', 'preco', 'ativo', 'disponivel', 'imagem', 'ingredientes']))
+      && getAfter(/databases/$(database)/documents/catalogosPublicos/$(lojaId)/produtos/$(id)).data == projetar_produtos(request.resource.data);
+    // Exclusão física fora desta ordem; preservar originais e projeções.
+  }
+  match /catalogosPublicos/{lojaId}/produtos/{id} {
+    allow read: if aberta(lojaId) && resource.data.ativo == true && get(/databases/$(database)/documents/catalogosPublicos/$(lojaId)/categorias/$(resource.data.categoriaId)).data.ativo == true;
+    allow create, update: if admin(lojaId) && validar_produtos(request.resource.data)
+      && request.resource.data == projetar_produtos(getAfter(/databases/$(database)/documents/lojas/$(lojaId)/produtos/$(id)).data);
+    // Exclusão física fora desta ordem; preservar originais e projeções.
+  }
+  function datas_catalogo_validas() {
+    return (!request.resource.data.keys().hasAny(['atualizadoEm'])
+      || request.resource.data.atualizadoEm == request.time
+      || (resource != null && request.resource.data.atualizadoEm == resource.data.get('atualizadoEm',null)))
+      && (resource != null || !request.resource.data.keys().hasAny(['criadoEm']) || request.resource.data.criadoEm == request.time);
+  }
+  function categoria_produto_valida(lojaId,p) {
+    return (p.get('ativo',true) == false && p.get('categoriaId','') == '')
+      || (p.categoriaId is string && p.categoriaId.size() > 0 && p.categoriaId.size() <= 128
+        && !p.categoriaId.matches('.*[/].*')
+        && existsAfter(/databases/$(database)/documents/lojas/$(lojaId)/categorias/$(p.categoriaId))
+        && (p.get('ativo',true) == false || getAfter(/databases/$(database)/documents/lojas/$(lojaId)/categorias/$(p.categoriaId)).data.get('ativo',true) == true));
+  }
+  // B-02: a origem permanece canônica; metadado não contém preços.
+  function controle(lojaId) { return /databases/$(database)/documents/lojas/$(lojaId)/controleCompra/versao; }
+  function revisao_atualizacao(p,tipo,id) {
+    let atual=get(p).data;
+    let proximo=getAfter(p).data;
+    return proximo.revisao == atual.revisao + 1 && proximo.alteracao == {'tipo':tipo,'id':id};
+  }
+  function revisao_comercial(lojaId,tipo,id) {
+    let p=controle(lojaId);
+    return !exists(p) || (resource != null && request.resource.data == resource.data) || revisao_atualizacao(p,tipo,id);
+  }
+  function origem_alterada(lojaId,a) {
+    let p = a.tipo == 'loja' ? /databases/$(database)/documents/lojas/$(lojaId)
+      : /databases/$(database)/documents/lojas/$(lojaId)/$(a.tipo)/$(a.id);
+    return a.keys().hasOnly(['tipo','id']) && a.tipo in ['loja','produtos','categorias']
+      && a.id is string && a.id.size() > 0 && a.id.size() <= 128
+      && (a.tipo != 'loja' || a.id == 'loja')
+      && existsAfter(p) && (!exists(p) || getAfter(p).data != get(p).data);
+  }
+  match /lojas/{lojaId}/controleCompra/versao {
+    allow get: if admin(lojaId) || comprador_pedidos(lojaId);
+    allow create: if admin(lojaId) && request.resource.data == {'revisao':0,'alteracao':null};
+    allow update: if admin(lojaId) && request.resource.data.keys().hasOnly(['revisao','alteracao'])
+      && request.resource.data.revisao is int && request.resource.data.revisao <= 9007199254740991 && request.resource.data.revisao == resource.data.revisao + 1
+      && origem_alterada(lojaId,request.resource.data.alteracao);
+    // Exclusão/reinicialização proibidas: não ressuscitar preços antigos (ABA).
+  }
+  // Ordem 004: dados privados próprios; nenhuma autoridade é criada pelo cliente.
+  function titular(uid) {
+    return request.auth != null && request.auth.uid == uid
+      && (!exists(/databases/$(database)/documents/usuarios/$(uid))
+        || (get(/databases/$(database)/documents/usuarios/$(uid)).data.get('ativo',false) == true
+          && get(/databases/$(database)/documents/usuarios/$(uid)).data.get('role','') in ['cliente','admin']
+          && (request.auth.token.firebase.sign_in_provider != 'anonymous'
+            || get(/databases/$(database)/documents/usuarios/$(uid)).data.role == 'cliente')));
+  }
+  function cliente_proprio(lojaId,uid) {
+    return titular(uid) && aberta(lojaId)
+      && (!exists(/databases/$(database)/documents/usuarios/$(uid))
+        || get(/databases/$(database)/documents/usuarios/$(uid)).data.get('lojaId','') == lojaId);
+  }
+  function texto_privado(v,obrigatorio,maximo) {
+    return v is string && v.size() <= maximo && (!obrigatorio || v.matches('.*[^ ].*'))
+      && !v.matches('.*[\\x00-\\x1f\\x7f-\\x9f].*');
+  }
+  function perfil_valido(d) {
+    return texto_privado(d.nome,true,200) && texto_privado(d.telefone,true,25)
+      && d.telefone.matches('[+]?[0-9 ()-]+')
+      && d.telefone.replace('[^0-9]','').size() >= 10
+      && d.telefone.replace('[^0-9]','').size() <= 15
+      && !d.telefone.replace('[^0-9]','').matches('0+')
+      && d.email == request.auth.token.get('email','')
+      && d.anonimo == (request.auth.token.firebase.sign_in_provider == 'anonymous');
+  }
+  function endereco_valido(d) {
+    return d.keys().hasOnly(['rua','numero','bairro','cidade','uf','apelido','complemento','cep'])
+      && texto_privado(d.rua,true,200) && texto_privado(d.numero,true,200)
+      && texto_privado(d.bairro,true,200) && texto_privado(d.cidade,true,200)
+      && d.uf in ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO']
+      && texto_privado(d.get('apelido',''),false,200) && texto_privado(d.get('complemento',''),false,200)
+      && (d.get('cep','') == '' || d.cep.matches('[0-9]{5}-?[0-9]{3}'));
+  }
+  match /usuarios/{uid} {
+    allow get: if titular(uid);
+  }
+  match /lojas/{lojaId}/clientes/{uid} {
+    allow read: if admin(lojaId); // somente perfis da própria loja; nenhuma autoridade global
+    allow get: if cliente_proprio(lojaId,uid);
+    allow create: if cliente_proprio(lojaId,uid)
+      && request.resource.data.keys().hasOnly(['nome','telefone','email','anonimo'])
+      && perfil_valido(request.resource.data);
+    allow update: if cliente_proprio(lojaId,uid)
+      && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['nome','telefone','email','anonimo'])
+      && perfil_valido(request.resource.data);
+    match /enderecos/{id} {
+      allow get: if admin(lojaId); // fallback do detalhe legado, sem listar clientes
+      allow read, delete: if cliente_proprio(lojaId,uid);
+      allow create, update: if cliente_proprio(lojaId,uid) && endereco_valido(request.resource.data);
+    }
+  }
+  function loja_origem_canonica(loja) {
+    let origem=request.resource.data;
+    let publico=getAfter(/databases/$(database)/documents/catalogosPublicos/$(loja)).data;
+    let esperado=projetar_loja(origem);
+    return publico == esperado;
+  }
+  function loja_publica_canonica(loja) {
+    let publico=request.resource.data;
+    let origem=getAfter(/databases/$(database)/documents/lojas/$(loja)).data;
+    let esperado=projetar_loja(origem);
+    return validar_loja(publico) && publico == esperado;
+  }
+  // Ordem008: validação comercial na origem, inclusive pelo SDK direto.
+  function mapa_loja(a,b,ks) {
+    return b is map && (a is map ? b.diff(a).affectedKeys().hasOnly(ks) : b.keys().hasOnly(ks));
+  }
+  function url_loja(v) {
+    return v is string && (v == '' || (v.size() <= 2048 && v.matches('https?://[^ /?#]+.*') && !v.matches('https?://[^/]*@.*')));
+  }
+  // Valores de configuração persistidos pelo SDK já são arredondados a centavos.
+  function dinheiro_config(v) {
+    return v is number && v >= 0 && v <= 1000000 && v == int(v*100+0.5) / 100.0;
+  }
+  function telefone_loja(v,opcional) {
+    return v is string && v.size() <= 25 && ((opcional && v == '')
+      || (v.matches('[+]?([ ()-]*[0-9]){10,15}[ ()-]*') && v.matches('.*[1-9].*')));
+  }
+  function horario_loja(a,b) {
+    let anterior=a is map ? a : {};
+    let inicio=b.get('abertura','');
+    let fim=b.get('fechamento','');
+    let fechado=b.get('fechado',false);
+    let intervalo=inicio+'/'+fim;
+    return b.diff(anterior).affectedKeys().hasOnly(['abertura','fechamento','fechado']) && fechado is bool
+      && intervalo.matches(fechado ? '(([01][0-9]|2[0-3]):[0-5][0-9])?/(([01][0-9]|2[0-3]):[0-5][0-9])?' : '([01][0-9]|2[0-3]):[0-5][0-9]/([01][0-9]|2[0-3]):[0-5][0-9]')
+      && (fechado || inicio != fim);
+  }
+  function horarios_loja(a,b) {
+    let anterior=a is map ? a : {};
+    let ks=b is map ? b.diff(anterior).affectedKeys() : [].toSet();
+    return a == b || (b is map && ks.hasOnly(['segunda','terca','quarta','quinta','sexta','sabado','domingo'])
+      && (!ks.hasAny(['segunda']) || horario_loja(anterior.get('segunda',{}),b.segunda))
+      && (!ks.hasAny(['terca']) || horario_loja(anterior.get('terca',{}),b.terca))
+      && (!ks.hasAny(['quarta']) || horario_loja(anterior.get('quarta',{}),b.quarta))
+      && (!ks.hasAny(['quinta']) || horario_loja(anterior.get('quinta',{}),b.quinta))
+      && (!ks.hasAny(['sexta']) || horario_loja(anterior.get('sexta',{}),b.sexta))
+      && (!ks.hasAny(['sabado']) || horario_loja(anterior.get('sabado',{}),b.sabado))
+      && (!ks.hasAny(['domingo']) || horario_loja(anterior.get('domingo',{}),b.domingo))
+    );
+  }
+  function loja_comercial_valida() {
+    let a=resource == null ? {} : resource.data;
+    let b=request.resource.data;
+    let ks=b.diff(a).affectedKeys();
+    return (!ks.hasAny(['endereco']) || (b.endereco is string || mapa_loja(a.get('endereco',{}),b.endereco,['rua','logradouro','numero','bairro','cidade','uf','cep','complemento'])))
+      && (!ks.hasAny(['horarios']) || horarios_loja(a.get('horarios',{}),b.horarios))
+      && (!ks.hasAny(['entrega']) || mapa_loja(a.get('entrega',{}),b.entrega,['habilitada','taxa']))
+      && (!ks.hasAny(['retirada']) || mapa_loja(a.get('retirada',{}),b.retirada,['habilitada']))
+      && (!ks.hasAny(['pagamentos']) || mapa_loja(a.get('pagamentos',{}),b.pagamentos,['pix','dinheiro','cartao','cartao_credito','cartao_debito']));
+  }
+  // Protocolo incremental B-02. Sem controle de revisão, compra permanece negada.
+  function centavos(v) { return int(v * 100 + 0.5); }
+  function dinheiro_compra(v) {
+    let c=v*100;
+    let delta=c-centavos(v);
+    let tolerancia=0.0000000000000008881784197001252 * (c > 1 ? c : 1);
+    return v is number && v >= 0 && v <= 1000000 && delta <= tolerancia && delta >= -tolerancia;
+  }
+  function operacao(loja,uid,chave) { return /databases/$(database)/documents/lojas/$(loja)/clientes/$(uid)/tentativasCompra/$(chave); }
+  function cabecalho_compra(d) {
+    return d.keys().hasOnly(['itens','tipoEntrega','pagamento','cliente','observacao','enderecoId'])
+      && d.itens is list && d.itens.size() >= 1 && d.itens.size() <= 50
+      && d.tipoEntrega in ['entrega','retirada']
+      && d.pagamento.keys().hasOnly(['forma']) && d.pagamento.forma in ['pix','dinheiro','cartao_credito','cartao_debito']
+      && d.cliente.keys().hasOnly(['nome','telefone'])
+      && texto_privado(d.cliente.nome,true,200) && texto_privado(d.cliente.telefone,true,25)
+      && d.cliente.telefone.matches('[+]?[0-9 ()-]+')
+      && d.cliente.telefone.replace('[^0-9]','').size() >= 10 && d.cliente.telefone.replace('[^0-9]','').size() <= 15
+      && !d.cliente.telefone.replace('[^0-9]','').matches('0+')
+      && d.observacao is string && d.observacao.size() <= 1000 && !d.observacao.matches('[\\s\\S]*[\\x00-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f-\\x9f][\\s\\S]*')
+      && (d.tipoEntrega == 'retirada' ? d.enderecoId == null : (d.enderecoId is string && d.enderecoId.size() > 0 && d.enderecoId.size() <= 128 && !d.enderecoId.matches('.*[/].*')));
+  }
+  function estado_compra(loja,uid,d) {
+    return cliente_proprio(loja,uid) && d.lojaId == loja && d.clienteId == uid && d.estado == 'aberta'
+      && d.revisao == get(controle(loja)).data.revisao
+      && d.revisao == getAfter(controle(loja)).data.revisao
+      && request.time < d.expiraEm
+      && !exists(/databases/$(database)/documents/lojas/$(loja)/pedidos/$(d.marcador));
+  }
+  function item_acrescentado(loja,uid) {
+    let a=resource.data;
+    let d=request.resource.data;
+    let n=a.itens.size();
+    let i=d.itens[n];
+    let entrada=a.dados.itens[n];
+    let p=get(/databases/$(database)/documents/lojas/$(loja)/produtos/$(i.produtoId)).data;
+    return estado_compra(loja,uid,a)
+      && d.diff(a).affectedKeys().hasOnly(['itens','ids','unidades','centavos'])
+      && n < a.dados.itens.size() && n < 50
+      && entrada.keys().hasOnly(['produtoId','quantidade'])
+      && i.keys().hasOnly(['produtoId','nome','precoUnitario','quantidade','subtotal'])
+      && i.produtoId is string && i.produtoId.size() > 0 && i.produtoId.size() <= 128 && !i.produtoId.matches('.*[/].*')
+      && i.produtoId == entrada.produtoId && !(i.produtoId in a.ids)
+      && i.quantidade == entrada.quantidade && i.quantidade is int && i.quantidade >= 1 && i.quantidade <= 99
+      && p.ativo == true && p.get('disponivel',true) == true
+      && get(/databases/$(database)/documents/lojas/$(loja)/categorias/$(p.categoriaId)).data.get('ativo',true) == true
+      && dinheiro_compra(p.preco)
+      && i.nome == p.get('nome','') && i.nome is string && i.nome.size() <= 200
+      && i.precoUnitario == centavos(p.preco) / 100.0
+      && i.subtotal == centavos(p.preco) * i.quantidade / 100.0
+      && d.itens == a.itens.concat([i]) && d.ids == a.ids.concat([i.produtoId])
+      && d.unidades == a.unidades + i.quantidade && d.unidades <= 500
+      && d.centavos == a.centavos + centavos(p.preco) * i.quantidade;
+  }
+  match /lojas/{loja}/clientes/{uid}/tentativasCompra/{chave} {
+    allow get: if comprador_pedidos(loja) && request.auth.uid == uid;
+    allow create: if cliente_proprio(loja,uid)
+      && chave.matches('[a-zA-Z0-9_-]{16,100}')
+      && request.resource.data.keys().hasOnly(['lojaId','clienteId','revisao','dados','marcador','assinatura','itens','ids','unidades','centavos','criadoEm','expiraEm','estado'])
+      && estado_compra(loja,uid,request.resource.data)
+      && cabecalho_compra(request.resource.data.dados)
+      && request.resource.data.marcador.matches('[a-f0-9]{64}') && request.resource.data.assinatura.matches('[a-f0-9]{64}')
+      && request.resource.data.itens == [] && request.resource.data.ids == []
+      && request.resource.data.unidades == 0 && request.resource.data.centavos == 0
+      && request.resource.data.criadoEm == request.time
+      && request.resource.data.expiraEm <= request.time + duration.value(15,'m');
+    allow update: if item_acrescentado(loja,uid)
+      || (comprador_pedidos(loja) && request.auth.uid == uid
+        && resource.data.estado == 'aberta' && request.resource.data.estado == 'abandonada'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['estado'])
+        && !exists(/databases/$(database)/documents/lojas/$(loja)/pedidos/$(resource.data.marcador))
+        && !existsAfter(/databases/$(database)/documents/lojas/$(loja)/pedidos/$(resource.data.marcador)));
+    // Sem delete: expiração/abandono não reabrem a mesma chave.
+  }
+  function endereco_compra(loja,d) {
+    let e=getAfter(/databases/$(database)/documents/lojas/$(loja)/clientes/$(request.auth.uid)/enderecos/$(d.enderecoId)).data;
+    return endereco_valido(e) && d.endereco.id == d.enderecoId
+      && d.endereco.diff(e).affectedKeys().hasOnly(['id']);
+  }
+  function pedido_completo(loja,id) {
+    let d=request.resource.data;
+    let a=get(operacao(loja,request.auth.uid,d.operacaoCompra)).data;
+    let l=getAfter(/databases/$(database)/documents/lojas/$(loja)).data;
+    let taxa=d.tipoEntrega == 'entrega' ? centavos(l.get('entrega',{}).get('taxa',l.get('taxaEntrega',0))) : 0;
+    return estado_compra(loja,request.auth.uid,a)
+      && getAfter(operacao(loja,request.auth.uid,d.operacaoCompra)).data == a
+      && id == a.marcador && a.itens.size() == a.dados.itens.size()
+      && a.itens.size() >= 1 && a.itens.size() <= 50
+      && d.keys().hasOnly(['numeroPedido','lojaId','clienteId','enderecoId','endereco','itens','subtotal','taxaEntrega','desconto','total','pagamento','observacao','tipoEntrega','status','cliente','criadoEm','atualizadoEm','operacaoCompra'])
+      && d.numeroPedido is int && d.numeroPedido >= 1 && d.numeroPedido <= 999999999
+      && getAfter(/databases/$(database)/documents/lojas/$(loja)/numerosPedidos/$(string(d.numeroPedido))).data == {'numeroPedido':d.numeroPedido,'pedidoId':id,'clienteId':request.auth.uid}
+      && d.operacaoCompra.matches('[a-zA-Z0-9_-]{16,100}')
+      && d.clienteId == request.auth.uid && d.lojaId == loja && d.itens == a.itens
+      && d.cliente == a.dados.cliente && d.observacao == a.dados.observacao
+      && d.enderecoId == a.dados.enderecoId && d.tipoEntrega == a.dados.tipoEntrega
+      && l.get('ativo',true) == true && dinheiro_compra(l.get('pedidoMinimo',0))
+      && a.centavos / 100.0 >= l.get('pedidoMinimo',0)
+      && (d.tipoEntrega == 'entrega'
+        ? (l.get('entrega',{}).get('habilitada',false) == true && dinheiro_compra(l.get('entrega',{}).get('taxa',l.get('taxaEntrega',0))) && taxa >= 0 && taxa <= 100000000 && endereco_compra(loja,d))
+        : (l.get('retirada',{}).get('habilitada',true) == true && d.endereco == null))
+      && d.subtotal == a.centavos / 100.0 && d.taxaEntrega == taxa / 100.0 && d.desconto == 0
+      && d.total == (a.centavos + taxa) / 100.0
+      && d.pagamento == {'forma':a.dados.pagamento.forma,'status':'pendente','valor':d.total}
+      && l.get('pagamentos',{}).get(a.dados.pagamento.forma,false) == true
+      && d.status == 'recebido' && d.criadoEm == request.time && d.atualizadoEm == request.time
+      && getAfter(/databases/$(database)/documents/lojas/$(loja)/idempotencia/$(id)).data == {'clienteId':request.auth.uid,'lojaId':loja,'pedidoId':id,'assinatura':a.assinatura};
+  }
+  // Número comercial: contador sem dados pessoais e reserva imutável por loja.
+  function contador_pedidos(loja) { return /databases/$(database)/documents/lojas/$(loja)/contadores/pedidos; }
+  function numero_seguinte(loja,n) {
+    let p=contador_pedidos(loja);
+    return n is int && n >= 1 && n <= 999999999
+      && n == (exists(p) ? get(p).data.ultimo : 0) + 1
+      && getAfter(p).data == {'ultimo':n};
+  }
+  match /lojas/{loja}/contadores/pedidos {
+    allow get: if comprador_pedidos(loja);
+    allow create, update: if comprador_pedidos(loja)
+      && numero_seguinte(loja,request.resource.data.ultimo)
+      && !exists(/databases/$(database)/documents/lojas/$(loja)/numerosPedidos/$(string(request.resource.data.ultimo)))
+      && getAfter(/databases/$(database)/documents/lojas/$(loja)/numerosPedidos/$(string(request.resource.data.ultimo))).data.clienteId == request.auth.uid;
+  }
+  match /lojas/{loja}/numerosPedidos/{numero} {
+    allow get: if comprador_pedidos(loja) && (!exists(/databases/$(database)/documents/lojas/$(loja)/numerosPedidos/$(numero)) || resource.data.clienteId == request.auth.uid || admin(loja));
+    allow create: if comprador_pedidos(loja)
+      && request.resource.data.keys().hasOnly(['numeroPedido','pedidoId','clienteId'])
+      && numero == string(request.resource.data.numeroPedido)
+      && request.resource.data.clienteId == request.auth.uid
+      && numero_seguinte(loja,request.resource.data.numeroPedido)
+      && !exists(/databases/$(database)/documents/lojas/$(loja)/pedidos/$(request.resource.data.pedidoId))
+      && getAfter(/databases/$(database)/documents/lojas/$(loja)/pedidos/$(request.resource.data.pedidoId)).data.clienteId == request.auth.uid
+      && getAfter(/databases/$(database)/documents/lojas/$(loja)/pedidos/$(request.resource.data.pedidoId)).data.numeroPedido == request.resource.data.numeroPedido;
+    // Sem update/delete/list: não reutilizar ou transferir um número.
+  }
+  // Ordem 005: consulta própria; B-02 mantém todas as escritas de compra negadas.
+  // Histórico próprio não é apagado/inacessível só porque a loja foi desativada.
+  function comprador_pedidos(lojaId) {
+    return request.auth != null && titular(request.auth.uid)
+      && (!exists(/databases/$(database)/documents/usuarios/$(request.auth.uid))
+        || get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.get('lojaId','') == lojaId);
+  }
+  function pedido_do_titular(lojaId,p) {
+    return comprador_pedidos(lojaId)
+      && p.clienteId == request.auth.uid && p.lojaId == lojaId;
+  }
+  // Ordem007: mesmas transições Express; snapshots financeiros imutáveis.
+  function transicao_operacional(a,b) {
+    return (a == 'recebido' && b in ['pagamento_confirmado','cancelado','pagamento_recusado'])
+      || (a == 'pagamento_confirmado' && b in ['em_preparacao','cancelado'])
+      || (a == 'em_preparacao' && b in ['pronto','cancelado'])
+      || (a == 'pronto' && b in ['saiu_para_entrega','entregue','cancelado'])
+      || (a == 'saiu_para_entrega' && b == 'entregue');
+  }
+  function alteracao_pedido(loja,id) {
+    let a=resource.data;
+    let b=request.resource.data;
+    let e=b.ultimaAlteracaoAdministrativa;
+    return a.lojaId == loja && b.revisaoAdministrativa is int
+      && b.revisaoAdministrativa == a.get('revisaoAdministrativa',0)+1
+      && b.revisaoAdministrativa <= 9007199254740991
+      && b.atualizadoEm == request.time
+      && e.keys().hasOnly(['id','tipo','anterior','novo','uid','origem','revisao','criadoEm'])
+      && e.id is string && e.id.size() > 0 && e.id.size() <= 128
+      && e.uid == request.auth.uid && e.origem == 'manual_estabelecimento'
+      && e.criadoEm == request.time && e.revisao == b.revisaoAdministrativa
+      && !exists(/databases/$(database)/documents/lojas/$(loja)/pedidos/$(id)/historicoAdministrativo/$(e.id))
+      && getAfter(/databases/$(database)/documents/lojas/$(loja)/pedidos/$(id)/historicoAdministrativo/$(e.id)).data == e
+      && ((e.tipo == 'status'
+        && b.diff(a).affectedKeys().hasOnly(['status','atualizadoEm','revisaoAdministrativa','ultimaAlteracaoAdministrativa'])
+        && e.anterior == a.status && e.novo == b.status && transicao_operacional(a.status,b.status)
+        && (b.status != 'pagamento_confirmado' || a.pagamento.status == 'confirmado')
+        && (b.status != 'pagamento_recusado' || a.pagamento.status == 'recusado'))
+      || (e.tipo == 'pagamento' && a.status != 'cancelado'
+        && b.diff(a).affectedKeys().hasOnly(['pagamento','atualizadoEm','revisaoAdministrativa','ultimaAlteracaoAdministrativa'])
+        && b.pagamento.diff(a.pagamento).affectedKeys().hasOnly(['status','atualizadoEm','registroManual'])
+        && a.pagamento.status == 'pendente' && b.pagamento.status in ['confirmado','recusado','cancelado']
+        && e.anterior == a.pagamento.status && e.novo == b.pagamento.status
+        && b.pagamento.atualizadoEm == request.time
+        && b.pagamento.registroManual == {'uid':request.auth.uid,'origem':'manual_estabelecimento','criadoEm':request.time}));
+  }
+  match /lojas/{lojaId}/pedidos/{id} {
+    allow get: if admin(lojaId) || (comprador_pedidos(lojaId)
+      && (!exists(/databases/$(database)/documents/lojas/$(lojaId)/pedidos/$(id)) || pedido_do_titular(lojaId,resource.data)));
+    allow list: if admin(lojaId) || pedido_do_titular(lojaId,resource.data);
+    allow create: if comprador_pedidos(lojaId) && pedido_completo(lojaId,id);
+    allow update: if admin(lojaId) && alteracao_pedido(lojaId,id);
+    // Exclusão permanece negada. Histórico nunca pode ser editado/apagado pelo SDK.
+    match /historicoAdministrativo/{evento} {
+      allow read: if admin(lojaId);
+      allow create: if admin(lojaId)
+        && exists(/databases/$(database)/documents/lojas/$(lojaId)/pedidos/$(id))
+        && getAfter(/databases/$(database)/documents/lojas/$(lojaId)/pedidos/$(id)).data.ultimaAlteracaoAdministrativa == request.resource.data
+        && request.resource.data.id == evento
+        && request.resource.data.revisao == get(/databases/$(database)/documents/lojas/$(lojaId)/pedidos/$(id)).data.get('revisaoAdministrativa',0)+1;
+    }
+  }
+  match /lojas/{lojaId}/idempotencia/{id} {
+    allow get: if comprador_pedidos(lojaId)
+      && (!exists(/databases/$(database)/documents/lojas/$(lojaId)/idempotencia/$(id))
+        || pedido_do_titular(lojaId,get(/databases/$(database)/documents/lojas/$(lojaId)/pedidos/$(resource.data.pedidoId)).data));
+    allow create: if comprador_pedidos(lojaId)
+      && request.resource.data.keys().hasOnly(['clienteId','lojaId','pedidoId','assinatura'])
+      && request.resource.data.clienteId == request.auth.uid && request.resource.data.lojaId == lojaId
+      && request.resource.data.pedidoId == id
+      && getAfter(/databases/$(database)/documents/lojas/$(lojaId)/pedidos/$(id)).data.clienteId == request.auth.uid
+      && getAfter(/databases/$(database)/documents/lojas/$(lojaId)/pedidos/$(id)).data.lojaId == lojaId
+      && !exists(/databases/$(database)/documents/lojas/$(lojaId)/pedidos/$(id))
+      && get(operacao(lojaId,request.auth.uid,getAfter(/databases/$(database)/documents/lojas/$(lojaId)/pedidos/$(id)).data.operacaoCompra)).data.assinatura == request.resource.data.assinatura;
+    // Sem list/update/delete: preservar idempotência e histórico.
+  }
+  match /{document=**} { allow read, write: if false; }
+ }
+}
